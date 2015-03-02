@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr" 
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.1.xsd
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/mvc
+       	http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd 
+       	http://www.directwebremoting.org/schema/spring-dwr      
+       	http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd"  
+       default-autowire="byName" >
+	
+    <!-- 自动搜索@Controller标注的类 -->
+ 	<context:component-scan base-package="com.gesoft.controller">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <mvc:annotation-driven></mvc:annotation-driven>
+    
+   	
+   	<!-- 要求dwr在spring容器中检查拥有@RemoteProxy 和 @RemoteMethod注解的类。注意它不会去检查Spring容器之外的类。 -->  
+    <dwr:annotation-config id="dwr" />  
+    <!-- 要求DWR将util.js和engine.js映射到dwrController -->  
+	<dwr:url-mapping />  
+    <dwr:configuration>
+		<dwr:convert type="bean" class="com.gesoft.model.DwrModel"/>
+	</dwr:configuration>
+   	<dwr:annotation-scan base-package="com.gesoft.controller" scanDataTransferObject="true" scanRemoteProxy="true"/>  
+    
+	<!-- 开发时可设置为true，以便调试，如果发布后最好设置成false -->
+   	 <dwr:controller id="dwrController" debug="true">
+        <dwr:config-param name="allowScriptTagRemoting" value="true" />
+        <dwr:config-param name="crossDomainSessionSecurity" value="true" />
+    </dwr:controller>
+    
+   	
+   	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">  
+		<property name="order" value="1" />  
+	</bean>  
+	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">  
+		<property name="order" value="2" />  
+	</bean>  
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">  
+		<property name="order" value="3" />   
+		<property value="true" name="alwaysUseFullPath"></property>  
+		<property name="mappings">  
+			<props>  
+				<prop key="/dwr/**">dwrController</prop>  
+			</props>  
+		</property>  
+	</bean>   
+  
+    <!-- HTTP GET 请求来，获取静态资源，
+    <mvc:resources mapping="/scripts/**" location="/scripts/" />  
+    <mvc:resources mapping="/themes/**" location="/themes/" />  
+    <mvc:resources mapping="/pages/**" location="/pages/" />  
+    <mvc:resources mapping="/js/**" location="/js/" />  
+     -->  
+<mvc:default-servlet-handler/>  
+    <!-- Jackson转换器 --> 
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />  
+      
+    <!-- fastjson转换器 -->
+    <bean id="fastJsonHttpMessageConverter"  class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"/>  
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"  >   
+        <property name="messageConverters">  
+           <list>  
+              <ref bean="fastJsonHttpMessageConverter" />
+           </list>  
+        </property>  
+     </bean>  
+      
+     
+    <!-- 默认的视图解析器 在上边的解析错误时使用 (默认使用html) -->  
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+    	 <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/" />  
+        <property name="suffix" value=".jsp" />  
+    </bean>  
+      
+    <!-- 上传文件  DWR上现与SpringMVC
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+        <property name="maxUploadSize" value="32505856" /> 
+        <property name="maxInMemorySize" value="4096" />  
+    </bean>  
+    --> 
+</beans>  

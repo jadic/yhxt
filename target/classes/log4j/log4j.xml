@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"> 
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'> 
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender"> 
+		<layout class="org.apache.log4j.PatternLayout"> 
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS} %l %m%n" /> 
+		</layout> <!--限制输出级别 --> 
+		<filter class="org.apache.log4j.varia.LevelRangeFilter"> 
+			<param name="LevelMax" value="ERROR" /> 
+			<param name="LevelMin" value="DEBUG" /> 
+		</filter> 
+	</appender> 
+	
+	<appender name="project-log" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/yge/yge.log"/>
+		<param name="Append" value="true"/>
+		<param name="encoding" value="utf-8"/>
+		<param name="DatePattern" value="yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p %c - %m%n"/>
+		</layout>
+	</appender>
+
+	<appender name="project-mybaits" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/yge/yge_sql.log"/>
+		<param name="Append" value="true"/>
+		<param name="encoding" value="utf-8"/>
+		<param name="DatePattern" value="yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p %c - %m%n"/>
+		</layout>
+	</appender>
+	
+	
+	<appender name="DATABASE" class="com.gesoft.util.JDBCAppender">  
+		<param name="driver" value="com.mysql.jdbc.Driver"/>  
+		<param name="URL" value="jdbc:mysql://10.211.55.3:3306/doctor?useUnicode=true&amp;characterEncoding=UTF-8"/>  
+		<param name="user" value="root"/>  
+		<param name="password" value="njtynjty"/>      
+		<layout class="org.apache.log4j.PatternLayout">  
+			<param name="ConversionPattern" value="%c - %m%n"/>
+				   <!--
+				   value="INSERT INTO tab_log4j(stamp,thread, info_level,class,message) VALUES ('%d', '%t', '%p', '%c', '%m')" />
+				   -->  
+		</layout>  
+	</appender> 
+	
+	<appender name="ASYNC" class="org.apache.log4j.AsyncAppender">  
+		<param name="BufferSize" value="256" />  
+		<appender-ref ref="DATABASE" />  
+	</appender>  
+	
+	<root> 
+		<priority value="debug" /> 
+		<appender-ref ref="CONSOLE" /> 
+	</root> 
+	
+	<category name="com.gesoft">
+		<priority value="debug" />
+		<appender-ref ref="project-log" />
+	</category>
+	<category name="org.springframework">
+		<priority value="error" />
+		<appender-ref ref="project-log" />
+	</category>
+	<category name="org.directwebremoting">
+		<priority value="error" />
+		<appender-ref ref="project-log" />
+	</category>
+	<category name="org.mybatis.spring">
+		<priority value="error" />
+		<appender-ref ref="project-log" />
+	</category>
+	
+</log4j:configuration>

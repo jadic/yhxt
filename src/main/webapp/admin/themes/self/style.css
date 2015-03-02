@@ -1,0 +1,88 @@
+@CHARSET "UTF-8";
+.njty_btop{border-top:1px solid #ccc;}
+.njty_bright{border-right:1px solid #ccc;}
+.njty_bleft{border-left:1px solid #ccc;}
+.njty_bot{border-bottom:1px solid #ccc;}
+.njty_bl{padding:0 5px;border-bottom:1px solid #ccc;border-left:1px solid #ccc;}
+.njty_bw{width:180;}
+.njty_br{padding:0 5px;border-bottom:1px solid #ccc;border-right:1px solid #ccc;}
+.njty_bg{padding:0 5px;height:28px;width:80px;border-bottom:1px solid #ccc;border-left:1px solid #ccc;}
+.njty_btitle{height:25px; color:#15428b;font-weight:bold;background-color:#efefef;border:1px solid #ccc;}
+.njty_table{font-size:12px;width:100%;height:100%; border-right:1px solid #ccc;border-top:1px solid #ccc;}
+
+.njty_textarea,.njty_input,.njty_select,.njty_text,.njty_select2{border:#999 1px solid;font-size:12px;background:url(images/bg_input_text.png) repeat-x;}
+.njty_input,.njty_select{height:20px;width:200px;}
+.njty_text,.njty_select2{height:20px;width:170px;}
+
+
+
+.njty_waybill_td{border-bottom: 1px solid #ccc; height: 27px; padding-left: 5px;}
+.njty_3g_title{height:28px; width:100%; background:url('images/3g_title.png');font-size: 12px;font-weight: bold;color: #0E2D5F;line-height: 28px; padding-left:5px;}
+	
+
+
+	.linereal_title{width: 18px; font-size: 12px; padding-left: 10px;}
+	.linereal_start{background: url('images/line-003.png')  no-repeat; width: 30px; height: 30px;}
+	.linereal_end{background: url('images/line-003.png')  no-repeat -34px 0px; width: 30px; height: 30px;}
+	.linereal_tj{background: url('images/line-003.png')  no-repeat -68px 0px; width: 30px; height: 30px;}
+	.linereal_empty{background: url('images/line-004.png') repeat-x center; width: 100%; height: 30px;}
+	
+	.linereal_tr01 td{vertical-align: bottom;}
+	.linereal_tr01 .linereal_title{padding-bottom: 2px;}
+	
+	.linereal_tr02 td{vertical-align: top;}
+	.linereal_tr02 .linereal_title{padding-top: 2px;}
+	.linereal_tr02 .linereal_start{background: url('images/line-005.png')  no-repeat -74px 0px; width: 30px; height: 30px;}
+	.linereal_tr02 .linereal_end{background: url('images/line-005.png')  no-repeat -40px 0px; width: 30px; height: 30px;}
+	
+	.linereal_td{width : 30px; cursor: pointer;}
+	.linereal_tdbg{background : #f2b655;}
+	
+	.njty_station{height:25px;cursor:pointer;}
+	.njty_station:hover, .njty_station_click{background: #CC6600;}
+	.njty_show_label{float: left; font-size: 12px; line-height: 30px; padding-left: 5px;}
+	
+	.njty_set_label{float: left; font-size: 12px; height : 30px; line-height: 30px;}
+	.njty_show_station_start{background: url('images/line-001.png') no-repeat; height: 30px; width: 30px; float: left; cursor: pointer;}
+	.njty_show_station_middle{background: url('images/line-001.png') no-repeat 0px -68px; height: 30px; width: 30px; float: left; cursor: pointer;}
+	.njty_show_station_end{background: url('images/line-001.png') no-repeat 0px -34px; height: 30px; width: 30px; float: left; cursor: pointer;}
+	.njty_show_img{background: url('images/line-002.png') repeat-y;  background-position: 10px;}
+	
+	.njty_line_car01, .njty_line_car02, .njty_line_car03, .njty_line_car04{height: 30px; width: 30px; cursor: pointer; background: url('images/line_car001.png') no-repeat; position: absolute;}
+	.njty_line_car02{background: url('images/line_car001.png') no-repeat 0px -30px;}
+	.njty_line_car03{background: url('images/line_car001.png') no-repeat 0px -60px;}
+	.njty_line_car04{background: url('images/line_car001.png') no-repeat 0px -90px;}
+	.njty_line_carblack{height: 30px; width: 30px; visibility: hidden;}
+	
+	.njty_line_yy{width:36px; height:16px; background: url('images/line_yy.png') no-repeat;}
+	.njty_line_bc{width:36px; height:16px; background: url('images/line_bc.png') no-repeat;}
+	.njty_line_fyy{width:40px; height:18px; background: url('images/line_fyy.png') no-repeat;}
+	
+
+/**jquery.autocomplete start**/
+.ac_results {padding: 0px;border: 1px solid black;background-color: white;overflow: hidden;z-index: 99999;}
+.ac_results ul {width: 100%;list-style-position: outside;list-style: none;padding: 0;margin: 0;}
+.ac_results li {margin: 0px;padding: 2px 5px;cursor: default;display: block;font: menu;font-size: 12px;line-height: 16px;overflow: hidden;}
+.ac_loading {background: white right center no-repeat;}
+.ac_odd {background-color: #eee;}
+.ac_over {background-color: #0A246A;color: white;}
+/**jquery.autocomplete end**/
+
+.gesoft-ztqk-td{border: solid #CCC; background:#efefef;  border-width: 1px 1px 1px 1px;  border-radius: 3px 3px 0px 0px; height: 40px; text-align: center; font-size: 16px;
+	background:url('images/home_01_bg.png');
+	background-position: center;
+}
+.njty_gray{
+	color: #ccc; 
+	font-size: 11px;
+	padding-left:5px;
+}
+.njty_edit{
+	background:url('images/pencil.png') no-repeat;
+	width:23px;
+	height:20px;
+	cursor:pointer;
+}
+.njty_left{
+	float:left;
+}

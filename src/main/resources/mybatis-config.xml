@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="userModel" type="com.gesoft.model.UserModel" />
+		<typeAlias alias="dwrModel" type="com.gesoft.model.DwrModel" />
+	</typeAliases>
+	<mappers></mappers>
+</configuration>
