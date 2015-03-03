@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <li id="hMenu0" onclick="activeHelathMenu(0)" class="indexMenu_secondary_activation"><a href="/jsp/health/welcome/welcome.jsp" target="mainFrame" title="欢迎页">首页</a></li>
           <li id="hMenu1" onclick="activeHelathMenu(1)"><a href="/jsp/health/analyse/ianalysis.jsp" target="mainFrame" title="健康分析">健康分析</a></li>
           
-          <li id="hMenu3" onclick="activeHelathMenu(3)"><a href="/jsp/health/healthrecord/healthrecords.jsp" target="mainFrame" title="健康档案">健康档案</a></li>
+          <li id="hMenu3" onclick="activeHelathMenu(3)"><a href="<c:url value='/p/health.do'/>" target="mainFrame" title="健康档案">健康档案</a></li>
           <li id="hMenu4" onclick="activeHelathMenu(4)"><a href="/jsp/health/equipment/equipment.jsp" target="mainFrame" title="我的设备">我的设备</a></li>
           <li id="hMenu5" onclick="activeHelathMenu(5)"><a href="/jsp/health/account/account.jsp" target="mainFrame" title="账户/套餐">账户/套餐</a></li>
           <li id="hMenu6" onclick="activeHelathMenu(6)"><a href="/jsp/health/doctor_report/reportlist.jsp" target="mainFrame" title="月报">医生报告</a></li>
@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </div>
     </div>
     
-	<div class="index_health_middle">
+	<div class="index_health_middle" style="background: #ededed;">
     <div class="index_health_main">
       <!--index_health_left start-->
       <div class="index_health_left">

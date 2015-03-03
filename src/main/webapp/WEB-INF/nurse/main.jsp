@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/neurse/common/taglibs-include.jsp" %>
+<%@ include file="/WEB-INF/nurse/common/taglibs-include.jsp" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
-	<%@ include file="/WEB-INF/neurse/common/top-include.jsp"%>
+	<%@ include file="/WEB-INF/nurse/common/top-include.jsp"%>
   </head>
 <body>
 	

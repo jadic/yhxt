@@ -22,6 +22,9 @@ public class NIndexController extends BaseController
 	@RequestMapping(value="/main.do")
 	public String main()
 	{
-		return "/neurse/main";
+		return "/nurse/main";
 	}
+	
+	
+	
 }

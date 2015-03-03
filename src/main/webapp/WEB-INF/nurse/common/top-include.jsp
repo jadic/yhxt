@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/neurse/common/taglibs-include.jsp" %>
+<%@ include file="/WEB-INF/nurse/common/taglibs-include.jsp" %>
 
 <script type="text/javascript">
 <!--
