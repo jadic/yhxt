@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DeviceMapper">
+	
+	<resultMap id="mRetDeviceMap" 		type="deviceModel">
+		<result property="id"  			column="deviceId"/>
+		<result property="no"  		column="deviceNo"/>
+		<result property="model"  		column="deviceModel"/>
+		<result property="sim"  		column="deviceSim"/>
+	</resultMap>
+	
+	<!-- 插入用户-->
+	<insert id="DeviceMapper.insert" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_device (deviceType, deviceNo, deviceModel, deviceSim) 
+	        VALUES (#{type}, #{no}, #{model}, #{sim})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 查询总记录数-->
+	<select id="DeviceMapper.count" parameterType="deviceModel" resultType="long">
+		<![CDATA[
+			SELECT COUNT(1) AS CNT
+			FROM tab_device 
+		]]>
+	</select>
+	
+	<!-- 查询分页查询-->
+	<select id="DeviceMapper.list" parameterType="deviceModel"	resultMap="mRetDeviceMap">
+		<![CDATA[
+			SELECT *
+			FROM tab_device
+			LIMIT #{startNum}, #{rows}
+		]]>
+	</select>
+
+	        
+	<!-- 修改-->
+	<update id="DeviceMapper.update" parameterType="deviceModel">
+		<![CDATA[
+			UPDATE tab_device  SET  
+			deviceType = #{type},
+			deviceNo = #{no},
+			deviceModel = #{model},
+			deviceSim = #{sim}
+			WHERE deviceId = #{id} 
+		]]>
+	</update>
+	
+	<!-- 删除-->
+	<delete id="DeviceMapper.delete">
+		<![CDATA[
+			DELETE FROM tab_device 
+			WHERE deviceId = #{id} 
+		]]>
+	</delete>
+	
+</mapper>

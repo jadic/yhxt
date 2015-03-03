@@ -13,8 +13,9 @@ package com.gesoft.model;
  * @version v1.001
  * @since   v1.001
  */
-public class DerviceModel extends BaseModel
+public class DeviceModel extends BaseModel
 {
+	private static final long serialVersionUID = 108061749213717990L;
 	private long id;
 	private int type;
 	private String no;

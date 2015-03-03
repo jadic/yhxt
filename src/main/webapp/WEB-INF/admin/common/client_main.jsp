@@ -17,9 +17,9 @@
   		
 	  		<div style="float: right;  height:78px; width: 50px;"></div>
 	  		<div style="float: right;  height:78px;">
-	  			<div class="njty_menu" id="410000" onclick="PageMain.funAddPanel('/a/logo.do', 'LOGO')">
+	  			<div class="njty_menu" id="410000" onclick="PageMain.funAddPanel('/a/devtype.do', '设备类型管理')">
 					<img src="<c:url value='/admin/themes/self/images/top-10.png'/>"/>
-					<div>LOGO</div>
+					<div>设备类型管理</div>
 				</div>
 				
 				

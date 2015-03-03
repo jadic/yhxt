@@ -108,4 +108,15 @@ public class AIndexController extends BaseController
 		return "/admin/baseinfo/query_update_log";
 	}
 	
+	/**
+	 * 描述信息：设备类型管理
+	 * 创建时间：2015年3月3日 上午9:29:49
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/devtype.do")
+	public String toDevType()
+	{
+		return "/admin/dictinfo/manage_devtype_info";
+	}
 }
