@@ -17,9 +17,9 @@
   		
 	  		<div style="float: right;  height:78px; width: 50px;"></div>
 	  		<div style="float: right;  height:78px;">
-	  			<div class="njty_menu" id="410000" onclick="PageMain.funAddPanel('/a/devtype.do', '设备类型管理')">
+	  			<div class="njty_menu" id="410000" onclick="PageMain.funAddPanel('/a/device.do', '设备管理')">
 					<img src="<c:url value='/admin/themes/self/images/top-10.png'/>"/>
-					<div>设备类型管理</div>
+					<div>设备管理</div>
 				</div>
 				
 				
@@ -27,7 +27,7 @@
 					<img src="<c:url value='/admin/themes/self/images/top-9.png'/>"/>
 					<div>字典管理</div>
 					<div id="mm430000" style="width:145px; display: none;">
-						<div data-options="iconCls:'icon-27'" onclick="PageMain.funAddPanel('/a/custom.do','字典管理>> 定制类型管理');  $('#430000').click()">定制类型管理</div>
+						<div data-options="iconCls:'icon-27'" onclick="PageMain.funAddPanel('/a/devtype.do','字典管理>> 设备类型管理');  $('#430000').click()">设备类型管理</div>
 						<div class="menu-sep"></div>
 						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/newtype.do','字典管理>> 新闻类型管理');  $('#430000').click()">新闻类型管理</div>
 					</div>

@@ -4,7 +4,9 @@
 	
 	<resultMap id="mRetDeviceMap" 		type="deviceModel">
 		<result property="id"  			column="deviceId"/>
-		<result property="no"  		column="deviceNo"/>
+		<result property="type"  		column="deviceType"/>
+		<result property="typeName"  	column="name"/>
+		<result property="no"  			column="deviceNo"/>
 		<result property="model"  		column="deviceModel"/>
 		<result property="sim"  		column="deviceSim"/>
 	</resultMap>
@@ -22,15 +24,35 @@
 	<select id="DeviceMapper.count" parameterType="deviceModel" resultType="long">
 		<![CDATA[
 			SELECT COUNT(1) AS CNT
-			FROM tab_device 
+			FROM tab_device a1
+			inner join tab_dict_device_type a2 on a1.deviceType=a2.id
 		]]>
+		<where>	
+	        <if test="type != null and type > 0">
+				AND a1.deviceType = #{type}
+	        </if>
+	        <if test="sim != null and sim != ''">
+				AND a1.deviceSim LIKE CONCAT('%', #{sim}, '%') 
+	        </if>
+		</where>
 	</select>
 	
 	<!-- 查询分页查询-->
 	<select id="DeviceMapper.list" parameterType="deviceModel"	resultMap="mRetDeviceMap">
 		<![CDATA[
-			SELECT *
-			FROM tab_device
+			SELECT a1.*, a2.name
+			FROM tab_device a1
+			inner join tab_dict_device_type a2 on a1.deviceType=a2.id
+		]]>
+		<where>	
+	        <if test="type != null and type > 0">
+				AND a1.deviceType = #{type}
+	        </if>
+	        <if test="sim != null and sim != ''">
+				AND a1.deviceSim LIKE CONCAT('%', #{sim}, '%') 
+	        </if>
+		</where>
+		<![CDATA[
 			LIMIT #{startNum}, #{rows}
 		]]>
 	</select>

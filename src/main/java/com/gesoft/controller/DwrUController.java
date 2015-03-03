@@ -94,91 +94,25 @@ public class DwrUController
 	}  
 	
 	/**
-	 * 描述信息：加载定制类型
-	 * 创建时间：2015年2月4日 上午7:07:04
+	 * 描述信息：加载设备类型
+	 * 创建时间：2015年3月3日 上午11:11:19
 	 * @author WCL (ln_admin@yeah.net)
 	 * @return
 	 */
 	@RemoteMethod
-	public Map<?, ?> loadCustom()
+	public Map<?, ?> loadDevType()
 	{
 		LinkedHashMap<?, ?> mRetMap = null;
 		try
 		{
-			mRetMap = dwrService.queryCustomInfo();
+			mRetMap = dwrService.queryDevTypeInfo();
 		}
 		catch (Exception e)
 		{
-			logger.error("DwrUController loadCustom error：", e);
+			logger.error("DwrUController loadDevType error：", e);
 		}
 		return mRetMap;
 	}
 	
 
-	/**
-	 * 描述信息：加载新闻类型
-	 * 创建时间：2015年2月3日 下午11:37:58
-	 * @author WCL (ln_admin@yeah.net)
-	 * @return
-	 */
-	@RemoteMethod
-	public Map<?, ?> loadNewType(int customId)
-	{
-		LinkedHashMap<?, ?> mRetMap = null;
-		try
-		{
-			mRetMap = dwrService.queryNewsTypeInfo(customId);
-		}
-		catch (Exception e)
-		{
-			logger.error("DwrUController loadNewType error：", e);
-		}
-		return mRetMap;
-	}
-	
-	
-	/**
-	 * 描述信息：加载经典案例类型
-	 * 创建时间：2015年2月5日 上午9:45:11
-	 * @author WCL (ln_admin@yeah.net)
-	 * @param customId
-	 * @return
-	 */
-	@RemoteMethod
-	public Map<?, ?> loadCaseType(int customId)
-	{
-		LinkedHashMap<?, ?> mRetMap = null;
-		try
-		{
-			mRetMap = dwrService.queryCaseTypeInfo(customId);
-		}
-		catch (Exception e)
-		{
-			logger.error("DwrUController loadCaseType error：", e);
-		}
-		return mRetMap;
-	}
-	
-	
-	/**
-	 * 描述信息：加载产品中心类型
-	 * 创建时间：2015年2月5日 上午10:14:41
-	 * @author WCL (ln_admin@yeah.net)
-	 * @param customId
-	 * @return
-	 */
-	@RemoteMethod
-	public Map<?, ?> loadProduceType(int customId)
-	{
-		LinkedHashMap<?, ?> mRetMap = null;
-		try
-		{
-			mRetMap = dwrService.queryProduceTypeInfo(customId);
-		}
-		catch (Exception e)
-		{
-			logger.error("DwrUController loadProduceType error：", e);
-		}
-		return mRetMap;
-	}
 }

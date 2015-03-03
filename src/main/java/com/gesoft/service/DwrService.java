@@ -32,59 +32,16 @@ public class DwrService
 	
 	
 	/**
-	 * 描述信息：加载定制类型
-	 * 创建时间：2015年2月4日 上午7:01:10
+	 * 描述信息：加载设备类型
+	 * 创建时间：2015年3月3日 上午11:12:49
 	 * @author WCL (ln_admin@yeah.net)
 	 * @return
 	 */
 	@Transactional(readOnly=true)
-	public LinkedHashMap<String, String> queryCustomInfo()
+	public LinkedHashMap<String, String> queryDevTypeInfo()
 	{
-		return funDealDwrInfo(dwrDAO.queryCustomInfo());
+		return funDealDwrInfo(dwrDAO.queryDevTypeInfo());
 	}
-	
-	
-	/**
-	 * 描述信息：加载新闻类型
-	 * 创建时间：2015年2月3日 下午11:35:09
-	 * @author WCL (ln_admin@yeah.net)
-	 * @return
-	 */
-	@Transactional(readOnly=true)
-	public LinkedHashMap<String, String> queryNewsTypeInfo(int customId)
-	{
-		return funDealDwrInfo(dwrDAO.queryNewsTypeInfo(customId));
-	}
-	
-	
-	/**
-	 * 描述信息：加载经典案例类型
-	 * 创建时间：2015年2月5日 上午9:45:43
-	 * @author WCL (ln_admin@yeah.net)
-	 * @param customId
-	 * @return
-	 */
-	@Transactional(readOnly=true)
-	public LinkedHashMap<String, String> queryCaseTypeInfo(int customId)
-	{
-		return funDealDwrInfo(dwrDAO.queryCaseTypeInfo(customId));
-	}
-	
-	
-	
-	/**
-	 * 描述信息：加载产品中心类型
-	 * 创建时间：2015年2月5日 上午10:15:24
-	 * @author WCL (ln_admin@yeah.net)
-	 * @param customId
-	 * @return
-	 */
-	@Transactional(readOnly=true)
-	public LinkedHashMap<String, String> queryProduceTypeInfo(int customId)
-	{
-		return funDealDwrInfo(dwrDAO.queryProduceTypeInfo(customId));
-	}
-	
 	
 	/**
 	 * 描述信息：处理公共部分

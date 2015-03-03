@@ -17,7 +17,8 @@ public class DeviceModel extends BaseModel
 {
 	private static final long serialVersionUID = 108061749213717990L;
 	private long id;
-	private int type;
+	private long type;
+	private String typeName;
 	private String no;
 	private String model;
 	private String sim;
@@ -29,11 +30,11 @@ public class DeviceModel extends BaseModel
 	{
 		this.id = id;
 	}
-	public int getType()
+	public long getType()
 	{
 		return type;
 	}
-	public void setType(int type)
+	public void setType(long type)
 	{
 		this.type = type;
 	}
@@ -61,4 +62,13 @@ public class DeviceModel extends BaseModel
 	{
 		this.sim = sim;
 	}
+	public String getTypeName()
+	{
+		return typeName;
+	}
+	public void setTypeName(String typeName)
+	{
+		this.typeName = typeName;
+	}
+	
 }

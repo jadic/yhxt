@@ -9,40 +9,10 @@
 	
 	
 	<!--加载定制类型 -->
-	<select id="DwrMapper.queryCustomInfo" 		resultMap="mRetDwrMap">
+	<select id="DwrMapper.queryDevTypeInfo" 	resultMap="mRetDwrMap">
 		<![CDATA[
-			SELECT A.CUSTOM_ID AS msgKey, A.CUSTOM_NAME AS msgVal
-			FROM TAB_CUSTOM_TYPE A
-		]]>
-	</select>
-	
-	
-	<!--加载新闻类型 -->
-	<select id="DwrMapper.queryNewsTypeInfo" 		resultMap="mRetDwrMap">
-		<![CDATA[
-			SELECT A.TYPE_ID AS msgKey, A.TYPE_NAME AS msgVal
-			FROM TAB_NEWS_TYPE A
-			WHERE A.CUSTOM_ID = #{customId}
-		]]>
-	</select>
-	
-	
-	<!--加载经典案例类型 -->
-	<select id="DwrMapper.queryCaseTypeInfo" 		resultMap="mRetDwrMap">
-		<![CDATA[
-			SELECT A.TYPE_ID AS msgKey, A.TYPE_NAME AS msgVal
-			FROM TAB_CASE_TYPE A
-			WHERE A.CUSTOM_ID = #{customId}
-		]]>
-	</select>
-	
-	
-	<!--加载产品中心类型 -->
-	<select id="DwrMapper.queryProduceTypeInfo" 		resultMap="mRetDwrMap">
-		<![CDATA[
-			SELECT A.TYPE_ID AS msgKey, A.TYPE_NAME AS msgVal
-			FROM TAB_PRODUCE_TYPE A
-			WHERE A.CUSTOM_ID = #{customId}
+			SELECT A.id AS msgKey, A.name AS msgVal
+			FROM tab_dict_device_type A
 		]]>
 	</select>
 </mapper>

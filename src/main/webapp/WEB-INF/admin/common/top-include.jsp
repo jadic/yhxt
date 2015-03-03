@@ -24,7 +24,7 @@
 
 <script type="text/javascript" src="<c:url value='/admin/scripts/common/common.date-1.0.js'/>" ></script>
 <script type="text/javascript" src="<c:url value='/admin/scripts/common/common_validator.js'/>" ></script>
-<script type="text/javascript" src="<c:url value='/admin/scripts/common/common.dwr-1.0.js'/>" ></script>
+<script type="text/javascript" src="<c:url value='/common/scripts/common.dwr-1.0.js'/>" ></script>
 <script type="text/javascript" src="<c:url value='/common/scripts/My97DatePicker/WdatePicker.js'/>" ></script>
 
 <script type="text/javascript">

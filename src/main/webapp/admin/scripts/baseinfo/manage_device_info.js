@@ -1,9 +1,10 @@
-var PageDevType = 
+var PageDevice = 
 {
 		mSelDataGrid : null,	
 		init : function()
 		{
 			this.showGrid();
+			ComDwr.loadDevType("out01", true, "");
 		},
 		
 		showGrid : function()
@@ -12,15 +13,18 @@ var PageDevType =
 				fit:true,
 				nowrap: true,
 				stripe:true,
-				url: _ctx_ + "/a/devtype/query.do",
+				url: _ctx_ + "/a/device/query.do",
 				pageNumber: 1,
 				queryParams:
 				{
-					"name":$("#out01").val()
+					"type":-1,
+					"sim":$("#out02").val()
 				},
 				columns:[[
-					{field:'id',			title:'设备类型编号',		width:200,	align:'center'},
-					{field:'name',			title:'设备类型名称',		width:200,	align:'center'}
+					{field:'no',			title:'设备编号',		width:140,	align:'center'},
+					{field:'typeName',		title:'设备类型',		width:140,	align:'center'},
+					{field:'model',			title:'设备型号',		width:140,	align:'center'},
+					{field:'sim',			title:'SIM卡号',		width:140,	align:'center'}
 				]],
 				onClickRow: function(index, rec) {
 					
@@ -29,17 +33,18 @@ var PageDevType =
 					text:'新增',
 					iconCls:'icon-add',
 					handler:function(){
-						PageMain.funCreateWinInfo("#div_win", "dictinfo/add_devtype_info", {param1: "add"});
+						PageMain.funCreateWinInfo("#div_win", "baseinfo/add_device_info", {param1: "add"});
+						ComDwr.loadDevType("in01", true, "-1");
 					}
 				},'-',{
 					text:'修改',
 					iconCls:'icon-edit',
 					handler:function(){
-						PageDevType.mSelDataGrid = PageMain.funSelectEd("#div_grid");
-						if(PageDevType.mSelDataGrid != null)
+						PageDevice.mSelDataGrid = PageMain.funSelectEd("#div_grid");
+						if(PageDevice.mSelDataGrid != null)
 						{
-							PageMain.funCreateWinInfo("#div_win", "dictinfo/add_devtype_info", {param1:"modify"});
-							PageDevType.funSetDataGrid(PageDevType.mSelDataGrid);
+							PageMain.funCreateWinInfo("#div_win", "baseinfo/add_device_info", {param1:"modify"});
+							PageDevice.funSetDataGrid(PageDevice.mSelDataGrid);
 						}
 					}
 				},'-',{
@@ -47,7 +52,7 @@ var PageDevType =
 					iconCls:'icon-cancel',
 					handler:function()
 					{
-						PageDevType.funDelInfo();
+						PageDevice.funDelInfo();
 					}
 				}],
 				pagination:true,
@@ -58,23 +63,30 @@ var PageDevType =
 		funSetDataGrid : function(record)
 		{
 			$("#in00").val(record.id);
-			$("#in01").val(record.name);
+			ComDwr.loadDevType("in01", true, record.type);
+			$("#in02").val(record.no);
+			$("#in03").val(record.model);
+			$("#in04").val(record.sim);
 		},
 		funSearchInfo : function()
 		{
 			$("#div_grid").datagrid({
-				url: _ctx_ + "/a/devtype/query.do",
+				url: _ctx_ + "/a/device/query.do",
 				pageNumber: 1,
 				queryParams:
 				{
-					"name":$("#out01").val()
+					"type":$("#out01").val(),
+					"sim":$("#out02").val()
 				}
 			});
 		},
 		funSaveInfo : function(_param)
 		{
 
-			if (funIsNull("#in01", "设备类型"))
+			if (funIsSelect("#in01", "设备类型")
+					|| funIsNull("#in02", "设备编号")
+					|| funIsNull("#in03", "设备型号")
+					|| funIsNull("#in04", "SIM卡号"))
 			{
 				return false;
 			}
@@ -82,13 +94,16 @@ var PageDevType =
 			/**打开进度条**/
 			PageMain.funOpenProgress();
 			$.ajax({
-				url : _ctx_ + "/a/devtype/"+_param+".do?a="+ Math.random(),
+				url : _ctx_ + "/a/device/"+_param+".do?a="+ Math.random(),
 				type : 'post',
 				dataType : 'json',
 				data : 
 				{
-					"id": $("#in00").val(),	
-					"name": $("#in01").val()
+					"id"	: $("#in00").val(),	
+					"type"	: $("#in01").val(),
+					"no"	: $("#in02").val(),
+					"model"	: $("#in03").val(),
+					"sim"	: $("#in04").val()
 				},
 				error:function(data)
 				{
@@ -107,7 +122,7 @@ var PageDevType =
 					{
 						$("#out01").val($("#in01").val());
 						$('#div_win').window('close');
-						PageDevType.funSearchInfo();
+						PageDevice.funSearchInfo();
 						$.messager.alert('信息提示', data.msg, 'info');
 					}
 					else
@@ -119,10 +134,10 @@ var PageDevType =
 		},
 		funDelInfo : function()
 		{
-			PageDevType.mSelDataGrid = PageMain.funSelectEd("#div_grid");
-			if(PageDevType.mSelDataGrid != null)
+			PageDevice.mSelDataGrid = PageMain.funSelectEd("#div_grid");
+			if(PageDevice.mSelDataGrid != null)
 			{
-				$.messager.confirm('确认', "您确认要删除选中的：【<span style='color:red; font:bold;'>"+PageDevType.mSelDataGrid.name+"</span>】这条记录吗？", function(r)
+				$.messager.confirm('确认', "您确认要删除选中的：【<span style='color:red; font:bold;'>"+PageDevice.mSelDataGrid.name+"</span>】这条记录吗？", function(r)
 				{
 					if (r)
 					{
@@ -130,12 +145,12 @@ var PageDevType =
 						PageMain.funOpenProgress();
 						
 						$.ajax({
-							url : _ctx_ + "/a/devtype/del.do?a="+ Math.random(),
+							url : _ctx_ + "/a/device/del.do?a="+ Math.random(),
 							type : 'post',
 							dataType : 'json',
 							data : 
 							{
-								"id": PageDevType.mSelDataGrid.id						
+								"id": PageDevice.mSelDataGrid.id						
 							},
 							error:function(data)
 							{
@@ -151,7 +166,7 @@ var PageDevType =
 								/**数据处理**/
 								if(data.success)
 								{
-									$('#div_grid').datagrid('deleteRow', $('#div_grid').datagrid('getRowIndex', PageDevType.mSelDataGrid));
+									$('#div_grid').datagrid('deleteRow', $('#div_grid').datagrid('getRowIndex', PageDevice.mSelDataGrid));
 									$.messager.alert('信息提示', data.msg, 'info');
 								}
 								else
@@ -170,6 +185,6 @@ var PageDevType =
 
 $(function()
 {
-	PageDevType.init();
+	PageDevice.init();
 	PageMain.funCloseProgressInfo();
 });

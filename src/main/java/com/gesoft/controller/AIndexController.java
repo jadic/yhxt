@@ -119,4 +119,16 @@ public class AIndexController extends BaseController
 	{
 		return "/admin/dictinfo/manage_devtype_info";
 	}
+	
+	/**
+	 * 描述信息：设备管理
+	 * 创建时间：2015年3月3日 上午11:08:30
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/device.do")
+	public String toDevice()
+	{
+		return "/admin/baseinfo/manage_device_info";
+	}
 }
