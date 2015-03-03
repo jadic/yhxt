@@ -131,4 +131,16 @@ public class AIndexController extends BaseController
 	{
 		return "/admin/baseinfo/manage_device_info";
 	}
+	
+	/**
+	 * 描述信息：服务管理
+	 * 创建时间：2015年3月3日 下午12:48:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/service.do")
+	public String toService()
+	{
+		return "/admin/baseinfo/manage_service_info";
+	}
 }

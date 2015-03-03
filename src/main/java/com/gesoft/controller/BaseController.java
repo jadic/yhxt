@@ -18,6 +18,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.QueryModel;
@@ -110,6 +113,89 @@ public class BaseController implements Constants
 	{
 		handerModel.setUserId(getSessionUserId(request));
 	}
+	
+	
+	/**
+	 * 描述信息：设备Session中UserId
+	 * 创建时间：2015年3月3日 下午2:32:24
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param handerModel
+	 */
+	protected void setSessionUserId(BaseModel handerModel)
+	{
+		handerModel.setUserId(getSessionUserId());
+	}
+	
+	
+	/**
+	 * 描述信息：获取request
+	 * 创建时间：2015年2月6日 上午8:41:30
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	protected HttpServletRequest getRequest()
+	{
+		HttpServletRequest request = null;
+		try
+		{
+			RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+			request = ((ServletRequestAttributes)requestAttributes).getRequest();
+		}
+		catch (Exception e)
+		{
+		}
+		return request;
+	}
+	
+	
+	/**
+	 * 描述信息：获取session
+	 * 创建时间：2015年2月6日 上午8:41:41
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	protected HttpSession getSession()
+	{
+		
+		HttpSession session = null;
+		try
+		{
+			HttpServletRequest request = getRequest();
+			if (request != null)
+			{
+				session = request.getSession();
+			}
+		}
+		catch (Exception e)
+		{
+			
+		}
+		return session;
+	}
+	
+	/**
+	 * 描述信息：获取UserId
+	 * 创建时间：2015年2月6日 上午8:39:32
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	protected long getSessionUserId()
+	{
+		long mUserId = 0L;
+		try
+		{
+			HttpSession session = getSession();
+			if (session != null && session.getAttribute(SESSION_KEY_UID) != null)
+			{
+				mUserId = Long.parseLong(session.getAttribute(SESSION_KEY_UID).toString());
+			}
+		}
+		catch (Exception e)
+		{
+		}
+		return mUserId;
+	}
+	
 	
 	/**
 	 * 描述信息：获取USERID

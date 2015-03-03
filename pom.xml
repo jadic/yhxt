@@ -9,8 +9,7 @@
   <url>http://maven.apache.org</url>
   
     
-  
-   
+    
   <properties>    
   	<!-- 设置 Spring 的版本 -->      
   	<org.springframework.version>3.1.0.RELEASE</org.springframework.version> 
@@ -212,8 +211,6 @@
 	  <version>2.6</version>
 	</dependency>
   </dependencies>
-  
-  
   
   
   <build>

@@ -62,7 +62,7 @@ public class UpLoadServlet extends HttpServlet
 					String filedataFileName = SystemUtils.getCurrentSystemTime("yyyyMMddHHmmssSSS") + "_" + item.getName();
 					String basePath = "/upload/" + FileUtil.createFoldersByType(2);
 					//String realpath = request.getSession().getServletContext().getRealPath("/") + "//" + basePath;
-					String realpath = 	"E:\\NjtyPro\\eclipse\\yge\\src\\main\\webapp"+ "//" + basePath;
+					String realpath = 	"/Volumes/MacintoshHD2/Project/java/yhxt/src/main/webapp"+ "//" + basePath;
 					InputStream filedata = item.getInputStream() ;
 					if (filedata != null)
 					{

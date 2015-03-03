@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50022
 File Encoding         : 65001
 
-Date: 2015-03-03 09:04:48
+Date: 2015-03-03 15:21:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,6 +67,7 @@ CREATE TABLE `tab_device` (
 -- ----------------------------
 -- Records of tab_device
 -- ----------------------------
+INSERT INTO tab_device VALUES ('2', '1', '112', '223', '334');
 
 -- ----------------------------
 -- Table structure for `tab_dict_credential`
@@ -101,6 +102,7 @@ CREATE TABLE `tab_dict_device_type` (
 -- ----------------------------
 -- Records of tab_dict_device_type
 -- ----------------------------
+INSERT INTO tab_dict_device_type VALUES ('1', 'sdfsfddd22');
 
 -- ----------------------------
 -- Table structure for `tab_dict_disease`
@@ -521,7 +523,7 @@ CREATE TABLE `tab_service` (
   `serviceContent` varchar(500) default NULL,
   `serviceCreatorId` int(12) default NULL,
   `serviceCreateTime` datetime default NULL,
-  `servcieStartDate` date default NULL,
+  `serviceStartDate` date default NULL,
   `serviceDuration` date default NULL,
   `serviceMemo` varchar(500) default NULL,
   `serviceIcon` varchar(150) default NULL COMMENT '服务的图标URL',
@@ -531,6 +533,9 @@ CREATE TABLE `tab_service` (
 -- ----------------------------
 -- Records of tab_service
 -- ----------------------------
+INSERT INTO tab_service VALUES ('2', '1', '33', '22', '1', '2015-03-03 14:45:44', '2015-03-03', '2015-03-27', '222', '0');
+INSERT INTO tab_service VALUES ('3', '1', '2', '22', '1', '2015-03-03 14:45:44', '2015-03-03', '2015-03-03', '222', '0');
+INSERT INTO tab_service VALUES ('4', '1', '2', '222<img src=\"/yhxt//upload/201503/20150303145102098_家具产品.png\" alt=\"\" />', '1', '2015-03-03 14:51:04', '2015-03-03', '2015-03-27', '222', '/upload/201503/20150303145054080_木制品.jpg');
 
 -- ----------------------------
 -- Table structure for `tab_service_doctor_relation`

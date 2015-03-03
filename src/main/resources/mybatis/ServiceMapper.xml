@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ServiceMapper">
+	
+	<resultMap id="mRetServiceMap" 		type="serviceModel">
+		<result property="id"  			column="id"/>
+		<result property="type"  		column="serviceType"/>
+		<result property="name"  		column="serviceName"/>
+		<result property="content"  	column="serviceContent"/>
+		<result property="creatorId"  	column="serviceCreatorId"/>
+		<result property="createTime"  	column="serviceCreateTime"/>
+		<result property="sdate"  		column="serviceStartDate"/>
+		<result property="edate"  		column="serviceDuration"/>
+		<result property="memo"  		column="serviceMemo"/>
+		<result property="icon"  		column="serviceIcon"/>
+		<result property="userName"  		column="name"/>
+	</resultMap>
+	
+	<!-- 插入用户-->
+	<insert id="ServiceMapper.insert" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_service (serviceType, serviceName, serviceContent, serviceCreatorId, serviceCreateTime, servcieStartDate, serviceDuration, serviceMemo, serviceIcon) 
+	        VALUES (#{type}, #{name}, #{content}, #{creatorId}, #{createTime}, #{sdate}, #{edate}, #{memo}, #{icon})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 查询总记录数-->
+	<select id="ServiceMapper.count" parameterType="serviceModel" resultType="long">
+		<![CDATA[
+			SELECT COUNT(1) AS CNT
+			FROM tab_service a1
+			left join tab_user_info a2 on a2.userId=a1.serviceCreatorId
+		]]>
+		<where>	
+	        <if test="type != null and type > 0">
+				AND a1.serviceType = #{type}
+	        </if>
+	        <if test="name != null and name != ''">
+				AND a1.serviceName LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+		</where>
+	</select>
+	
+	<!-- 查询分页查询-->
+	<select id="ServiceMapper.list" parameterType="serviceModel"	resultMap="mRetServiceMap">
+		<![CDATA[
+			SELECT a1.*, a2.name
+			FROM tab_service a1
+			left join tab_user_info a2 on a2.userId=a1.serviceCreatorId
+		]]>
+		<where>	
+	        <if test="type != null and type > 0">
+				AND a1.serviceType = #{type}
+	        </if>
+	        <if test="name != null and name != ''">
+				AND a1.serviceName LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+		</where>
+		<![CDATA[
+			LIMIT #{startNum}, #{rows}
+		]]>
+	</select>
+
+	        
+	<!-- 修改-->
+	<update id="ServiceMapper.update" parameterType="serviceModel">
+		<![CDATA[
+			UPDATE tab_service  SET  
+			serviceType = #{type},
+			serviceName = #{name}, 
+			serviceContent = #{content}, 
+			serviceStartDate = #{sdate}, 
+			serviceDuration = #{edate}, 
+			serviceMemo = #{memo}, 
+			serviceIcon = #{icon}
+			WHERE id = #{id} 
+		]]>
+	</update>
+	
+	<!-- 删除-->
+	<delete id="ServiceMapper.delete">
+		<![CDATA[
+			DELETE FROM tab_service 
+			WHERE id = #{id} 
+		]]>
+	</delete>
+	
+</mapper>

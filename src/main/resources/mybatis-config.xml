@@ -6,6 +6,7 @@
 		<typeAlias alias="dwrModel" type="com.gesoft.model.DwrModel" />
 		<typeAlias alias="devTypeModel" type="com.gesoft.model.DevTypeModel" />
 		<typeAlias alias="deviceModel" type="com.gesoft.model.DeviceModel" />
+		<typeAlias alias="serviceModel" type="com.gesoft.model.ServiceModel" />
 	</typeAliases>
 	<mappers></mappers>
 </configuration>

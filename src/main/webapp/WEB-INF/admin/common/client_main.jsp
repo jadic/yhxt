@@ -10,6 +10,7 @@
  	<style>
  		.njty_real_data_body2{position: absolute; z-index: 200; width: 100%; text-align:center; padding:0px 0 0 0; height: 1px; background-color: rgb(220, 226, 241); opacity: 0.95; filter: alpha(opacity=95); border:0px; bottom:0px;}
  	</style>
+ 	<script type="text/javascript" src="<c:url value="/common/xheditor/xheditor-1.1.9-zh-cn.min.js"/>"></script>
   </head>
   <body class="easyui-layout">
   	<div region="north" class="njty_main_head_top" style="height: 111px; border: 0px;" >
@@ -17,12 +18,15 @@
   		
 	  		<div style="float: right;  height:78px; width: 50px;"></div>
 	  		<div style="float: right;  height:78px;">
-	  			<div class="njty_menu" id="410000" onclick="PageMain.funAddPanel('/a/device.do', '设备管理')">
+	  			<div class="njty_menu" id="410000" onclick="PageMain.funAddPanel('/a/service.do', '服务管理')">
+					<img src="<c:url value='/admin/themes/self/images/top-10.png'/>"/>
+					<div>服务管理</div>
+				</div>
+				
+				<div class="njty_menu" id="400000" onclick="PageMain.funAddPanel('/a/device.do', '设备管理')">
 					<img src="<c:url value='/admin/themes/self/images/top-10.png'/>"/>
 					<div>设备管理</div>
 				</div>
-				
-				
 				<div class="njty_menu" id="430000">
 					<img src="<c:url value='/admin/themes/self/images/top-9.png'/>"/>
 					<div>字典管理</div>
