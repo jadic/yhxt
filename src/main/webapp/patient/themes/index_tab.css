@@ -25,11 +25,11 @@
 .endTime{width:60px; color:#5a5a5a; font-size:13px; height:30px; line-height:30px; margin-left:20px;}
 .time_input{width:165px; height:30px; line-height:30px;}
 .time_input input{width:145px; padding-left:10px; height:28px; border:1px solid #aeaeae}
-.btn_search{width:160px; height:60px;}
+.btn_search{width:160px;}
 .quick_search{color:#aeaeae; font-size:13px; height:30px; line-height:30px; width:470px;}
 .quick_search a{color:#aeaeae; text-decoration:none; margin-right:10px}
 .quick_search a:hover{text-decoration:underline}
-.btn_search a{background:url(../images/button/btn_search.jpg) no-repeat; width:120px; height:40px; color:#fff; line-height:40px; display:block; text-decoration:none; text-align:center; margin-left:30px}
+.btn_search a{background:url(images/btn_search.jpg) no-repeat; width:120px; height:40px; color:#fff; line-height:40px; display:block; text-decoration:none; text-align:center; margin-left:30px}
 
 /*----------------table_page---------------*/
 .index_table{width:670px; float:left;}

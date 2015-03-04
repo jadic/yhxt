@@ -35,10 +35,19 @@ public class BaseModel implements Serializable
 	private int page = 1; // 当前页号
 	private int rows; // 每页条数
 	private long total; // 总记录数
+	private long pageCnt = 1; //总页数
 	private long startNum; // 开始记录数
 	private long endNum; // 结束记录数
 
 	
+	public long getPageCnt()
+	{
+		return pageCnt;
+	}
+	public void setPageCnt(long pageCnt)
+	{
+		this.pageCnt = pageCnt;
+	}
 	public int getState()
 	{
 		return state;

@@ -17,29 +17,8 @@ public class QueryModel extends BaseModel
 	private static final long serialVersionUID = -7896518111818576761L;
 	
 	private long id;
-	private long typeId;
-	private long customId;
-	private long pageCnt;
-	private String typeName;
-	private String customName;
-	private String title;
+	private int adviceType;
 	
-	public String getTitle()
-	{
-		return title;
-	}
-	public void setTitle(String title)
-	{
-		this.title = title;
-	}
-	public long getPageCnt()
-	{
-		return pageCnt;
-	}
-	public void setPageCnt(long pageCnt)
-	{
-		this.pageCnt = pageCnt;
-	}
 	public long getId()
 	{
 		return id;
@@ -48,37 +27,12 @@ public class QueryModel extends BaseModel
 	{
 		this.id = id;
 	}
-	public long getTypeId()
+	public int getAdviceType()
 	{
-		return typeId;
+		return adviceType;
 	}
-	public void setTypeId(long typeId)
+	public void setAdviceType(int adviceType)
 	{
-		this.typeId = typeId;
+		this.adviceType = adviceType;
 	}
-	public long getCustomId()
-	{
-		return customId;
-	}
-	public void setCustomId(long customId)
-	{
-		this.customId = customId;
-	}
-	public String getTypeName()
-	{
-		return typeName;
-	}
-	public void setTypeName(String typeName)
-	{
-		this.typeName = typeName;
-	}
-	public String getCustomName()
-	{
-		return customName;
-	}
-	public void setCustomName(String customName)
-	{
-		this.customName = customName;
-	}
-	
 }

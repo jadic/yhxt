@@ -50,6 +50,57 @@ public class PIndexController extends BaseController
 		return "/patient/healthinfo/manage_userbase_info";
 	}
 	
+	
+	/**
+	 * 描述信息：健康病历
+	 * 创建时间：2015年3月4日 下午6:23:22
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/jkbl.do")
+	public String toJkbl()
+	{
+		return "/patient/healthinfo/manage_jkbl_info";
+	}
+	
+	/**
+	 * 描述信息：生活习惯
+	 * 创建时间：2015年3月4日 下午10:28:48
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/memberhabit.do")
+	public String toMemberHabit()
+	{
+		return "/patient/healthinfo/manage_memberhabit_info";
+	}
+	
+	
+	/**
+	 * 描述信息：家族遗传史
+	 * 创建时间：2015年3月4日 下午10:30:11
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/familydisease.do")
+	public String toFamilyDisease()
+	{
+		return "/patient/healthinfo/manage_familydisease_info";
+	}
+	
+	/**
+	 * 描述信息：疾病史
+	 * 创建时间：2015年3月4日 下午10:31:11
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/diseasehis.do")
+	public String toDiseaseHis()
+	{
+		return "/patient/healthinfo/manage_diseasehis_info";
+	}
+	
+	
 	/**
 	 * 描述信息：新情号码
 	 * 创建时间：2015年3月4日 上午1:14:56
@@ -73,4 +124,32 @@ public class PIndexController extends BaseController
 	{
 		return "/patient/healthinfo/manage_modifypwd_info";
 	}
+	
+	
+	/**
+	 * 描述信息：我的服务与设备
+	 * 创建时间：2015年3月4日 下午11:15:14
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/servicedevice.do")
+	public String toServiceDevice()
+	{
+		return "/patient/serviceinfo/manage_service_device_info";
+	}
+	
+	
+	
+	/**
+	 * 描述信息：健康分析
+	 * 创建时间：2015年3月4日 下午11:22:57
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/healthanalysis.do")
+	public String toHealthAnalysis()
+	{
+		return "/patient/healthanalysis/manage_health_analysis_info";
+	}
+	
 }

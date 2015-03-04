@@ -45,14 +45,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="index_tab">   
    <div class="tab_menu">
       <ul>
-        <li class="selected"><a style="width:166px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/userbase.do'/>" target="indexFrame" title="基本信息" >基本信息</a></li>
-        <li><a style="width:166px; height: 48px; display:block; text-decoration:none;color:#fff; " href="<c:url value='/p/jkbl.do'/>" target="indexFrame" title="健康病历">健康病历</a></li>
-        <li><a style="width:166px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/relative.do'/>" target="indexFrame" title="亲情号码">亲情号码</a></li>
-        <li style="margin-right:-2px;"><a style="width:166px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/modifypwd.do'/>" target="indexFrame" title="密码修改">密码修改</a></li>
+        <li class="selected"><a style="width:166px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/query/advice.do?adviceType=1'/>" target="indexFrame" title="基本信息" >用药建议</a></li>
+        <li><a style="width:166px; height: 48px; display:block; text-decoration:none;color:#fff; " href="<c:url value='/p/query/advice.do?adviceType=2'/>" target="indexFrame" title="健康病历">饮食建议</a></li>
+        <li><a style="width:166px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/query/advice.do?adviceType=3'/>" target="indexFrame" title="亲情号码">运动建议</a></li>
+        <li style="margin-right:-2px;"><a style="width:166px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/query/advice.do?adviceType=4'/>" target="indexFrame" title="密码修改">就诊建议</a></li>
       </ul>
    </div>
    <div class="tab_box" >
-       <iframe id="indexFrame"  name = "indexFrame" src="<c:url value='/p/userbase.do'/>"  frameborder="0" width="100%"  scrolling="no"  onload="sonIframeResize();"></iframe>
+       <iframe id="indexFrame"  name = "indexFrame" src="<c:url value='/p/query/advice.do?adviceType=1'/>"  frameborder="0" width="100%"  scrolling="no"  onload="sonIframeResize();"></iframe>
    </div> 
   </div>   
    
