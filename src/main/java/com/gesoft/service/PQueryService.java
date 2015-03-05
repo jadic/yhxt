@@ -20,6 +20,7 @@ import com.gesoft.dao.PQueryDAO;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
+import com.gesoft.model.ServiceModel;
 
 /**
  * @author WCL
@@ -103,7 +104,7 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	 * @return
 	 */
 	@Transactional(readOnly=true)
-	public List<OutModel> queryServiceInfo(QueryModel model)
+	public List<ServiceModel> queryServiceInfo(QueryModel model)
 	{
 		return pQueryDAO.queryServiceInfo(model);
 	}

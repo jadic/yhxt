@@ -17,8 +17,18 @@ public class QueryModel extends BaseModel
 	private static final long serialVersionUID = -7896518111818576761L;
 	
 	private long id;
+	private String name;
 	private int adviceType;
 	
+	
+	public String getName()
+	{
+		return name;
+	}
+	public void setName(String name)
+	{
+		this.name = name;
+	}
 	public long getId()
 	{
 		return id;

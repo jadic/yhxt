@@ -18,6 +18,7 @@ public class ServiceModel extends BaseModel
 	private static final long serialVersionUID = 5705483179208187468L;
 	private long id;
 	private int type;
+	private String typeName;
 	private String name;
 	private String content;
 	private long creatorId;
@@ -27,6 +28,30 @@ public class ServiceModel extends BaseModel
 	private String memo;
 	private String icon;
 	private String userName;
+	
+	public String getTypeName()
+	{
+		switch (this.type)
+		{
+		case 1:
+			this.typeName = "平台创建";
+			break;
+		case 2:
+			this.typeName = "医护联系人创建";
+			break;
+		case 3:
+			this.typeName = "第三方服务";
+			break;	
+		default:
+			this.typeName = "-";
+			break;
+		}
+		return typeName;
+	}
+	public void setTypeName(String typeName)
+	{
+		this.typeName = typeName;
+	}
 	public long getId()
 	{
 		return id;

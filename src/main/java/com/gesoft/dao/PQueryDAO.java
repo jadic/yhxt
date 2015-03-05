@@ -15,6 +15,7 @@ import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
+import com.gesoft.model.ServiceModel;
 
 /**
  * 用户平台查询
@@ -92,7 +93,7 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	 * @param model
 	 * @return
 	 */
-	public List<OutModel> queryServiceInfo(QueryModel model)
+	public List<ServiceModel> queryServiceInfo(QueryModel model)
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryServiceInfo", model);
 	}

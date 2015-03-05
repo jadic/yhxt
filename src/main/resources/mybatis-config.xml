@@ -7,6 +7,8 @@
 		<typeAlias alias="devTypeModel" type="com.gesoft.model.DevTypeModel" />
 		<typeAlias alias="deviceModel" type="com.gesoft.model.DeviceModel" />
 		<typeAlias alias="serviceModel" type="com.gesoft.model.ServiceModel" />
+		<typeAlias alias="outModel" type="com.gesoft.model.OutModel" />
+		<typeAlias alias="queryModel" type="com.gesoft.model.QueryModel" />
 	</typeAliases>
 	<mappers></mappers>
 </configuration>

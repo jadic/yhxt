@@ -18,10 +18,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gesoft.model.MsgModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
+import com.gesoft.model.ServiceModel;
 import com.gesoft.service.PQueryService;
 
 /**
@@ -63,7 +66,7 @@ public class PQueryController extends BaseController
 			{
 				result.addObject("advice", model);
 				
-				query.setId(model.getA1());
+				query.setId(model.getId());
 				//分页加载建议执行结果
 				long recordCount = pQueryService.queryAdvicePerformaceCnt(query);
 				if(recordCount>0)
@@ -102,7 +105,7 @@ public class PQueryController extends BaseController
 			if(recordCount>0)
 			{
 				setPageModel(recordCount, query);
-				List<OutModel> argArgs = pQueryService.queryServiceInfo(query);
+				List<ServiceModel> argArgs = pQueryService.queryServiceInfo(query);
 				result.addObject("serviceFlys", argArgs);
 			}
 		}
@@ -123,7 +126,7 @@ public class PQueryController extends BaseController
 	@RequestMapping(value="/device.do")
 	public ModelAndView toDevice(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-		ModelAndView result = new ModelAndView("/patient/serviceinfo/manage_service_info");
+		ModelAndView result = new ModelAndView("/patient/serviceinfo/manage_device_info");
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
@@ -143,6 +146,31 @@ public class PQueryController extends BaseController
 			logger.error("PQueryController toDevice error：", e);
 		}
 		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：修改密码
+	 * 创建时间：2015年3月5日 上午9:44:44
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/updatePwd.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toModifyPwd(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toModifyPwd error：", e);
+		}
+		return msgModel;
 	}
 	
 }
