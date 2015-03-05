@@ -181,13 +181,24 @@ public class BaseController implements Constants
 	 */
 	protected long getSessionUserId()
 	{
+		return getSessionUserId(SESSION_KEY_UID);
+	}
+	
+	/**
+	 * 描述信息：获取UserId
+	 * 创建时间：2015年2月6日 上午8:39:32
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	protected long getSessionUserId(String sessionKey)
+	{
 		long mUserId = 0L;
 		try
 		{
 			HttpSession session = getSession();
-			if (session != null && session.getAttribute(SESSION_KEY_UID) != null)
+			if (session != null && session.getAttribute(sessionKey) != null)
 			{
-				mUserId = Long.parseLong(session.getAttribute(SESSION_KEY_UID).toString());
+				mUserId = Long.parseLong(session.getAttribute(sessionKey).toString());
 			}
 		}
 		catch (Exception e)
@@ -206,13 +217,27 @@ public class BaseController implements Constants
 	 */
 	protected long getSessionUserId(HttpServletRequest request)
 	{
+		return getSessionUserId(request, SESSION_KEY_UID);
+	}
+	
+
+	/**
+	 * 描述信息：获取用户ID
+	 * 创建时间：2015年3月5日 上午9:10:18
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param request
+	 * @param sessionKey
+	 * @return
+	 */
+	protected long getSessionUserId(HttpServletRequest request, String sessionKey)
+	{
 		long mUserId = 0L;
 		HttpSession session = request.getSession();
 		try
 		{
-			if (session.getAttribute(SESSION_KEY_UID) != null)
+			if (session.getAttribute(sessionKey) != null)
 			{
-				mUserId = Long.parseLong(session.getAttribute(SESSION_KEY_UID).toString());
+				mUserId = Long.parseLong(session.getAttribute(sessionKey).toString());
 			}
 		}
 		catch (Exception e)
@@ -220,5 +245,4 @@ public class BaseController implements Constants
 		}
 		return mUserId;
 	}
-	
 }

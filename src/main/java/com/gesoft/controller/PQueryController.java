@@ -7,6 +7,9 @@
  **/
 package com.gesoft.controller;
 
+import java.util.List;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
+import com.gesoft.service.PQueryService;
 
 /**
  * 患者数据查询
@@ -31,6 +36,8 @@ public class PQueryController extends BaseController
 {
 	private static final Logger logger = LoggerFactory.getLogger(PQueryController.class);
 	
+	@Resource
+	private PQueryService pQueryService;
 	
 	/**
 	 * 描述信息：查询建议-健康分析
@@ -42,14 +49,30 @@ public class PQueryController extends BaseController
 	 * @return
 	 */
 	@RequestMapping(value="/advice.do", method=RequestMethod.GET)
-	public ModelAndView toAdvice(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView toAdvice(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-
 		ModelAndView result = new ModelAndView("/patient/healthanalysis/manage_doctor_advice_info");
 		try
 		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
 			
-			result.addObject("query", model);
+			//加载第一条建议数据
+			OutModel model = pQueryService.queryAdviceInfo(query);
+			if (model != null)
+			{
+				result.addObject("advice", model);
+				
+				query.setId(model.getA1());
+				//分页加载建议执行结果
+				long recordCount = pQueryService.queryAdvicePerformaceCnt(query);
+				if(recordCount>0)
+				{
+					setPageModel(recordCount, query);
+					List<OutModel> argArgs = pQueryService.queryAdvicePerformace(query);
+					result.addObject("adviceFlys", argArgs);
+				}
+			}
 		}
 		catch (Exception e)
 		{
@@ -58,6 +81,7 @@ public class PQueryController extends BaseController
 		return result;
 	}
 	
+	
 	/**
 	 * 描述信息：我的服务
 	 * 创建时间：2015年3月4日 下午11:15:53
@@ -65,18 +89,26 @@ public class PQueryController extends BaseController
 	 * @return
 	 */
 	@RequestMapping(value="/service.do")
-	public ModelAndView toService(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView toService(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-
 		ModelAndView result = new ModelAndView("/patient/serviceinfo/manage_service_info");
 		try
 		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
 			
-			result.addObject("query", model);
+			//分页加载建议执行结果
+			long recordCount = pQueryService.queryServiceInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<OutModel> argArgs = pQueryService.queryServiceInfo(query);
+				result.addObject("serviceFlys", argArgs);
+			}
 		}
 		catch (Exception e)
 		{
-			logger.error("PQueryController toAdvice error：", e);
+			logger.error("PQueryController toService error：", e);
 		}
 		return result;
 	}
@@ -89,18 +121,26 @@ public class PQueryController extends BaseController
 	 * @return
 	 */
 	@RequestMapping(value="/device.do")
-	public ModelAndView toDevice(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView toDevice(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-
-		ModelAndView result = new ModelAndView("/patient/serviceinfo/manage_device_info");
+		ModelAndView result = new ModelAndView("/patient/serviceinfo/manage_service_info");
 		try
 		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
 			
-			result.addObject("query", model);
+			//分页加载建议执行结果
+			long recordCount = pQueryService.queryDeviceInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<OutModel> argArgs = pQueryService.queryDeviceInfo(query);
+				result.addObject("deviceFlys", argArgs);
+			}
 		}
 		catch (Exception e)
 		{
-			logger.error("PQueryController toAdvice error：", e);
+			logger.error("PQueryController toDevice error：", e);
 		}
 		return result;
 	}

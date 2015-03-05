@@ -69,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           
           <li id="hMenu3" onclick="activeHelathMenu(3)"><a href="<c:url value='/p/health.do'/>" target="mainFrame" title="健康档案">健康档案</a></li>
           <li id="hMenu4" onclick="activeHelathMenu(4)"><a href="<c:url value='/p/servicedevice.do'/>" target="mainFrame" title="我的设备">我的设备</a></li>
-          <li id="hMenu5" onclick="activeHelathMenu(5)"><a href="/jsp/health/account/account.jsp" target="mainFrame" title="账户/套餐">账户/套餐</a></li>
+          <li id="hMenu5" onclick="activeHelathMenu(5)"><a href="/jsp/health/account/account.jsp" target="mainFrame" title="账户/套餐">我的医护人</a></li>
           <li id="hMenu6" onclick="activeHelathMenu(6)"><a href="/jsp/health/doctor_report/reportlist.jsp" target="mainFrame" title="月报">医生报告</a></li>
         </ul> 
       </div>

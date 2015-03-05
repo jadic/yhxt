@@ -42,6 +42,10 @@ public interface Constants
 	
 	
 	
+	public static final String SESSION_KEY_PUID = "puid"; // 用户平台
+	public static final String SESSION_KEY_NUID = "nuid"; // 医护人员平台
+	
+	
 	public static final String GLOBAL_YES = "Y";
 	public static final String GLOBAL_NO = "N";
 	
@@ -54,6 +58,7 @@ public interface Constants
      * 默认分页;
      */
     public static final int DEFAULT_PAGE_SIZE = 10;
+    
     
     
     
