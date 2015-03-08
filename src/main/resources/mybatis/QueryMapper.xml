@@ -119,8 +119,8 @@
 			left join tab_user_device a3 on a3.deviceId=a1.deviceId and a3.userId=#{userId}
 		]]>
 		<where>	
-	        <if test="adviceType != null and adviceType > 0">
-				AND a1.deviceType  = #{adviceType}
+	        <if test="deviceType != null and deviceType > 0">
+				AND a1.deviceType  = #{deviceType}
 	        </if>
 	        <if test="type != null and type == 0">
 				AND IFNULL(a3.userId, 0)  = #{type}
@@ -140,8 +140,8 @@
 			left join tab_user_device a3 on a3.deviceId=a1.deviceId and a3.userId=#{userId}
 		]]>
 		<where>	
-	        <if test="adviceType != null and adviceType > 0">
-				AND a1.deviceType  = #{adviceType}
+	        <if test="deviceType != null and deviceType > 0">
+				AND a1.deviceType  = #{deviceType}
 	        </if>
 	        <if test="type != null and type == 0">
 				AND IFNULL(a3.userId, 0)  = #{type}

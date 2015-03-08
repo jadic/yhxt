@@ -19,9 +19,18 @@ public class QueryModel extends BaseModel
 	private long id;
 	private String name;
 	private int adviceType;
+	private int deviceType;
 	private int type;
 	
 	
+	public int getDeviceType()
+	{
+		return deviceType;
+	}
+	public void setDeviceType(int deviceType)
+	{
+		this.deviceType = deviceType;
+	}
 	public int getType()
 	{
 		return type;

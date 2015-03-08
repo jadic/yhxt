@@ -21,6 +21,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</style>
 	<script type="text/JavaScript">
+		$(function(){
+			ComDwr.loadDevType("deviceType", true, "${query.deviceType}");
+		});
 		function queryStart()
 		{
 			$("#inputform").submit();
@@ -38,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				设备类型：
 	    			</td>
 		    		<td>
-		    			<select class="selectMax_informationModify  text-input validate[required]"  style="width: 140px;" name="deviceType">
+		    			<select class="selectMax_informationModify  text-input validate[required]"  style="width: 140px;" name="deviceType" id="deviceType">
 		                   <option value="-1">请选择</option>
 		               </select>
 		    		</td>
@@ -47,9 +50,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 		    		<td>
 		    			<select class="selectMax_informationModify  text-input validate[required]"  style="width: 140px;" name="type">
-		                   <option value="-1">请选择</option>
-			               <option value="0">未购买</option>
-			               <option value="1">已购买</option>
+		                   <option value="-1"  value="-1" <c:if test="${query.type == -1 }">selected="selected"</c:if>>请选择</option>
+			               <option value="0"   value="-1" <c:if test="${query.type == 0 }">selected="selected"</c:if>>未购买</option>
+			               <option value="1"  value="-1" <c:if test="${query.type == 1 }">selected="selected"</c:if>>已购买</option>
 		               </select>
 		    		</td>
 		    		<td>
