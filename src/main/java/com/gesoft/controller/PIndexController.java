@@ -51,17 +51,6 @@ public class PIndexController extends BaseController
 		return "/patient/healthinfo/manage_jkbl_info";
 	}
 	
-	/**
-	 * 描述信息：家族遗传史
-	 * 创建时间：2015年3月4日 下午10:30:11
-	 * @author WCL (ln_admin@yeah.net)
-	 * @return
-	 */
-	@RequestMapping(value="/familydisease.do")
-	public String toFamilyDisease()
-	{
-		return "/patient/healthinfo/manage_familydisease_info";
-	}
 	
 	/**
 	 * 描述信息：疾病史

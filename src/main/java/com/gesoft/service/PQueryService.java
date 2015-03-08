@@ -19,6 +19,7 @@ import com.gesoft.common.EntityService;
 import com.gesoft.dao.PQueryDAO;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.DeviceModel;
+import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
@@ -346,4 +347,36 @@ public class PQueryService extends EntityService<BaseModel, Long>
 		return pQueryDAO.modifyHabbitInfo(model);
 	}
 	
+	
+	/**
+	 * 描述信息：加载家族遗传史
+	 * 创建时间：2015年3月9日 上午1:44:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public GeneticDiseaseModel queryGeneticDiseaseInfo(QueryModel model)
+	{
+		GeneticDiseaseModel mRetModel = pQueryDAO.queryGeneticDiseaseInfo(model);
+		if (mRetModel == null)
+		{
+			mRetModel = new GeneticDiseaseModel();
+			mRetModel.setUserId(model.getUserId());
+			pQueryDAO.addGeneticDiseaseInfo(mRetModel);
+		}
+		return mRetModel;
+	}
+	
+	
+	/**
+	 * 描述信息：修改家族遗传史
+	 * 创建时间：2015年3月9日 上午1:45:16
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyGeneticDiseaseInfo(GeneticDiseaseModel model)
+	{
+		return pQueryDAO.modifyGeneticDiseaseInfo(model);
+	}
 }

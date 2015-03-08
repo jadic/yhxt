@@ -12,6 +12,7 @@
 		<typeAlias alias="dictModel" type="com.gesoft.model.DictModel" />
 		<typeAlias alias="relativePhoneModel" type="com.gesoft.model.RelativePhoneModel" />
 		<typeAlias alias="habbitModel" type="com.gesoft.model.HabbitModel" />
+		<typeAlias alias="geneticDiseaseModel" type="com.gesoft.model.GeneticDiseaseModel" />
 	</typeAliases>
 	<mappers></mappers>
 </configuration>

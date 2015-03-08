@@ -88,7 +88,7 @@
 	</resultMap>
 	
 	
-	<!-- 查询亲情号码 -->
+	<!-- 查询生活习惯 -->
 	<resultMap id="mRetHabbitMap" 					type="habbitModel">
 		<result property="id"  						column="id"/>
 		<result property="userId"  					column="userId"/>
@@ -104,6 +104,17 @@
 		<result property="exerciseFrequency"  		column="exerciseFrequency"/>
 		<result property="exerciseDuration"  		column="exerciseDuration"/>
 		<result property="sleepDuration"  			column="sleepDuration"/>
+	</resultMap>
+	
+	<!-- 查询家族遗传史 -->
+	<resultMap id="mRetGeneticDiseaseMap" 			type="geneticDiseaseModel">
+		<result property="id"  						column="id"/>
+		<result property="userId"  					column="userId"/>
+		<result property="isHeartDisease"  			column="isHeartDisease"/>
+		<result property="isHypertension"  			column="isHypertension"/>
+		<result property="isHyperlipemia"  			column="isHyperlipemia"/>
+		<result property="isDiabetesMellitus"  		column="isDiabetesMellitus"/>
+		<result property="isCoronaryDisease"  		column="isCoronaryDisease"/>
 	</resultMap>
 	
 	<!-- 加载最新一条建议 -->
@@ -429,4 +440,36 @@
 		]]>
 	</update>
 		
+	
+	<!-- 加载家族遗传史 -->
+	<select id="QueryMapper.queryGeneticDiseaseInfo" 	parameterType="queryModel"	resultMap="mRetGeneticDiseaseMap">
+		<![CDATA[
+			select a1.*
+			from tab_genetic_disease a1
+			where a1.userId=#{userId}
+		]]>
+	</select>	
+	
+	
+	<!-- 增加家族遗传史 -->
+	<insert id="QueryMapper.addGeneticDiseaseInfo"  parameterType="geneticDiseaseModel"  useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_genetic_disease (userId) 
+	        VALUES (#{userId})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 修改家族遗传史 -->
+	<update id="QueryMapper.modifyGeneticDiseaseInfo" parameterType="geneticDiseaseModel">
+		<![CDATA[
+			UPDATE tab_genetic_disease  SET  
+			isHeartDisease = #{isHeartDisease},
+			isHypertension = #{isHypertension},
+			isHyperlipemia = #{isHyperlipemia},
+			isDiabetesMellitus = #{isDiabetesMellitus},
+			isCoronaryDisease = #{isCoronaryDisease}
+			WHERE userId = #{userId}
+		]]>
+	</update>
 </mapper>

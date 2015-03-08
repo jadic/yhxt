@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.DeviceModel;
+import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
@@ -355,5 +356,43 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	public int modifyHabbitInfo(HabbitModel model)
 	{
 		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyHabbitInfo", model);
+	}
+	
+	/**
+	 * 描述信息：加载家族遗传史
+	 * 创建时间：2015年3月9日 上午1:44:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public GeneticDiseaseModel queryGeneticDiseaseInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryGeneticDiseaseInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：增加家族遗传史
+	 * 创建时间：2015年3月9日 上午1:46:46
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public long addGeneticDiseaseInfo(GeneticDiseaseModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addGeneticDiseaseInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：修改家族遗传史
+	 * 创建时间：2015年3月9日 上午1:45:16
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyGeneticDiseaseInfo(GeneticDiseaseModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyGeneticDiseaseInfo", model);
 	}
 }

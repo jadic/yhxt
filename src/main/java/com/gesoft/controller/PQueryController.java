@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.DeviceModel;
+import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.OutModel;
@@ -516,6 +517,37 @@ public class PQueryController extends BaseController
 		}
 		return msgModel;
 	}
+
+	
+	/**
+	 * 描述信息：加载生活习惯
+	 * 创建时间：2015年3月8日 下午6:00:08
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/memberhabit.do")
+	public ModelAndView toMemberHabit(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_memberhabit_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			//加载用户基本信息
+			HabbitModel model  = pQueryService.queryHabbitInfo(query);
+			if (model != null)
+			{
+				result.addObject("habbit", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toUserBase error：", e);
+		}
+		return result;
+	}
 	
 	
 	/**
@@ -548,7 +580,7 @@ public class PQueryController extends BaseController
 	
 	
 	/**
-	 * 描述信息：加载生活习惯
+	 * 描述信息：加载家族遗传史
 	 * 创建时间：2015年3月8日 下午6:00:08
 	 * @author WCL (ln_admin@yeah.net)
 	 * @param query
@@ -556,31 +588,54 @@ public class PQueryController extends BaseController
 	 * @param response
 	 * @return
 	 */
-
-	/**
-	 * 描述信息：生活习惯
-	 * 创建时间：2015年3月4日 下午10:28:48
-	 * @author WCL (ln_admin@yeah.net)
-	 * @return
-	 */
-	@RequestMapping(value="/memberhabit.do")
-	public ModelAndView toMemberHabit(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	@RequestMapping(value="/familydisease.do")
+	public ModelAndView toFamilyDisease(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_memberhabit_info");
+		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_familydisease_info");
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
-			//加载用户基本信息
-			HabbitModel model  = pQueryService.queryHabbitInfo(query);
+			GeneticDiseaseModel model  = pQueryService.queryGeneticDiseaseInfo(query);
 			if (model != null)
 			{
-				result.addObject("habbit", model);
+				result.addObject("genetic", model);
 			}
 		}
 		catch (Exception e)
 		{
-			logger.error("PQueryController toUserBase error：", e);
+			logger.error("PQueryController toFamilyDisease error：", e);
 		}
 		return result;
 	}
+	
+	
+	/**
+	 * 描述信息：修改家族遗传史
+	 * 创建时间：2015年3月9日 上午12:16:31
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyFamilyDisease.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toModifyFamilyDisease(GeneticDiseaseModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if (pQueryService.modifyGeneticDiseaseInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toModifyFamilyDisease error：", e);
+		}
+		return msgModel;
+	}
+	
+	
 }
