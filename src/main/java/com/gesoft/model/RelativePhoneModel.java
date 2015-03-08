@@ -19,10 +19,38 @@ public class RelativePhoneModel extends BaseModel
 	private long id;
 	private long userId;
 	private int type;
+	private String typeName;
 	private String cellPhone;
 	private String name;
 	private String tel;
 	private String address;
+	
+	public String getTypeName()
+	{
+		switch (this.type)
+		{
+		case 0:
+			this.typeName = "家庭成员";
+			break;
+		case 1:
+			this.typeName = "亲戚";
+			break;
+		case 2:
+			this.typeName = "朋友";
+			break;
+		case 3:
+			this.typeName = "同事";
+			break;
+		default:
+			this.typeName = "其它";
+			break;
+		}
+		return typeName;
+	}
+	public void setTypeName(String typeName)
+	{
+		this.typeName = typeName;
+	}
 	public long getId()
 	{
 		return id;
