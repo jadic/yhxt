@@ -150,7 +150,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" value="${userModel.name }" maxlength="16">
 	    				<span style="color: red;">*</span>
 	    			</td>
-	    			<td>
+	    			<td rowspan="5">
+	    				<table>
+	    					<tr>
+	    						<td>
+	    							<img style="width:120px; height: 160px;" id="header_photo" src="<c:url value='/patient/themes/images/default_head.gif'/>">
+	    						</td>
+	    					</tr>
+	    					<tr>	
+	    						<td class="thead_informationModify">
+	    							<a href="javascript:void(0)" style="font-size: 14px;">修改图像</a>
+	    						</td>
+	    					</tr>
+	    				</table>
 	    				<input id="photo" name="photo"/>
 	    			</td>
 	    		</tr>
