@@ -311,6 +311,7 @@ public class PQueryController extends BaseController
 		return result;
 	}
 	
+	
 	/**
 	 * 描述信息：增加亲情号码
 	 * 创建时间：2015年3月8日 下午4:20:58
@@ -395,4 +396,65 @@ public class PQueryController extends BaseController
 		}
 		return msgModel;
 	}
+	
+	
+	/**
+	 * 描述信息：加载用户基本信息
+	 * 创建时间：2015年3月8日 下午6:00:08
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/userbase.do")
+	public ModelAndView toUserBase(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_userbase_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+			//加载用户基本信息
+			UserModel model  = pQueryService.queryUserBaseInfo(query);
+			if (model != null)
+			{
+				result.addObject("userModel", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toUserBase error：", e);
+		}
+		return result;
+	}
+	
+	/**
+	 * 描述信息：修改用户基本信息
+	 * 创建时间：2015年3月8日 下午6:04:33
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyUser.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toModifyUserBase(UserModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if (pQueryService.modifyUserBaseInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toModifyUserBase error：", e);
+		}
+		return msgModel;
+	}
+	
 }

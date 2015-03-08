@@ -83,7 +83,7 @@ public class ALoginController extends BaseController
 							model.addAttribute("loginUser", mLoginModel);
 							
 							aLoginLogsService.setUserId(mLoginModel.getUserId());
-							aLoginLogsService.setUserName(user.getUserName());
+							aLoginLogsService.setUserName(user.getName());
 							aLoginLogsService.setUserIp(request.getRemoteAddr());
 							aLoginLogsService.setUserTime(SystemUtils.funFormatterDataInfo(new Date(session.getCreationTime())));
 							aLoginLogsService.setSession(session);
@@ -94,7 +94,7 @@ public class ALoginController extends BaseController
 							session = request.getSession(true);
 							session.setAttribute("OnLineUser", aLoginLogsService);
 							session.setAttribute(SESSION_KEY_ISLOGIN, GLOBAL_YES);
-							session.setAttribute(SESSION_KEY_LOGINNAME, mLoginModel.getUserName());
+							session.setAttribute(SESSION_KEY_LOGINNAME, mLoginModel.getName());
 							session.setAttribute(SESSION_KEY_UID, mLoginModel.getUserId());
 						}
 						else 
@@ -108,7 +108,7 @@ public class ALoginController extends BaseController
 					}
 				}
 			}
-			result.addObject("userName", user.getUserName());
+			result.addObject("userName", user.getName());
 		}
 		catch (Exception e)
 		{

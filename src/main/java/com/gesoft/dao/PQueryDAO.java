@@ -10,7 +10,6 @@ package com.gesoft.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.BaseModel;
@@ -242,5 +241,42 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	public int delRelativePhoneInfo(RelativePhoneModel model)
 	{
 		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delRelativePhoneInfo", model);
+	}
+	
+
+	/**
+	 * 描述信息：加载用户基本信息
+	 * 创建时间：2015年3月8日 下午6:02:33
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public UserModel queryUserBaseInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryUserBaseInfo", model);
+	}
+	
+	/**
+	 * 描述信息：删除用户基本数据
+	 * 创建时间：2015年3月8日 下午6:07:18
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int delUserBaseInfo(UserModel model)
+	{
+		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delUserBaseInfo", model);
+	}
+	
+	/**
+	 * 描述信息：增加用户基本信息
+	 * 创建时间：2015年3月8日 下午6:08:19
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public long addUserBaseInfo(UserModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addUserBaseInfo", model);
 	}
 }

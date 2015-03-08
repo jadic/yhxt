@@ -54,6 +54,39 @@
 		<result property="address"  				column="relativeAddr"/>
 	</resultMap>
 	
+	<!-- 加载用户基本信息 -->
+	<resultMap id="mRetUserBaseMap" 				type="userModel">
+		<result property="userId"  					column="userId"/>
+		<result property="name"  					column="name"/>
+		<result property="gender"  					column="gender"/>
+		<result property="birthdate"  				column="birthdate"/>
+		<result property="cellphone"  				column="cellphone"/>
+		<result property="email"  					column="email"/>
+		
+		<result property="credentialType"  			column="credentialType"/>
+		<result property="credentialNo"  			column="credentialNo"/>
+		<result property="isSoldier"  				column="isSoldier"/>
+		<result property="isDisablity"  			column="isDisablity"/>
+		<result property="height"  					column="height"/>
+		
+		<result property="weight"  					column="weight"/>
+		<result property="nationality"  			column="nationality"/>
+		<result property="nativePlace"  			column="nativePlace"/>
+		<result property="marriageStatus"  			column="marriageStatus"/>
+		<result property="householdType"  			column="householdType"/>
+		
+		<result property="education"  				column="education"/>
+		<result property="policticsStatus"  		column="policticsStatus"/>
+		<result property="homePhone"  				column="homePhone"/>
+		<result property="homeAddress"  			column="homeAddress"/>
+		<result property="workingAge"  				column="workingAge"/>
+		
+		<result property="salary"  					column="salary"/>
+		<result property="companyName"  			column="companyName"/>
+		<result property="companyAddress"  			column="companyAddress"/>
+		<result property="photo"  					column="photo"/>
+	</resultMap>
+	
 		
 	<!-- 加载最新一条建议 -->
 	<select id="QueryMapper.queryAdviceInfo" 	parameterType="queryModel"	resultMap="mRetAdviceOneMap">
@@ -253,6 +286,40 @@
 		<![CDATA[
 			DELETE FROM tab_relative_phone 
 			WHERE id = #{id} 
+		]]>
+	</delete>
+	
+	<!-- 加载用户基本信息 -->
+	<select id="QueryMapper.queryUserBaseInfo" 	parameterType="queryModel"	resultMap="mRetUserBaseMap">
+		<![CDATA[
+			select a1.*
+			from tab_user_info a1
+			where a1.userId=#{userId}
+		]]>
+	</select>
+	
+	<!-- 增加用户基本信息 -->
+	<insert id="QueryMapper.addUserBaseInfo"  parameterType="userModel">
+	    <![CDATA[
+	        INSERT INTO tab_user_info (userId, name, gender, birthdate, cellphone, email, 
+	        	credentialType, credentialNo, isSoldier, isDisablity, height, weight, 
+	        	nationality, nativePlace, marriageStatus, householdType, education, 
+	        	policticsStatus, homePhone, homeAddress, workingAge, salary, companyName, 
+	        	companyAddress, photo) 
+	        VALUES (#{userId}, #{name}, #{gender}, #{birthdate}, #{cellphone}, #{email}, 
+	        	#{credentialType}, #{credentialNo}, #{isSoldier}, #{isDisablity}, #{height}, #{weight}, 
+	        	#{nationality}, #{nativePlace}, #{marriageStatus}, #{householdType}, #{education}, 
+	        	#{policticsStatus}, #{homePhone}, #{homeAddress}, #{workingAge}, #{salary}, #{companyName}, 
+	        	#{companyAddress}, #{photo})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 删除用户基本信息-->
+	<delete id="QueryMapper.delUserBaseInfo" parameterType="userModel">
+		<![CDATA[
+			DELETE FROM tab_user_info 
+			WHERE userId = #{userId} 
 		]]>
 	</delete>
 </mapper>

@@ -38,18 +38,6 @@ public class PIndexController extends BaseController
 		return "/patient/healthinfo/manage_health_info";
 	}
 	
-	/**
-	 * 描述信息：基本信息
-	 * 创建时间：2015年3月4日 上午12:09:58
-	 * @author WCL (ln_admin@yeah.net)
-	 * @return
-	 */
-	@RequestMapping(value="/userbase.do")
-	public String toUserBase()
-	{
-		return "/patient/healthinfo/manage_userbase_info";
-	}
-	
 	
 	/**
 	 * 描述信息：健康病历

@@ -254,4 +254,33 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	{
 		return pQueryDAO.delRelativePhoneInfo(model);
 	}
+	
+	/**
+	 * 描述信息：加载用户基本信息
+	 * 创建时间：2015年3月8日 下午6:02:33
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly = true)
+	public UserModel queryUserBaseInfo(QueryModel model)
+	{
+		return pQueryDAO.queryUserBaseInfo(model);
+	}
+	
+	/**
+	 * 描述信息：修改用户基本信息
+	 * 创建时间：2015年3月8日 下午6:06:12
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public long modifyUserBaseInfo(UserModel model)
+	{
+		//删除原有数据
+		pQueryDAO.delUserBaseInfo(model);
+		
+		//新增用户基本数据
+		return pQueryDAO.addUserBaseInfo(model);
+	}
 }
