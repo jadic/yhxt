@@ -43,8 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					/**数据处理**/
 					if(data.success)
 					{
-						$(obj).parent().html('<span style="color: #2998df; font-weight: bold;">已购买</span>');
-						$.messager.alert('信息提示', data.msg, 'info');
+						$.messager.alert('信息提示', '密码修改成功！', 'info');
 					}
 					else
 					{

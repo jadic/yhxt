@@ -101,17 +101,6 @@ public class PIndexController extends BaseController
 	}
 	
 	
-	/**
-	 * 描述信息：新情号码
-	 * 创建时间：2015年3月4日 上午1:14:56
-	 * @author WCL (ln_admin@yeah.net)
-	 * @return
-	 */
-	@RequestMapping(value="/relative.do")
-	public String toRelativePhone()
-	{
-		return "/patient/healthinfo/manage_relative_phone_info";
-	}
 	
 	/**
 	 * 描述信息：修改密码

@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <ul>
         <li class="selected"><a style="width:166px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/userbase.do'/>" target="indexFrame" title="基本信息" >基本信息</a></li>
         <li><a style="width:166px; height: 48px; display:block; text-decoration:none;color:#fff; " href="<c:url value='/p/jkbl.do'/>" target="indexFrame" title="健康病历">健康病历</a></li>
-        <li><a style="width:166px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/relative.do'/>" target="indexFrame" title="亲情号码">亲情号码</a></li>
+        <li><a style="width:166px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/query/relative.do'/>" target="indexFrame" title="亲情号码">亲情号码</a></li>
         <li style="margin-right:-2px;"><a style="width:166px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/modifypwd.do'/>" target="indexFrame" title="密码修改">密码修改</a></li>
       </ul>
    </div>

@@ -43,6 +43,18 @@
 		<result property="userId"  					column="userId"/>
 	</resultMap>		
 		
+	<!-- 查询亲情号码 -->
+	<resultMap id="mRelativePhoneMap" 				type="relativePhoneModel">
+		<result property="id"  						column="id"/>
+		<result property="userId"  					column="userId"/>
+		<result property="type"  					column="relativeType"/>
+		<result property="name"  					column="relativeName"/>
+		<result property="cellPhone"  				column="relativeCellPhone"/>
+		<result property="tel"  					column="relativeTel"/>
+		<result property="address"  				column="relativeAddr"/>
+	</resultMap>
+	
+		
 	<!-- 加载最新一条建议 -->
 	<select id="QueryMapper.queryAdviceInfo" 	parameterType="queryModel"	resultMap="mRetAdviceOneMap">
 		<![CDATA[
@@ -182,4 +194,65 @@
 		]]>
 	</update>
 	
+	
+	<!-- 查询我的亲情号码总数 -->
+	<select id="QueryMapper.queryRelativePhoneInfoCnt" 	parameterType="queryModel"	resultType="long">
+		<![CDATA[
+			select count(1) as cnt  
+			from tab_relative_phone a1 
+			where a1.userId=#{userId}
+		]]>
+	</select>
+	
+	<!-- 分页加载我的亲情号码数据 -->
+	<select id="QueryMapper.queryRelativePhoneInfo" 	parameterType="queryModel"	resultMap="mRelativePhoneMap">
+		<![CDATA[
+			select a1.id, a1.relativeName, a1.relativeTel, a1.relativeType, a1.relativeCellPhone, a1.relativeAddr, a1.userId
+			from tab_relative_phone a1
+			where a1.userId=#{userId}
+			order by a1.relativeName
+			limit #{startNum}, #{rows}
+		]]>
+	</select>
+	
+	
+	<!-- 分页加载我的亲情号码数据 -->
+	<select id="QueryMapper.queryRelativePhoneInfoById" 	parameterType="queryModel"	resultMap="mRelativePhoneMap">
+		<![CDATA[
+			select a1.id, a1.relativeName, a1.relativeTel, a1.relativeType, a1.relativeCellPhone, a1.relativeAddr, a1.userId
+			from tab_relative_phone a1
+			where a1.id=#{id}
+		]]>
+	</select>
+	
+	
+	<!-- 增加亲情号码 -->
+	<insert id="QueryMapper.addRelativePhoneInfo" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_relative_phone (userId, relativeName, relativeType, relativeCellPhone, relativeTel, relativeAddr) 
+	        VALUES (#{userId}, #{name}, #{type}, #{cellPhone}, #{tel}, #{address})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 修改亲情号码 -->
+	<update id="QueryMapper.modifyRelativePhoneInfo" parameterType="relativePhoneModel">
+		<![CDATA[
+			UPDATE tab_relative_phone  SET  
+			relativeName = #{name},
+			relativeType = #{type},
+			relativeCellPhone = #{cellPhone},
+			relativeTel = #{tel},
+			relativeAddr = #{address}
+			WHERE id = #{id}
+		]]>
+	</update>
+	
+	<!-- 删除亲情号码-->
+	<delete id="QueryMapper.delRelativePhoneInfo" parameterType="relativePhoneModel">
+		<![CDATA[
+			DELETE FROM tab_relative_phone 
+			WHERE id = #{id} 
+		]]>
+	</delete>
 </mapper>

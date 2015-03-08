@@ -28,42 +28,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 
 		<div class="index_table">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0"
-				class="bPhistory_table" id="familyPhoneTable">
-				<colgroup>
-					<col width="10%">
-						<col width="15%">
-							<col width="25%">
-								<col width="25%">
-									<col width="25%">
-				</colgroup>
-				<tbody>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
+					<tbody>
+						<tr class="even">
+							<th>姓名</th>
+							<th>亲属关系</th>
+							<th>手机号码</th>
+							<th>固定电话</th>
+							<th>联系地址</th>
+							<th style="width: 130px;">操作</th>
+						</tr>
 					<tr>
-						<th>序号</th>
-						<th>姓名</th>
-						<th>手机号码</th>
-						<th>亲属关系</th>
-						<th>操作</th>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>郑烨</td>
-						<td>13867439623</td>
-						<td>其他</td>
-						<td>
-							<a href="javascript:void(0)" onclick="edit_familyPhone(1)"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">编辑</a>
-							<a href="javascript:void(0)" onclick="delete_familyPhone(1)"><img src="<c:url value='/patient/themes/images/phone_del.png'/>">删除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>尹红梅</td>
-						<td>13588193759</td>
-						<td>其他</td>
-						<td>
-							<a href="javascript:void(0)" onclick="edit_familyPhone(1)"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">编辑</a>
-							<a href="javascript:void(0)" onclick="delete_familyPhone(1)"><img src="<c:url value='/patient/themes/images/phone_del.png'/>">删除</a>
-						</td>
+						<c:if test="${not empty relativeFlys }">
+							<c:forEach items="${relativeFlys }" var="relativeItem" varStatus="item">
+								<tr class='<c:if test="${item.index mod 2 == 0 }">abnormal odd</c:if><c:if test="${item.index mod 2 == 1 }">even</c:if>' style="height: 40px;">
+									<td>${relativeItem.name }</td>
+									<td>${relativeItem.typeName }</td>
+									<td>${relativeItem.cellPhone }</td>
+									<td>${relativeItem.tel }</td>
+									<td>${relativeItem.address }</td>
+									<td>
+										<a href="javascript:void(0)" onclick="edit_familyPhone(1)"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">编辑</a>
+										<a href="javascript:void(0)" onclick="delete_familyPhone(1)"><img src="<c:url value='/patient/themes/images/phone_del.png'/>">删除</a>
+									</td>
+								</tr>
+							</c:forEach>
+						</c:if>
 					</tr>
 				</tbody>
 			</table>

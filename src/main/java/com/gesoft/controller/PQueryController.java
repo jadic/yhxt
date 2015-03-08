@@ -25,6 +25,7 @@ import com.gesoft.model.DeviceModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
+import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 import com.gesoft.service.PQueryService;
@@ -231,6 +232,10 @@ public class PQueryController extends BaseController
 			{
 				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
 			}
+			else 
+			{
+				msgModel.setMsg("原始密码修改不正确！");
+			}
 		}
 		catch (Exception e)
 		{
@@ -239,4 +244,155 @@ public class PQueryController extends BaseController
 		return msgModel;
 	}
 	
+	
+	/**
+	 * 描述信息：亲情号码
+	 * 创建时间：2015年3月8日 下午3:50:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/relative.do")
+	public ModelAndView toRelativePhone(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+			
+			//分页加载建议执行结果
+			long recordCount = pQueryService.queryRelativePhoneInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<RelativePhoneModel> argArgs = pQueryService.queryRelativePhoneInfo(query);
+				result.addObject("relativeFlys", argArgs);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toRelativePhone error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：跳进增加与修改亲情号码界面
+	 * 创建时间：2015年3月8日 下午4:30:02
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/mergerelative.do")
+	public ModelAndView toMergeRelative(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+			//修改时加载数据
+			if (query.getId() > 0)
+			{
+				RelativePhoneModel model  = pQueryService.queryRelativePhoneInfoById(query);
+				result.addObject("relative", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toMergeRelative error：", e);
+		}
+		return result;
+	}
+	
+	/**
+	 * 描述信息：增加亲情号码
+	 * 创建时间：2015年3月8日 下午4:20:58
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/addrelative.do")
+	public @ResponseBody MsgModel toAddRelativePhone(RelativePhoneModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if(pQueryService.addRelativePhoneInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toAddRelativePhone error：", e);
+		}
+		return msgModel;
+	}
+	
+	/**
+	 * 描述信息：修改亲情号码
+	 * 创建时间：2015年3月8日 下午4:22:07
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyrelative.do")
+	public @ResponseBody MsgModel toModifyRelativePhone(RelativePhoneModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if(pQueryService.modifyRelativePhoneInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toModifyRelativePhone error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：删除亲情号码
+	 * 创建时间：2015年3月8日 下午4:07:11
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/delRelative.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toDelRelavtivePhone(RelativePhoneModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if (pQueryService.delRelativePhoneInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toDelRelavtivePhone error：", e);
+		}
+		return msgModel;
+	}
 }

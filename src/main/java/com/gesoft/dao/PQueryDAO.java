@@ -10,12 +10,14 @@ package com.gesoft.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
+import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 
@@ -162,5 +164,83 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	public int modifyUserPwdInfo(UserModel model)
 	{
 		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyUserPwdInfo", model);
+	}
+	
+
+	/**
+	 * 描述信息：查询我的亲情号码总数
+	 * 创建时间：2015年3月5日 上午9:28:48
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public long queryRelativePhoneInfoCnt(QueryModel model)
+	{
+		return (Long)getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryRelativePhoneInfoCnt", model);
+	}
+	
+	
+	/**
+	 * 描述信息：分页查询我的亲情号码数据
+	 * 创建时间：2015年3月5日 上午9:29:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<RelativePhoneModel> queryRelativePhoneInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryRelativePhoneInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：根据ID来加载亲情数据
+	 * 创建时间：2015年3月8日 下午4:26:17
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public RelativePhoneModel queryRelativePhoneInfoById(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryRelativePhoneInfoById", model);
+	}
+	
+	
+	/**
+	 * 描述信息：增加亲情号码
+	 * 创建时间：2015年3月8日 下午4:09:44
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addRelativePhoneInfo(RelativePhoneModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addRelativePhoneInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：修改亲情号码
+	 * 创建时间：2015年3月8日 下午4:10:09
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyRelativePhoneInfo(RelativePhoneModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyRelativePhoneInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：删除亲情号码
+	 * 创建时间：2015年3月8日 下午4:08:02
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int delRelativePhoneInfo(RelativePhoneModel model)
+	{
+		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delRelativePhoneInfo", model);
 	}
 }
