@@ -27,6 +27,7 @@ import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.service.PQueryService;
+import com.gesoft.util.SystemUtils;
 
 /**
  * 患者数据查询
@@ -117,6 +118,65 @@ public class PQueryController extends BaseController
 		return result;
 	}
 	
+	
+	/**
+	 * 描述信息：购买服务
+	 * 创建时间：2015年3月8日 上午10:16:20
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/buyService.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel buyservice(ServiceModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			model.setBuyTime(SystemUtils.getCurrentSystemTime());
+			if (pQueryService.modifyBuyServiceInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toService error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：购买设备
+	 * 创建时间：2015年3月8日 上午10:21:53
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/buyDevice.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel buysdevice(DeviceModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			model.setBuyTime(SystemUtils.getCurrentSystemTime());
+			if (pQueryService.modifyBuyDeviceInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toService error：", e);
+		}
+		return msgModel;
+	}
 	
 	/**
 	 * 描述信息：我的设备

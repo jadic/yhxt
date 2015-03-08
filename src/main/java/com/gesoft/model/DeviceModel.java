@@ -23,7 +23,17 @@ public class DeviceModel extends BaseModel
 	private String model;
 	private String sim;
 	private String buyTime;
+	private long buyId;
 	
+	
+	public long getBuyId()
+	{
+		return buyId;
+	}
+	public void setBuyId(long buyId)
+	{
+		this.buyId = buyId;
+	}
 	public String getBuyTime()
 	{
 		return buyTime;

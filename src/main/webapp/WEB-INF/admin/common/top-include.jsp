@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/admin/common/taglibs-include.jsp" %>
 
-<link rel="stylesheet" href="<c:url value='/admin/themes/default/easyui.css'/>" type="text/css"/>
-<link rel="stylesheet" href="<c:url value='/admin/themes/icon.css'/>" type="text/css"/>
+<link rel="stylesheet" href="<c:url value='/common/themes/default/easyui.css'/>" type="text/css"/>
+<link rel="stylesheet" href="<c:url value='/common/themes/icon.css'/>" type="text/css"/>
 <link rel="stylesheet" href="<c:url value='/admin/themes/self/style.css'/>" type="text/css"/>
 <script type="text/javascript" src="<c:url value='/dwr/engine.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/dwr/util.js'/>"></script>
@@ -16,11 +16,11 @@
 
 
 <script type="text/javascript" src="<c:url value='/common/scripts/jquery-1.8.0.min.js'/>" ></script>
-<script type="text/javascript" src="<c:url value='/admin/scripts/jquery.easyui.min.js'/>" ></script>
-<script type="text/javascript" src="<c:url value='/admin/scripts/easyui-lang-zh_CN.js'/>" ></script>
+<script type="text/javascript" src="<c:url value='/common/scripts/jquery.easyui.min.js'/>" ></script>
+<script type="text/javascript" src="<c:url value='/common/scripts/easyui-lang-zh_CN.js'/>" ></script>
 
 <script type="text/javascript" src="<c:url value='/admin/scripts/jquery.autocomplete.js'/>" ></script>
-<script type="text/javascript" src="<c:url value='/admin/scripts/jquery.gesoft-1.1.js'/>" ></script>
+<script type="text/javascript" src="<c:url value='/common/scripts/jquery.gesoft-1.1.js'/>" ></script>
 
 <script type="text/javascript" src="<c:url value='/admin/scripts/common/common.date-1.0.js'/>" ></script>
 <script type="text/javascript" src="<c:url value='/admin/scripts/common/common_validator.js'/>" ></script>

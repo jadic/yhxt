@@ -13,6 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
+	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
 	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
 	<style type="text/css">
 		td{word-break:break-all;}
@@ -24,6 +25,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function queryStart()
 		{
 			$("#inputform").submit();
+		}
+		
+		function buyinfo(obj, id)
+		{
+			PageMain.funOpenProgress();
+			$.ajax({
+				url : _ctx_ + "/p/query/buyService.do?a="+ Math.random(),
+				type : 'post',
+				dataType : 'json',
+				data : 
+				{
+					"id": id
+				},
+				error:function(data)
+				{
+					/**关闭进度条**/
+					PageMain.funCloseProgress();
+					$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
+				},
+				success:function(data)
+				{
+					
+					/**关闭进度条**/
+					PageMain.funCloseProgress();
+					
+					/**数据处理**/
+					if(data.success)
+					{
+						$(obj).parent().html('<span style="color: #2998df; font-weight: bold;">已购买</span>');
+						$.messager.alert('信息提示', data.msg, 'info');
+					}
+					else
+					{
+						$.messager.alert('信息提示', data.msg, 'error');
+					}
+				}
+			});
 		}
 	</script>
   </head>
@@ -70,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td>${serviceItem.memo }</td>
 									<td>
 										<c:if test="${ serviceItem.userId == 0 }">
-											<span style="color: #0ca7a1; font-weight: bold; cursor: pointer;">购买</span>
+											<span style="color: #0ca7a1; font-weight: bold; cursor: pointer;"  onclick="buyinfo(this, '${serviceItem.id}')">购买</span>
 										</c:if>
 										<c:if test="${ serviceItem.userId != 0 }">
 											<span style="color: #2998df; font-weight: bold;">已购买</span>

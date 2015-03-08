@@ -99,7 +99,30 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryServiceInfo", model);
 	}
 	
+
+	/**
+	 * 描述信息：购买服务
+	 * 创建时间：2015年3月8日 上午10:18:38
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyBuyServiceInfo(ServiceModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyBuyServiceInfo", model);
+	}
 	
+	/**
+	 * 描述信息：购买设备
+	 * 创建时间：2015年3月8日 上午10:19:06
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyBuyDeviceInfo(DeviceModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyBuyDeviceInfo", model);
+	}
 
 	
 	/**

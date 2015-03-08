@@ -17,6 +17,7 @@ public class ServiceModel extends BaseModel
 {
 	private static final long serialVersionUID = 5705483179208187468L;
 	private long id;
+	private long buyId; //购买表Id
 	private int type;
 	private String typeName;
 	private String name;
@@ -28,7 +29,25 @@ public class ServiceModel extends BaseModel
 	private String memo;
 	private String icon;
 	private String userName;
+	private String buyTime;
 	
+	
+	public long getBuyId()
+	{
+		return buyId;
+	}
+	public void setBuyId(long buyId)
+	{
+		this.buyId = buyId;
+	}
+	public String getBuyTime()
+	{
+		return buyTime;
+	}
+	public void setBuyTime(String buyTime)
+	{
+		this.buyTime = buyTime;
+	}
 	public String getTypeName()
 	{
 		switch (this.type)

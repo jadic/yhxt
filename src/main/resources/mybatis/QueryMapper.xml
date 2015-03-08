@@ -156,4 +156,19 @@
 		]]>
 	</select>
 	
+	<!-- 购买服务 -->
+	<insert id="QueryMapper.modifyBuyServiceInfo" useGeneratedKeys="true" keyProperty="buyId">
+	    <![CDATA[
+	        INSERT INTO tab_user_service (userId, serviceId, buyTime) 
+	        VALUES (#{userId}, #{id}, #{buyTime})
+	    ]]>
+	</insert>
+	
+	<!-- 购买服务 -->
+	<insert id="QueryMapper.modifyBuyDeviceInfo" useGeneratedKeys="true" keyProperty="buyId">
+	    <![CDATA[
+	        INSERT INTO tab_user_device (userId, deviceId, buyTime) 
+	        VALUES (#{userId}, #{id}, #{buyTime})
+	    ]]>
+	</insert>
 </mapper>

@@ -13,6 +13,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
+	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
+	
 	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
 	<style type="text/css">
 		td{word-break:break-all;}
@@ -27,6 +29,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function queryStart()
 		{
 			$("#inputform").submit();
+		}
+		
+		function buyinfo(obj, id)
+		{
+			PageMain.funOpenProgress();
+			$.ajax({
+				url : _ctx_ + "/p/query/buyDevice.do?a="+ Math.random(),
+				type : 'post',
+				dataType : 'json',
+				data : 
+				{
+					"id": id
+				},
+				error:function(data)
+				{
+					/**关闭进度条**/
+					PageMain.funCloseProgress();
+					$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
+				},
+				success:function(data)
+				{
+					
+					/**关闭进度条**/
+					PageMain.funCloseProgress();
+					
+					/**数据处理**/
+					if(data.success)
+					{
+						$(obj).parent().html('<span style="color: #2998df; font-weight: bold;">已购买</span>');
+						$.messager.alert('信息提示', data.msg, 'info');
+					}
+					else
+					{
+						$.messager.alert('信息提示', data.msg, 'error');
+					}
+				}
+			});
 		}
 	</script>
   </head>
@@ -70,10 +109,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		      	<tr class="even">
 					<th style="width: 18%;">设备类型</th>
 					<th style="width: 18%;">设备编号</th>
-					<th style="width: 18%;">设备型号</th>
-					<th style="width: 18%;">SIM卡号</th>
-					<th style="width: 18%;">购买时间</th>
-					<th style="width: 10%;">操作</th>
+					<th style="width: 17%;">设备型号</th>
+					<th style="width: 17%;">SIM卡号</th>
+					<th style="width: 21%;">购买时间</th>
+					<th style="width: 9%;">操作</th>
 		      	</tr>
 		      	<c:if test="${not empty deviceFlys }">
 							<c:forEach items="${deviceFlys }" var="deviceItem" varStatus="item">
@@ -85,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td>${deviceItem.buyTime }</td>
 									<td>
 										<c:if test="${ deviceItem.userId == 0 }">
-											<span style="color: #0ca7a1; font-weight: bold; cursor: pointer;">购买</span>
+											<span style="color: #0ca7a1; font-weight: bold; cursor: pointer;" onclick="buyinfo(this, '${deviceItem.id}')">购买</span>
 										</c:if>
 										<c:if test="${ deviceItem.userId != 0 }">
 											<span style="color: #2998df; font-weight: bold;">已购买</span>

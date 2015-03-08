@@ -112,6 +112,30 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	
 	
 	/**
+	 * 描述信息：购买服务
+	 * 创建时间：2015年3月8日 上午10:18:38
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyBuyServiceInfo(ServiceModel model)
+	{
+		return pQueryDAO.modifyBuyServiceInfo(model);
+	}
+	
+	/**
+	 * 描述信息：购买设备
+	 * 创建时间：2015年3月8日 上午10:19:06
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyBuyDeviceInfo(DeviceModel model)
+	{
+		return pQueryDAO.modifyBuyDeviceInfo(model);
+	}
+	
+	/**
 	 * 描述信息：查询我的设备总数
 	 * 创建时间：2015年3月5日 上午9:28:48
 	 * @author WCL (ln_admin@yeah.net)

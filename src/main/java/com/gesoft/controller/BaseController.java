@@ -231,7 +231,7 @@ public class BaseController implements Constants
 	 */
 	protected long getSessionUserId(HttpServletRequest request, String sessionKey)
 	{
-		long mUserId = 0L;
+		long mUserId = 1L;
 		HttpSession session = request.getSession();
 		try
 		{
