@@ -13,9 +13,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
+	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
+	
 	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
 	<script type="text/JavaScript">
+		function deleteRelative(obj, id)
+		{
+			$.messager.confirm('确认', "您确认要删除这条记录吗？", function(r)
+			{
+				if (r)
+				{
+					/**打开进度条**/
+					PageMain.funOpenProgress();
+					
+					$.ajax({
+						url : _ctx_ + "/p/query/delRelative.do?a="+ Math.random(),
+						type : 'post',
+						dataType : 'json',
+						data : 
+						{
+							"id": id						
+						},
+						error:function(data)
+						{
+							/**关闭进度条**/
+							PageMain.funCloseProgress();
+							$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
+						},
+						success:function(data)
+						{
+							/**关闭进度条**/
+							PageMain.funCloseProgress();
+							
+							/**数据处理**/
+							if(data.success)
+							{
+								$.messager.alert('信息提示', data.msg, 'info');
+								$(obj).parent().parent().remove();
+							}
+							else
+							{
+								$.messager.alert('信息提示', data.msg, 'error');
+							}
+						}
+					});
+				}
+			});
+		}
 		
+		function mergeRelative(id)
+		{
+			window.location.href = "<c:url value='/p/query/mergerelative.do' />?id=" + id;
+		}
 	</script>
   </head>
 <body>
@@ -23,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="title_BPhistory">
 	    <ul>
 	      <li class="tgreen_title_BPhistory"><span class="tgrey_title_BPhistory">亲情</span>号码</li>
-	      <li class="select_BPhistory"><a href="javascript:void(0)" onclick="add_familyPhone()"><img src="<c:url value='/patient/themes/images/phone_add.png'/>"></a></li>
+	      <li class="select_BPhistory"><a href="javascript:void(0)" onclick="mergeRelative(0)"><img src="<c:url value='/patient/themes/images/phone_add.png'/>"></a></li>
 	    </ul>
 	</div>
 
@@ -48,8 +97,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td>${relativeItem.tel }</td>
 									<td>${relativeItem.address }</td>
 									<td>
-										<a href="javascript:void(0)" onclick="edit_familyPhone(1)"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">编辑</a>
-										<a href="javascript:void(0)" onclick="delete_familyPhone(1)"><img src="<c:url value='/patient/themes/images/phone_del.png'/>">删除</a>
+										<a href="javascript:void(0)" onclick="mergeRelative(${relativeItem.id})"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">编辑</a>
+										<a href="javascript:void(0)" onclick="deleteRelative(this, ${relativeItem.id})"><img src="<c:url value='/patient/themes/images/phone_del.png'/>">删除</a>
 									</td>
 								</tr>
 							</c:forEach>

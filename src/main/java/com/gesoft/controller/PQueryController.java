@@ -292,7 +292,7 @@ public class PQueryController extends BaseController
 	@RequestMapping(value="/mergerelative.do")
 	public ModelAndView toMergeRelative(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
+		ModelAndView result = new ModelAndView("/patient/healthinfo/add_relative_phone_info");
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));

@@ -21,9 +21,8 @@
 
 <script type="text/javascript" src="<c:url value='/admin/scripts/jquery.autocomplete.js'/>" ></script>
 <script type="text/javascript" src="<c:url value='/common/scripts/jquery.gesoft-1.1.js'/>" ></script>
-
-<script type="text/javascript" src="<c:url value='/admin/scripts/common/common.date-1.0.js'/>" ></script>
-<script type="text/javascript" src="<c:url value='/admin/scripts/common/common_validator.js'/>" ></script>
+<script type="text/javascript" src="<c:url value='/common/scripts/common.date-1.0.js'/>" ></script>
+<script type="text/javascript" src="<c:url value='/common/scripts/common_validator.js'/>" ></script>
 <script type="text/javascript" src="<c:url value='/common/scripts/common.dwr-1.0.js'/>" ></script>
 <script type="text/javascript" src="<c:url value='/common/scripts/My97DatePicker/WdatePicker.js'/>" ></script>
 
