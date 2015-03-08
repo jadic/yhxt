@@ -171,4 +171,15 @@
 	        VALUES (#{userId}, #{id}, #{buyTime})
 	    ]]>
 	</insert>
+	
+	<!-- 修改密码 -->
+	<update id="QueryMapper.modifyUserPwdInfo" parameterType="userModel">
+		<![CDATA[
+			UPDATE tab_user  SET  
+			userPass = #{userNewPwd}
+			WHERE userId = #{userId}
+			and userPass = #{userPwd}
+		]]>
+	</update>
+	
 </mapper>

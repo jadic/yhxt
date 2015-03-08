@@ -22,6 +22,7 @@ public class UserModel extends BaseModel
 	private long userId;
 	private String userName;
 	private String userPwd;
+	private String userNewPwd;
 	private String RoleName;
 	private String realName; // 真实姓名
 	private String userTel;
@@ -31,6 +32,15 @@ public class UserModel extends BaseModel
 	// 验证码
 	private String rand;
 	
+	
+	public String getUserNewPwd()
+	{
+		return userNewPwd;
+	}
+	public void setUserNewPwd(String userNewPwd)
+	{
+		this.userNewPwd = userNewPwd;
+	}
 	public long getUserId()
 	{
 		return userId;

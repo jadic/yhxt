@@ -22,6 +22,7 @@ import com.gesoft.model.DeviceModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.ServiceModel;
+import com.gesoft.model.UserModel;
 
 /**
  * @author WCL
@@ -162,4 +163,16 @@ public class PQueryService extends EntityService<BaseModel, Long>
 		return pQueryDAO.queryDeviceInfo(model);
 	}
 	
+	
+	/**
+	 * 描述信息：修改用户密码
+	 * 创建时间：2015年3月8日 上午11:08:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserPwdInfo(UserModel model)
+	{
+		return pQueryDAO.modifyUserPwdInfo(model);
+	}
 }

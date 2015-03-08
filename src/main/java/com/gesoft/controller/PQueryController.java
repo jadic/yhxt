@@ -26,6 +26,7 @@ import com.gesoft.model.MsgModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.ServiceModel;
+import com.gesoft.model.UserModel;
 import com.gesoft.service.PQueryService;
 import com.gesoft.util.SystemUtils;
 
@@ -220,12 +221,16 @@ public class PQueryController extends BaseController
 	 * @return
 	 */
 	@RequestMapping(value="/updatePwd.do", method=RequestMethod.POST)
-	public @ResponseBody MsgModel toModifyPwd(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	public @ResponseBody MsgModel toModifyPwd(UserModel model, HttpServletRequest request, HttpServletResponse response)
 	{
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if (pQueryService.modifyUserPwdInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
 		}
 		catch (Exception e)
 		{
