@@ -9,6 +9,7 @@
 		<typeAlias alias="serviceModel" type="com.gesoft.model.ServiceModel" />
 		<typeAlias alias="outModel" type="com.gesoft.model.OutModel" />
 		<typeAlias alias="queryModel" type="com.gesoft.model.QueryModel" />
+		<typeAlias alias="relativePhoneModel" type="com.gesoft.model.RelativePhoneModel" />
 	</typeAliases>
 	<mappers></mappers>
 </configuration>
