@@ -268,6 +268,7 @@ public class PQueryService extends EntityService<BaseModel, Long>
 		return pQueryDAO.queryUserBaseInfo(model);
 	}
 	
+	
 	/**
 	 * 描述信息：修改用户基本信息
 	 * 创建时间：2015年3月8日 下午6:06:12
@@ -275,12 +276,40 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	 * @param model
 	 * @return
 	 */
-	public long modifyUserBaseInfo(UserModel model)
+	public int modifyUserBaseInfo(UserModel model)
 	{
 		//删除原有数据
-		pQueryDAO.delUserBaseInfo(model);
+		//pQueryDAO.delUserBaseInfo(model);
 		
 		//新增用户基本数据
-		return pQueryDAO.addUserBaseInfo(model);
+		//return pQueryDAO.addUserBaseInfo(model);
+		return pQueryDAO.modifyUserBaseInfo(model);
 	}
+	
+	
+	/**
+	 * 描述信息：修改用户详细信息
+	 * 创建时间：2015年3月8日 下午10:24:53
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserDetailInfo(UserModel model)
+	{
+		return pQueryDAO.modifyUserDetailInfo(model);
+	}
+	
+	
+	/**
+	 * 描述信息：修改用户工作信息
+	 * 创建时间：2015年3月8日 下午10:29:56
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserWorkInfo(UserModel model)
+	{
+		return pQueryDAO.modifyUserWorkInfo(model);
+	}
+	
 }

@@ -15,4 +15,12 @@
 			FROM tab_dict_device_type A
 		]]>
 	</select>
+	
+	<!--加载字典 -->
+	<select id="DwrMapper.queryDictInfo" parameterType="dictModel"	resultMap="mRetDwrMap">
+		<![CDATA[
+			SELECT A.id AS msgKey, A.name AS msgVal
+			FROM ${tableName} A
+		]]>
+	</select>
 </mapper>

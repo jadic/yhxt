@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.DictModel;
 import com.gesoft.model.DwrModel;
 
 /**
@@ -39,6 +40,19 @@ public class DwrDAO extends EntityDAOImpl<BaseModel, Long>
 	public List<DwrModel> queryDevTypeInfo()
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace()+".queryDevTypeInfo");
+	}
+	
+	
+	/**
+	 * 描述信息：加载字段，根据表名来加载
+	 * 创建时间：2015年3月8日 下午10:37:23
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param strTableName
+	 * @return
+	 */
+	public List<DwrModel> queryDictInfo(DictModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace()+".queryDictInfo", model);
 	}
 	
 }

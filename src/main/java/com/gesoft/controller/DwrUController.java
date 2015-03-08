@@ -114,5 +114,26 @@ public class DwrUController
 		return mRetMap;
 	}
 	
-
+	
+	/**
+	 * 描述信息：加载字典数据
+	 * 创建时间：2015年3月8日 下午10:34:15
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param type
+	 * @return
+	 */
+	@RemoteMethod
+	public Map<?, ?> loadDictInfo(int type)
+	{
+		LinkedHashMap<?, ?> mRetMap = null;
+		try
+		{
+			mRetMap = dwrService.queryDictInfo(type);
+		}
+		catch (Exception e)
+		{
+			logger.error("DwrUController loadDictInfo error：", e);
+		}
+		return mRetMap;
+	}
 }

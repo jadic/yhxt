@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gesoft.dao.DwrDAO;
+import com.gesoft.model.DictModel;
 import com.gesoft.model.DwrModel;
 
 /**
@@ -42,6 +43,61 @@ public class DwrService
 	{
 		return funDealDwrInfo(dwrDAO.queryDevTypeInfo());
 	}
+	
+	
+	/**
+	 * 描述信息：加载字典数据
+	 * 创建时间：2015年3月8日 下午10:35:09
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param type
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public LinkedHashMap<String, String> queryDictInfo(int type)
+	{
+		String strTableName = "tab_";
+		switch (type)
+		{
+			case 1: // 证件类型
+				strTableName = "tab_dict_credential";
+				break;
+				
+			case 2: // 民族
+				strTableName = "tab_dict_nationality";
+				break;
+				
+			case 3: // 婚姻状态
+				strTableName = "tab_dict_marriage_status";
+				break;
+				
+			case 4: // 户籍类型
+				strTableName = "tab_dict_household";
+				break;
+				
+			case 5: // 学历
+				strTableName = "tab_dict_education";
+				break;	
+				
+			case 6: // 政治面貌
+				strTableName = "tab_dict_politicsStatus";
+				break;	
+				
+			case 7: // 工作年限
+				strTableName = "tab_dict_workingage";
+				break;	
+				
+			case 8: // 薪资范围
+				strTableName = "tab_dict_salary";
+				break;		
+			default:
+				break;
+		}
+		DictModel model = new DictModel();
+		model.setTableName(strTableName);
+		return funDealDwrInfo(dwrDAO.queryDictInfo(model));
+	}
+	
+	
 	
 	/**
 	 * 描述信息：处理公共部分

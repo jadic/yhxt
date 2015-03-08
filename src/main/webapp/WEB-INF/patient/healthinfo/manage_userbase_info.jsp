@@ -13,9 +13,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
+	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
+	
 	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
 	<script type="text/JavaScript">
-		
+		$(function(){
+			$('.text-input').attr("disabled", "disabled");
+		});
+		function edit_baseinfo(obj, type)
+		{
+			if($(obj).attr("tag") == "false")
+			{
+				$(obj).parent().parent().parent().next().find(".text-input").attr("disabled", false);
+				$(obj).children().attr("src", "<c:url value='/patient/themes/images/btn_preserve.png'/>");
+				$(obj).attr("tag", "true");
+			}
+			else
+			{
+				$(obj).parent().parent().parent().next().find(".text-input").attr("disabled", "disabled");
+				$(obj).children().attr("src", "<c:url value='/patient/themes/images/btn_editor.png'/>");
+				$(obj).attr("tag", "false");
+			}	
+			
+		}
 	</script>
   </head>
 <body>
@@ -25,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div class="btn_title_informationModify">
           <ul>
             <li class="tLeft">基本信息</li>
-            <li class="tRight"><a href="javascript:void(0)" onclick="edit_baseinfo(this)"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></li>
+            <li class="tRight"><a href="javascript:void(0)" onclick="edit_baseinfo(this, 1)" tag="false"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></li>
           </ul>
         </div>
         <div class="informationModify_main">
@@ -46,8 +66,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			<td align="left">
 	    				<select class="selectMax_informationModify  text-input validate[required]" id="sex" name="sex">
 		                   <option value="">请选择</option>
-			               <option value="0">男</option>
-			               <option value="1">女</option>
+			               <option value="1" <c:if test="${userModel.gender == 1}">selected="selected"</c:if>>男</option>
+			               <option value="2" <c:if test="${userModel.gender == 1}">selected="selected"</c:if>>女</option>
 		               </select>
 	    			</td>
 	    		</tr>
@@ -56,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				出生日期：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
+	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="birthdate" name="birthdate" maxlength="16" value="${userModel.birthdate }">
 	    			</td>
 	    		</tr>
 	    		<tr>
@@ -64,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				手机号码：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
+	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="cellphone" name="cellphone" maxlength="11" value="${userModel.cellphone }">
 	    			</td>
 	    		</tr>
 	    		<tr>
@@ -72,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				电子邮箱：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
+	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="email" name="email" maxlength="40" value="${userModel.email }">
 	    			</td>
 	    		</tr>
 	    	</table>
@@ -82,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="btn_title_informationModify">
           <ul>
             <li class="tLeft">详细信息</li>
-            <li class="tRight"><a href="javascript:void(0)" onclick="edit_baseinfo(this)"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></li>
+            <li class="tRight"><a href="javascript:void(0)" onclick="edit_baseinfo(this, 2)" tag="false"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></li>
           </ul>
         </div>
         <div class="informationModify_main">
@@ -193,7 +213,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <div class="btn_title_informationModify">
           <ul>
             <li class="tLeft">工作信息</li>
-            <li class="tRight"><a href="javascript:void(0)" onclick="edit_baseinfo(this)"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></li>
+            <li class="tRight"><a href="javascript:void(0)" onclick="edit_baseinfo(this, 3)" tag="false"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></li>
           </ul>
         </div>
         <div class="informationModify_main">

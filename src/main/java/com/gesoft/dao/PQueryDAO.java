@@ -279,4 +279,42 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	{
 		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addUserBaseInfo", model);
 	}
+	
+	/**
+	 * 描述信息：修改用户基础信息
+	 * 创建时间：2015年3月8日 下午10:20:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserBaseInfo(UserModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyUserBaseInfo", model);
+	}
+	
+	/**
+	 * 描述信息：修改用户详细信息
+	 * 创建时间：2015年3月8日 下午10:24:53
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserDetailInfo(UserModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyUserDetailInfo", model);
+	}
+	
+	
+
+	/**
+	 * 描述信息：修改用户工作信息
+	 * 创建时间：2015年3月8日 下午10:29:56
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserWorkInfo(UserModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyUserWorkInfo", model);
+	}
 }

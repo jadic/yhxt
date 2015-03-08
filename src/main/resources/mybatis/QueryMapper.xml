@@ -322,4 +322,55 @@
 			WHERE userId = #{userId} 
 		]]>
 	</delete>
+	
+	<!-- 修改用户基础信息 -->
+	<update id="QueryMapper.modifyUserBaseInfo" parameterType="userModel">
+		<![CDATA[
+			UPDATE tab_user_info  SET  
+			name = #{name},
+			gender = #{gender},
+			birthdate = #{birthdate},
+			cellphone = #{cellphone},
+			email = #{email},
+			photo=#{photo}
+			WHERE userId = #{userId}
+		]]>
+	</update>
+	
+	
+	<!-- 修改用户详细信息 -->
+	<update id="QueryMapper.modifyUserDetailInfo" parameterType="userModel">
+		<![CDATA[
+			UPDATE tab_user_info  SET  
+			credentialType = #{credentialType},
+			credentialNo = #{credentialNo},
+			isSoldier = #{isSoldier},
+			isDisablity = #{isDisablity},
+			height = #{height},
+			weight=#{weight},
+			nationality=#{nationality},
+			nativePlace=#{nativePlace},
+			marriageStatus=#{marriageStatus},
+			householdType=#{householdType},
+			education=#{education},
+			policticsStatus=#{policticsStatus},
+			homeAddress=#{homeAddress},
+			homePhone=#{homePhone}
+			WHERE userId = #{userId}
+		]]>
+	</update>
+
+
+	<!-- 修改用户工作信息 -->
+	<update id="QueryMapper.modifyUserWorkInfo" parameterType="userModel">
+		<![CDATA[
+			UPDATE tab_user_info  SET  
+			workingAge = #{workingAge},
+			salary = #{salary},
+			companyName = #{companyName},
+			companyAddress = #{companyAddress}
+			WHERE userId = #{userId}
+		]]>
+	</update>
+	
 </mapper>
