@@ -31,7 +31,18 @@
 		<result property="userId"  					column="userId"/>
 	</resultMap>
 	
-				
+	<!-- 加载设备 -->
+	<resultMap id="mRetDeviceMap" 					type="deviceModel">
+		<result property="id"  						column="deviceId"/>
+		<result property="type"  					column="deviceType"/>
+		<result property="typeName"  				column="name"/>
+		<result property="model"  					column="deviceModel"/>
+		<result property="no"  						column="deviceNo"/>
+		<result property="sim"  					column="deviceSim"/>
+		<result property="buyTime"  				column="buyTime"/>
+		<result property="userId"  					column="userId"/>
+	</resultMap>		
+		
 	<!-- 加载最新一条建议 -->
 	<select id="QueryMapper.queryAdviceInfo" 	parameterType="queryModel"	resultMap="mRetAdviceOneMap">
 		<![CDATA[
@@ -99,5 +110,50 @@
 	</select>
 	
 	
+	<!-- 查询我的设备总数 -->
+	<select id="QueryMapper.queryDeviceInfoCnt" 	parameterType="queryModel"	resultType="long">
+		<![CDATA[
+			select count(1) as cnt  
+			from tab_device a1
+			inner join tab_dict_device_type a2 on a1.deviceType=a2.id
+			left join tab_user_device a3 on a3.deviceId=a1.deviceId and a3.userId=#{userId}
+		]]>
+		<where>	
+	        <if test="adviceType != null and adviceType > 0">
+				AND a1.deviceType  = #{adviceType}
+	        </if>
+	        <if test="type != null and type == 0">
+				AND IFNULL(a3.userId, 0)  = #{type}
+	        </if>
+	        <if test="type != null and type > 0">
+				AND IFNULL(a3.userId, 0)  = 1
+	        </if>
+		</where>
+	</select>
+	
+	<!-- 分页加载我的设备数据 -->
+	<select id="QueryMapper.queryDeviceInfo" 	parameterType="queryModel"	resultMap="mRetDeviceMap">
+		<![CDATA[
+			select a1.deviceId, a1.deviceType, a1.deviceModel, a1.deviceNo, a1.deviceSim, a2.name, IFNULL(a3.userId, 0) as userId, IFNULL(a3.buyTime, '-') as buyTime
+			from tab_device a1
+			inner join tab_dict_device_type a2 on a1.deviceType=a2.id
+			left join tab_user_device a3 on a3.deviceId=a1.deviceId and a3.userId=#{userId}
+		]]>
+		<where>	
+	        <if test="adviceType != null and adviceType > 0">
+				AND a1.deviceType  = #{adviceType}
+	        </if>
+	        <if test="type != null and type == 0">
+				AND IFNULL(a3.userId, 0)  = #{type}
+	        </if>
+	        <if test="type != null and type > 0">
+				AND IFNULL(a3.userId, 0)  = 1
+	        </if>
+		</where>
+		<![CDATA[
+			order by a1.deviceModel
+			limit #{startNum}, #{rows}
+		]]>
+	</select>
 	
 </mapper>

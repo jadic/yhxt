@@ -18,6 +18,7 @@ import com.gesoft.common.EntityDAO;
 import com.gesoft.common.EntityService;
 import com.gesoft.dao.PQueryDAO;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.DeviceModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.ServiceModel;
@@ -132,7 +133,7 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	 * @return
 	 */
 	@Transactional(readOnly=true)
-	public List<OutModel> queryDeviceInfo(QueryModel model)
+	public List<DeviceModel> queryDeviceInfo(QueryModel model)
 	{
 		return pQueryDAO.queryDeviceInfo(model);
 	}

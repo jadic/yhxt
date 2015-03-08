@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gesoft.model.DeviceModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
@@ -137,7 +138,7 @@ public class PQueryController extends BaseController
 			if(recordCount>0)
 			{
 				setPageModel(recordCount, query);
-				List<OutModel> argArgs = pQueryService.queryDeviceInfo(query);
+				List<DeviceModel> argArgs = pQueryService.queryDeviceInfo(query);
 				result.addObject("deviceFlys", argArgs);
 			}
 		}

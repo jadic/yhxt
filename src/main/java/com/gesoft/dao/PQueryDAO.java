@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.DeviceModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.ServiceModel;
@@ -121,7 +122,7 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	 * @param model
 	 * @return
 	 */
-	public List<OutModel> queryDeviceInfo(QueryModel model)
+	public List<DeviceModel> queryDeviceInfo(QueryModel model)
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryDeviceInfo", model);
 

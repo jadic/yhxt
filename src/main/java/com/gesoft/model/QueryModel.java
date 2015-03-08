@@ -19,8 +19,17 @@ public class QueryModel extends BaseModel
 	private long id;
 	private String name;
 	private int adviceType;
+	private int type;
 	
 	
+	public int getType()
+	{
+		return type;
+	}
+	public void setType(int type)
+	{
+		this.type = type;
+	}
 	public String getName()
 	{
 		return name;

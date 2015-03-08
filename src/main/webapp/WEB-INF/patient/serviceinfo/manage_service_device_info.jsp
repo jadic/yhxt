@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <div class="tab_menu">
       <ul>
         <li class="selected"><a style="width:166px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/query/service.do'/>" target="indexFrame" title="基本信息" >我的服务</a></li>
-        <li><a style="width:166px; height: 48px; display:block; text-decoration:none;color:#fff; " href="<c:url value='/p/query/device.do'/>" target="indexFrame" title="健康病历">我的设备</a></li>
+        <li><a style="width:166px; height: 48px; display:block; text-decoration:none;color:#fff; " href="<c:url value='/p/query/device.do'/>?deviceType=-1&type=-1" target="indexFrame" title="健康病历">我的设备</a></li>
       </ul>
    </div>
    <div class="tab_box" >
