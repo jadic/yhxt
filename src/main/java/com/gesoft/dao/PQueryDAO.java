@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.DeviceModel;
+import com.gesoft.model.HabbitModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
@@ -316,5 +317,43 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	public int modifyUserWorkInfo(UserModel model)
 	{
 		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyUserWorkInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：加载生活习惯
+	 * 创建时间：2015年3月9日 上午12:21:18
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public HabbitModel queryHabbitInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHabbitInfo", model);
+	}
+	
+	/**
+	 * 描述信息：增加生活习惯
+	 * 创建时间：2015年3月9日 上午12:25:25
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addHabbitInfo(HabbitModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addHabbitInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：修改生活习惯
+	 * 创建时间：2015年3月9日 上午12:17:45
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyHabbitInfo(HabbitModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyHabbitInfo", model);
 	}
 }

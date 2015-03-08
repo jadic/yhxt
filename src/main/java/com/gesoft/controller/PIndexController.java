@@ -52,19 +52,6 @@ public class PIndexController extends BaseController
 	}
 	
 	/**
-	 * 描述信息：生活习惯
-	 * 创建时间：2015年3月4日 下午10:28:48
-	 * @author WCL (ln_admin@yeah.net)
-	 * @return
-	 */
-	@RequestMapping(value="/memberhabit.do")
-	public String toMemberHabit()
-	{
-		return "/patient/healthinfo/manage_memberhabit_info";
-	}
-	
-	
-	/**
 	 * 描述信息：家族遗传史
 	 * 创建时间：2015年3月4日 下午10:30:11
 	 * @author WCL (ln_admin@yeah.net)

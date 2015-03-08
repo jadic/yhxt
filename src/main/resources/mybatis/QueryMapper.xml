@@ -87,7 +87,25 @@
 		<result property="photo"  					column="photo"/>
 	</resultMap>
 	
-		
+	
+	<!-- 查询亲情号码 -->
+	<resultMap id="mRetHabbitMap" 					type="habbitModel">
+		<result property="id"  						column="id"/>
+		<result property="userId"  					column="userId"/>
+		<result property="workType"  				column="workType"/>
+		<result property="workPressure"  			column="workPressure"/>
+		<result property="bloodType"  				column="bloodType"/>
+		<result property="weight"  					column="weight"/>
+		<result property="waist"  					column="waist"/>
+		<result property="smokeType"  				column="smokeType"/>
+		<result property="smokeFrequency"  			column="smokeFrequency"/>
+		<result property="drinkFrequency"  			column="drinkFrequency"/>
+		<result property="drinkType"  				column="drinkType"/>
+		<result property="exerciseFrequency"  		column="exerciseFrequency"/>
+		<result property="exerciseDuration"  		column="exerciseDuration"/>
+		<result property="sleepDuration"  			column="sleepDuration"/>
+	</resultMap>
+	
 	<!-- 加载最新一条建议 -->
 	<select id="QueryMapper.queryAdviceInfo" 	parameterType="queryModel"	resultMap="mRetAdviceOneMap">
 		<![CDATA[
@@ -373,4 +391,42 @@
 		]]>
 	</update>
 	
+	
+	<!-- 加载生活习惯数据 -->
+	<select id="QueryMapper.queryHabbitInfo" 	parameterType="queryModel"	resultMap="mRetHabbitMap">
+		<![CDATA[
+			select a1.*
+			from tab_habbit a1
+			where a1.userId=#{userId}
+		]]>
+	</select>
+	
+	<!-- 增加生活习惯 -->
+	<insert id="QueryMapper.addHabbitInfo"  parameterType="habbitModel"  useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_habbit (userId) 
+	        VALUES (#{userId})
+	    ]]>
+	</insert>
+	
+	<!-- 修改生活习惯 -->
+	<update id="QueryMapper.modifyHabbitInfo" parameterType="habbitModel">
+		<![CDATA[
+			UPDATE tab_habbit  SET  
+			workType = #{workType},
+			workPressure = #{workPressure},
+			bloodType = #{bloodType},
+			weight = #{weight},
+			waist = #{waist},
+			smokeType = #{smokeType},
+			smokeFrequency = #{smokeFrequency},
+			drinkFrequency = #{drinkFrequency},
+			drinkType = #{drinkType},
+			exerciseFrequency = #{exerciseFrequency},
+			exerciseDuration = #{exerciseDuration},
+			sleepDuration = #{sleepDuration}
+			WHERE userId = #{userId}
+		]]>
+	</update>
+		
 </mapper>

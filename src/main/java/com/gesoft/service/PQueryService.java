@@ -19,6 +19,7 @@ import com.gesoft.common.EntityService;
 import com.gesoft.dao.PQueryDAO;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.DeviceModel;
+import com.gesoft.model.HabbitModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
@@ -310,6 +311,39 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	public int modifyUserWorkInfo(UserModel model)
 	{
 		return pQueryDAO.modifyUserWorkInfo(model);
+	}
+	
+	
+	/**
+	 * 描述信息：
+	 * 创建时间：2015年3月9日 上午12:21:18
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public HabbitModel queryHabbitInfo(QueryModel model)
+	{
+		HabbitModel mRetModel = pQueryDAO.queryHabbitInfo(model);
+		if (mRetModel == null)
+		{
+			mRetModel = new HabbitModel();
+			mRetModel.setUserId(model.getUserId());
+			pQueryDAO.addHabbitInfo(mRetModel);
+		}
+		return mRetModel;
+	}
+	
+	
+	/**
+	 * 描述信息：修改生活习惯
+	 * 创建时间：2015年3月9日 上午12:17:45
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyHabbitInfo(HabbitModel model)
+	{
+		return pQueryDAO.modifyHabbitInfo(model);
 	}
 	
 }

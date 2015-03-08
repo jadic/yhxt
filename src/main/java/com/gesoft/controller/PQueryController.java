@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.DeviceModel;
+import com.gesoft.model.HabbitModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
@@ -429,6 +430,7 @@ public class PQueryController extends BaseController
 		return result;
 	}
 	
+	
 	/**
 	 * 描述信息：修改用户基本信息
 	 * 创建时间：2015年3月8日 下午6:04:33
@@ -513,5 +515,72 @@ public class PQueryController extends BaseController
 			logger.error("PQueryController toModifyUserWork error：", e);
 		}
 		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：修改生活习惯
+	 * 创建时间：2015年3月9日 上午12:16:31
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyHabbit.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toModifyHabbit(HabbitModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if (pQueryService.modifyHabbitInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toModifyHabbit error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：加载生活习惯
+	 * 创建时间：2015年3月8日 下午6:00:08
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+
+	/**
+	 * 描述信息：生活习惯
+	 * 创建时间：2015年3月4日 下午10:28:48
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/memberhabit.do")
+	public ModelAndView toMemberHabit(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_memberhabit_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			//加载用户基本信息
+			HabbitModel model  = pQueryService.queryHabbitInfo(query);
+			if (model != null)
+			{
+				result.addObject("habbit", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toUserBase error：", e);
+		}
+		return result;
 	}
 }

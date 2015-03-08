@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var iframe_map = {0:"memberHabitIframe",1:"memberFamilyDiseaseIframe",
 											2:"memberHtComplicationIframe",3:"memberIllnessHistoryIframe",4:"memberHtSpecialIframe",
 											5:"memberMedicalExamintaionIframe"};
-			var page_map = {0:"memberhabit.do",1:"familydisease.do",
+			var page_map = {0:"query/memberhabit.do",1:"familydisease.do",
 											2:"memberhtcomplication",3:"diseasehis.do",4:"memberhtspecial",
 											5:"medicalexamination"};
 			$div_hrli.click(function(){	
@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="tab_healthRecords_box">
        	
       <div>
-      		<iframe id="memberHabitIframe"  name = "memberHabitIframe" src="<c:url value='/p/memberhabit.do'/>"  frameborder="0" width="100%"  scrolling="no"   height="350px" ></iframe>
+      		<iframe id="memberHabitIframe"  name = "memberHabitIframe" src="<c:url value='/p/query/memberhabit.do'/>"  frameborder="0" width="100%"  scrolling="no"   height="350px" ></iframe>
       </div>
       
       <div class="hide_healthRecords">
