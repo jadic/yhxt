@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50022
 File Encoding         : 65001
 
-Date: 2015-03-03 15:21:33
+Date: 2015-03-09 02:12:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -147,6 +147,10 @@ CREATE TABLE `tab_dict_doctor_advice_type` (
 -- ----------------------------
 -- Records of tab_dict_doctor_advice_type
 -- ----------------------------
+INSERT INTO tab_dict_doctor_advice_type VALUES ('1', '1', '用药建议');
+INSERT INTO tab_dict_doctor_advice_type VALUES ('2', '2', '饮食建议');
+INSERT INTO tab_dict_doctor_advice_type VALUES ('3', '3', '运动建议');
+INSERT INTO tab_dict_doctor_advice_type VALUES ('4', '4', '就诊建议');
 
 -- ----------------------------
 -- Table structure for `tab_dict_education`
@@ -217,6 +221,7 @@ CREATE TABLE `tab_dict_nationality` (
 -- ----------------------------
 -- Records of tab_dict_nationality
 -- ----------------------------
+INSERT INTO tab_dict_nationality VALUES ('1', '汉族');
 
 -- ----------------------------
 -- Table structure for `tab_dict_politicsstatus`
@@ -231,10 +236,10 @@ CREATE TABLE `tab_dict_politicsstatus` (
 -- ----------------------------
 -- Records of tab_dict_politicsstatus
 -- ----------------------------
-INSERT INTO tab_dict_politicsStatus VALUES ('1', '中共党员');
-INSERT INTO tab_dict_politicsStatus VALUES ('2', '共青团员');
-INSERT INTO tab_dict_politicsStatus VALUES ('3', '民主党派成员');
-INSERT INTO tab_dict_politicsStatus VALUES ('4', '群众');
+INSERT INTO tab_dict_politicsstatus VALUES ('1', '中共党员');
+INSERT INTO tab_dict_politicsstatus VALUES ('2', '共青团员');
+INSERT INTO tab_dict_politicsstatus VALUES ('3', '民主党派成员');
+INSERT INTO tab_dict_politicsstatus VALUES ('4', '群众');
 
 -- ----------------------------
 -- Table structure for `tab_dict_salary`
@@ -330,6 +335,8 @@ CREATE TABLE `tab_doctor_advice` (
 -- ----------------------------
 -- Records of tab_doctor_advice
 -- ----------------------------
+INSERT INTO tab_doctor_advice VALUES ('1', '1', '1', '2015-03-05 22:51:31', '11111');
+INSERT INTO tab_doctor_advice VALUES ('2', '1', '2', '2015-03-04 22:51:42', '222222');
 
 -- ----------------------------
 -- Table structure for `tab_doctor_advice_performace`
@@ -340,12 +347,17 @@ CREATE TABLE `tab_doctor_advice_performace` (
   `doctorAdviceId` int(12) default NULL,
   `doctorAdvicePerformace` varchar(500) default NULL,
   `recordTime` datetime default NULL,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  KEY `index_doctor_advice_performace` (`doctorAdviceId`,`recordTime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tab_doctor_advice_performace
 -- ----------------------------
+INSERT INTO tab_doctor_advice_performace VALUES ('1', '1', '2222', '2015-03-04 22:59:31');
+INSERT INTO tab_doctor_advice_performace VALUES ('2', '1', '2212121', '2015-03-05 22:59:42');
+INSERT INTO tab_doctor_advice_performace VALUES ('3', '2', '21212121212', '2015-03-03 23:34:46');
+INSERT INTO tab_doctor_advice_performace VALUES ('4', '1', '333333333333333333333', '2015-03-02 23:34:58');
 
 -- ----------------------------
 -- Table structure for `tab_genetic_disease`
@@ -365,6 +377,7 @@ CREATE TABLE `tab_genetic_disease` (
 -- ----------------------------
 -- Records of tab_genetic_disease
 -- ----------------------------
+INSERT INTO tab_genetic_disease VALUES ('1', '1', '2', '1', '2', '2', '1');
 
 -- ----------------------------
 -- Table structure for `tab_habbit`
@@ -379,9 +392,9 @@ CREATE TABLE `tab_habbit` (
   `weight` tinyint(4) default NULL,
   `waist` tinyint(4) default NULL,
   `smokeType` tinyint(4) default NULL,
-  `somkeFrequency` tinyint(4) default NULL,
+  `smokeFrequency` tinyint(4) default NULL,
   `drinkFrequency` tinyint(4) default NULL,
-  `diinkType` tinyint(4) default NULL,
+  `drinkType` tinyint(4) default NULL,
   `exerciseFrequency` tinyint(4) default NULL,
   `exerciseDuration` tinyint(4) default NULL,
   `sleepDuration` tinyint(4) default NULL,
@@ -391,6 +404,7 @@ CREATE TABLE `tab_habbit` (
 -- ----------------------------
 -- Records of tab_habbit
 -- ----------------------------
+INSERT INTO tab_habbit VALUES ('2', '1', '2', '2', '2', '2', '2', '2', '2', '2', '2', '3', '6', '4');
 
 -- ----------------------------
 -- Table structure for `tab_hospital`
@@ -511,6 +525,9 @@ CREATE TABLE `tab_relative_phone` (
 -- ----------------------------
 -- Records of tab_relative_phone
 -- ----------------------------
+INSERT INTO tab_relative_phone VALUES ('1', '1', '12', '1', '12', '12', '12');
+INSERT INTO tab_relative_phone VALUES ('2', '1', '12121', '1', '1', '1', '121212');
+INSERT INTO tab_relative_phone VALUES ('5', '1', '33333', '3', '222', '333', '444');
 
 -- ----------------------------
 -- Table structure for `tab_service`
@@ -643,6 +660,7 @@ CREATE TABLE `tab_user_device` (
 -- ----------------------------
 -- Records of tab_user_device
 -- ----------------------------
+INSERT INTO tab_user_device VALUES ('6', '1', '2', '2015-03-08 11:00:40');
 
 -- ----------------------------
 -- Table structure for `tab_user_info`
@@ -659,8 +677,8 @@ CREATE TABLE `tab_user_info` (
   `credentialNo` varchar(50) default NULL,
   `isSoldier` tinyint(4) default NULL,
   `isDisablity` tinyint(4) default NULL,
-  `height` tinyint(4) default NULL,
-  `weight` tinyint(4) default NULL,
+  `height` int(4) default NULL,
+  `weight` int(4) default NULL,
   `nationality` tinyint(4) default NULL,
   `nativePlace` varchar(80) default NULL,
   `marriageStatus` tinyint(4) default NULL,
@@ -680,6 +698,7 @@ CREATE TABLE `tab_user_info` (
 -- ----------------------------
 -- Records of tab_user_info
 -- ----------------------------
+INSERT INTO tab_user_info VALUES ('1', '332', '2', '2015-03-08', '13777777', '84305988', '1', '3408', '1', '1', '175', '75', '1', '抚顺', '1', '2', '2', '1', '137', '江宁', '2', '2', '通用', '光华路', '');
 
 -- ----------------------------
 -- Table structure for `tab_user_nurse_relation`
@@ -709,3 +728,7 @@ CREATE TABLE `tab_user_service` (
 -- ----------------------------
 -- Records of tab_user_service
 -- ----------------------------
+INSERT INTO tab_user_service VALUES ('1', '1', '4', '2015-03-08 11:03:46');
+INSERT INTO tab_user_service VALUES ('2', '1', '2', '2015-03-08 11:03:52');
+INSERT INTO tab_user_service VALUES ('3', '1', '0', '2015-03-08 23:12:54');
+INSERT INTO tab_user_service VALUES ('4', '1', '0', '2015-03-08 23:13:35');
