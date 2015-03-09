@@ -20,6 +20,7 @@ import com.gesoft.dao.AppDAO;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
+import com.gesoft.model.UserModel;
 
 /**
  * @author WCL
@@ -65,5 +66,15 @@ public class AppService extends EntityService<BaseModel, Long>
 	public List<RelativePhoneModel> queryRelativePhoneInfo(QueryModel model)
 	{
 		return appDAO.queryRelativePhoneInfo(model);
+	}
+	
+	/**
+	 * 查询用户信息
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public UserModel queryUserInfo(QueryModel model) {
+	    return appDAO.queryUserInfo(model);
 	}
 }

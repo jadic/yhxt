@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
+import com.gesoft.model.UserModel;
 import com.gesoft.service.AppService;
 
 
@@ -64,12 +65,27 @@ public class AppController extends BaseController
 					msgModel.setRows(argArgs);
 				}
 			}
-		
 		}
 		catch (Exception e)
 		{
 			logger.error("AppController relativePhone error：", e);
 		}
 		return msgModel;
+	}
+	
+	/**
+	 * 查询用户信息
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/getUserInfo.do")
+	public @ResponseBody UserModel queryUserInfo(QueryModel model) {
+	    UserModel userModel = null;
+	    try {
+	        userModel = appService.queryUserInfo(model);
+	    } catch (Exception e){
+	        logger.error("AppController getUserInfo error:", e);
+	    }
+	    return userModel;
 	}
 }

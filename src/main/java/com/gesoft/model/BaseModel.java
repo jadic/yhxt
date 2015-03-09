@@ -30,6 +30,8 @@ public class BaseModel implements Serializable
 	// 用户相关
 	private long userId; // 用户ID
 	private int userType; // 用户类型；0平台用户；1系统用户
+	private String userName;//用户登录名
+	private String userPass;//用户登录密码
 	
 	// 分页传入参数
 	private int page = 1; // 当前页号
@@ -80,7 +82,20 @@ public class BaseModel implements Serializable
 	{
 		this.userId = userId;
 	}
-	public int getUserType()
+	
+	public String getUserName() {
+        return userName;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public String getUserPass() {
+        return userPass;
+    }
+    public void setUserPass(String userPass) {
+        this.userPass = userPass;
+    }
+    public int getUserType()
 	{
 		return userType;
 	}

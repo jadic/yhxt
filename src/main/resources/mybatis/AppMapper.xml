@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AppMapper">
 	
-	
 	<!-- 查询亲情号码 -->
 	<resultMap id="mRelativePhoneMap" 				type="relativePhoneModel">
 		<result property="id"  						column="id"/>
@@ -13,7 +12,31 @@
 		<result property="tel"  					column="relativeTel"/>
 		<result property="address"  				column="relativeAddr"/>
 	</resultMap>
-	
+  
+    <!-- 查询用户信息 -->
+    <resultMap id="mUserInfoMap"          type="userModel">
+      <result property="userId"           column="userId"/>
+      <result property="name"             column="name"/>
+      <result property="gender"           column="gender"/>
+      <result property="birthdate"        column="birthdate"/>
+      <result property="cellphone"        column="cellphone"/>
+      <result property="credentialType"   column="credentialType"/>
+      <result property="credentialNo"     column="credentialNo"/>
+      <result property="isSoldier"        column="isSoldier"/>
+      <result property="isDisablity"      column="isDisablity"/>
+      <result property="height"           column="height"/>
+      <result property="weight"           column="weight"/>
+      <result property="nationality"      column="nationality"/>
+      <result property="nativePlace"      column="nativePlace"/>
+      <result property="marriageStatus"   column="marriageStatus"/>
+      <result property="householdType"    column="householdType"/>
+      <result property="education"        column="policticsStatus"/>
+      <result property="homePhone"        column="homePhone"/>
+      <result property="homeAddress"      column="homeAddress"/>
+      <result property="workingAge"       column="workingAge"/>
+      <result property="companyName"      column="companyName"/>
+      <result property="companyAddress"   column="companyAddress"/>
+    </resultMap>
 	
 	<!-- 查询亲情号码总数 -->
 	<select id="AppMapper.queryRelativePhoneInfoCnt" 	parameterType="queryModel"	resultType="long">
@@ -35,5 +58,17 @@
 			limit #{startNum}, #{rows}
 		]]>
 	</select>
+  
+    <select id="AppMapper.queryUserInfo" parameterType="queryModel" resultMap="mUserInfoMap">
+        <![CDATA[
+          select a.userId, b.name, b.gender, b.birthdate, b.cellphone, b.email, b.credentialType, 
+            b.isSoldier, b.isDisablity, b.height, b.weight, b.nationality, b.nativePlace, 
+            b.marriageStatus, b.householdType, b.education, b.policticsStatus, b.homePhone, 
+            b.homeAddress, b.workingAge, b.salary, b.companyName, b.companyAddress
+          from tab_user a
+          inner join tab_user_info b on b.userId=a.userId
+          where where a.userName =  #{userName} and a.userPass = #{userPass}
+        ]]>
+    </select>
 	
 </mapper>

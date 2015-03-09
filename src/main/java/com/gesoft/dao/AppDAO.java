@@ -15,6 +15,7 @@ import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
+import com.gesoft.model.UserModel;
 
 /**
  * @author WCL
@@ -52,5 +53,14 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long>
 	public List<RelativePhoneModel> queryRelativePhoneInfo(QueryModel model)
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryRelativePhoneInfo", model);
+	}
+	
+	/**
+	 * 查询用户信息
+	 * @param model
+	 * @return
+	 */
+	public UserModel queryUserInfo(QueryModel model) {
+	    return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryUserInfo", model);
 	}
 }
