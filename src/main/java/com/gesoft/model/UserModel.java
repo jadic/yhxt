@@ -51,6 +51,10 @@ public class UserModel extends BaseModel
 	private String companyName; //公司名称
 	private String companyAddress; 	//公司地址
 	private String photo; 		//照片
+	
+	private int parentId;//子女用户关联的老人用户ID
+	private int sysId;//用户对应的平台类型
+	
 	public long getUserId()
 	{
 		return userId;
@@ -283,4 +287,16 @@ public class UserModel extends BaseModel
 	{
 		this.photo = photo;
 	}
+    public int getParentId() {
+        return parentId;
+    }
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
+    public int getSysId() {
+        return sysId;
+    }
+    public void setSysId(int sysId) {
+        this.sysId = sysId;
+    }
 }

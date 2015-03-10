@@ -69,12 +69,32 @@ public class AppService extends EntityService<BaseModel, Long>
 	}
 	
 	/**
-	 * 查询用户信息
+	 * 根据用户名和密码查询用户信息
 	 * @param model
 	 * @return
 	 */
 	@Transactional(readOnly=true)
-	public UserModel queryUserInfo(QueryModel model) {
-	    return appDAO.queryUserInfo(model);
+	public UserModel queryUserInfoWithUserNamePass(QueryModel model) {
+	    return appDAO.queryUserInfoWithUserNamePass(model);
+	}
+	
+	/**
+	 * 根据用户ID查询用户信息
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public UserModel queryUserInfoWithUserId(QueryModel model) {
+	    return appDAO.queryUserInfoWithUserId(model);
+	}
+	
+	/**
+	 * 根据用户ID查询关联的医护联系人信息
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public UserModel queryMyNurserWithUserId(QueryModel model) {
+	    return appDAO.queryMyNurserWithUserId(model);
 	}
 }
