@@ -13,225 +13,110 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
+	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
+	
 	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
 	<script type="text/JavaScript">
-		
+	function delDiseaseHis(obj, id)
+	{
+		$.messager.confirm('确认', "您确认要删除这条记录吗？", function(r)
+		{
+			if (r)
+			{
+				/**打开进度条**/
+				PageMain.funOpenProgress();
+				
+				$.ajax({
+					url : _ctx_ + "/p/query/delDiseaseHis.do?a="+ Math.random(),
+					type : 'post',
+					dataType : 'json',
+					data : 
+					{
+						"id": id						
+					},
+					error:function(data)
+					{
+						/**关闭进度条**/
+						PageMain.funCloseProgress();
+						$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
+					},
+					success:function(data)
+					{
+						/**关闭进度条**/
+						PageMain.funCloseProgress();
+						
+						/**数据处理**/
+						if(data.success)
+						{
+							$.messager.alert('信息提示', data.msg, 'info');
+							$(obj).parent().parent().remove();
+						}
+						else
+						{
+							$.messager.alert('信息提示', data.msg, 'error');
+						}
+					}
+				});
+			}
+		});
+	}
+	
+	function mergeDiseaseHis(id)
+	{
+		window.location.href = "<c:url value='/p/query/mergeDiseaseHis.do' />?id=" + id;
+	}
 	</script>
   </head>
-<body>
-  <div class="information_modify">
-    <div class="title_informationModify"><span class="tgrey_title_informationModify">基本</span>信息</div>
-    <div class="information_modify_main" id="main_div">
-    	<div class="btn_title_informationModify">
-          <ul>
-            <li class="tLeft">基本信息</li>
-            <li class="tRight"><a href="javascript:void(0)" onclick="edit_baseinfo(this)"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></li>
-          </ul>
-        </div>
-        <div class="informationModify_main">
-        	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				真实姓名：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    			<td></td>
-	    		</tr>
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				性<span style="padding: 0 13px;"></span>别：
-	    			</td>
-	    			<td align="left">
-	    				<select class="selectMax_informationModify  text-input validate[required]" id="sex" name="sex">
-		                   <option value="">请选择</option>
-			               <option value="0">男</option>
-			               <option value="1">女</option>
-		               </select>
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				出生日期：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				手机号码：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				电子邮箱：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    		</tr>
-	    	</table>
-        </div>
-        
-        
-        <div class="btn_title_informationModify">
-          <ul>
-            <li class="tLeft">详细信息</li>
-            <li class="tRight"><a href="javascript:void(0)" onclick="edit_baseinfo(this)"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></li>
-          </ul>
-        </div>
-        <div class="informationModify_main">
-        	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				证件类型：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				证件号码：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				是否军人：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				是否残疾：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				身高(cm)：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				体重(kg)：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				民<span style="padding: 0 13px;"></span>族：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				籍<span style="padding: 0 13px;"></span>贯：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				婚姻状况：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				户籍类型：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				学<span style="padding: 0 13px;"></span>历：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				政治面貌：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				家庭电话：
-	    			</td>
-	    			<td align="left" colspan="3">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				家庭地址：
-	    			</td>
-	    			<td align="left" colspan="3">
-	    				<input class="inputMax_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    		</tr>
-	    	</table>
-	    </div>	
-	    
-	    <div class="btn_title_informationModify">
-          <ul>
-            <li class="tLeft">工作信息</li>
-            <li class="tRight"><a href="javascript:void(0)" onclick="edit_baseinfo(this)"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></li>
-          </ul>
-        </div>
-        <div class="informationModify_main">
-        	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				工作年限：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				薪<span style="padding: 0 13px;"></span>酬：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				公司名称：
-	    			</td>
-	    			<td align="left" colspan="3">
-	    				<input class="inputMax_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				公司地址：
-	    			</td>
-	    			<td align="left" colspan="3">
-	    				<input class="inputMax_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="16">
-	    			</td>
-	    		</tr>	
-	    	</table>
-	    </div>	
-    </div>
-</div>
-   
+<body style="background: #ededed;">
+	<div style="font-size:13px;font-family:微软雅黑;color:#5a5a5a;">	
+	  	<div class="bp_history">
+		    <div class="search">
+		    	<ul>
+		      		<li class="criteria_search" style="height: 40px;">疾病史</li>
+		      		<li class="btn_search" style="height: 40px;"><a href="javascript:void(0)" onclick="mergeDiseaseHis(0)">新建疾病史</a></li>           
+		    	</ul>
+		  	</div>
+			<div class="index_table">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
+					<tbody>
+						<tr class="even">
+							<th style="width: 35%;">疾病名称</th>
+							<th style="width: 20%;">开始日期</th>
+							<th style="width: 20%;">结束日期</th>
+							<th style="width: 25%;">操作</th>
+						</tr>
+						<c:if test="${not empty diseaseHisFlys }">
+							<c:forEach items="${diseaseHisFlys }" var="diseaseHisItem" varStatus="item">
+								<tr class='<c:if test="${item.index mod 2 == 0 }">abnormal odd</c:if><c:if test="${item.index mod 2 == 1 }">even</c:if>' style="height: 40px;">
+									<td>${diseaseHisItem.diseaseName }</td>
+									<td>${diseaseHisItem.startDate }</td>
+									<td>${diseaseHisItem.endDate }</td>
+									<td>
+										<a href="javascript:void(0)" onclick="mergeDiseaseHis(${diseaseHisItem.id})"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">编辑</a>
+										<a href="javascript:void(0)" onclick="delDiseaseHis(this, ${diseaseHisItem.id})"><img src="<c:url value='/patient/themes/images/phone_del.png'/>">删除</a>
+									</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						
+					</tbody>
+				</table>
+			</div>
+			<div class="index_page">
+			  <ul>
+			    <li class="page_information">共<span id="showcount">10</span>条信息，当前：第<span id="showcurrentnum">1</span>页，共<span id="showpagecount">1</span>页</li>
+			    <li class="page_button">
+				    <a href="###" class="page-first">首页</a>
+				    <a href="###" class="page-perv">上一页</a>
+				    <a href="###" class="page-next">下一页</a>
+				    <a href="###" class="page-last">末页</a>
+			    </li>
+			    <li class="page_select">
+			    转<select id="gopage" onchange="gotoPage()"><option value="1">1</option></select>页
+			    </li>
+			  </ul>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

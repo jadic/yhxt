@@ -508,6 +508,16 @@
 		]]>
 	</select>
 	
+	<!-- 分页加载疾病史记录根据ID -->
+	<select id="QueryMapper.queryDiseaseHisInfoById" 	parameterType="queryModel"	resultMap="mRetDiseaseHisMap">
+		<![CDATA[
+			select a1.descInHospital, a1.descObserve, a1.diseaseName, a1.endDate, a1.id, a1.memo, a1.startDate, a1.userId
+			from tab_disease_history a1
+			where a1.id=#{id}
+		]]>
+	</select>
+	
+	
 	<!-- 增加疾病史记录 -->
 	<insert id="QueryMapper.addDiseaseHisInfo"  parameterType="diseaseHisModel"  useGeneratedKeys="true" keyProperty="id">
 	    <![CDATA[
@@ -529,4 +539,12 @@
 			WHERE id = #{id}
 		]]>
 	</update>
+	
+	<!-- 删除疾病史记录-->
+	<delete id="QueryMapper.delDiseaseHisInfo" parameterType="relativePhoneModel">
+		<![CDATA[
+			DELETE FROM tab_disease_history 
+			WHERE id = #{id} 
+		]]>
+	</delete>
 </mapper>

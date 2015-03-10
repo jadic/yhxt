@@ -435,4 +435,31 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	{
 		return pQueryDAO.modifyDiseaseHisInfo(model);
 	}
+
+	
+	/**
+	 * 描述信息：根据ID加载疾病史数据
+	 * 创建时间：2015年3月10日 上午9:45:45
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public DiseaseHisModel queryDiseaseHisInfoById(QueryModel model)
+	{
+		return pQueryDAO.queryDiseaseHisInfoById(model);
+	}
+
+	
+	/**
+	 * 描述信息：删除疾病史记录
+	 * 创建时间：2015年3月10日 上午9:46:45
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int delDiseaseHisInfo(DiseaseHisModel model)
+	{
+		return pQueryDAO.delDiseaseHisInfo(model);
+	}
 }

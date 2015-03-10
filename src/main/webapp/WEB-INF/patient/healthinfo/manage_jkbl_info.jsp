@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											2:"memberHtComplicationIframe",3:"memberIllnessHistoryIframe",4:"memberHtSpecialIframe",
 											5:"memberMedicalExamintaionIframe"};
 			var page_map = {0:"query/memberhabit.do",1:"query/familydisease.do",
-											2:"memberhtcomplication",3:"diseasehis.do",4:"memberhtspecial",
+											2:"memberhtcomplication",3:"query/diseasehis.do",4:"memberhtspecial",
 											5:"medicalexamination"};
 			$div_hrli.click(function(){	
 			   $(this).addClass("selected_healthRecords_yuan").siblings().removeClass("selected_healthRecords_yuan");
@@ -78,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <li title="当前并发症" style="display: none;"><img src="<c:url value='/patient/themes/images/cp.png'/>"><span>当前并发症</span></li>
              <li title="疾病史"><img src="<c:url value='/patient/themes/images/disease.png'/>"><span>疾病史</span></li>
              <li title="高血压专项" style="display: none;"><img src="<c:url value='/patient/themes/images/bp.png'/>"><span>高血压专项</span></li>
-             <li style="margin-right: -25px" title="健康检查" style="display: none;"><img src="<c:url value='/patient/themes/images/health.png'/>"><span>健康检查</span></li>
+             <li style="margin-right: -25px; display: none;" title="健康检查" style="display: none;"><img src="<c:url value='/patient/themes/images/health.png'/>"><span>健康检查</span></li>
              
            </ul>
 	 </div>

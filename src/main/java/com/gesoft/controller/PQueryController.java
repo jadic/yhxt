@@ -663,7 +663,7 @@ public class PQueryController extends BaseController
 			{
 				setPageModel(recordCount, query);
 				List<DiseaseHisModel> argArgs = pQueryService.queryDiseaseHisInfo(query);
-				result.addObject("relativeFlys", argArgs);
+				result.addObject("diseaseHisFlys", argArgs);
 			}
 		}
 		catch (Exception e)
@@ -673,6 +673,37 @@ public class PQueryController extends BaseController
 		return result;
 	}
 	
+	
+	
+	/**
+	 * 描述信息：跳转疾病史
+	 * 创建时间：2015年3月10日 上午9:44:33
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/mergeDiseaseHis.do")
+	public ModelAndView toMergeDiseaseHis(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/healthinfo/add_diseasehis_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+			if (query.getId() > 0)
+			{
+				DiseaseHisModel model  = pQueryService.queryDiseaseHisInfoById(query);
+				result.addObject("diseaseHis", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toMergeDiseaseHis error：", e);
+		}
+		return result;
+	}
 	
 	/**
 	 * 描述信息：增加疾病史
@@ -731,4 +762,32 @@ public class PQueryController extends BaseController
 		return msgModel;
 	}
 	
+	
+	/**
+	 * 描述信息：删除疾病史数据
+	 * 创建时间：2015年3月10日 上午9:43:09
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/delDiseaseHis.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toDelDiseaseHis(DiseaseHisModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if (pQueryService.delDiseaseHisInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toDelDiseaseHis error：", e);
+		}
+		return msgModel;
+	}
 }
