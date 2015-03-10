@@ -26,6 +26,7 @@ import com.gesoft.model.DiseaseHisModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
 import com.gesoft.model.MsgModel;
+import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
@@ -791,6 +792,16 @@ public class PQueryController extends BaseController
 		return msgModel;
 	}
 	
+	
+	/**
+	 * 描述信息：主页
+	 * 创建时间：2015年3月11日 上午4:41:26
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value="/home.do")
 	public ModelAndView toHome(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
@@ -827,16 +838,27 @@ public class PQueryController extends BaseController
 			//加载我的医护人员
 			UserModel mRetUser = pQueryService.queryMyNurseInfo(query);
 			
-			//如果没有医护人员，则直接加载医护人员列表
+			//查询是否有申请信息
 			if (mRetUser == null)
 			{
-				//分页加载建议执行结果
-				long recordCount = pQueryService.queryNurseInfoCnt(query);
-				if(recordCount>0)
+				NurseRequestModel mRetNurseRequest = pQueryService.queryNurseRequestInfo(query);
+				//如果没有医护人员，则直接加载医护人员列表
+				if (mRetNurseRequest == null)
 				{
-					setPageModel(recordCount, query);
-					List<UserModel> argArgs = pQueryService.queryNurseInfo(query);
-					result.addObject("nurseFlys", argArgs);
+					//分页加载建议执行结果
+					long recordCount = pQueryService.queryNurseInfoCnt(query);
+					if(recordCount>0)
+					{
+						setPageModel(recordCount, query);
+						List<UserModel> argArgs = pQueryService.queryNurseInfo(query);
+						result.addObject("nurseFlys", argArgs);
+					}
+					query.setType(2);
+				}
+				else 
+				{
+					result.addObject("nurseRequest", mRetUser);
+					query.setType(1);
 				}
 			}
 			else 
@@ -852,4 +874,88 @@ public class PQueryController extends BaseController
 	}
 	
 	
+	/**
+	 * 描述信息：进入医护人员详细信息界面
+	 * 创建时间：2015年3月11日 上午5:09:22
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/nursedetail.do")
+	public ModelAndView toNurseDetail(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/nurseinfo/query_nurse_detail_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+			UserModel mRetUser = pQueryService.queryNurseDetailInfo(query);
+			if (mRetUser != null)
+			{
+				result.addObject("userModel", mRetUser);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toNurseDetail error：", e);
+		}
+		return result;
+	}
+	
+	/**
+	 * 描述信息：进入医护人员申请界面
+	 * 创建时间：2015年3月11日 上午5:09:22
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/goNurseRequest.do")
+	public ModelAndView toGoNurseRequest(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/nurseinfo/manage_nurse_request_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toGoNurseRequest error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：签约申请
+	 * 创建时间：2015年3月11日 上午4:42:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/nurserequest.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toNurseRequest(NurseRequestModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			model.setRequestTime(SystemUtils.getCurrentSystemTime());
+			if (pQueryService.addNurseRequestInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toNurseRequest error：", e);
+		}
+		return msgModel;
+	}
 }

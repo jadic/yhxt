@@ -13,7 +13,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
-	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
 	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
 	<style type="text/css">
 		td{word-break:break-all;}
@@ -27,53 +26,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#inputform").submit();
 		}
 		
-		function buyinfo(obj, id)
+		function goRequest(id, name)
 		{
-			PageMain.funOpenProgress();
-			$.ajax({
-				url : _ctx_ + "/p/query/buyService.do?a="+ Math.random(),
-				type : 'post',
-				dataType : 'json',
-				data : 
-				{
-					"id": id
-				},
-				error:function(data)
-				{
-					/**关闭进度条**/
-					PageMain.funCloseProgress();
-					$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
-				},
-				success:function(data)
-				{
-					
-					/**关闭进度条**/
-					PageMain.funCloseProgress();
-					
-					/**数据处理**/
-					if(data.success)
-					{
-						$(obj).parent().html('<span style="color: #2998df; font-weight: bold;">已购买</span>');
-						$.messager.alert('信息提示', data.msg, 'info');
-					}
-					else
-					{
-						$.messager.alert('信息提示', data.msg, 'error');
-					}
-				}
-			});
+			window.location.href = "<c:url value='/p/query/goNurseRequest.do'/>?id="+id + "&name="+name;
+		}
+		
+		function funNurseDetail(id)
+		{
+			window.location.href = "<c:url value='/p/query/nursedetail.do'/>?id="+id;
 		}
 	</script>
   </head>
-<body>
+<body <c:if test="${query.type == 1}">style="background: #ededed;"</c:if>>
+	<div class="account" style="background: #ffffff;">
+		<div class="account_title" style="background: #ffffff;">
+	      <ul>
+	        <li class="account_titleGreen">我的医护人</li>
+	        <li class="account_titleGray">当前位置：<c:if test="${query.type == 1}">申请审核中</c:if><c:if test="${query.type == 2}">申请医护人员</c:if></li>
+	      </ul>
+	    </div>
+	</div>    
   <div class="information_modify">
+  	<c:if test="${query.type == 1}">
+  		<div class="information_modify_main" id="main_div" style="height: 300px; line-height: 300px; font-size: 20px;">
+  			<div style="height: 20px; width:100%; background: #ffffff; "></div>
+  			
+  				正在审核中，请耐心等候。。。
+  		</div>
+  	</c:if>
+  	<c:if test="${query.type == 2}">
     <div class="information_modify_main" id="main_div">
     	<div class="search">
-    	<form id="inputform" name="inputform" action="<c:url value='/p/query/service.do'/>" method="post">
+    	<form id="inputform" name="inputform" action="<c:url value='/p/query/mynuser.do'/>" method="post">
 		    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
 		    	<tr>
-		    		<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				服务名称：
+		    		<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    				医护人员姓名：
 	    			</td>
 		    		<td>
 		    			<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" value="${query.name }">
@@ -91,33 +79,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
 					<tbody>
 						<tr class="even">
-							<th style="width: 15%;">服务类型</th>
-							<th style="width: 20%;">服务名称</th>
-							<th style="width: 17%;">开始日期</th>
-							<th style="width: 17%;">结束日期</th>
-							<th style="width: 20%;">备注</th>
-							<th style="width: 10%;">操作</th>
+							<th style="width: 20%;">姓名</th>
+							<th style="width: 16%;">性别</th>
+							<th style="width: 16%;">手机号码</th>
+							<th style="width: 16%;">签约人数</th>
+							<th style="width: 16%;">星级</th>
+							<th style="width: 16%;">操作</th>
 						</tr>
-						<c:if test="${not empty serviceFlys }">
-							<c:forEach items="${serviceFlys }" var="serviceItem" varStatus="item">
+						<c:if test="${not empty nurseFlys }">
+							<c:forEach items="${nurseFlys }" var="nurseItem" varStatus="item">
 								<tr class='<c:if test="${item.index mod 2 == 0 }">abnormal odd</c:if><c:if test="${item.index mod 2 == 1 }">even</c:if>' style="height: 40px;">
-									<td>${serviceItem.typeName }</td>
-									<td>${serviceItem.name }</td>
-									<td>${serviceItem.sdate }</td>
-									<td>${serviceItem.edate }</td>
-									<td>${serviceItem.memo }</td>
+									<td><a href="javascript:void(0)" onclick="funNurseDetail(${nurseItem.userId})">${nurseItem.name }</a></td>
+									<td>${nurseItem.genderStr }</td>
+									<td>${nurseItem.cellphone }</td>
+									<td>${nurseItem.cnt }</td>
+									<td><img src="<c:url value='/patient/themes/images/star_s${ nurseItem.score}.png'/>"></td>
 									<td>
-										<c:if test="${ serviceItem.userId == 0 }">
-											<span style="color: #0ca7a1; font-weight: bold; cursor: pointer;"  onclick="buyinfo(this, '${serviceItem.id}')">购买</span>
-										</c:if>
-										<c:if test="${ serviceItem.userId != 0 }">
-											<span style="color: #2998df; font-weight: bold;">已购买</span>
-										</c:if>
+										<a href="javascript:void(0)" onclick="goRequest(${nurseItem.userId}, '${nurseItem.name}')"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">申请签约</a>
 									</td>
 								</tr>
 							</c:forEach>
 						</c:if>
-						
 					</tbody>
 				</table>
 		</div>
@@ -136,6 +118,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  </ul>
 		</div>
     </div>
+    </c:if>
+    
 </div>
    
 </body>

@@ -14,6 +14,7 @@
 		<typeAlias alias="habbitModel" type="com.gesoft.model.HabbitModel" />
 		<typeAlias alias="geneticDiseaseModel" type="com.gesoft.model.GeneticDiseaseModel" />
 		<typeAlias alias="diseaseHisModel" type="com.gesoft.model.DiseaseHisModel" />
+		<typeAlias alias="nurseRequestModel" type="com.gesoft.model.NurseRequestModel" />
 	</typeAliases>
 	<mappers></mappers>
 </configuration>

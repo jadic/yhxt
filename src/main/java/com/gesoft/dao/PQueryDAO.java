@@ -18,6 +18,7 @@ import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
+import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
@@ -483,7 +484,6 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	 * @param query
 	 * @return
 	 */
-	@Transactional(readOnly=true)
 	public UserModel queryMyNurseInfo(QueryModel model)
 	{
 		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryMyNurseInfo", model);
@@ -497,7 +497,6 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	 * @param query
 	 * @return
 	 */
-	@Transactional(readOnly=true)
 	public long queryNurseInfoCnt(QueryModel model)
 	{
 		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryNurseInfoCnt", model);
@@ -511,9 +510,47 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	 * @param query
 	 * @return
 	 */
-	@Transactional(readOnly=true)
 	public List<UserModel> queryNurseInfo(QueryModel model)
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryNurseInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：增加签约申请
+	 * 创建时间：2015年3月11日 上午4:48:40
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addNurseRequestInfo(NurseRequestModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addNurseRequestInfo", model);
+	}
+	
+
+	/**
+	 * 描述信息：查询签约申请
+	 * 创建时间：2015年3月11日 上午4:56:15
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public NurseRequestModel queryNurseRequestInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryNurseRequestInfo", model);
+	}
+	
+
+	/**
+	 * 描述信息：加载医护人员详细情况
+	 * 创建时间：2015年3月11日 上午6:27:39
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public UserModel queryNurseDetailInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryNurseDetailInfo", model);
 	}
 }
