@@ -52,19 +52,6 @@ public class PIndexController extends BaseController
 	}
 	
 	
-	/**
-	 * 描述信息：疾病史
-	 * 创建时间：2015年3月4日 下午10:31:11
-	 * @author WCL (ln_admin@yeah.net)
-	 * @return
-	 */
-	@RequestMapping(value="/diseasehis.do")
-	public String toDiseaseHis()
-	{
-		return "/patient/healthinfo/manage_diseasehis_info";
-	}
-	
-	
 	
 	/**
 	 * 描述信息：修改密码

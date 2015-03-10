@@ -19,6 +19,7 @@ import com.gesoft.common.EntityService;
 import com.gesoft.dao.PQueryDAO;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.DeviceModel;
+import com.gesoft.model.DiseaseHisModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
 import com.gesoft.model.OutModel;
@@ -378,5 +379,60 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	public int modifyGeneticDiseaseInfo(GeneticDiseaseModel model)
 	{
 		return pQueryDAO.modifyGeneticDiseaseInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：查询疾病史总记录数
+	 * 创建时间：2015年3月10日 上午8:54:33
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public long queryDiseaseHisInfoCnt(QueryModel model)
+	{
+		return pQueryDAO.queryDiseaseHisInfoCnt(model);
+	}
+
+	
+	/**
+	 * 描述信息：分页加载疾病史记录
+	 * 创建时间：2015年3月10日 上午8:55:12
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<DiseaseHisModel> queryDiseaseHisInfo(QueryModel model)
+	{
+		return pQueryDAO.queryDiseaseHisInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：增加疾病史数据
+	 * 创建时间：2015年3月10日 上午8:55:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addDiseaseHisInfo(DiseaseHisModel model)
+	{
+		return pQueryDAO.addDiseaseHisInfo(model);
+	}
+
+	
+	
+	/**
+	 * 描述信息：修改疾病史数据
+	 * 创建时间：2015年3月10日 上午8:55:50
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyDiseaseHisInfo(DiseaseHisModel model)
+	{
+		return pQueryDAO.modifyDiseaseHisInfo(model);
 	}
 }

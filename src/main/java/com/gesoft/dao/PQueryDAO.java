@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.DeviceModel;
+import com.gesoft.model.DiseaseHisModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
 import com.gesoft.model.OutModel;
@@ -394,5 +395,57 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	public int modifyGeneticDiseaseInfo(GeneticDiseaseModel model)
 	{
 		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyGeneticDiseaseInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：查询疾病史总记录数
+	 * 创建时间：2015年3月10日 上午8:54:33
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public long queryDiseaseHisInfoCnt(QueryModel model)
+	{
+		return (Long)getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryDiseaseHisInfoCnt", model);
+	}
+
+
+	/**
+	 * 描述信息：分页加载疾病史记录
+	 * 创建时间：2015年3月10日 上午8:55:12
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public List<DiseaseHisModel> queryDiseaseHisInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryDiseaseHisInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：增加疾病史数据
+	 * 创建时间：2015年3月10日 上午8:55:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addDiseaseHisInfo(DiseaseHisModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addDiseaseHisInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：修改疾病史数据
+	 * 创建时间：2015年3月10日 上午8:55:50
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyDiseaseHisInfo(DiseaseHisModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyDiseaseHisInfo", model);
 	}
 }

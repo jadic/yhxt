@@ -117,6 +117,19 @@
 		<result property="isCoronaryDisease"  		column="isCoronaryDisease"/>
 	</resultMap>
 	
+	<!-- 查询疾病史 -->
+	<resultMap id="mRetDiseaseHisMap" 				type="diseaseHisModel">
+		<result property="id"  						column="id"/>
+		<result property="userId"  					column="userId"/>
+		<result property="diseaseName"  			column="diseaseName"/>
+		<result property="startDate"  				column="startDate"/>
+		<result property="endDate"  				column="endDate"/>
+		<result property="descInHospital"  			column="descInHospital"/>
+		<result property="descObserve"  			column="descObserve"/>
+		<result property="memo"  					column="memo"/>
+	</resultMap>
+	
+	
 	<!-- 加载最新一条建议 -->
 	<select id="QueryMapper.queryAdviceInfo" 	parameterType="queryModel"	resultMap="mRetAdviceOneMap">
 		<![CDATA[
@@ -470,6 +483,50 @@
 			isDiabetesMellitus = #{isDiabetesMellitus},
 			isCoronaryDisease = #{isCoronaryDisease}
 			WHERE userId = #{userId}
+		]]>
+	</update>
+	
+	
+	
+	<!-- 查询疾病史总记录数 -->
+	<select id="QueryMapper.queryDiseaseHisInfoCnt" 	parameterType="queryModel"	resultType="long">
+		<![CDATA[
+			select count(1) as cnt  
+			from tab_disease_history a1 
+			where a1.userId=#{userId}
+		]]>
+	</select>
+	
+	<!-- 分页加载疾病史记录 -->
+	<select id="QueryMapper.queryDiseaseHisInfo" 	parameterType="queryModel"	resultMap="mRetDiseaseHisMap">
+		<![CDATA[
+			select a1.descInHospital, a1.descObserve, a1.diseaseName, a1.endDate, a1.id, a1.memo, a1.startDate, a1.userId
+			from tab_disease_history a1
+			where a1.userId=#{userId}
+			order by a1.startDate desc
+			limit #{startNum}, #{rows}
+		]]>
+	</select>
+	
+	<!-- 增加疾病史记录 -->
+	<insert id="QueryMapper.addDiseaseHisInfo"  parameterType="diseaseHisModel"  useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_disease_history (userId, startDate, endDate, diseaseName, descInHospital, descObserve, memo) 
+	        VALUES (#{userId}, #{startDate}, #{endDate}, #{diseaseName}, #{descInHospital}, #{descObserve}, #{memo})
+	    ]]>
+	</insert>
+	
+	<!-- 修改疾病史记录 -->
+	<update id="QueryMapper.modifyDiseaseHisInfo" parameterType="diseaseHisModel">
+		<![CDATA[
+			UPDATE tab_disease_history  SET  
+			startDate = #{startDate},
+			endDate = #{endDate},
+			diseaseName = #{diseaseName},
+			descInHospital = #{descInHospital},
+			descObserve = #{descObserve},
+			memo = #{memo}
+			WHERE id = #{id}
 		]]>
 	</update>
 </mapper>

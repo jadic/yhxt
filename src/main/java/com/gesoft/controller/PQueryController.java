@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.DeviceModel;
+import com.gesoft.model.DiseaseHisModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
 import com.gesoft.model.MsgModel;
@@ -637,5 +638,97 @@ public class PQueryController extends BaseController
 		return msgModel;
 	}
 	
+	
+	/**
+	 * 描述信息：分页加载疾病史
+	 * 创建时间：2015年3月10日 上午8:51:27
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/diseasehis.do")
+	public ModelAndView toDiseaseHis(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_diseasehis_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+			
+			//分页加载建议执行结果
+			long recordCount = pQueryService.queryDiseaseHisInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<DiseaseHisModel> argArgs = pQueryService.queryDiseaseHisInfo(query);
+				result.addObject("relativeFlys", argArgs);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toDiseaseHis error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：增加疾病史
+	 * 创建时间：2015年3月10日 上午8:49:31
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/addDiseaseHis.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toAddDiseaseHis(DiseaseHisModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if (pQueryService.addDiseaseHisInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toAddDiseaseHis error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：修改疾病史
+	 * 创建时间：2015年3月10日 上午8:50:43
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyDiseaseHis.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toModifyDiseaseHis(DiseaseHisModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if (pQueryService.modifyDiseaseHisInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toModifyDiseaseHis error：", e);
+		}
+		return msgModel;
+	}
 	
 }
