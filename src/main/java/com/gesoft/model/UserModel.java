@@ -51,6 +51,48 @@ public class UserModel extends BaseModel
 	private String companyName; //公司名称
 	private String companyAddress; 	//公司地址
 	private String photo; 		//照片
+	private String score;       //分数
+	private int cnt;
+	private String genderStr;	//性别
+	
+	public String getGenderStr()
+	{
+		switch (this.gender)
+		{
+		case 0:
+			this.genderStr = "-";
+			break;
+		case 1:
+			this.genderStr = "男";
+			break;
+		case 2:
+			this.genderStr = "女";
+			break;
+		default:
+			break;
+		}
+		return genderStr;
+	}
+	public void setGenderStr(String genderStr)
+	{
+		this.genderStr = genderStr;
+	}
+	public int getCnt()
+	{
+		return cnt;
+	}
+	public void setCnt(int cnt)
+	{
+		this.cnt = cnt;
+	}
+	public String getScore()
+	{
+		return score;
+	}
+	public void setScore(String score)
+	{
+		this.score = score;
+	}
 	public long getUserId()
 	{
 		return userId;

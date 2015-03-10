@@ -10,6 +10,7 @@ package com.gesoft.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.BaseModel;
@@ -473,5 +474,46 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	public int delDiseaseHisInfo(DiseaseHisModel model)
 	{
 		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delDiseaseHisInfo", model);
+	}
+	
+	/**
+	 * 描述信息：加载我的医护人员
+	 * 创建时间：2015年3月11日 上午3:17:33
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public UserModel queryMyNurseInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryMyNurseInfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：查询医护人员列表总数
+	 * 创建时间：2015年3月11日 上午3:18:30
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public long queryNurseInfoCnt(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryNurseInfoCnt", model);
+	}
+
+	
+	/**
+	 * 描述信息：分页查询医护人员列表
+	 * 创建时间：2015年3月11日 上午3:18:30
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<UserModel> queryNurseInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryNurseInfo", model);
 	}
 }

@@ -790,4 +790,66 @@ public class PQueryController extends BaseController
 		}
 		return msgModel;
 	}
+	
+	@RequestMapping(value="/home.do")
+	public ModelAndView toHome(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/home");
+		try
+		{
+			
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toHome error：", e);
+		}
+		return result;
+	}
+	
+	/**
+	 * 描述信息：我的医护人员
+	 * 创建时间：2015年3月11日 上午3:09:38
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/mynuser.do")
+	public ModelAndView toMyNurse(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/nurseinfo/manage_nurse_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+			
+			//加载我的医护人员
+			UserModel mRetUser = pQueryService.queryMyNurseInfo(query);
+			
+			//如果没有医护人员，则直接加载医护人员列表
+			if (mRetUser == null)
+			{
+				//分页加载建议执行结果
+				long recordCount = pQueryService.queryNurseInfoCnt(query);
+				if(recordCount>0)
+				{
+					setPageModel(recordCount, query);
+					List<UserModel> argArgs = pQueryService.queryNurseInfo(query);
+					result.addObject("nurseFlys", argArgs);
+				}
+			}
+			else 
+			{
+				result.addObject("nurse", mRetUser);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toMyNurse error：", e);
+		}
+		return result;
+	}
+	
+	
 }

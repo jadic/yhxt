@@ -129,6 +129,27 @@
 		<result property="memo"  					column="memo"/>
 	</resultMap>
 	
+	<!-- 询医护人员列表 -->
+	<resultMap id="mRetNurseMap" 					type="userModel">
+		<result property="userId"  					column="userId"/>
+		<result property="name"  					column="name"/>
+		<result property="cellphone"  				column="cellphone"/>
+		<result property="gender"  					column="gender"/>
+		<result property="score"  					column="score"/>
+		<result property="cnt"  					column="cnt"/>
+	</resultMap>
+	
+	
+	<!-- 询医护人员列表 -->
+	<resultMap id="mRetMyNurseMap" 					type="userModel">
+		<result property="userId"  					column="userId"/>
+		<result property="name"  					column="name"/>
+		<result property="cellphone"  				column="cellphone"/>
+		<result property="gender"  					column="gender"/>
+		<result property="score"  					column="score"/>
+		<result property="cnt"  					column="cnt"/>
+	</resultMap>
+	
 	
 	<!-- 加载最新一条建议 -->
 	<select id="QueryMapper.queryAdviceInfo" 	parameterType="queryModel"	resultMap="mRetAdviceOneMap">
@@ -487,7 +508,6 @@
 	</update>
 	
 	
-	
 	<!-- 查询疾病史总记录数 -->
 	<select id="QueryMapper.queryDiseaseHisInfoCnt" 	parameterType="queryModel"	resultType="long">
 		<![CDATA[
@@ -547,4 +567,69 @@
 			WHERE id = #{id} 
 		]]>
 	</delete>
+	
+	
+	<!-- 查询医护人员列表总数 -->
+	<select id="QueryMapper.queryNurseInfoCnt" 	parameterType="queryModel"	resultType="long">
+		<![CDATA[
+			select count(1) as cnt  
+			from tab_user a1
+			inner join tab_user_info a2 on a1.userId=a2.userId and a1.userSysId=2
+		]]>
+		<where>	
+	        <if test="name != null and name != ''">
+				AND a2.name LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+		</where>
+	</select>
+	
+	
+	<!-- 分页查询医护人员列表 -->
+	<select id="QueryMapper.queryNurseInfo" 	parameterType="queryModel"	resultMap="mRetNurseMap">
+		<![CDATA[
+			select a1.userId, a2.name, a2.cellphone, a2.gender, IFNULL(a3.score, -1) as score, IFNULL(a4.cnt,0) as cnt
+			from tab_user a1
+			inner join tab_user_info a2 on a1.userId=a2.userId and a1.userSysId=2
+			left join (
+				select nurserId, sum(IFNULL(score1,0) + IFNULL(score2,0) + IFNULL(score3, 0)) as score 
+				from tab_nurser_score 
+				group by nurserId
+			) a3 on a3.nurserId=a2.userId
+			left join	(
+				select nurseId, count(1) as cnt
+				from tab_user_nurse_relation
+				group by nurseId
+			) a4 on a4.nurseId=a1.userId
+		]]>
+		<where>	
+	        <if test="name != null and name != ''">
+				AND a2.name LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+		</where>
+		<![CDATA[
+			order by IFNULL(a3.score, -1) desc
+			limit #{startNum}, #{rows}
+		]]>
+	</select>
+	
+	
+	<!-- 加载我的医护人员 -->
+	<select id="QueryMapper.queryMyNurseInfo" 	parameterType="queryModel"	resultMap="mRetMyNurseMap">
+		<![CDATA[
+			select a2.*, IFNULL(a3.score, -1) as score, IFNULL(a4.cnt,0) as cnt
+			from tab_user_nurse_relation a1
+			inner join tab_user_info a2 on a1.nurseId=a2.userId
+			left join (
+				select nurserId, sum(IFNULL(score1,0) + IFNULL(score2,0) + IFNULL(score3, 0)) as score 
+				from tab_nurser_score 
+				group by nurserId
+			) a3 on a3.nurserId=a2.userId
+			left join	(
+				select nurseId, count(1) as cnt
+				from tab_user_nurse_relation
+				group by nurseId
+			) a4 on a4.nurseId=a2.userId
+			where a1.userId=#{userId}
+		]]>
+	</select>
 </mapper>

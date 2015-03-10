@@ -64,13 +64,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="indexMenu_secondary">
       <div class="indexMenu_secondary_main">
         <ul id="helathMenuNav">
-          <li id="hMenu0" onclick="activeHelathMenu(0)" class="indexMenu_secondary_activation"><a href="/jsp/health/welcome/welcome.jsp" target="mainFrame" title="欢迎页">首页</a></li>
-          <li id="hMenu1" onclick="activeHelathMenu(1)"><a href="<c:url value='/p/healthanalysis.do'/>" target="mainFrame" title="健康分析">健康分析</a></li>
-          
+          <li id="hMenu0" onclick="activeHelathMenu(0)" class="indexMenu_secondary_activation"><a href="<c:url value='/p/query/home.do'/>" target="mainFrame" title="欢迎页">首页</a></li>
           <li id="hMenu3" onclick="activeHelathMenu(3)"><a href="<c:url value='/p/health.do'/>" target="mainFrame" title="健康档案">健康档案</a></li>
+          <li id="hMenu1" onclick="activeHelathMenu(1)"><a href="<c:url value='/p/healthanalysis.do'/>" target="mainFrame" title="健康分析">健康分析</a></li>
           <li id="hMenu4" onclick="activeHelathMenu(4)"><a href="<c:url value='/p/servicedevice.do'/>" target="mainFrame" title="我的设备">我的设备</a></li>
-          <li id="hMenu5" onclick="activeHelathMenu(5)"><a href="/jsp/health/account/account.jsp" target="mainFrame" title="账户/套餐">我的医护人</a></li>
-          <li id="hMenu6" onclick="activeHelathMenu(6)"><a href="/jsp/health/doctor_report/reportlist.jsp" target="mainFrame" title="月报">医生报告</a></li>
+          <li id="hMenu5" onclick="activeHelathMenu(5)"><a href="<c:url value='/p/query/mynuser.do'/>" target="mainFrame" title="账户/套餐">我的医护人</a></li>
         </ul> 
       </div>
     </div>
@@ -109,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <!--index_health_left end-->
       <!--index_health_right start-->
       <div class="index_health_right">
-        <iframe src="/jsp/health/welcome/welcome.jsp" scrolling="no" frameborder="0" name="mainFrame" id="mainFrame" onload="reinitIframe();" height="1388"></iframe>
+        <iframe src="<c:url value='/p/query/home.do'/>" scrolling="no" frameborder="0" name="mainFrame" id="mainFrame" onload="reinitIframe();" height="1388"></iframe>
       </div>
       <!--index_health_right end-->
     </div>
