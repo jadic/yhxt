@@ -38,6 +38,32 @@
       <result property="sysId"            column="userSysId"/>
       <result property="parentId"         column="userParentId"/>
     </resultMap>
+
+    <resultMap id="mServiceMap"           type="serviceModel">
+      <result property="id"               column="id"/>
+      <result property="type"             column="serviceType"/>
+      <result property="name"             column="serviceName"/>
+      <result property="content"          column="serviceContent"/>
+      <result property="creatorId"        column="serviceCreatorId"/>
+      <result property="sdate"            column="servcieStartDate"/>
+      <result property="edate"            column="serviceDuration"/>
+      <result property="createTime"	      column="serviceCreateTime"/>
+      <result property="memo"             column="serviceMemo"/>
+      <result property="icon"             column="serviceIcon"/>
+    </resultMap>
+               
+    <resultMap id="mActivityMap"           type="activityModel">
+      <result property="id"               column="activityType"/>
+      <result property="type"             column="serviceType"/>
+      <result property="name"             column="activityName"/>
+      <result property="content"          column="activityContent"/>
+      <result property="creatorId"        column="activityCreatorId"/>
+      <result property="sdate"            column="activityCreateTime"/>
+      <result property="edate"            column="activityStartDate"/>
+      <result property="createTime"	      column="activityDuration"/>
+      <result property="memo"             column="activityMemo"/>
+      <result property="icon"             column="activityIcon"/>
+    </resultMap>
 	
 	<!-- 查询亲情号码总数 -->
 	<select id="AppMapper.queryRelativePhoneInfoCnt" 	parameterType="queryModel"	resultType="long">
@@ -96,6 +122,54 @@
           inner join tab_user_info b on b.userId = a.userId
           where c.userId =  #{userId}
         ]]>
+    </select>
+    
+	 <!-- 查询服务总数 -->
+    <select id="AppMapper.queryServiceCnt"  parameterType="queryModel"  resultType="long">
+      <![CDATA[
+        select count(1) as cnt 
+        from tab_service t
+        where (t.serviceType=2 and t.serviceCreatorId=#{creatorId})
+           or (t.serviceTYpe<>2)
+      ]]>
+    </select>
+    
+    
+    <!-- 分页查询服务 仅显示关联医护联系人创建的服务和平台服务 -->
+    <select id="AppMapper.queryService"   parameterType="queryModel"  resultMap="mServiceMap">
+      <![CDATA[
+        select a.id, a.serviceType, a.serviceName, a.serviceContent, a.serviceCreatorId, a.serviceCreateTime, 
+               a.servcieStartDate, a.serviceDuration, a.serviceMemo, a.serviceIcon
+        from tab_service t
+        where (a.serviceType=2 and a.serviceCreatorId=#{creatorId}) 
+           or (a.serviceTYpe<>2)
+        order by a.serviceCreateTime
+        limit #{startNum}, #{rows}
+      ]]>
+    </select>
+    
+	 <!-- 查询活动总数 -->
+    <select id="AppMapper.queryActivityCnt"  parameterType="queryModel"  resultType="long">
+      <![CDATA[
+        select count(1) as cnt 
+        from tab_service t
+        where (t.serviceType=2 and t.serviceCreatorId=#{creatorId})
+           or (t.serviceTYpe<>2)
+      ]]>
+    </select>
+    
+    
+    <!-- 分页查询活动 仅显示关联医护联系人创建的活动和平台活动 -->     
+    <select id="AppMapper.queryActivity"   parameterType="queryModel"  resultMap="mActivityMap">
+      <![CDATA[
+        select a.activityId, a.activityType, a.activityName, a.activityContent, a.activityCreatorId, a.activityCreateTime, 
+               a.activityStartDate, a.activityDuration, a.activityMemo, a.activityIcon
+        from tab_activity t
+        where (a.serviceType=2 and a.activityCreatorId=#{creatorId}) 
+           or (a.serviceTYpe<>2)
+        order by a.serviceCreateTime
+        limit #{startNum}, #{rows}
+      ]]>
     </select>
 	
 </mapper>

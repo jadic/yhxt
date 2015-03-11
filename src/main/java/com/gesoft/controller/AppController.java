@@ -17,9 +17,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gesoft.model.ActivityModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
+import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 import com.gesoft.service.AppService;
 
@@ -107,7 +109,7 @@ public class AppController extends BaseController
 	
 	/**
 	 * 根据用户ID查询关联的医护联系人信息
-	 * @param model
+	 * @param  model
 	 * @return
 	 */
 	@RequestMapping(value="/queryMyNurserWithUserId.do")
@@ -119,5 +121,43 @@ public class AppController extends BaseController
 	        logger.error("AppController queryMyNurseInfo error:", e);
 	    }
 	    return userModel;
+	}
+	
+	@RequestMapping(value="/queryService.do")
+	public @ResponseBody MsgModel queryServices(QueryModel model) {
+	    MsgModel msgModel = new MsgModel();
+	    try {
+            long recordCount = appService.queryServiceCnt(model);
+            if (recordCount > 0) {
+                setPageModel(recordCount, model);
+                List<ServiceModel> rows = appService.queryService(model);
+                if (rows != null && rows.size() > 0) {
+                    msgModel.setTotal(recordCount);
+                    msgModel.setRows(rows);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("AppController queryService error：", e);
+        }
+	    return msgModel;
+	}
+	
+	@RequestMapping(value="/queryActivity.do")
+	public @ResponseBody MsgModel queryActivity(QueryModel model) {
+	    MsgModel msgModel = new MsgModel();
+	    try {
+	        long recordCount = appService.queryActivityCnt(model);
+	        if (recordCount > 0) {
+	            setPageModel(recordCount, model);
+	            List<ActivityModel> rows = appService.queryActivity(model);
+	            if (rows != null && rows.size() > 0) {
+	                msgModel.setTotal(recordCount);
+	                msgModel.setRows(rows);
+	            }
+	        }
+	    } catch (Exception e) {
+	        logger.error("AppController queryActivity error：", e);
+	    }
+	    return msgModel;
 	}
 }

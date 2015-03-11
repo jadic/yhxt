@@ -12,9 +12,11 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.gesoft.common.EntityDAOImpl;
+import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
+import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 
 /**
@@ -66,4 +68,24 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long>
 	public UserModel queryMyNurserWithUserId(QueryModel model) {
 	    return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryMyNurserWithUserId", model);
 	}
+	
+	public long queryServiceCnt(QueryModel model)
+    {
+        return (Long)getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryServiceCnt", model);
+    }
+    
+    public List<ServiceModel> queryService(QueryModel model)
+    {
+        return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryService", model);
+    }
+    
+    public long queryActivityCnt(QueryModel model)
+    {
+        return (Long)getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryActivityCnt", model);
+    }
+    
+    public List<ActivityModel> queryActivity(QueryModel model)
+    {
+        return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryActivity", model);
+    }
 }

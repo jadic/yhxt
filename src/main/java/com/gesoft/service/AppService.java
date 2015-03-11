@@ -17,84 +17,104 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gesoft.common.EntityDAO;
 import com.gesoft.common.EntityService;
 import com.gesoft.dao.AppDAO;
+import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
+import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 
 /**
  * @author WCL
  * @version v1.001
- * @since   v1.001
+ * @since v1.001
  */
 @Service
 @Transactional
-public class AppService extends EntityService<BaseModel, Long>
-{
+public class AppService extends EntityService<BaseModel, Long> {
 
-	@Resource
-	private AppDAO appDAO;
-	
+    @Resource
+    private AppDAO appDAO;
 
-	@Override
-	protected EntityDAO<BaseModel, Long> getEntityDao()
-	{
-		return this.appDAO;
-	}
+    @Override
+    protected EntityDAO<BaseModel, Long> getEntityDao() {
+        return this.appDAO;
+    }
 
-	/**
-	 * 描述信息：查询亲情号码总数
-	 * 创建时间：2015年3月8日 上午7:39:26
-	 * @author WCL (ln_admin@yeah.net)
-	 * @param model
-	 * @return
-	 */
-	@Transactional(readOnly=true)
-	public long queryRelativePhoneInfoCnt(QueryModel model)
-	{
-		return appDAO.queryRelativePhoneInfoCnt(model);
-	}
-	
-	/**
-	 * 描述信息：分页查询亲情号码
-	 * 创建时间：2015年3月8日 上午7:39:26
-	 * @author WCL (ln_admin@yeah.net)
-	 * @param model
-	 * @return
-	 */
-	@Transactional(readOnly=true)
-	public List<RelativePhoneModel> queryRelativePhoneInfo(QueryModel model)
-	{
-		return appDAO.queryRelativePhoneInfo(model);
-	}
-	
-	/**
-	 * 根据用户名和密码查询用户信息
-	 * @param model
-	 * @return
-	 */
-	@Transactional(readOnly=true)
-	public UserModel queryUserInfoWithUserNamePass(QueryModel model) {
-	    return appDAO.queryUserInfoWithUserNamePass(model);
-	}
-	
-	/**
-	 * 根据用户ID查询用户信息
-	 * @param model
-	 * @return
-	 */
-	@Transactional(readOnly=true)
-	public UserModel queryUserInfoWithUserId(QueryModel model) {
-	    return appDAO.queryUserInfoWithUserId(model);
-	}
-	
-	/**
-	 * 根据用户ID查询关联的医护联系人信息
-	 * @param model
-	 * @return
-	 */
-	@Transactional(readOnly=true)
-	public UserModel queryMyNurserWithUserId(QueryModel model) {
-	    return appDAO.queryMyNurserWithUserId(model);
-	}
+    /**
+     * 描述信息：查询亲情号码总数 创建时间：2015年3月8日 上午7:39:26
+     * 
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public long queryRelativePhoneInfoCnt(QueryModel model) {
+        return appDAO.queryRelativePhoneInfoCnt(model);
+    }
+
+    /**
+     * 描述信息：分页查询亲情号码 创建时间：2015年3月8日 上午7:39:26
+     * 
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public List<RelativePhoneModel> queryRelativePhoneInfo(QueryModel model) {
+        return appDAO.queryRelativePhoneInfo(model);
+    }
+
+    /**
+     * 根据用户名和密码查询用户信息
+     * 
+     * @param model
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public UserModel queryUserInfoWithUserNamePass(QueryModel model) {
+        return appDAO.queryUserInfoWithUserNamePass(model);
+    }
+
+    /**
+     * 根据用户ID查询用户信息
+     * 
+     * @param model
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public UserModel queryUserInfoWithUserId(QueryModel model) {
+        return appDAO.queryUserInfoWithUserId(model);
+    }
+
+    /**
+     * 根据用户ID查询关联的医护联系人信息
+     * 
+     * @param model
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public UserModel queryMyNurserWithUserId(QueryModel model) {
+        return appDAO.queryMyNurserWithUserId(model);
+    }
+
+    @Transactional(readOnly = true)
+    public long queryServiceCnt(QueryModel model) {
+        return appDAO.queryServiceCnt(model);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ServiceModel> queryService(QueryModel model) {
+        return appDAO.queryService(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public long queryActivityCnt(QueryModel model) {
+        return appDAO.queryActivityCnt(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<ActivityModel> queryActivity(QueryModel model) {
+        return appDAO.queryActivity(model);
+    }
 }
