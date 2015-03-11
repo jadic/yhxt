@@ -23,10 +23,12 @@ import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
+import com.gesoft.model.MessageModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
+import com.gesoft.model.ScoreModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 
@@ -546,5 +548,59 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	public UserModel queryNurseDetailInfo(QueryModel model)
 	{
 		return pQueryDAO.queryNurseDetailInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：发送消息
+	 * 创建时间：2015年3月11日 上午9:16:56
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addSendMessageInfo(MessageModel model)
+	{
+		return pQueryDAO.addSendMessageInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：加载消息数据
+	 * 创建时间：2015年3月11日 上午9:26:23
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<MessageModel> queryMessageInfo(QueryModel model)
+	{
+		return pQueryDAO.queryMessageInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：增加月评
+	 * 创建时间：2015年3月11日 下午5:12:11
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addScoreInfo(ScoreModel model)
+	{
+		return pQueryDAO.addScoreInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：查看当月点评权限是否已用完
+	 * 创建时间：2015年3月11日 下午5:27:35
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public int queryCurrentMonthMessageInfoCnt(QueryModel model)
+	{
+		return pQueryDAO.queryCurrentMonthMessageInfoCnt(model);
 	}
 }

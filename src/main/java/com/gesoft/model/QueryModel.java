@@ -18,12 +18,20 @@ public class QueryModel extends BaseModel
 	
 	private long id;
 	private String name;
+	private long nurseId;
 	private int adviceType;
 	private int deviceType;
 	private int type;
 	private int creatorId;//创建人id,查询医护联系人创建的活动和服务,
 	
-	
+	public long getNurseId()
+	{
+		return nurseId;
+	}
+	public void setNurseId(long nurseId)
+	{
+		this.nurseId = nurseId;
+	}
 	public int getDeviceType()
 	{
 		return deviceType;

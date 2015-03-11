@@ -183,6 +183,20 @@
 		<result property="memo"  					column="memo"/>
 	</resultMap>
 	
+	
+	<!-- 查询消息列表数据 -->
+	<resultMap id="mRetMessageMap" 					type="messageModel">
+	    <result property="id"  						column="id"/>
+	    <result property="senderId"  				column="senderId"/>
+		<result property="receiverId"  				column="receiverId"/>
+		<result property="sendTime"  				column="sendTime"/>
+		<result property="status"  					column="status"/>
+		<result property="readTime"  				column="readTime"/>
+		<result property="msg"  					column="msg"/>
+		<result property="name"  					column="name"/>
+	</resultMap>
+	
+	
 	<!-- 加载最新一条建议 -->
 	<select id="QueryMapper.queryAdviceInfo" 	parameterType="queryModel"	resultMap="mRetAdviceOneMap">
 		<![CDATA[
@@ -706,4 +720,42 @@
 		]]>
 	</select>
 	
+	
+	<!-- 发送消息-->
+	<insert id="QueryMapper.addSendMessageInfo"  parameterType="messageModel"  useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_msg (senderId, receiverId, sendTime, status, msg) 
+	        VALUES (#{senderId}, #{receiverId}, #{sendTime}, #{status}, #{msg})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 查询消息 -->
+	<select id="QueryMapper.queryMessageInfo" 	parameterType="queryModel"	resultMap="mRetMessageMap">
+		<![CDATA[
+			select a1.id, a1.senderId, a1.receiverId, a1.sendTime, a1.status, a1.readTime, a1.msg, a2.name
+			from tab_msg a1
+			inner join tab_user_info a2 on a1.senderId = a2.userId
+			where a1.receiverId=#{userId}
+		]]>
+	</select>
+	
+	<!-- 增加签约申请-->
+	<insert id="QueryMapper.addScoreInfo"  parameterType="scoreModel"  useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_nurser_score (userId, nurserId, score1, score2, score3) 
+	        VALUES (#{userId}, #{nurserId}, #{score1}, #{score2}, #{score3})
+	    ]]>
+	</insert>
+	
+	<!-- 查看用户当月是否有点评 -->
+	<select id="QueryMapper.queryCurrentMonthMessageInfoCnt" 	parameterType="queryModel"	resultType="long">
+		<![CDATA[
+			select count(1)
+			from tab_nurser_score a1
+			where date_format(a1.stime ,'%Y-%m')=date_format(now(),'%Y-%m')
+			and a1.nurserId = #{nurseId}
+			and a1.userId = #{userId}
+		]]>
+	</select>
 </mapper>

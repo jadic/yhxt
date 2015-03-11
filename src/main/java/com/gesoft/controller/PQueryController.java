@@ -25,11 +25,13 @@ import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
+import com.gesoft.model.MessageModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
+import com.gesoft.model.ScoreModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 import com.gesoft.service.PQueryService;
@@ -864,6 +866,11 @@ public class PQueryController extends BaseController
 			else 
 			{
 				result.addObject("nurse", mRetUser);
+				
+				// 判断是否当月已点评过
+				query.setNurseId(mRetUser.getUserId());
+				int nRet = pQueryService.queryCurrentMonthMessageInfoCnt(query);
+				result.addObject("dpCnt", nRet);
 			}
 		}
 		catch (Exception e)
@@ -955,6 +962,96 @@ public class PQueryController extends BaseController
 		catch (Exception e)
 		{
 			logger.error("PQueryController toNurseRequest error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：加载消息
+	 * 创建时间：2015年3月11日 上午9:23:47
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/loadMsg.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toLoadMsg(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			List<MessageModel> argArgs = pQueryService.queryMessageInfo(model);
+			if (argArgs != null && argArgs.size() > 0)
+			{
+				msgModel.setTotal(argArgs.size());
+				msgModel.setRows(argArgs);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toLoadMsg error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：发送消息
+	 * 创建时间：2015年3月11日 上午9:16:05
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/sendMsg.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toSendMessage(MessageModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setSenderId(getSessionUserId(request, SESSION_KEY_PUID));
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if (pQueryService.addSendMessageInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toSendMessage error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：增加月评分
+	 * 创建时间：2015年3月11日 下午5:11:19
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/addScore.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toAddScore(ScoreModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if (pQueryService.addScoreInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toAddScore error：", e);
 		}
 		return msgModel;
 	}
