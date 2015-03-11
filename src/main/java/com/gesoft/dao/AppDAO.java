@@ -55,12 +55,15 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long>
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryRelativePhoneInfo", model);
 	}
 	
-	/**
-	 * 查询用户信息
-	 * @param model
-	 * @return
-	 */
-	public UserModel queryUserInfo(QueryModel model) {
-	    return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryUserInfo", model);
+	public UserModel queryUserInfoWithUserNamePass(QueryModel model) {
+	    return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryUserInfoWithUserNamePass", model);
+	}
+	
+	public UserModel queryUserInfoWithUserId(QueryModel model) {
+	    return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryUserInfoWithUserId", model);
+	}
+	
+	public UserModel queryMyNurserWithUserId(QueryModel model) {
+	    return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryMyNurserWithUserId", model);
 	}
 }

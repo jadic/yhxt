@@ -55,6 +55,9 @@ public class UserModel extends BaseModel
 	private int cnt;
 	private String genderStr;	//性别
 	
+	private int parentId;//子女用户关联的老人用户ID
+	private int sysId;//用户对应的平台类型
+	
 	public String getGenderStr()
 	{
 		switch (this.gender)
@@ -93,6 +96,7 @@ public class UserModel extends BaseModel
 	{
 		this.score = score;
 	}
+	
 	public long getUserId()
 	{
 		return userId;
@@ -325,4 +329,16 @@ public class UserModel extends BaseModel
 	{
 		this.photo = photo;
 	}
+    public int getParentId() {
+        return parentId;
+    }
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
+    public int getSysId() {
+        return sysId;
+    }
+    public void setSysId(int sysId) {
+        this.sysId = sysId;
+    }
 }

@@ -74,17 +74,49 @@ public class AppController extends BaseController
 	}
 	
 	/**
-	 * 查询用户信息
+	 * 根据用户登录名和密码查询用户信息
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/getUserInfo.do")
-	public @ResponseBody UserModel queryUserInfo(QueryModel model) {
+	@RequestMapping(value="/queryUserInfoWithUserNamePass.do")
+	public @ResponseBody UserModel queryUserInfoWithUserNamePass(QueryModel model) {
 	    UserModel userModel = null;
 	    try {
-	        userModel = appService.queryUserInfo(model);
+	        userModel = appService.queryUserInfoWithUserNamePass(model);
 	    } catch (Exception e){
 	        logger.error("AppController getUserInfo error:", e);
+	    }
+	    return userModel;
+	}
+	
+	/**
+	 * 根据用户ID查询用户信息
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/queryUserInfoWithUserId.do")
+	public @ResponseBody UserModel queryUserInfoWithUserId(QueryModel model) {
+	    UserModel userModel = null;
+        try {
+            userModel = appService.queryUserInfoWithUserId(model);
+        } catch (Exception e){
+            logger.error("AppController queryMyNurseInfo error:", e);
+        }
+        return userModel;
+	}
+	
+	/**
+	 * 根据用户ID查询关联的医护联系人信息
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/queryMyNurserWithUserId.do")
+	public @ResponseBody UserModel queryMyNurserWithUserId(QueryModel model) {
+	    UserModel userModel = null;
+	    try {
+	        userModel = appService.queryMyNurserWithUserId(model);
+	    } catch (Exception e){
+	        logger.error("AppController queryMyNurseInfo error:", e);
 	    }
 	    return userModel;
 	}
