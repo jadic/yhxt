@@ -2,5 +2,231 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SearchMapper">
 	
+    <!-- 查询用户列表数据 -->
+    <resultMap id="mRetUserMap" 					type="userModel">
+		<result property="userId"  					column="userId"/>
+		<result property="name"  					column="name"/>
+		<result property="gender"  					column="gender"/>
+		<result property="birthdate"  				column="birthdate"/>
+		<result property="cellphone"  				column="cellphone"/>
+		<result property="email"  					column="email"/>
+		
+		<result property="credentialType"  			column="credentialType"/>
+		<result property="credentialNo"  			column="credentialNo"/>
+		<result property="isSoldier"  				column="isSoldier"/>
+		<result property="isDisablity"  			column="isDisablity"/>
+		<result property="height"  					column="height"/>
+		
+		<result property="weight"  					column="weight"/>
+		<result property="nationality"  			column="nationality"/>
+		<result property="nativePlace"  			column="nativePlace"/>
+		<result property="marriageStatus"  			column="marriageStatus"/>
+		<result property="householdType"  			column="householdType"/>
+		
+		<result property="education"  				column="education"/>
+		<result property="policticsStatus"  		column="policticsStatus"/>
+		<result property="homePhone"  				column="homePhone"/>
+		<result property="homeAddress"  			column="homeAddress"/>
+		<result property="photo"  					column="photo"/>
+		<result property="stime"  					column="sendTime"/>
+		<result property="cnt"  					column="cnt"/>
+	</resultMap>
+	
+    <!-- 分页查询活动记录 -->
+    <resultMap id="mRetActivityMap" 				type="activityModel">
+		<result property="id"  						column="activityId"/>
+		<result property="type"  					column="activityType"/>
+		<result property="name"  					column="activityName"/>
+		<result property="content"  				column="activityContent"/>
+		<result property="creatorId"  				column="activityCreatorId"/>
+		<result property="createTime"  				column="activityCreateTime"/>
+		<result property="sdate"  					column="activityStartDate"/>
+		<result property="edate"  					column="activityDuration"/>
+		<result property="memo"  					column="activiyMemo"/>
+		<result property="icon"  					column="activityIcon"/>
+	</resultMap>
+	
+    <!-- 查询服务记录 -->
+    <resultMap id="mRetServiceMap" 		type="serviceModel">
+		<result property="id"  			column="id"/>
+		<result property="type"  		column="serviceType"/>
+		<result property="name"  		column="serviceName"/>
+		<result property="content"  	column="serviceContent"/>
+		<result property="creatorId"  	column="serviceCreatorId"/>
+		<result property="createTime"  	column="serviceCreateTime"/>
+		<result property="sdate"  		column="serviceStartDate"/>
+		<result property="edate"  		column="serviceDuration"/>
+		<result property="memo"  		column="serviceMemo"/>
+		<result property="icon"  		column="serviceIcon"/>
+	</resultMap>
+	
     
+    <!-- 查询用户列表数据 -->
+	<select id="SearchMapper.queryUserListInfo" 	parameterType="queryModel"	resultMap="mRetUserMap">
+		<![CDATA[
+			select a2.*, IFNULL(a3.cnt,0) as cnt, IFNULL(a3.sendTime,'-') as sendTime
+			from tab_user_nurse_relation a1
+			inner join tab_user_info a2 on a2.userId=a1.userId
+			left join (
+				select b1.senderId, b1.receiverId, MAX(b1.sendTime) as sendTime, count(1) as cnt
+				from tab_msg b1
+				where b1.status = 0
+				group by b1.senderId, b1.receiverId
+			) a3 on a3.receiverId=a1.nurseId and a1.userId=a3.senderId
+			where a1.nurseId = #{userId}
+		]]>
+	        <if test="name != null and name != ''">
+				AND a2.name LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+		<![CDATA[
+			order by IFNULL(a3.cnt,0) desc
+		]]>
+	</select>
+	
+	
+	<!-- 查询活动的总数 -->
+	<select id="SearchMapper.queryActivityInfoCnt" 	parameterType="queryModel"	resultType="long">
+		<![CDATA[
+			select count(1) as cnt
+			from tab_activity a1
+			where a1.activityCreatorId = #{userId}
+		]]>
+		<if test="name != null and name != ''">
+			AND a1.activityName LIKE CONCAT('%', #{name}, '%') 
+        </if>
+	</select>
+    
+	
+	<!-- 分页查询活动记录 -->
+	<select id="SearchMapper.queryActivityInfo" 	parameterType="queryModel"	resultMap="mRetActivityMap">
+		<![CDATA[
+			select a1.activityId, a1.activityType, a1.activityName, a1.activityContent, a1.activityCreatorId, 
+				a1.activityCreateTime, a1.activityStartDate, a1.activityDuration, a1.activiyMemo,  a1.activityIcon
+			from tab_activity a1
+			where a1.activityCreatorId = #{userId}
+		]]>
+	       	<if test="name != null and name != ''">
+				AND a1.activityName LIKE CONCAT('%', #{name}, '%') 
+        	</if>
+		<![CDATA[
+			order by activityStartDate desc
+			limit #{startNum}, #{rows}
+		]]>
+	</select>
+	
+	
+	<!-- 分页查询活动记录 -->
+	<select id="SearchMapper.queryActivityInfoById" 	parameterType="queryModel"	resultMap="mRetActivityMap">
+		<![CDATA[
+			select a1.activityId, a1.activityType, a1.activityName, a1.activityContent, a1.activityCreatorId, 
+				a1.activityCreateTime, a1.activityStartDate, a1.activityDuration, a1.activiyMemo,  a1.activityIcon
+			from tab_activity a1
+			where a1.activityId = #{id}
+		]]>
+	</select>
+	
+	<!-- 插入活动记录 -->
+	<insert id="SearchMapper.addActivityInfo" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_activity (activityType, activityName, activityContent, activityCreatorId, activityCreateTime, activityStartDate, activityDuration, activiyMemo, activityIcon) 
+	        VALUES (#{type}, #{name}, #{content}, #{creatorId}, #{createTime}, #{sdate}, #{edate}, #{memo}, #{icon})
+	    ]]>
+	</insert>
+	
+	<!-- 修改活动记录-->
+	<update id="SearchMapper.modifyActivityInfo" parameterType="activityModel">
+		<![CDATA[
+			UPDATE tab_activity  SET  
+			activityType = #{type},
+			activityName = #{name}, 
+			activityContent = #{content}, 
+			activityStartDate = #{sdate}, 
+			activityDuration = #{edate}, 
+			activiyMemo = #{memo}, 
+			activityIcon = #{icon}
+			WHERE id = #{id} 
+		]]>
+	</update>
+	
+	
+	<!-- 删除活动记录-->
+	<delete id="SearchMapper.delActivityInfo">
+		<![CDATA[
+			DELETE FROM tab_service 
+			WHERE id = #{id} 
+		]]>
+	</delete>
+	
+	<!-- 插入服务数据-->
+	<insert id="SearchMapper.addServiceInfo" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_service (serviceType, serviceName, serviceContent, serviceCreatorId, serviceCreateTime, servcieStartDate, serviceDuration, serviceMemo, serviceIcon) 
+	        VALUES (#{type}, #{name}, #{content}, #{creatorId}, #{createTime}, #{sdate}, #{edate}, #{memo}, #{icon})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 查询服务数据总记录数-->
+	<select id="SearchMapper.queryServiceInfoCnt" parameterType="serviceModel" resultType="long">
+		<![CDATA[
+			SELECT COUNT(1) AS CNT
+			FROM tab_service a1
+			where a1.serviceCreatorId=#{userId}
+		]]>
+	        <if test="name != null and name != ''">
+				AND a1.serviceName LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+	</select>
+	
+	
+	
+	<!-- 分页查询服务数据-->
+	<select id="SearchMapper.queryServiceInfo" parameterType="serviceModel"	resultMap="mRetServiceMap">
+		<![CDATA[
+			SELECT a1.*
+			FROM tab_service a1
+			where a1.serviceCreatorId=#{userId}
+		]]>
+	        <if test="name != null and name != ''">
+				AND a1.serviceName LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+		<![CDATA[
+			order by a1.servcieStartDate
+			LIMIT #{startNum}, #{rows}
+		]]>
+	</select>
+
+	
+	<!-- 分页查询活动记录 -->
+	<select id="SearchMapper.queryServiceInfoById" 	parameterType="queryModel"	resultMap="mRetServiceMap">
+		<![CDATA[
+			select a1.*
+			from tab_service a1
+			where a1.id = #{id}
+		]]>
+	</select>
+	
+	
+	<!-- 修改服务数据-->
+	<update id="SearchMapper.modifyServiceInfo" parameterType="serviceModel">
+		<![CDATA[
+			UPDATE tab_service  SET  
+			serviceType = #{type},
+			serviceName = #{name}, 
+			serviceContent = #{content}, 
+			serviceStartDate = #{sdate}, 
+			serviceDuration = #{edate}, 
+			serviceMemo = #{memo}, 
+			serviceIcon = #{icon}
+			WHERE id = #{id} 
+		]]>
+	</update>
+	
+	<!-- 删除服务数据-->
+	<delete id="SearchMapper.delServiceInfo">
+		<![CDATA[
+			DELETE FROM tab_service 
+			WHERE id = #{id} 
+		]]>
+	</delete>
 </mapper>
