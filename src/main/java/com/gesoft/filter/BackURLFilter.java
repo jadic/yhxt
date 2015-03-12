@@ -55,8 +55,8 @@ public class BackURLFilter implements Filter, Constants
 			if (request.getRequestURI().indexOf("admin/main.html") > 0
 					|| request.getRequestURI().indexOf("admin/redirect.html") > 0
 			){
-				response.sendRedirect(request.getContextPath() + "/index.html");
-				return ;
+				//response.sendRedirect(request.getContextPath() + "/index.html");
+				//return ;
 			}
 //			else
 //			{
