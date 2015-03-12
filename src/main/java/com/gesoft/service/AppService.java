@@ -74,7 +74,7 @@ public class AppService extends EntityService<BaseModel, Long> {
      * @return
      */
     @Transactional(readOnly = true)
-    public UserModel queryUserInfoWithUserNamePass(QueryModel model) {
+    public List<UserModel> queryUserInfoWithUserNamePass(QueryModel model) {
         return appDAO.queryUserInfoWithUserNamePass(model);
     }
 
@@ -85,7 +85,7 @@ public class AppService extends EntityService<BaseModel, Long> {
      * @return
      */
     @Transactional(readOnly = true)
-    public UserModel queryUserInfoWithUserId(QueryModel model) {
+    public List<UserModel> queryUserInfoWithUserId(QueryModel model) {
         return appDAO.queryUserInfoWithUserId(model);
     }
 
@@ -96,7 +96,7 @@ public class AppService extends EntityService<BaseModel, Long> {
      * @return
      */
     @Transactional(readOnly = true)
-    public UserModel queryMyNurserWithUserId(QueryModel model) {
+    public List<UserModel> queryMyNurserWithUserId(QueryModel model) {
         return appDAO.queryMyNurserWithUserId(model);
     }
 

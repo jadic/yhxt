@@ -59,16 +59,16 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long>
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryRelativePhoneInfo", model);
 	}
 	
-	public UserModel queryUserInfoWithUserNamePass(QueryModel model) {
-	    return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryUserInfoWithUserNamePass", model);
+	public List<UserModel> queryUserInfoWithUserNamePass(QueryModel model) {
+	    return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryUserInfoWithUserNamePass", model);
 	}
 	
-	public UserModel queryUserInfoWithUserId(QueryModel model) {
-	    return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryUserInfoWithUserId", model);
+	public List<UserModel> queryUserInfoWithUserId(QueryModel model) {
+	    return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryUserInfoWithUserId", model);
 	}
 	
-	public UserModel queryMyNurserWithUserId(QueryModel model) {
-	    return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryMyNurserWithUserId", model);
+	public List<UserModel> queryMyNurserWithUserId(QueryModel model) {
+	    return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryMyNurserWithUserId", model);
 	}
 	
 	public long queryServiceCnt(QueryModel model)
