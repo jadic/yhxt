@@ -123,6 +123,11 @@ public class AppController extends BaseController
 	    return userModel;
 	}
 	
+	/**
+	 * 查询用户可查看的服务信息
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/queryService.do")
 	public @ResponseBody MsgModel queryServices(QueryModel model) {
 	    MsgModel msgModel = new MsgModel();
