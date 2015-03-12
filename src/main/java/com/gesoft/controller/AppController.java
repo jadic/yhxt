@@ -83,14 +83,18 @@ public class AppController extends BaseController
 	 * @return
 	 */
 	@RequestMapping(value="/queryUserInfoWithUserNamePass.do")
-	public @ResponseBody UserModel queryUserInfoWithUserNamePass(QueryModel model) {
-	    UserModel userModel = null;
+	public @ResponseBody MsgModel queryUserInfoWithUserNamePass(QueryModel model) {
+	    MsgModel msgModel = new MsgModel();
 	    try {
-	        userModel = appService.queryUserInfoWithUserNamePass(model);
+	        List<UserModel> list = appService.queryUserInfoWithUserNamePass(model);
+	        if (list != null && list.size() > 0) {
+	            msgModel.setTotal(list.size());
+	            msgModel.setRows(list);
+	        }
 	    } catch (Exception e){
 	        logger.error("AppController getUserInfo error:", e);
 	    }
-	    return userModel;
+	    return msgModel;
 	}
 	
 	/**
@@ -99,14 +103,18 @@ public class AppController extends BaseController
 	 * @return
 	 */
 	@RequestMapping(value="/queryUserInfoWithUserId.do")
-	public @ResponseBody UserModel queryUserInfoWithUserId(QueryModel model) {
-	    UserModel userModel = null;
+	public @ResponseBody MsgModel queryUserInfoWithUserId(QueryModel model) {
+        MsgModel msgModel = new MsgModel();
         try {
-            userModel = appService.queryUserInfoWithUserId(model);
+            List<UserModel> list = appService.queryUserInfoWithUserId(model);
+            if (list != null && list.size() > 0) {
+                msgModel.setTotal(list.size());
+                msgModel.setRows(list);
+            }
         } catch (Exception e){
-            logger.error("AppController queryMyNurseInfo error:", e);
+            logger.error("AppController queryUserInfoWithUserId error:", e);
         }
-        return userModel;
+        return msgModel;
 	}
 	
 	/**
@@ -115,14 +123,18 @@ public class AppController extends BaseController
 	 * @return
 	 */
 	@RequestMapping(value="/queryMyNurserWithUserId.do")
-	public @ResponseBody UserModel queryMyNurserWithUserId(QueryModel model) {
-	    UserModel userModel = null;
-	    try {
-	        userModel = appService.queryMyNurserWithUserId(model);
-	    } catch (Exception e){
-	        logger.error("AppController queryMyNurseInfo error:", e);
-	    }
-	    return userModel;
+	public @ResponseBody MsgModel queryMyNurserWithUserId(QueryModel model) {
+	    MsgModel msgModel = new MsgModel();
+        try {
+            List<UserModel> list = appService.queryMyNurserWithUserId(model);
+            if (list != null && list.size() > 0) {
+                msgModel.setTotal(list.size());
+                msgModel.setRows(list);
+            }
+        } catch (Exception e){
+            logger.error("AppController queryMyNurserWithUserId error:", e);
+        }
+        return msgModel;
 	}
 	
 	/**

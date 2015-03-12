@@ -188,7 +188,7 @@
         from (select a.id, a.userId, a.adviceTypId, b.typeName, max(a.adviceTime) as adviceTime, a.adviceContent
     		  from tab_doctor_advice a
     		  inner join tab_dict_doctor_advice_type b on b.typeId=a.adviceTypId
-    		  where a.userId=1
+    		  where a.userId=#{userId}
     		  group by a.adviceTypId
     		 ) aa
       ]]>
