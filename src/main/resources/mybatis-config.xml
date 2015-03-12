@@ -15,6 +15,10 @@
 		<typeAlias alias="geneticDiseaseModel" type="com.gesoft.model.GeneticDiseaseModel" />
 		<typeAlias alias="diseaseHisModel" type="com.gesoft.model.DiseaseHisModel" />
 		<typeAlias alias="nurseRequestModel" type="com.gesoft.model.NurseRequestModel" />
+		<typeAlias alias="messageModel" type="com.gesoft.model.MessageModel" />
+		<typeAlias alias="scoreModel" type="com.gesoft.model.ScoreModel" />
+		<typeAlias alias="activityModel" type="com.gesoft.model.ActivityModel" />
+		
 	</typeAliases>
 	<mappers></mappers>
 </configuration>
