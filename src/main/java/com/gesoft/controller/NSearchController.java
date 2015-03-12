@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.ActivityModel;
+import com.gesoft.model.DoctorModel;
 import com.gesoft.model.MsgModel;
+import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
@@ -60,7 +62,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			List<UserModel> argArgs = nSearchService.queryUserListInfo(model);
 			if(argArgs.size() > 0)
 			{
@@ -91,7 +93,7 @@ public class NSearchController extends BaseController
 		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
 		try
 		{
-			query.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			result.addObject("query", query);
 			
 			//分页加载建议执行结果
@@ -125,7 +127,7 @@ public class NSearchController extends BaseController
 		ModelAndView result = new ModelAndView("/patient/healthinfo/add_relative_phone_info");
 		try
 		{
-			query.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			result.addObject("query", query);
 			if (query.getId() > 0)
 			{
@@ -156,7 +158,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			if(nSearchService.addActivityInfo(model) > 0)
 			{
 				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
@@ -185,7 +187,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			if(nSearchService.modifyActivityInfo(model) > 0)
 			{
 				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
@@ -214,7 +216,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			if(nSearchService.delActivityInfo(model) > 0)
 			{
 				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
@@ -243,7 +245,7 @@ public class NSearchController extends BaseController
 		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
 		try
 		{
-			query.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			result.addObject("query", query);
 			
 			//分页加载建议执行结果
@@ -277,7 +279,7 @@ public class NSearchController extends BaseController
 		ModelAndView result = new ModelAndView("/patient/healthinfo/add_relative_phone_info");
 		try
 		{
-			query.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			result.addObject("query", query);
 			if (query.getId() > 0)
 			{
@@ -308,7 +310,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			if(nSearchService.addServiceInfo(model) > 0)
 			{
 				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
@@ -337,7 +339,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			if(nSearchService.modifyServiceInfo(model) > 0)
 			{
 				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
@@ -366,7 +368,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			if(nSearchService.delServiceInfo(model) > 0)
 			{
 				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
@@ -377,5 +379,134 @@ public class NSearchController extends BaseController
 			logger.error("NSearchController toDelService error：", e);
 		}
 		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：分页查询签约请求
+	 * 创建时间：2015年3月12日 上午10:42:06
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/nurseRequest.do")
+	public ModelAndView toNurseRequest(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
+		try
+		{
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			
+			long recordCount = nSearchService.queryNurseRequestInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<NurseRequestModel> argArgs = nSearchService.queryNurseRequestInfo(query);
+				result.addObject("serviceFlys", argArgs);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toNurseRequest error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：处理签约请求
+	 * 创建时间：2015年3月12日 上午10:44:09
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/dealRequest.do")
+	public @ResponseBody MsgModel toDealRequest(NurseRequestModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			if(nSearchService.dealNurseRequestInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toDealRequest error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：进行医生风采界面
+	 * 创建时间：2015年3月12日 下午12:03:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/doctor.do")
+	public ModelAndView toDoctor(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
+		try
+		{
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			
+			long recordCount = nSearchService.queryDoctorInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<NurseRequestModel> argArgs = nSearchService.queryDoctorInfo(query);
+				result.addObject("doctorFlys", argArgs);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toDoctor error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：医生详情
+	 * 创建时间：2015年3月12日 下午12:04:56
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/doctorDetail.do")
+	public ModelAndView toDoctorDetail(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
+		try
+		{
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			
+			DoctorModel doctorModel = nSearchService.queryDoctorDetailInfo(query);
+			if(doctorModel == null)
+			{
+				result.addObject("doctor", doctorModel);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toDoctorDetail error：", e);
+		}
+		return result;
 	}
 }

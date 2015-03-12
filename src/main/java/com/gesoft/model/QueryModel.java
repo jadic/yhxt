@@ -22,8 +22,27 @@ public class QueryModel extends BaseModel
 	private int adviceType;
 	private int deviceType;
 	private int type;
-	private int creatorId;//创建人id,查询医护联系人创建的活动和服务,
+	private int creatorId;	// 创建人id,查询医护联系人创建的活动和服务,
+	private int deptId;		// 科室
+	private int hospitalId; // 医院
 	
+	
+	public int getDeptId()
+	{
+		return deptId;
+	}
+	public void setDeptId(int deptId)
+	{
+		this.deptId = deptId;
+	}
+	public int getHospitalId()
+	{
+		return hospitalId;
+	}
+	public void setHospitalId(int hospitalId)
+	{
+		this.hospitalId = hospitalId;
+	}
 	public long getNurseId()
 	{
 		return nurseId;

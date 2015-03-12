@@ -136,4 +136,69 @@ public class DwrUController
 		}
 		return mRetMap;
 	}
+	
+	/**
+	 * 描述信息：加载医院
+	 * 创建时间：2015年3月12日 上午11:43:18
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RemoteMethod
+	public Map<?, ?> loadHospitalInfo()
+	{
+		LinkedHashMap<?, ?> mRetMap = null;
+		try
+		{
+			mRetMap = dwrService.queryHospitalInfo();
+		}
+		catch (Exception e)
+		{
+			logger.error("DwrUController loadHospitalInfo error：", e);
+		}
+		return mRetMap;
+	}
+	
+	
+	/**
+	 * 描述信息：医院科室
+	 * 创建时间：2015年3月12日 上午11:45:00
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RemoteMethod
+	public Map<?, ?> loadHospitalDeptInfo()
+	{
+		LinkedHashMap<?, ?> mRetMap = null;
+		try
+		{
+			mRetMap = dwrService.queryHospitalDeptInfo();
+		}
+		catch (Exception e)
+		{
+			logger.error("DwrUController loadHospitalDeptInfo error：", e);
+		}
+		return mRetMap;
+	}
+	
+	/***
+	 * 描述信息：加载医院地址
+	 * 创建时间：2015年3月12日 上午11:48:32
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param id
+	 * @return
+	 */
+	@RemoteMethod
+	public String loadHospitalAddressInfo(int id)
+	{
+		String strRet = "";
+		try
+		{
+			strRet = dwrService.queryHospitalAddressInfo(id);
+		}
+		catch (Exception e)
+		{
+			logger.error("DwrUController loadHospitalAddressInfo error：", e);
+		}
+		return strRet;
+	}
 }

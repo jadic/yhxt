@@ -19,6 +19,8 @@ import com.gesoft.common.EntityService;
 import com.gesoft.dao.NSearchDAO;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.DoctorModel;
+import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
@@ -220,5 +222,93 @@ public class NSearchService extends EntityService<BaseModel, Long>
 	public int delServiceInfo(ServiceModel model)
 	{
 		return nSearchDAO.delServiceInfo(model);
+	}
+
+
+	/**
+	 * 描述信息：查询签约数据总数
+	 * 创建时间：2015年3月12日 上午10:45:29
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public long queryNurseRequestInfoCnt(QueryModel model)
+	{
+		return nSearchDAO.queryNurseRequestInfoCnt(model);
+	}
+
+
+	/**
+	 * 描述信息：分页查询签约
+	 * 创建时间：2015年3月12日 上午10:45:50
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<NurseRequestModel> queryNurseRequestInfo(QueryModel model)
+	{
+		return nSearchDAO.queryNurseRequestInfo(model);
+	}
+
+
+	/**
+	 * 描述信息：处理签约请求
+	 * 创建时间：2015年3月12日 上午10:45:55
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int dealNurseRequestInfo(NurseRequestModel model)
+	{
+		//如果是同时，则向用户与医护人员关系表中插入一条记录
+		if (model.getStatus() == 1)
+		{
+			nSearchDAO.addUserNurseRelaviteInfo(model);
+		}
+		return nSearchDAO.dealNurseRequestInfo(model);
+	}
+
+
+	/**
+	 * 描述信息：查询医生总记录数
+	 * 创建时间：2015年3月12日 下午12:07:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public long queryDoctorInfoCnt(QueryModel model)
+	{
+		return nSearchDAO.queryDoctorInfoCnt(model);
+	}
+
+
+	/**
+	 * 描述信息：分页加载医生信息
+	 * 创建时间：2015年3月12日 下午12:07:41
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<NurseRequestModel> queryDoctorInfo(QueryModel model)
+	{
+		return nSearchDAO.queryDoctorInfo(model);
+	}
+
+
+	/**
+	 * 描述信息：加载医人详情
+	 * 创建时间：2015年3月12日 下午12:07:46
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public DoctorModel queryDoctorDetailInfo(QueryModel model)
+	{
+		return nSearchDAO.queryDoctorDetailInfo(model);
 	}
 }

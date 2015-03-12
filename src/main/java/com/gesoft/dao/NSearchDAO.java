@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.DoctorModel;
+import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
@@ -205,5 +207,95 @@ public class NSearchDAO extends EntityDAOImpl<BaseModel, Long>
 	public int delServiceInfo(ServiceModel model)
 	{
 		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delServiceInfo", model);
+	}
+	
+	/**
+	 * 描述信息：查询签约数据总数
+	 * 创建时间：2015年3月12日 上午10:45:29
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public long queryNurseRequestInfoCnt(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryNurseRequestInfoCnt", model);
+	}
+
+
+	/**
+	 * 描述信息：分页查询签约
+	 * 创建时间：2015年3月12日 上午10:45:50
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public List<NurseRequestModel> queryNurseRequestInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryNurseRequestInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：处理签约请求
+	 * 创建时间：2015年3月12日 上午10:45:55
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int dealNurseRequestInfo(NurseRequestModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".dealNurseRequestInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：插入用户与医护人员关系表
+	 * 创建时间：2015年3月12日 上午10:50:46
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 */
+	public void addUserNurseRelaviteInfo(NurseRequestModel model)
+	{
+		getSqlSession().insert(getMybatisSqlMapNamespace() + ".addUserNurseRelaviteInfo", model);
+	}
+	
+
+
+	/**
+	 * 描述信息：查询医生总记录数
+	 * 创建时间：2015年3月12日 下午12:07:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public long queryDoctorInfoCnt(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryDoctorInfoCnt", model);
+	}
+
+
+	/**
+	 * 描述信息：分页加载医生信息
+	 * 创建时间：2015年3月12日 下午12:07:41
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public List<NurseRequestModel> queryDoctorInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryDoctorInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：加载医人详情
+	 * 创建时间：2015年3月12日 下午12:07:46
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public DoctorModel queryDoctorDetailInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryDoctorDetailInfo", model);
 	}
 }

@@ -55,4 +55,41 @@ public class DwrDAO extends EntityDAOImpl<BaseModel, Long>
 		return getSqlSession().selectList(getMybatisSqlMapNamespace()+".queryDictInfo", model);
 	}
 	
+	
+
+
+	/**
+	 * 描述信息：加载医院
+	 * 创建时间：2015年3月12日 上午11:43:18
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	public List<DwrModel> queryHospitalInfo()
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace()+".queryHospitalInfo");
+	}
+
+	/**
+	 * 描述信息：医院科室
+	 * 创建时间：2015年3月12日 上午11:45:00
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	public List<DwrModel> queryHospitalDeptInfo()
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace()+".queryHospitalDeptInfo");
+	}
+
+	
+	/***
+	 * 描述信息：加载医院地址
+	 * 创建时间：2015年3月12日 上午11:48:32
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param id
+	 * @return
+	 */
+	public String queryHospitalAddressInfo(int id)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace()+".queryHospitalDeptInfo", id);
+	}
 }

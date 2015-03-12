@@ -23,4 +23,30 @@
 			FROM ${tableName} A
 		]]>
 	</select>
+	
+	<!--加载医院 -->
+	<select id="DwrMapper.queryHospitalInfo" 	resultMap="mRetDwrMap">
+		<![CDATA[
+			SELECT A.hospitalId AS msgKey, A.hospitalName AS msgVal
+			FROM tab_hospital A
+		]]>
+	</select>
+	
+	<!--医院科室 -->
+	<select id="DwrMapper.queryHospitalDeptInfo" 	resultMap="mRetDwrMap">
+		<![CDATA[
+			SELECT A.deptId AS msgKey, A.deptName AS msgVal
+			FROM tab_hospital_dept A
+		]]>
+	</select>
+	
+	
+	<!--医院科室 -->
+	<select id="DwrMapper.queryHospitalAddressInfo" parameterType="int"	resultType="string">
+		<![CDATA[
+			SELECT a.hospitalAddr
+			FROM tab_hospital a
+			where a.hospitalId = ${id}
+		]]>
+	</select>
 </mapper>

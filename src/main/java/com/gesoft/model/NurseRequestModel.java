@@ -17,15 +17,42 @@ public class NurseRequestModel extends BaseModel
 {
 	private static final long serialVersionUID = -8716838018231091911L;
 	private long id;
-	private long nurseId;
-	private String nurseName;
+	private long nurseId;			// 医护人员ID
+	private String nurseName;		// 医护人员姓名
 	private int status;		//0：请求中    1：同意     2：拒绝
 	private String statusStr;
 	private String requestTime;		// 请求时间
 	private String responseTime; 	// 回复时间
 	private String memo;			// 备注
+	private String gender;			// 用户性别
+	private String cellphone;		// 用户联系电话
+	private String userName;		// 用户姓名
 	
 	
+	public String getGender()
+	{
+		return gender;
+	}
+	public void setGender(String gender)
+	{
+		this.gender = gender;
+	}
+	public String getCellphone()
+	{
+		return cellphone;
+	}
+	public void setCellphone(String cellphone)
+	{
+		this.cellphone = cellphone;
+	}
+	public String getUserName()
+	{
+		return userName;
+	}
+	public void setUserName(String userName)
+	{
+		this.userName = userName;
+	}
 	public String getNurseName()
 	{
 		return nurseName;

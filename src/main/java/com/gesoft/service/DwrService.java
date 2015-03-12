@@ -118,4 +118,44 @@ public class DwrService
 		}
 		return mRetMap;
 	}
+
+
+	/**
+	 * 描述信息：加载医院
+	 * 创建时间：2015年3月12日 上午11:43:18
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public LinkedHashMap<?, ?> queryHospitalInfo()
+	{
+		return funDealDwrInfo(dwrDAO.queryHospitalInfo());
+	}
+
+
+	/**
+	 * 描述信息：医院科室
+	 * 创建时间：2015年3月12日 上午11:45:00
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public LinkedHashMap<?, ?> queryHospitalDeptInfo()
+	{
+		return funDealDwrInfo(dwrDAO.queryHospitalDeptInfo());
+	}
+
+	
+	/***
+	 * 描述信息：加载医院地址
+	 * 创建时间：2015年3月12日 上午11:48:32
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param id
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public String queryHospitalAddressInfo(int id)
+	{
+		return dwrDAO.queryHospitalAddressInfo(id);
+	}
 }

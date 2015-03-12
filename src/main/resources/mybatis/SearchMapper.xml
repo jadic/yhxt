@@ -60,6 +60,39 @@
 		<result property="icon"  		column="serviceIcon"/>
 	</resultMap>
 	
+			
+    <!-- 询医护人员列表 -->
+	<resultMap id="mRetNurseRequestMap" 			type="nurseRequestModel">
+	    <result property="id"  						column="id"/>
+	    <result property="userId"  					column="userId"/>
+		<result property="nurseId"  				column="nurseId"/>
+		<result property="userName"  				column="name"/>
+		<result property="status"  					column="status"/>
+		<result property="requestTime"  			column="requestTime"/>
+		<result property="responseTime"  			column="responseTime"/>
+		<result property="memo"  					column="memo"/>
+		<result property="gender"  					column="gender"/>
+		<result property="cellphone"  				column="cellphone"/>
+	</resultMap>
+	
+	
+    <!-- 查询医生列表 -->
+	<resultMap id="mRetDoctorMap" 						type="doctorModel">
+	    <result property="doctorId"  					column="doctorId"/>
+	    <result property="doctorName"  					column="doctorName"/>
+		<result property="doctorGender"  				column="doctorGender"/>
+		<result property="doctorPhoto"  				column="doctorPhoto"/>
+		<result property="doctorHospitalld"  			column="doctorHospitalld"/>
+		<result property="doctorDeptld"  				column="doctorDeptld"/>
+		<result property="doctorTitle"  				column="doctorTitle"/>
+		<result property="doctorEducation"  			column="doctorEducation"/>
+		<result property="doctorSkill"  				column="doctorSkill"/>
+		<result property="doctorDetailDescriptior"  	column="doctorDetailDescriptior"/>
+		<result property="hospitalName"  				column="hospitalName"/>
+		<result property="hospitalAddr"  				column="hospitalAddr"/>
+		<result property="deptName"  					column="deptName"/>
+	</resultMap>
+	
     
     <!-- 查询用户列表数据 -->
 	<select id="SearchMapper.queryUserListInfo" 	parameterType="queryModel"	resultMap="mRetUserMap">
@@ -73,7 +106,7 @@
 				where b1.status = 0
 				group by b1.senderId, b1.receiverId
 			) a3 on a3.receiverId=a1.nurseId and a1.userId=a3.senderId
-			where a1.nurseId = #{userId}
+			where a1.nurseId = #{nurseId}
 		]]>
 	        <if test="name != null and name != ''">
 				AND a2.name LIKE CONCAT('%', #{name}, '%') 
@@ -89,7 +122,7 @@
 		<![CDATA[
 			select count(1) as cnt
 			from tab_activity a1
-			where a1.activityCreatorId = #{userId}
+			where a1.activityCreatorId = #{nurseId}
 		]]>
 		<if test="name != null and name != ''">
 			AND a1.activityName LIKE CONCAT('%', #{name}, '%') 
@@ -103,7 +136,7 @@
 			select a1.activityId, a1.activityType, a1.activityName, a1.activityContent, a1.activityCreatorId, 
 				a1.activityCreateTime, a1.activityStartDate, a1.activityDuration, a1.activiyMemo,  a1.activityIcon
 			from tab_activity a1
-			where a1.activityCreatorId = #{userId}
+			where a1.activityCreatorId = #{nurseId}
 		]]>
 	       	<if test="name != null and name != ''">
 				AND a1.activityName LIKE CONCAT('%', #{name}, '%') 
@@ -167,11 +200,11 @@
 	
 	
 	<!-- 查询服务数据总记录数-->
-	<select id="SearchMapper.queryServiceInfoCnt" parameterType="serviceModel" resultType="long">
+	<select id="SearchMapper.queryServiceInfoCnt" parameterType="queryModel" resultType="long">
 		<![CDATA[
 			SELECT COUNT(1) AS CNT
 			FROM tab_service a1
-			where a1.serviceCreatorId=#{userId}
+			where a1.serviceCreatorId=#{nurseId}
 		]]>
 	        <if test="name != null and name != ''">
 				AND a1.serviceName LIKE CONCAT('%', #{name}, '%') 
@@ -181,11 +214,11 @@
 	
 	
 	<!-- 分页查询服务数据-->
-	<select id="SearchMapper.queryServiceInfo" parameterType="serviceModel"	resultMap="mRetServiceMap">
+	<select id="SearchMapper.queryServiceInfo" parameterType="queryModel"	resultMap="mRetServiceMap">
 		<![CDATA[
 			SELECT a1.*
 			FROM tab_service a1
-			where a1.serviceCreatorId=#{userId}
+			where a1.serviceCreatorId=#{nurseId}
 		]]>
 	        <if test="name != null and name != ''">
 				AND a1.serviceName LIKE CONCAT('%', #{name}, '%') 
@@ -229,4 +262,115 @@
 			WHERE id = #{id} 
 		]]>
 	</delete>
+	
+	
+	<!-- 查询签约请求总记录数-->
+	<select id="SearchMapper.queryNurseRequestInfoCnt" parameterType="queryModel" resultType="long">
+		<![CDATA[
+			SELECT COUNT(1) AS CNT
+			from tab_user_bind_nurse_request a1
+			inner join tab_user_info a2 on a1.userId=a2.userId
+			where a1.nurseId = #{nurseId}
+			and a1.status = 0
+		]]>
+	</select>
+	
+	
+	<!-- 分页查询签约请求数据-->
+	<select id="SearchMapper.queryNurseRequestInfo" parameterType="queryModel"	resultMap="mRetNurseRequestMap">
+		<![CDATA[
+			select a1.id, a1.userId, a1.nurseId, a1.status, a1.requestTime, a1.responseTime, a1.memo, a2.name, a2.gender, a2.cellphone
+			from tab_user_bind_nurse_request a1
+			inner join tab_user_info a2 on a1.userId=a2.userId
+			where a1.nurseId = #{nurseId}
+			and a1.status = 0
+			order by a1.requestTime desc
+			LIMIT #{startNum}, #{rows}
+		]]>
+	</select>
+	
+	
+	<!-- 插入用户与医护联系人关联-->
+	<insert id="SearchMapper.addUserNurseRelaviteInfo">
+	    <![CDATA[
+	        INSERT INTO tab_user_nurse_relation (userId, nurseId) 
+	        VALUES (#{userId}, #{nurseId})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 处理用户签约医护联系人申请-->
+	<update id="SearchMapper.dealNurseRequestInfo" parameterType="serviceModel">
+		<![CDATA[
+			UPDATE tab_user_bind_nurse_request  SET  
+			status = #{status},
+			responseTime = #{responseTime}
+			WHERE id = #{id} 
+		]]>
+	</update>
+	
+	
+	<!-- 查询医生总记录数-->
+	<select id="SearchMapper.queryDoctorInfoCnt" parameterType="queryModel" resultType="long">
+		<![CDATA[
+			select count(1) as cnt
+			from tab_doctor a1
+			left join tab_hospital a2 on a1.doctorHospitalld=a2.hospitalId
+			left join tab_hospital_dept a3 on a3.deptId=a1.doctorDeptld
+		]]>
+		<where>	
+	        <if test="hospitalId != null and hospitalId > 0">
+				AND a1.doctorHospitalld = #{hospitalId}
+	        </if>
+	        <if test="deptId != null and deptId > 0">
+				AND a1.doctorDeptld = #{deptId}
+	        </if>
+	        <if test="name != null and name != ''">
+				AND a1.doctorName LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+		</where>
+	</select>
+	
+	
+	<!-- 分页查询医生信息-->
+	<select id="SearchMapper.queryDoctorInfo" parameterType="queryModel"	resultMap="mRetDoctorMap">
+		<![CDATA[
+			select a1.doctorId, a1.doctorName, a1.doctorGender, a1.doctorPhoto, a1.doctorHospitalld, 
+				a1.doctorDeptld, a1.doctorTitle, a1.doctorEducation, a1.doctorSkill, a1.doctorDetailDescriptior, 
+				a2.hospitalName, a2.hospitalAddr, a3.deptName
+			from tab_doctor a1
+			left join tab_hospital a2 on a1.doctorHospitalld=a2.hospitalId
+			left join tab_hospital_dept a3 on a3.deptId=a1.doctorDeptld
+		]]>
+		<where>	
+	        <if test="hospitalId != null and hospitalId > 0">
+				AND a1.doctorHospitalld = #{hospitalId}
+	        </if>
+	        <if test="deptId != null and deptId > 0">
+				AND a1.doctorDeptld = #{deptId}
+	        </if>
+	        <if test="name != null and name != ''">
+				AND a1.doctorName LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+		</where>
+		<![CDATA[
+			order by a1.doctorName
+			LIMIT #{startNum}, #{rows}
+		]]>
+	</select>
+	
+	
+	<!-- 分页查询医生信息详细-->
+	<select id="SearchMapper.queryDoctorDetailInfo" parameterType="queryModel"	resultMap="mRetDoctorMap">
+		<![CDATA[
+			select a1.doctorId, a1.doctorName, a1.doctorGender, a1.doctorPhoto, a1.doctorHospitalld, 
+				a1.doctorDeptld, a1.doctorTitle, a1.doctorEducation, a1.doctorSkill, a1.doctorDetailDescriptior, 
+				a2.hospitalName, a2.hospitalAddr, a3.deptName
+			from tab_doctor a1
+			left join tab_hospital a2 on a1.doctorHospitalld=a2.hospitalId
+			left join tab_hospital_dept a3 on a3.deptId=a1.doctorDeptld
+			where a1.doctorId = #{id}
+		]]>
+	</select>
+	
 </mapper>

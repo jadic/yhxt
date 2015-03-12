@@ -32,6 +32,7 @@ public class BaseModel implements Serializable
 	private int userType; // 用户类型；0平台用户；1系统用户
 	private String userName;//用户登录名
 	private String userPass;//用户登录密码
+	private long nurseId; 
 	
 	// 分页传入参数
 	private int page = 1; // 当前页号
@@ -42,6 +43,14 @@ public class BaseModel implements Serializable
 	private long endNum; // 结束记录数
 
 	
+	public long getNurseId()
+	{
+		return nurseId;
+	}
+	public void setNurseId(long nurseId)
+	{
+		this.nurseId = nurseId;
+	}
 	public long getPageCnt()
 	{
 		return pageCnt;
