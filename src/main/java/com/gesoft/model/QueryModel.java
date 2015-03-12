@@ -25,7 +25,7 @@ public class QueryModel extends BaseModel
 	private int creatorId;	// 创建人id,查询医护联系人创建的活动和服务,
 	private int deptId;		// 科室
 	private int hospitalId; // 医院
-	
+	private int adviceId;
 	
 	public int getDeptId()
 	{
@@ -96,5 +96,11 @@ public class QueryModel extends BaseModel
     }
     public void setCreatorId(int creatorId) {
         this.creatorId = creatorId;
+    }
+    public int getAdviceId() {
+        return adviceId;
+    }
+    public void setAdviceId(int adviceId) {
+        this.adviceId = adviceId;
     }
 }

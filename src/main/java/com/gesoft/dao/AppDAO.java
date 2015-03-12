@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.DoctorAdviceModel;
+import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
@@ -87,5 +89,25 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long>
     public List<ActivityModel> queryActivity(QueryModel model)
     {
         return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryActivity", model);
+    }
+    
+    public long queryDoctorAdviceCnt(QueryModel model)
+    {
+        return (Long)getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryDoctorAdviceCnt", model);
+    }
+    
+    public List<DoctorAdviceModel> queryDoctorAdvice(QueryModel model)
+    {
+        return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryDoctorAdvice", model);
+    }
+    
+    public long queryDoctorAdvicePerformanceCnt(QueryModel model)
+    {
+        return (Long)getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryDoctorAdvicePerformanceCnt", model);
+    }
+    
+    public List<DoctorAdvicePerformanceModel> queryDoctorAdvicePerformance(QueryModel model)
+    {
+        return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryDoctorAdvicePerformance", model);
     }
 }

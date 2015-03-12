@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gesoft.model.ActivityModel;
+import com.gesoft.model.DoctorAdviceModel;
+import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
@@ -165,4 +167,42 @@ public class AppController extends BaseController
 	    }
 	    return msgModel;
 	}
+	
+    @RequestMapping(value="/queryDoctorAdvice.do")
+    public @ResponseBody MsgModel queryDoctorAdvice(QueryModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            long recordCount = appService.queryActivityCnt(model);
+            if (recordCount > 0) {
+                setPageModel(recordCount, model);
+                List<DoctorAdviceModel> rows = appService.queryDoctorAdvice(model);
+                if (rows != null && rows.size() > 0) {
+                    msgModel.setTotal(recordCount);
+                    msgModel.setRows(rows);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("AppController queryActivity error：", e);
+        }
+        return msgModel;
+    }
+    
+    @RequestMapping(value="/queryDoctorAdvicePerformance.do")
+    public @ResponseBody MsgModel queryDoctorAdvicePerformance(QueryModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            long recordCount = appService.queryDoctorAdvicePerformanceCnt(model);
+            if (recordCount > 0) {
+                setPageModel(recordCount, model);
+                List<DoctorAdvicePerformanceModel> rows = appService.queryDoctorAdvicePerformance(model);
+                if (rows != null && rows.size() > 0) {
+                    msgModel.setTotal(recordCount);
+                    msgModel.setRows(rows);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("AppController queryActivity error：", e);
+        }
+        return msgModel;
+    }
 }
