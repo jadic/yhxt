@@ -18,7 +18,9 @@
 		<typeAlias alias="messageModel" type="com.gesoft.model.MessageModel" />
 		<typeAlias alias="scoreModel" type="com.gesoft.model.ScoreModel" />
 		<typeAlias alias="activityModel" type="com.gesoft.model.ActivityModel" />
-		
+		<typeAlias alias="serviceModel" type="com.gesoft.model.ServiceModel" />
+		<typeAlias alias="doctorAdviceModel" type="com.gesoft.model.DoctorAdviceModel" />
+		<typeAlias alias="doctorAdvicePerformanceModel" type="com.gesoft.model.DoctorAdvicePerformanceModel" />
 	</typeAliases>
 	<mappers></mappers>
 </configuration>
