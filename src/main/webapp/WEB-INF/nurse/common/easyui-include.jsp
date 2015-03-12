@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/patient/common/taglibs-include.jsp" %>
+<%@ include file="/WEB-INF/nurse/common/taglibs-include.jsp" %>
 
 <link rel="stylesheet" href="<c:url value='/common/themes/default/easyui.css'/>" type="text/css"/>
 <link rel="stylesheet" href="<c:url value='/common/themes/icon.css'/>" type="text/css"/>
