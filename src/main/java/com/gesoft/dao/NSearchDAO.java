@@ -7,10 +7,16 @@
  **/
 package com.gesoft.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.gesoft.common.EntityDAOImpl;
+import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.QueryModel;
+import com.gesoft.model.RelativePhoneModel;
+import com.gesoft.model.UserModel;
 
 /**
  * 医护平台
@@ -28,4 +34,95 @@ public class NSearchDAO extends EntityDAOImpl<BaseModel, Long>
         return "SearchMapper";
     }
 
+	
+	/**
+	 * 描述信息：首页加载医护人员的用户信息
+	 * 创建时间：2015年3月12日 上午9:31:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<UserModel> queryUserListInfo(RelativePhoneModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryUserListInfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：查询活动总数
+	 * 创建时间：2015年3月12日 上午9:32:22
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public long queryActivityInfoCnt(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryActivityInfoCnt", model);
+	}
+
+
+	/**
+	 * 描述信息：分页查询活动信息
+	 * 创建时间：2015年3月12日 上午9:34:23
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<ActivityModel> queryActivityInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryActivityInfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：根所ID来加载用户信息
+	 * 创建时间：2015年3月12日 上午9:34:17
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public ActivityModel queryActivityInfoById(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryActivityInfoById", model);
+	}
+
+	
+	
+	/**
+	 * 描述信息：增加活动数据
+	 * 创建时间：2015年3月12日 上午9:33:20
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addActivityInfo(ActivityModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addActivityInfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：修改活动数据
+	 * 创建时间：2015年3月12日 上午9:33:11
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyActivityInfo(ActivityModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyActivityInfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：删除活动数据
+	 * 创建时间：2015年3月12日 上午9:33:06
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int delActivityInfo(ActivityModel model)
+	{
+		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delActivityInfo", model);
+	}
 }
