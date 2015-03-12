@@ -46,6 +46,21 @@
 		<result property="icon"  					column="activityIcon"/>
 	</resultMap>
 	
+    <!-- 查询服务记录 -->
+    <resultMap id="mRetServiceMap" 		type="serviceModel">
+		<result property="id"  			column="id"/>
+		<result property="type"  		column="serviceType"/>
+		<result property="name"  		column="serviceName"/>
+		<result property="content"  	column="serviceContent"/>
+		<result property="creatorId"  	column="serviceCreatorId"/>
+		<result property="createTime"  	column="serviceCreateTime"/>
+		<result property="sdate"  		column="serviceStartDate"/>
+		<result property="edate"  		column="serviceDuration"/>
+		<result property="memo"  		column="serviceMemo"/>
+		<result property="icon"  		column="serviceIcon"/>
+	</resultMap>
+	
+    
     <!-- 查询用户列表数据 -->
 	<select id="SearchMapper.queryUserListInfo" 	parameterType="queryModel"	resultMap="mRetUserMap">
 		<![CDATA[
@@ -142,4 +157,76 @@
 		]]>
 	</delete>
 	
+	<!-- 插入服务数据-->
+	<insert id="SearchMapper.addServiceInfo" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_service (serviceType, serviceName, serviceContent, serviceCreatorId, serviceCreateTime, servcieStartDate, serviceDuration, serviceMemo, serviceIcon) 
+	        VALUES (#{type}, #{name}, #{content}, #{creatorId}, #{createTime}, #{sdate}, #{edate}, #{memo}, #{icon})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 查询服务数据总记录数-->
+	<select id="SearchMapper.queryServiceInfoCnt" parameterType="serviceModel" resultType="long">
+		<![CDATA[
+			SELECT COUNT(1) AS CNT
+			FROM tab_service a1
+			where a1.serviceCreatorId=#{userId}
+		]]>
+	        <if test="name != null and name != ''">
+				AND a1.serviceName LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+	</select>
+	
+	
+	
+	<!-- 分页查询服务数据-->
+	<select id="SearchMapper.queryServiceInfo" parameterType="serviceModel"	resultMap="mRetServiceMap">
+		<![CDATA[
+			SELECT a1.*
+			FROM tab_service a1
+			where a1.serviceCreatorId=#{userId}
+		]]>
+	        <if test="name != null and name != ''">
+				AND a1.serviceName LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+		<![CDATA[
+			order by a1.servcieStartDate
+			LIMIT #{startNum}, #{rows}
+		]]>
+	</select>
+
+	
+	<!-- 分页查询活动记录 -->
+	<select id="SearchMapper.queryServiceInfoById" 	parameterType="queryModel"	resultMap="mRetServiceMap">
+		<![CDATA[
+			select a1.*
+			from tab_service a1
+			where a1.id = #{id}
+		]]>
+	</select>
+	
+	
+	<!-- 修改服务数据-->
+	<update id="SearchMapper.modifyServiceInfo" parameterType="serviceModel">
+		<![CDATA[
+			UPDATE tab_service  SET  
+			serviceType = #{type},
+			serviceName = #{name}, 
+			serviceContent = #{content}, 
+			serviceStartDate = #{sdate}, 
+			serviceDuration = #{edate}, 
+			serviceMemo = #{memo}, 
+			serviceIcon = #{icon}
+			WHERE id = #{id} 
+		]]>
+	</update>
+	
+	<!-- 删除服务数据-->
+	<delete id="SearchMapper.delServiceInfo">
+		<![CDATA[
+			DELETE FROM tab_service 
+			WHERE id = #{id} 
+		]]>
+	</delete>
 </mapper>

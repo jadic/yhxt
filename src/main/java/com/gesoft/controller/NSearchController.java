@@ -24,6 +24,7 @@ import com.gesoft.model.ActivityModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
+import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 import com.gesoft.service.NSearchService;
 
@@ -227,4 +228,154 @@ public class NSearchController extends BaseController
 	}
 	
 	
+	/**
+	 * 描述信息：查询服务数据
+	 * 创建时间：2015年3月12日 上午10:27:06
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/service.do")
+	public ModelAndView toService(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			
+			//分页加载建议执行结果
+			long recordCount = nSearchService.queryServiceInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<ServiceModel> argArgs = nSearchService.queryServiceInfo(query);
+				result.addObject("serviceFlys", argArgs);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toService error：", e);
+		}
+		return result;
+	}
+	
+	/**
+	 * 描述信息：进入服务操作界面
+	 * 创建时间：2015年3月12日 上午9:24:13
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/mergeService.do")
+	public ModelAndView toMergeService(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/healthinfo/add_relative_phone_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			if (query.getId() > 0)
+			{
+				ServiceModel model  = nSearchService.queryServiceInfoById(query);
+				result.addObject("service", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toMergeService error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：增加服务信息
+	 * 创建时间：2015年3月12日 上午9:22:06
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/addService.do")
+	public @ResponseBody MsgModel toAddService(ServiceModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			if(nSearchService.addServiceInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toAddService error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：修改服务内容
+	 * 创建时间：2015年3月12日 上午9:22:46
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyService.do")
+	public @ResponseBody MsgModel toModifyService(ServiceModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			if(nSearchService.modifyServiceInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toModifyService error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：删除服务内容
+	 * 创建时间：2015年3月12日 上午9:23:29
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/delService.do")
+	public @ResponseBody MsgModel toDelService(ServiceModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			if(nSearchService.delServiceInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toDelService error：", e);
+		}
+		return msgModel;
+	}
 }

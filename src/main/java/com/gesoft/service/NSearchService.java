@@ -21,6 +21,7 @@ import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
+import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 
 /**
@@ -136,5 +137,88 @@ public class NSearchService extends EntityService<BaseModel, Long>
 	public int delActivityInfo(ActivityModel model)
 	{
 		return nSearchDAO.delActivityInfo(model);
+	}
+	
+	
+
+	/**
+	 * 描述信息：查询服务总数
+	 * 创建时间：2015年3月12日 上午9:32:22
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public long queryServiceInfoCnt(QueryModel model)
+	{
+		return nSearchDAO.queryServiceInfoCnt(model);
+	}
+
+
+	/**
+	 * 描述信息：分页查询服务信息
+	 * 创建时间：2015年3月12日 上午9:34:23
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<ServiceModel> queryServiceInfo(QueryModel model)
+	{
+		return nSearchDAO.queryServiceInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：根所ID来加载用户信息
+	 * 创建时间：2015年3月12日 上午9:34:17
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public ServiceModel queryServiceInfoById(QueryModel model)
+	{
+		return nSearchDAO.queryServiceInfoById(model);
+	}
+
+	
+	
+	/**
+	 * 描述信息：增加服务数据
+	 * 创建时间：2015年3月12日 上午9:33:20
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addServiceInfo(ServiceModel model)
+	{
+		return nSearchDAO.addServiceInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：修改服务数据
+	 * 创建时间：2015年3月12日 上午9:33:11
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyServiceInfo(ServiceModel model)
+	{
+		return nSearchDAO.modifyServiceInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：删除服务数据
+	 * 创建时间：2015年3月12日 上午9:33:06
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int delServiceInfo(ServiceModel model)
+	{
+		return nSearchDAO.delServiceInfo(model);
 	}
 }
