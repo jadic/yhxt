@@ -19,6 +19,8 @@ import com.gesoft.common.EntityService;
 import com.gesoft.dao.AppDAO;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.DoctorAdviceModel;
+import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
@@ -116,5 +118,25 @@ public class AppService extends EntityService<BaseModel, Long> {
     @Transactional(readOnly = true)
     public List<ActivityModel> queryActivity(QueryModel model) {
         return appDAO.queryActivity(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public long queryDoctorAdviceCnt(QueryModel model) {
+        return appDAO.queryDoctorAdviceCnt(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<DoctorAdviceModel> queryDoctorAdvice(QueryModel model) {
+        return appDAO.queryDoctorAdvice(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public long queryDoctorAdvicePerformanceCnt(QueryModel model) {
+        return appDAO.queryDoctorAdvicePerformanceCnt(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<DoctorAdvicePerformanceModel> queryDoctorAdvicePerformance(QueryModel model) {
+        return appDAO.queryDoctorAdvicePerformance(model);
     }
 }

@@ -53,8 +53,8 @@
     </resultMap>
                
     <resultMap id="mActivityMap"           type="activityModel">
-      <result property="id"               column="activityType"/>
-      <result property="type"             column="serviceType"/>
+      <result property="id"               column="activityId"/>
+      <result property="type"             column="activityType"/>
       <result property="name"             column="activityName"/>
       <result property="content"          column="activityContent"/>
       <result property="creatorId"        column="activityCreatorId"/>
@@ -63,6 +63,15 @@
       <result property="createTime"	      column="activityDuration"/>
       <result property="memo"             column="activityMemo"/>
       <result property="icon"             column="activityIcon"/>
+    </resultMap>
+            
+    <resultMap id="mDoctorAdviceMap"      type="doctorAdviceModel">
+      <result property="id"               column="id"/>
+      <result property="userId"             column="userId"/>
+      <result property="typeId"             column="adviceTypId"/>
+      <result property="typeName"          column="typeName"/>
+      <result property="adviceTime"        column="adviceTime"/>
+      <result property="adviceContent"            column="adviceContent"/>
     </resultMap>
 	
 	<!-- 查询亲情号码总数 -->
@@ -168,6 +177,53 @@
         where (a.serviceType=2 and a.activityCreatorId=#{creatorId}) 
            or (a.serviceTYpe<>2)
         order by a.serviceCreateTime
+        limit #{startNum}, #{rows}
+      ]]>
+    </select>
+    
+	 <!-- 查询医生建议总数 -->
+    <select id="AppMapper.queryDoctorAdviceCnt"  parameterType="queryModel"  resultType="long">
+      <![CDATA[
+        select count(1) as cnt
+        from (select a.id, a.userId, a.adviceTypId, b.typeName, max(a.adviceTime) as adviceTime, a.adviceContent
+    		  from tab_doctor_advice a
+    		  inner join tab_dict_doctor_advice_type b on b.typeId=a.adviceTypId
+    		  where a.userId=1
+    		  group by a.adviceTypId
+    		 ) aa
+      ]]>
+    </select>
+    
+    
+    <!-- 查询医生建议 仅显示每种类型建议的最新的一个建议 -->     
+    <select id="AppMapper.queryDoctorAdvice"   parameterType="queryModel"  resultMap="mDoctorAdviceMap">
+      <![CDATA[
+        select a.id, a.userId, a.adviceTypId, b.typeName, max(a.adviceTime) as adviceTime, a.adviceContent
+        from tab_doctor_advice a
+        inner join tab_dict_doctor_advice_type b on b.typeId = a.adviceTypId
+        where a.userId = #{userId}
+        group by a.adviceTypId
+        limit #{startNum}, #{rows}
+      ]]>
+    </select>
+    
+	 <!-- 查询医生建议执行情况总数 -->
+    <select id="AppMapper.queryDoctorAdvicePerformanceCnt"  parameterType="queryModel"  resultType="long">
+      <![CDATA[
+        select count(1) as cnt
+        from tab_doctor_advice_performace a
+        where a.doctorAdviceId = #{adviceId}
+      ]]>
+    </select>
+    
+    
+    <!-- 查询医生建议执行情况 -->     
+    <select id="AppMapper.queryDoctorAdvicePerformance"   parameterType="queryModel"  resultMap="mDoctorAdviceMap">
+      <![CDATA[
+        select a.id, a.doctorAdviceId, a.doctorAdvicePerformace, a.recordTime
+        from tab_doctor_advice_performace a
+        where a.doctorAdviceId = #{adviceId}
+        order by a.recordTime
         limit #{startNum}, #{rows}
       ]]>
     </select>
