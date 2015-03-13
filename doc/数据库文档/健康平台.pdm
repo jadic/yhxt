@@ -2819,9 +2819,9 @@ TableComment 0 新宋体,8,N</a:FontList>
 <a:Code>tab_dict_education</a:Code>
 <a:CreationDate>1425005101</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1425006533</a:ModificationDate>
+<a:ModificationDate>1426215017</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
-<a:Comment>1：小学 2：初中 3：高中 3：中专 4：大专 5：本科 6：硕士 7：博士 8：其他</a:Comment>
+<a:Comment>1：小学 2：初中 3：高中 4：中专 5：大专 6：本科 7：硕士 8：博士 9：其他</a:Comment>
 <c:Columns>
 <o:Column Id="o117">
 <a:ObjectID>DFFCD9FF-4DF9-4EDD-AFE1-02369A8079C5</a:ObjectID>
