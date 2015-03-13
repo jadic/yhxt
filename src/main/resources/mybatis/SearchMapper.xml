@@ -131,7 +131,7 @@
 		<![CDATA[
 			select a2.*, IFNULL(a3.cnt,0) as cnt, IFNULL(a3.sendTime,'-') as sendTime
 			from tab_user_nurse_relation a1
-			inner join tab_user_info a2 on a2.userId=a1.userId
+			inner join tab_user a2 on a2.userId=a1.userId
 			left join (
 				select b1.senderId, b1.receiverId, MAX(b1.sendTime) as sendTime, count(1) as cnt
 				from tab_msg b1
@@ -225,7 +225,7 @@
 	<!-- 插入服务数据-->
 	<insert id="SearchMapper.addServiceInfo" useGeneratedKeys="true" keyProperty="id">
 	    <![CDATA[
-	        INSERT INTO tab_service (serviceType, serviceName, serviceContent, serviceCreatorId, serviceCreateTime, servcieStartDate, serviceDuration, serviceMemo, serviceIcon) 
+	        INSERT INTO tab_service (serviceType, serviceName, serviceContent, serviceCreatorId, serviceCreateTime, serviceStartDate, serviceDuration, serviceMemo, serviceIcon) 
 	        VALUES (#{type}, #{name}, #{content}, #{creatorId}, #{createTime}, #{sdate}, #{edate}, #{memo}, #{icon})
 	    ]]>
 	</insert>
@@ -301,7 +301,7 @@
 		<![CDATA[
 			SELECT COUNT(1) AS CNT
 			from tab_user_bind_nurse_request a1
-			inner join tab_user_info a2 on a1.userId=a2.userId
+			inner join tab_user a2 on a1.userId=a2.userId
 			where a1.nurseId = #{nurseId}
 			and a1.status = 0
 		]]>
@@ -313,7 +313,7 @@
 		<![CDATA[
 			select a1.id, a1.userId, a1.nurseId, a1.status, a1.requestTime, a1.responseTime, a1.memo, a2.name, a2.gender, a2.cellphone
 			from tab_user_bind_nurse_request a1
-			inner join tab_user_info a2 on a1.userId=a2.userId
+			inner join tab_user a2 on a1.userId=a2.userId
 			where a1.nurseId = #{nurseId}
 			and a1.status = 0
 			order by a1.requestTime desc
@@ -328,7 +328,7 @@
 		<![CDATA[
 			select a1.id, a1.userId, a1.nurseId, a1.status, a1.requestTime, a1.responseTime, a1.memo, a2.name, a2.gender, a2.cellphone
 			from tab_user_bind_nurse_request a1
-			inner join tab_user_info a2 on a1.userId=a2.userId
+			inner join tab_user a2 on a1.userId=a2.userId
 			where a1.id = #{id}
 		]]>
 	</select>
@@ -426,7 +426,7 @@
 	<select id="SearchMapper.queryUserBaseInfo" 	parameterType="queryModel"	resultMap="mRetUserBaseMap">
 		<![CDATA[
 			select a1.*
-			from tab_user_info a1
+			from tab_user a1
 			where a1.userId=#{userId}
 		]]>
 	</select>
@@ -435,7 +435,7 @@
 	<!-- 修改用户基础信息 -->
 	<update id="SearchMapper.modifyUserBaseInfo" parameterType="userModel">
 		<![CDATA[
-			UPDATE tab_user_info  SET  
+			UPDATE tab_user  SET  
 			name = #{name},
 			gender = #{gender},
 			birthdate = #{birthdate},
@@ -450,7 +450,7 @@
 	<!-- 修改用户详细信息 -->
 	<update id="SearchMapper.modifyUserDetailInfo" parameterType="userModel">
 		<![CDATA[
-			UPDATE tab_user_info  SET  
+			UPDATE tab_user  SET  
 			credentialType = #{credentialType},
 			credentialNo = #{credentialNo},
 			isSoldier = #{isSoldier},
@@ -473,7 +473,7 @@
 	<!-- 修改用户工作信息 -->
 	<update id="SearchMapper.modifyUserWorkInfo" parameterType="userModel">
 		<![CDATA[
-			UPDATE tab_user_info  SET  
+			UPDATE tab_user  SET  
 			workingAge = #{workingAge},
 			salary = #{salary},
 			companyName = #{companyName},
@@ -487,7 +487,7 @@
 	<select id="SearchMapper.queryNurseDetailInfo" 	parameterType="queryModel"	resultMap="mRetUserBaseMap">
 		<![CDATA[
 			select a1.*
-			from tab_user_info a1
+			from tab_user a1
 			where a1.userId=#{id}
 		]]>
 	</select>

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50022
 File Encoding         : 65001
 
-Date: 2015-03-13 12:20:34
+Date: 2015-03-13 16:50:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -608,16 +608,16 @@ CREATE TABLE `tab_user` (
   `salary` tinyint(4) default NULL,
   `companyName` varchar(80) default NULL,
   `companyAddress` varchar(80) default NULL,
-  `photo` varchar(150) default NULL,  
+  `photo` varchar(150) default NULL,
   PRIMARY KEY  (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tab_user
 -- ----------------------------
-INSERT INTO tab_user VALUES ('1', 'wcl', '1234', '1', null);
-INSERT INTO tab_user VALUES ('2', 'wangcl', '1234', '2', null);
-INSERT INTO tab_user VALUES ('3', 'wfp', '1234', '1', null);
+INSERT INTO tab_user VALUES ('1', 'wcl', '1234', '1', null, '5555', '2', '2015-03-08', '13777777', '84305988', '1', '3408', '1', '1', '175', '75', '1', '抚顺', '1', '2', '2', '1', '137', '江宁', '2', '2', '通用', '光华路', '');
+INSERT INTO tab_user VALUES ('2', 'wangcl', '1234', '2', null, '22', '1', '2015-03-11', '212121', '222@qq.com', '1', '22222', '1', '1', '186', '87', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO tab_user VALUES ('3', 'wfp', '1234', '1', null, '33', '1', '2015-03-13', '212', '222', '1', '12', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `tab_userlogin_logs`
@@ -694,46 +694,6 @@ CREATE TABLE `tab_user_device` (
 -- Records of tab_user_device
 -- ----------------------------
 INSERT INTO tab_user_device VALUES ('6', '1', '2', '2015-03-08 11:00:40');
-
--- ----------------------------
--- Table structure for `tab_user_info`
--- ----------------------------
-DROP TABLE IF EXISTS `tab_user_info`;
-CREATE TABLE `tab_user_info` (
-  `userId` int(12) NOT NULL default '0',
-  `name` varchar(30) default NULL,
-  `gender` tinyint(4) default NULL,
-  `birthdate` date default NULL,
-  `cellphone` varchar(11) default NULL,
-  `email` varchar(40) default NULL,
-  `credentialType` tinyint(4) default NULL,
-  `credentialNo` varchar(50) default NULL,
-  `isSoldier` tinyint(4) default NULL,
-  `isDisablity` tinyint(4) default NULL,
-  `height` int(4) default NULL,
-  `weight` int(4) default NULL,
-  `nationality` tinyint(4) default NULL,
-  `nativePlace` varchar(80) default NULL,
-  `marriageStatus` tinyint(4) default NULL,
-  `householdType` tinyint(4) default NULL,
-  `education` tinyint(4) default NULL,
-  `policticsStatus` tinyint(4) default NULL,
-  `homePhone` varchar(15) default NULL,
-  `homeAddress` varchar(80) default NULL,
-  `workingAge` tinyint(4) default NULL,
-  `salary` tinyint(4) default NULL,
-  `companyName` varchar(80) default NULL,
-  `companyAddress` varchar(80) default NULL,
-  `photo` varchar(150) default NULL,
-  PRIMARY KEY  (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of tab_user_info
--- ----------------------------
-INSERT INTO tab_user_info VALUES ('1', '5555', '2', '2015-03-08', '13777777', '84305988', '1', '3408', '1', '1', '175', '75', '1', '抚顺', '1', '2', '2', '1', '137', '江宁', '2', '2', '通用', '光华路', '');
-INSERT INTO tab_user_info VALUES ('2', '22', '1', '2015-03-11', '212121', '222@qq.com', '1', '22222', '1', '1', '186', '87', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO tab_user_info VALUES ('3', '33', '1', '2015-03-13', '212', '222', '1', '12', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `tab_user_nurse_relation`
