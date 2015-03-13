@@ -23,6 +23,10 @@
 					<div>服务管理</div>
 				</div>
 				
+	  			<div class="njty_menu" id="401000" onclick="PageMain.funAddPanel('/a/activity.do', '活动管理')">
+					<img src="<c:url value='/admin/themes/self/images/top-10.png'/>"/>
+					<div>活动管理</div>
+				</div>
 				<div class="njty_menu" id="400000" onclick="PageMain.funAddPanel('/a/device.do', '设备管理')">
 					<img src="<c:url value='/admin/themes/self/images/top-10.png'/>"/>
 					<div>设备管理</div>

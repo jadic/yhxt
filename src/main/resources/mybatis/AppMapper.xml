@@ -97,12 +97,11 @@
   
     <select id="AppMapper.queryUserInfoWithUserNamePass" parameterType="queryModel" resultMap="mUserInfoMap">
         <![CDATA[
-          select a.userId, a.userParentId, a.userSysId, b.name, b.gender, b.birthdate, b.cellphone, b.email, b.credentialType, 
-            b.isSoldier, b.isDisablity, b.height, b.weight, b.nationality, b.nativePlace, 
-            b.marriageStatus, b.householdType, b.education, b.policticsStatus, b.homePhone, 
-            b.homeAddress, b.workingAge, b.salary, b.companyName, b.companyAddress
+          select a.userId, a.userParentId, a.userSysId, a.name, a.gender, a.birthdate, a.cellphone, a.email, a.credentialType, 
+            a.isSoldier, a.isDisablity, a.height, a.weight, a.nationality, a.nativePlace, 
+            a.marriageStatus, a.householdType, a.education, a.policticsStatus, a.homePhone, 
+            a.homeAddress, a.workingAge, a.salary, a.companyName, a.companyAddress
           from tab_user a
-          inner join tab_user_info b on b.userId=a.userId
           where a.userName = #{userName}
             and a.userPass = #{userPass}
         ]]>
@@ -110,25 +109,23 @@
     
     <select id="AppMapper.queryUserInfoWithUserId" parameterType="queryModel" resultMap="mUserInfoMap">
         <![CDATA[
-          select a.userId, a.userParentId, a.userSysId, b.name, b.gender, b.birthdate, b.cellphone, b.email, b.credentialType, 
-            b.isSoldier, b.isDisablity, b.height, b.weight, b.nationality, b.nativePlace, 
-            b.marriageStatus, b.householdType, b.education, b.policticsStatus, b.homePhone, 
-            b.homeAddress, b.workingAge, b.salary, b.companyName, b.companyAddress
+          select a.userId, a.userParentId, a.userSysId, a.name, a.gender, a.birthdate, a.cellphone, a.email, a.credentialType, 
+            a.isSoldier, a.isDisablity, a.height, a.weight, a.nationality, a.nativePlace, 
+            a.marriageStatus, a.householdType, a.education, a.policticsStatus, a.homePhone, 
+            a.homeAddress, a.workingAge, a.salary, a.companyName, a.companyAddress
           from tab_user a
-          inner join tab_user_info b on b.userId=a.userId
           where a.userId =  #{userId}
-        ]]>
+ a.     ]]>
     </select>
     
     <select id="AppMapper.queryMyNurserWithUserId" parameterType="queryModel" resultMap="mUserInfoMap">
         <![CDATA[
-          select a.userId, a.userParentId, a.userSysId, b.name, b.gender, b.birthdate, b.cellphone, b.email, b.credentialType, 
-            b.isSoldier, b.isDisablity, b.height, b.weight, b.nationality, b.nativePlace, 
-            b.marriageStatus, b.householdType, b.education, b.policticsStatus, b.homePhone, 
-            b.homeAddress, b.workingAge, b.salary, b.companyName, b.companyAddress
+          select a.userId, a.userParentId, a.userSysId, a.name, a.gender, a.birthdate, a.cellphone, a.email, a.credentialType, 
+            a.isSoldier, a.isDisablity, a.height, a.weight, a.nationality, a.nativePlace, 
+            a.marriageStatus, a.householdType, a.education, a.policticsStatus, a.homePhone, 
+            a.homeAddress, a.workingAge, a.salary, a.companyName, a.companyAddress
           from tab_user_nurse_relation c
           inner join tab_user a on a.userId = c.nurseId
-          inner join tab_user_info b on b.userId = a.userId
           where c.userId =  #{userId}
         ]]>
     </select>
