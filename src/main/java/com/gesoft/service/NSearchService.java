@@ -59,7 +59,62 @@ public class NSearchService extends EntityService<BaseModel, Long>
 		return nSearchDAO.queryUserListInfo(model);
 	}
 
+	/**
+	 * 描述信息：加载用户基本信息
+	 * 创建时间：2015年3月8日 下午6:02:33
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly = true)
+	public UserModel queryUserBaseInfo(QueryModel model)
+	{
+		return nSearchDAO.queryUserBaseInfo(model);
+	}
 	
+	
+	/**
+	 * 描述信息：修改用户基本信息
+	 * 创建时间：2015年3月8日 下午6:06:12
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserBaseInfo(UserModel model)
+	{
+		//删除原有数据
+		//nSearchDAO.delUserBaseInfo(model);
+		
+		//新增用户基本数据
+		//return nSearchDAO.addUserBaseInfo(model);
+		return nSearchDAO.modifyUserBaseInfo(model);
+	}
+	
+	
+	/**
+	 * 描述信息：修改用户详细信息
+	 * 创建时间：2015年3月8日 下午10:24:53
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserDetailInfo(UserModel model)
+	{
+		return nSearchDAO.modifyUserDetailInfo(model);
+	}
+	
+	
+	/**
+	 * 描述信息：修改用户工作信息
+	 * 创建时间：2015年3月8日 下午10:29:56
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserWorkInfo(UserModel model)
+	{
+		return nSearchDAO.modifyUserWorkInfo(model);
+	}
 	/**
 	 * 描述信息：查询活动总数
 	 * 创建时间：2015年3月12日 上午9:32:22
@@ -254,6 +309,20 @@ public class NSearchService extends EntityService<BaseModel, Long>
 
 
 	/**
+	 * 描述信息：加载医护人员详细情况
+	 * 创建时间：2015年3月11日 上午6:27:39
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public UserModel queryNurseDetailInfo(QueryModel model)
+	{
+		return nSearchDAO.queryNurseDetailInfo(model);
+	}
+	
+	
+	/**
 	 * 描述信息：处理签约请求
 	 * 创建时间：2015年3月12日 上午10:45:55
 	 * @author WCL (ln_admin@yeah.net)
@@ -310,5 +379,19 @@ public class NSearchService extends EntityService<BaseModel, Long>
 	public DoctorModel queryDoctorDetailInfo(QueryModel model)
 	{
 		return nSearchDAO.queryDoctorDetailInfo(model);
+	}
+
+
+	/**
+	 * 描述信息：加载请求明细
+	 * 创建时间：2015年3月13日 上午10:47:35
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public NurseRequestModel queryNurseQuestInfo(QueryModel model)
+	{
+		return nSearchDAO.queryNurseQuestInfo(model);
 	}
 }

@@ -24,16 +24,38 @@ public class NurseRequestModel extends BaseModel
 	private String requestTime;		// 请求时间
 	private String responseTime; 	// 回复时间
 	private String memo;			// 备注
-	private String gender;			// 用户性别
+	private int gender;			// 用户性别
 	private String cellphone;		// 用户联系电话
 	private String userName;		// 用户姓名
+	private String genderStr;	//性别
 	
-	
-	public String getGender()
+	public String getGenderStr()
+	{
+		switch (this.gender)
+		{
+		case 0:
+			this.genderStr = "-";
+			break;
+		case 1:
+			this.genderStr = "男";
+			break;
+		case 2:
+			this.genderStr = "女";
+			break;
+		default:
+			break;
+		}
+		return genderStr;
+	}
+	public void setGenderStr(String genderStr)
+	{
+		this.genderStr = genderStr;
+	}
+	public int getGender()
 	{
 		return gender;
 	}
-	public void setGender(String gender)
+	public void setGender(int gender)
 	{
 		this.gender = gender;
 	}

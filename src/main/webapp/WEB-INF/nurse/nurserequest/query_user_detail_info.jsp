@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/patient/common/taglibs-include.jsp" %>
+<%@ include file="/WEB-INF/nurse/common/taglibs-include.jsp" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -12,8 +12,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
-	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
-	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
+	<%@ include file="/WEB-INF/nurse/common/top-include.jsp"%>
+	<link rel="stylesheet" href="<c:url value='/nurse/themes/health_records.css'/>" type="text/css"/>
 	<style type="text/css">
 		td{word-break:break-all;}
 		.index_table table#faceTable tr th{
@@ -32,12 +32,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		});
 	</script>	
   </head>
-<body >
+<body style="background: #ffffff;">
 	<div class="account">
 		<div class="account_title">
 	      <ul>
-	        <li class="account_titleGreen">我的医护人</li>
-	        <li class="account_titleGray">当前位置：医护人员详情</li>
+	        <li class="account_titleGreen">我的签约</li>
+	        <li class="account_titleGray">当前位置：申请人详细信息</li>
 	      </ul>
 	    </div>
 	</div>    
@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<div class="btn_title_informationModify" style="margin-top: 20px;">
 	          <ul>
 	            <li class="tLeft">医护人员信息</li>
-	            <li class="tRight"><a href="javascript:void(0)" onclick="window.history.back();"><img src="<c:url value='/patient/themes/images/btn_back.png'/>"></a></li>
+	            <li class="tRight"><a href="javascript:void(0)" onclick="window.history.back();"><img src="<c:url value='/nurse/themes/images/btn_back.png'/>"></a></li>
 	          </ul>
 	        </div>
 	        
@@ -63,17 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    				<table>
 		    					<tr>
 		    						<td>
-		    							<img style="width:120px; height: 160px;" id="header_photo" src="<c:url value='/patient/themes/images/default_head.gif'/>">
-		    						</td>
-		    					</tr>
-		    					<tr>	
-		    						<td class="thead_informationModify">
-		    							<img src="<c:url value='/patient/themes/images/star_s${ userModel.score}.png'/>">
-		    						</td>
-		    					</tr>
-		    					<tr>
-		    						<td>
-		    							签约人数：${ userModel.cnt}
+		    							<img style="width:120px; height: 160px;" id="header_photo" src="<c:url value='/nurse/themes/images/default_head.gif'/>">
 		    						</td>
 		    					</tr>
 		    				</table>

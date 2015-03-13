@@ -163,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    						</td>
 	    					</tr>
 	    				</table>
-	    				<input id="photo" name="photo"/>
+	    				<input id="photo" name="photo" type="hidden"/>
 	    			</td>
 	    		</tr>
 	    		<tr>

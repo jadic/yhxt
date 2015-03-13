@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -85,11 +86,113 @@ public class NSearchController extends BaseController
 	 * @return
 	 */
 	@RequestMapping(value="/baseuser.do")
-	public String toUserBase()
+	public ModelAndView toUserBase(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-		return "/nurse/baseinfo/manage_userbase_info";
+		ModelAndView result = new ModelAndView("/nurse/baseinfo/manage_userbase_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			//加载用户基本信息
+			UserModel model  = nSearchService.queryUserBaseInfo(query);
+			if (model != null)
+			{
+				result.addObject("userModel", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toUserBase error：", e);
+		}
+		return result;
 	}
 	
+
+	/**
+	 * 描述信息：修改用户基本信息
+	 * 创建时间：2015年3月8日 下午6:04:33
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyUser.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toModifyUserBase(UserModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			if (nSearchService.modifyUserBaseInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toModifyUserBase error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：修改用户详细信息
+	 * 创建时间：2015年3月8日 下午10:23:59
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyUserDetail.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toModifyUserDetail(UserModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			if (nSearchService.modifyUserDetailInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toModifyUserDetail error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：修改用户工作信息
+	 * 创建时间：2015年3月8日 下午10:29:09
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyUserWork.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toModifyUserWork(UserModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			if (nSearchService.modifyUserWorkInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toModifyUserWork error：", e);
+		}
+		return msgModel;
+	}
 	
 	/**
 	 * 描述信息：活动管理
@@ -407,7 +510,7 @@ public class NSearchController extends BaseController
 	@RequestMapping(value="/nurseRequest.do")
 	public ModelAndView toNurseRequest(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
+		ModelAndView result = new ModelAndView("/nurse/nurserequest/manage_nurse_request_info");
 		try
 		{
 			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
@@ -418,7 +521,7 @@ public class NSearchController extends BaseController
 			{
 				setPageModel(recordCount, query);
 				List<NurseRequestModel> argArgs = nSearchService.queryNurseRequestInfo(query);
-				result.addObject("serviceFlys", argArgs);
+				result.addObject("nurseRequestFlys", argArgs);
 			}
 		}
 		catch (Exception e)
@@ -427,6 +530,69 @@ public class NSearchController extends BaseController
 		}
 		return result;
 	}
+	
+	
+	/**
+	 * 描述信息：进入处理界面
+	 * 创建时间：2015年3月13日 上午10:45:43
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/goRequestDeal.do")
+	public ModelAndView toDealNurseRequest(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/nurserequest/deal_nurse_request_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			NurseRequestModel mRetRequest = nSearchService.queryNurseQuestInfo(query);
+			if (mRetRequest != null)
+			{
+				result.addObject("nurseRequest", mRetRequest);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toDealNurseRequest error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：进入医护人员详细信息界面
+	 * 创建时间：2015年3月11日 上午5:09:22
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/userdetail.do")
+	public ModelAndView toNurseDetail(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/nurserequest/query_user_detail_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			UserModel mRetUser = nSearchService.queryNurseDetailInfo(query);
+			if (mRetUser != null)
+			{
+				result.addObject("userModel", mRetUser);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toNurseDetail error：", e);
+		}
+		return result;
+	}
+	
 	
 	
 	/**

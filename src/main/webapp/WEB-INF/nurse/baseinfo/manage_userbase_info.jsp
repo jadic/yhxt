@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			else
 			{
-				var paramUrl = _ctx_ + "/p/query/modifyUser.do?a="+ Math.random();
+				var paramUrl = _ctx_ + "/n/search/modifyUser.do?a="+ Math.random();
 				var paramData = {};
 				if(type == 1)
 				{
@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						return false;
 					}
 					
-					paramUrl = _ctx_ + "/p/query/modifyUser.do?a="+ Math.random();
+					paramUrl = _ctx_ + "/n/search/modifyUser.do?a="+ Math.random();
 					paramData = {
 						"name" : $("#name").val(),	
 						"gender" : $("#gender").val(),
@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 				else if(type == 2)
 				{
-					paramUrl = _ctx_ + "/p/query/modifyUserDetail.do?a="+ Math.random();
+					paramUrl = _ctx_ + "/n/search/modifyUserDetail.do?a="+ Math.random();
 					paramData = {
 						"credentialType" 	: $("#credentialType").val(),	
 						"credentialNo" 		: $("#credentialNo").val(),
@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 				else if(type == 3)
 				{
-					paramUrl = _ctx_ + "/p/query/modifyUserWork.do?a="+ Math.random();
+					paramUrl = _ctx_ + "/n/search/modifyUserWork.do?a="+ Math.random();
 					paramData = {
 						"workingAge" : $("#workingAge").val(),	
 						"salary" : $("#salary").val(),
@@ -163,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    						</td>
 	    					</tr>
 	    				</table>
-	    				<input id="photo" name="photo"/>
+	    				<input id="photo" name="photo" type="hidden"/>
 	    			</td>
 	    		</tr>
 	    		<tr>

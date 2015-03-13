@@ -93,7 +93,39 @@
 		<result property="deptName"  					column="deptName"/>
 	</resultMap>
 	
-    
+    <!-- 加载用户基本信息 -->
+	<resultMap id="mRetUserBaseMap" 				type="userModel">
+		<result property="userId"  					column="userId"/>
+		<result property="name"  					column="name"/>
+		<result property="gender"  					column="gender"/>
+		<result property="birthdate"  				column="birthdate"/>
+		<result property="cellphone"  				column="cellphone"/>
+		<result property="email"  					column="email"/>
+		
+		<result property="credentialType"  			column="credentialType"/>
+		<result property="credentialNo"  			column="credentialNo"/>
+		<result property="isSoldier"  				column="isSoldier"/>
+		<result property="isDisablity"  			column="isDisablity"/>
+		<result property="height"  					column="height"/>
+		
+		<result property="weight"  					column="weight"/>
+		<result property="nationality"  			column="nationality"/>
+		<result property="nativePlace"  			column="nativePlace"/>
+		<result property="marriageStatus"  			column="marriageStatus"/>
+		<result property="householdType"  			column="householdType"/>
+		
+		<result property="education"  				column="education"/>
+		<result property="policticsStatus"  		column="policticsStatus"/>
+		<result property="homePhone"  				column="homePhone"/>
+		<result property="homeAddress"  			column="homeAddress"/>
+		<result property="workingAge"  				column="workingAge"/>
+		
+		<result property="salary"  					column="salary"/>
+		<result property="companyName"  			column="companyName"/>
+		<result property="companyAddress"  			column="companyAddress"/>
+		<result property="photo"  					column="photo"/>
+	</resultMap>
+	
     <!-- 查询用户列表数据 -->
 	<select id="SearchMapper.queryUserListInfo" 	parameterType="queryModel"	resultMap="mRetUserMap">
 		<![CDATA[
@@ -290,6 +322,18 @@
 	</select>
 	
 	
+	
+	<!-- 加载请求明细-->
+	<select id="SearchMapper.queryNurseQuestInfo" parameterType="queryModel"	resultMap="mRetNurseRequestMap">
+		<![CDATA[
+			select a1.id, a1.userId, a1.nurseId, a1.status, a1.requestTime, a1.responseTime, a1.memo, a2.name, a2.gender, a2.cellphone
+			from tab_user_bind_nurse_request a1
+			inner join tab_user_info a2 on a1.userId=a2.userId
+			where a1.id = #{id}
+		]]>
+	</select>
+	
+	
 	<!-- 插入用户与医护联系人关联-->
 	<insert id="SearchMapper.addUserNurseRelaviteInfo">
 	    <![CDATA[
@@ -373,4 +417,76 @@
 		]]>
 	</select>
 	
+	
+	
+	
+	<!-- 加载用户基本信息 -->
+	<select id="SearchMapper.queryUserBaseInfo" 	parameterType="queryModel"	resultMap="mRetUserBaseMap">
+		<![CDATA[
+			select a1.*
+			from tab_user_info a1
+			where a1.userId=#{userId}
+		]]>
+	</select>
+	
+	
+	<!-- 修改用户基础信息 -->
+	<update id="SearchMapper.modifyUserBaseInfo" parameterType="userModel">
+		<![CDATA[
+			UPDATE tab_user_info  SET  
+			name = #{name},
+			gender = #{gender},
+			birthdate = #{birthdate},
+			cellphone = #{cellphone},
+			email = #{email},
+			photo=#{photo}
+			WHERE userId = #{userId}
+		]]>
+	</update>
+	
+	
+	<!-- 修改用户详细信息 -->
+	<update id="SearchMapper.modifyUserDetailInfo" parameterType="userModel">
+		<![CDATA[
+			UPDATE tab_user_info  SET  
+			credentialType = #{credentialType},
+			credentialNo = #{credentialNo},
+			isSoldier = #{isSoldier},
+			isDisablity = #{isDisablity},
+			height = #{height},
+			weight=#{weight},
+			nationality=#{nationality},
+			nativePlace=#{nativePlace},
+			marriageStatus=#{marriageStatus},
+			householdType=#{householdType},
+			education=#{education},
+			policticsStatus=#{policticsStatus},
+			homeAddress=#{homeAddress},
+			homePhone=#{homePhone}
+			WHERE userId = #{userId}
+		]]>
+	</update>
+
+
+	<!-- 修改用户工作信息 -->
+	<update id="SearchMapper.modifyUserWorkInfo" parameterType="userModel">
+		<![CDATA[
+			UPDATE tab_user_info  SET  
+			workingAge = #{workingAge},
+			salary = #{salary},
+			companyName = #{companyName},
+			companyAddress = #{companyAddress}
+			WHERE userId = #{userId}
+		]]>
+	</update>
+	
+	
+	<!-- 用户明细 -->
+	<select id="SearchMapper.queryNurseDetailInfo" 	parameterType="queryModel"	resultMap="mRetUserBaseMap">
+		<![CDATA[
+			select a1.*
+			from tab_user_info a1
+			where a1.userId=#{id}
+		]]>
+	</select>
 </mapper>

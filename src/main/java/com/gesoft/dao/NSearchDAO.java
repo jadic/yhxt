@@ -50,6 +50,58 @@ public class NSearchDAO extends EntityDAOImpl<BaseModel, Long>
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryUserListInfo", model);
 	}
 
+
+	/**
+	 * 描述信息：加载用户基本信息
+	 * 创建时间：2015年3月8日 下午6:02:33
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public UserModel queryUserBaseInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryUserBaseInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：修改用户基础信息
+	 * 创建时间：2015年3月8日 下午10:20:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserBaseInfo(UserModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyUserBaseInfo", model);
+	}
+	
+	/**
+	 * 描述信息：修改用户详细信息
+	 * 创建时间：2015年3月8日 下午10:24:53
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserDetailInfo(UserModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyUserDetailInfo", model);
+	}
+	
+	
+
+	/**
+	 * 描述信息：修改用户工作信息
+	 * 创建时间：2015年3月8日 下午10:29:56
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserWorkInfo(UserModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyUserWorkInfo", model);
+	}
+	
 	
 	/**
 	 * 描述信息：查询活动总数
@@ -234,6 +286,19 @@ public class NSearchDAO extends EntityDAOImpl<BaseModel, Long>
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryNurseRequestInfo", model);
 	}
 
+	
+
+	/**
+	 * 描述信息：加载医护人员详细情况
+	 * 创建时间：2015年3月11日 上午6:27:39
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public UserModel queryNurseDetailInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryNurseDetailInfo", model);
+	}
 
 	/**
 	 * 描述信息：处理签约请求
@@ -297,5 +362,18 @@ public class NSearchDAO extends EntityDAOImpl<BaseModel, Long>
 	public DoctorModel queryDoctorDetailInfo(QueryModel model)
 	{
 		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryDoctorDetailInfo", model);
+	}
+	
+
+	/**
+	 * 描述信息：加载请求明细
+	 * 创建时间：2015年3月13日 上午10:47:35
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public NurseRequestModel queryNurseQuestInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryNurseQuestInfo", model);
 	}
 }
