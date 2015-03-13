@@ -402,7 +402,7 @@
 	<select id="QueryMapper.queryUserBaseInfo" 	parameterType="queryModel"	resultMap="mRetUserBaseMap">
 		<![CDATA[
 			select a1.*
-			from tab_user_info a1
+			from tab_user a1
 			where a1.userId=#{userId}
 		]]>
 	</select>
@@ -410,7 +410,7 @@
 	<!-- 增加用户基本信息 -->
 	<insert id="QueryMapper.addUserBaseInfo"  parameterType="userModel">
 	    <![CDATA[
-	        INSERT INTO tab_user_info (userId, name, gender, birthdate, cellphone, email, 
+	        INSERT INTO tab_user (userId, name, gender, birthdate, cellphone, email, 
 	        	credentialType, credentialNo, isSoldier, isDisablity, height, weight, 
 	        	nationality, nativePlace, marriageStatus, householdType, education, 
 	        	policticsStatus, homePhone, homeAddress, workingAge, salary, companyName, 
@@ -427,7 +427,7 @@
 	<!-- 删除用户基本信息-->
 	<delete id="QueryMapper.delUserBaseInfo" parameterType="userModel">
 		<![CDATA[
-			DELETE FROM tab_user_info 
+			DELETE FROM tab_user 
 			WHERE userId = #{userId} 
 		]]>
 	</delete>
@@ -435,7 +435,7 @@
 	<!-- 修改用户基础信息 -->
 	<update id="QueryMapper.modifyUserBaseInfo" parameterType="userModel">
 		<![CDATA[
-			UPDATE tab_user_info  SET  
+			UPDATE tab_user  SET  
 			name = #{name},
 			gender = #{gender},
 			birthdate = #{birthdate},
@@ -450,7 +450,7 @@
 	<!-- 修改用户详细信息 -->
 	<update id="QueryMapper.modifyUserDetailInfo" parameterType="userModel">
 		<![CDATA[
-			UPDATE tab_user_info  SET  
+			UPDATE tab_user  SET  
 			credentialType = #{credentialType},
 			credentialNo = #{credentialNo},
 			isSoldier = #{isSoldier},
@@ -473,7 +473,7 @@
 	<!-- 修改用户工作信息 -->
 	<update id="QueryMapper.modifyUserWorkInfo" parameterType="userModel">
 		<![CDATA[
-			UPDATE tab_user_info  SET  
+			UPDATE tab_user  SET  
 			workingAge = #{workingAge},
 			salary = #{salary},
 			companyName = #{companyName},
@@ -620,7 +620,7 @@
 		<![CDATA[
 			select count(1) as cnt  
 			from tab_user a1
-			inner join tab_user_info a2 on a1.userId=a2.userId and a1.userSysId=2
+			inner join tab_user a2 on a1.userId=a2.userId and a1.userSysId=2
 		]]>
 		<where>	
 	        <if test="name != null and name != ''">
@@ -635,7 +635,7 @@
 		<![CDATA[
 			select a1.userId, a2.name, a2.cellphone, a2.gender, IFNULL(a3.score, 0) as score, IFNULL(a4.cnt,0) as cnt
 			from tab_user a1
-			inner join tab_user_info a2 on a1.userId=a2.userId and a1.userSysId=2
+			inner join tab_user a2 on a1.userId=a2.userId and a1.userSysId=2
 			left join (
 				select nurserId, round(sum(IFNULL(score1,0) + IFNULL(score2,0) + IFNULL(score3, 0))/3) as score 
 				from tab_nurser_score 
@@ -664,7 +664,7 @@
 		<![CDATA[
 			select a2.*, IFNULL(a3.score, 0) as score, IFNULL(a4.cnt,0) as cnt
 			from tab_user_nurse_relation a1
-			inner join tab_user_info a2 on a1.nurseId=a2.userId
+			inner join tab_user a2 on a1.nurseId=a2.userId
 			left join (
 				select nurserId, round(sum(IFNULL(score1,0) + IFNULL(score2,0) + IFNULL(score3, 0))/3) as score 
 				from tab_nurser_score 
@@ -683,7 +683,7 @@
 	<select id="QueryMapper.queryNurseDetailInfo" 	parameterType="queryModel"	resultMap="mRetMyNurseMap">
 		<![CDATA[
 			select a2.*, IFNULL(a3.score, 0) as score, IFNULL(a4.cnt,0) as cnt
-			from tab_user_info a2
+			from tab_user a2
 			left join (
 				select nurserId, round(sum(IFNULL(score1,0) + IFNULL(score2,0) + IFNULL(score3, 0))/3) as score 
 				from tab_nurser_score 
@@ -713,7 +713,7 @@
 		<![CDATA[
 			select a1.*, a2.name
 			from tab_user_bind_nurse_request a1
-			inner join tab_user_info a2 on a1.nurseId=a2.userId
+			inner join tab_user a2 on a1.nurseId=a2.userId
 			where a1.userId=#{userId}
 			and a1.status = 0
 			limit 0, 1
@@ -735,7 +735,7 @@
 		<![CDATA[
 			select a1.id, a1.senderId, a1.receiverId, a1.sendTime, a1.status, a1.readTime, a1.msg, a2.name
 			from tab_msg a1
-			inner join tab_user_info a2 on a1.senderId = a2.userId
+			inner join tab_user a2 on a1.senderId = a2.userId
 			where a1.receiverId=#{userId}
 		]]>
 	</select>

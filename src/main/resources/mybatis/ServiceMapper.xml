@@ -30,7 +30,7 @@
 		<![CDATA[
 			SELECT COUNT(1) AS CNT
 			FROM tab_service a1
-			left join tab_user_info a2 on a2.userId=a1.serviceCreatorId
+			left join tab_user a2 on a2.userId=a1.serviceCreatorId
 		]]>
 		<where>	
 	        <if test="type != null and type > 0">
@@ -47,7 +47,7 @@
 		<![CDATA[
 			SELECT a1.*, a2.name
 			FROM tab_service a1
-			left join tab_user_info a2 on a2.userId=a1.serviceCreatorId
+			left join tab_user a2 on a2.userId=a1.serviceCreatorId
 		]]>
 		<where>	
 	        <if test="type != null and type > 0">

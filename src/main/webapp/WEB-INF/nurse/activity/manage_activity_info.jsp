@@ -28,9 +28,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#inputform").submit();
 		}
 		
-		function goMerge(id)
+		function goMerge(id, name)
 		{
-			window.location.href = "<c:url value='/n/search/mergeActivity.do'/>?id="+id;
+			window.location.href = "<c:url value='/n/search/mergeActivity.do'/>?id="+id + "&name="+name;
 		}
 		
 		function funNurseDetail(id)
@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <li class="account_titleGreen">我的活动</li>
 	        <li class="account_titleGray" style="height: 33px; padding-top: 10px;">
 	        	<ul>
-	        		<li class="select_BPhistory" style="width: 120px; padding-top: 0px; float: right;"><a href="javascript:void(0)" onclick="goMerge(0)"><img src="<c:url value='/nurse/themes/images/phone_add.png'/>"></a></li>
+	        		<li class="select_BPhistory" style="width: 120px; padding-top: 0px; float: right;"><a href="javascript:void(0)" onclick="goMerge(0, 'addActivity')"><img src="<c:url value='/nurse/themes/images/phone_add.png'/>"></a></li>
 	        	</ul>
 	        </li>
 	      </ul>
@@ -133,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td>${activityItem.sdate }</td>
 									<td>${activityItem.edate }</td>
 									<td>
-										<a href="javascript:void(0)" onclick="goMerge(${activityItem.id})"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">编辑</a>
+										<a href="javascript:void(0)" onclick="goMerge(${activityItem.id}, 'modifyActivity')"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">编辑</a>
 										<a href="javascript:void(0)" onclick="funDelete(this, ${activityItem.id})"><img src="<c:url value='/patient/themes/images/phone_del.png'/>">删除</a>
 									</td>
 								</tr>

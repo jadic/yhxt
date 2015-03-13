@@ -43,8 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="account_title" >
 	      <ul>
 	        <li class="account_titleGreen">我的签约</li>
-	        <li class="account_titleGray" >
-	        </li>
+	        <li class="account_titleGray">当前位置：未处理申请列表</li>
 	      </ul>
 	    </div>
 	</div>    

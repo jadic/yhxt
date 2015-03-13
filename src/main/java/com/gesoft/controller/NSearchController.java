@@ -30,6 +30,7 @@ import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 import com.gesoft.service.NSearchService;
+import com.gesoft.util.SystemUtils;
 
 /**
  * 医护人员平台
@@ -248,7 +249,7 @@ public class NSearchController extends BaseController
 			if (query.getId() > 0)
 			{
 				ActivityModel model  = nSearchService.queryActivityInfoById(query);
-				result.addObject("relative", model);
+				result.addObject("activity", model);
 			}
 		}
 		catch (Exception e)
@@ -274,6 +275,9 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
+			model.setType(1);
+			model.setCreateTime(SystemUtils.getCurrentSystemTime());
+			model.setCreatorId(getSessionUserId(request, SESSION_KEY_NUID));
 			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			if(nSearchService.addActivityInfo(model) > 0)
 			{
@@ -303,6 +307,9 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
+			model.setType(1);
+			model.setCreateTime(SystemUtils.getCurrentSystemTime());
+			model.setCreatorId(getSessionUserId(request, SESSION_KEY_NUID));
 			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			if(nSearchService.modifyActivityInfo(model) > 0)
 			{
@@ -426,6 +433,9 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
+			model.setType(1);
+			model.setCreateTime(SystemUtils.getCurrentSystemTime());
+			model.setCreatorId(getSessionUserId(request, SESSION_KEY_NUID));
 			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			if(nSearchService.addServiceInfo(model) > 0)
 			{
@@ -455,6 +465,9 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
+			model.setType(1);
+			model.setCreateTime(SystemUtils.getCurrentSystemTime());
+			model.setCreatorId(getSessionUserId(request, SESSION_KEY_NUID));
 			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
 			if(nSearchService.modifyServiceInfo(model) > 0)
 			{
