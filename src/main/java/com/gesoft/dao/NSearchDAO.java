@@ -346,7 +346,7 @@ public class NSearchDAO extends EntityDAOImpl<BaseModel, Long>
 	 * @param query
 	 * @return
 	 */
-	public List<NurseRequestModel> queryDoctorInfo(QueryModel model)
+	public List<DoctorModel> queryDoctorInfo(QueryModel model)
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryDoctorInfo", model);
 	}

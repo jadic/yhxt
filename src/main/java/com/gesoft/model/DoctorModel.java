@@ -22,9 +22,7 @@ public class DoctorModel extends BaseModel
 	private String doctorGenderStr;		// 医生性别
 	private String doctorPhoto;			// 医生照片
 	private int doctorHospitalId;		// 医生所在医院
-	private String doctorHospitalIdStr;	// 医生所在医院
 	private int doctorDeptId;			// 医生所在科室
-	private String doctorDeptIdStr;		// 医生所在科室
 	private String doctorTitle;			// 医生职称
 	private String doctorEducation;		// 医生学历
 	private String doctorSkill;		// 医生擅长
@@ -115,14 +113,6 @@ public class DoctorModel extends BaseModel
 	{
 		this.doctorHospitalId = doctorHospitalId;
 	}
-	public String getDoctorHospitalIdStr()
-	{
-		return doctorHospitalIdStr;
-	}
-	public void setDoctorHospitalIdStr(String doctorHospitalIdStr)
-	{
-		this.doctorHospitalIdStr = doctorHospitalIdStr;
-	}
 	public int getDoctorDeptId()
 	{
 		return doctorDeptId;
@@ -130,14 +120,6 @@ public class DoctorModel extends BaseModel
 	public void setDoctorDeptId(int doctorDeptId)
 	{
 		this.doctorDeptId = doctorDeptId;
-	}
-	public String getDoctorDeptIdStr()
-	{
-		return doctorDeptIdStr;
-	}
-	public void setDoctorDeptIdStr(String doctorDeptIdStr)
-	{
-		this.doctorDeptIdStr = doctorDeptIdStr;
 	}
 	public String getDoctorTitle()
 	{

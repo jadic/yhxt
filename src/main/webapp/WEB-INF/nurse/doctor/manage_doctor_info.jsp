@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.even{
 			border-bottom: 1px dashed #ccc; background: #f9f9f9;
 		}
-		.add{
+		.odd{
 			border-bottom: 1px dashed #ccc; border-left: 1px solid #f9f9f9; border-right: 1px solid #f9f9f9;
 		}
 	</style>
@@ -31,16 +31,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function queryStart()
 		{
 			$("#inputform").submit();
-		}
-		
-		function goMerge(id)
-		{
-			window.location.href = "<c:url value='/n/search/goRequestDeal.do'/>?id="+id;
-		}
-		
-		function funNurseDetail(id)
-		{
-			window.location.href = "<c:url value='/n/search/userdetail.do'/>?id="+id;
 		}
 	</script>
   </head>
@@ -61,92 +51,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="index_table">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
 					<tbody>
+					<c:if test="${not empty doctorFlys }">
+						<c:forEach items="${doctorFlys }" var="doctorItem" varStatus="item">
 						<tr>
-							<td class="even">
-								<table border="0" cellpadding="0" cellspacing="0">
+							<td class="<c:if test="${item.index mod 2 == 0 }">even</c:if><c:if test="${item.index mod 2 == 1 }">odd</c:if>">
+								<table border="0" cellpadding="0" cellspacing="0" style="font-size: 12px;">
 									<tr>
-										<td rowspan="3" style="width: 130px; padding: 0px;">
-											<img src="<c:url value='/nurse/themes/images/default_head.gif'/>" style="border: 0px; height: 120px; width: 100px" />
+										<td rowspan="4" style="width: 130px; padding: 0px;">
+											<c:if test="${empty doctorItem.doctorPhoto}">
+												<img src="<c:url value='/nurse/themes/images/default_head.gif'/>" style="border: 0px; height: 120px; width: 100px" />
+											</c:if>
+											<c:if test="${not empty doctorItem.doctorPhoto}">
+												<img src="<c:url value='/'/>${doctorItem.doctorPhoto}" style="border: 0px; height: 120px; width: 100px" />
+											</c:if>
 										</td>
-										<td align="left" style="height: 22px; padding: 0px;">
-											王若光 主任医师 教授 
+										<td align="left" style="height: 22px; padding: 0px; font-weight: bold;">
+											<a href="<c:url value='/n/search/doctorDetail.do?id=${doctorItem.doctorId}'/>" style="color: 07b; text-decoration: none; padding: 0px 6px 0px 0px; margin: 0px;">${doctorItem.doctorName }</a>   
+											<span style="padding: 0 6px;">${doctorItem.doctorTitle }</span>   
 										</td>
 									</tr>
 									<tr>
 										<td align="left" style="height: 22px; padding: 0px;">
-											湖南省第二人民医院  妇产科
+											所属科室：${doctorItem.deptName }
+										</td>
+									</tr>
+									<tr>
+										<td align="left" style="height: 22px; padding: 0px;">
+											就职医院：${doctorItem.hospitalName }
 										</td>
 									</tr>
 									<tr>
 										<td align="left" style="height: 22px; line-height: 22px; padding: 0px;">
-											擅长疾病： 多囊卵巢综合征、月经失调、不孕不育、盆腔炎、功能性子宫出血、卵巢早衰、子宫内膜异位症、子宫内膜息肉、妇科炎症、子宫...
+											擅长疾病： ${doctorItem.doctorSkill }
 										</td>
 									</tr>
 								</table>
 							</td>
 						</tr>
-						<tr>
-							<td class="add">
-								<table border="0" cellpadding="0" cellspacing="0">
-									<tr>
-										<td rowspan="3" style="width: 130px; padding: 0px;">
-											<img src="<c:url value='/nurse/themes/images/default_head.gif'/>" style="border: 0px; height: 120px; width: 100px" />
-										</td>
-										<td align="left" style="height: 22px; padding: 0px;">
-											王若光 主任医师 教授 
-										</td>
-									</tr>
-									<tr>
-										<td align="left" style="height: 22px; padding: 0px;">
-											湖南省第二人民医院  妇产科
-										</td>
-									</tr>
-									<tr>
-										<td align="left" style="height: 22px; line-height: 22px; padding: 0px;">
-											擅长疾病： 多囊卵巢综合征、月经失调、不孕不育、盆腔炎、功能性子宫出血、卵巢早衰、子宫内膜异位症、子宫内膜息肉、妇科炎症、子宫...
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td class="even">
-								<table border="0" cellpadding="0" cellspacing="0">
-									<tr>
-										<td rowspan="3" style="width: 130px; padding: 0px;">
-											<img src="<c:url value='/nurse/themes/images/default_head.gif'/>" style="border: 0px; height: 120px; width: 100px" />
-										</td>
-										<td align="left" style="height: 22px; padding: 0px;">
-											王若光 主任医师 教授 
-										</td>
-									</tr>
-									<tr>
-										<td align="left" style="height: 22px; padding: 0px;">
-											湖南省第二人民医院  妇产科
-										</td>
-									</tr>
-									<tr>
-										<td align="left" style="height: 22px; line-height: 22px; padding: 0px;">
-											擅长疾病： 多囊卵巢综合征、月经失调、不孕不育、盆腔炎、功能性子宫出血、卵巢早衰、子宫内膜异位症、子宫内膜息肉、妇科炎症、子宫...
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<c:if test="${not empty nurseRequestFlys }">
-							<c:forEach items="${nurseRequestFlys }" var="nurseRequestItem" varStatus="item">
-								<tr class='<c:if test="${item.index mod 2 == 0 }">abnormal odd</c:if><c:if test="${item.index mod 2 == 1 }">even</c:if>' style="height: 40px;">
-									<td><a href="javascript:void(0)" onclick="funNurseDetail(${nurseRequestItem.userId})">${nurseRequestItem.userName }</a></td>
-									<td>${nurseRequestItem.genderStr }</td>
-									<td>${nurseRequestItem.cellphone }</td>
-									<td>${nurseRequestItem.requestTime }</td>
-									
-									<td>
-										<a href="javascript:void(0)" onclick="goMerge(${nurseRequestItem.id})"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">处理</a>
-									</td>
-								</tr>
-							</c:forEach>
-						</c:if>
+					    </c:forEach>
+					</c:if>	
 					</tbody>
 				</table>
 		</div>

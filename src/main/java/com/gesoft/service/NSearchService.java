@@ -362,7 +362,7 @@ public class NSearchService extends EntityService<BaseModel, Long>
 	 * @return
 	 */
 	@Transactional(readOnly=true)
-	public List<NurseRequestModel> queryDoctorInfo(QueryModel model)
+	public List<DoctorModel> queryDoctorInfo(QueryModel model)
 	{
 		return nSearchDAO.queryDoctorInfo(model);
 	}

@@ -646,7 +646,7 @@ public class NSearchController extends BaseController
 			if(recordCount>0)
 			{
 				setPageModel(recordCount, query);
-				List<NurseRequestModel> argArgs = nSearchService.queryDoctorInfo(query);
+				List<DoctorModel> argArgs = nSearchService.queryDoctorInfo(query);
 				result.addObject("doctorFlys", argArgs);
 			}
 		}
@@ -677,7 +677,7 @@ public class NSearchController extends BaseController
 			result.addObject("query", query);
 			
 			DoctorModel doctorModel = nSearchService.queryDoctorDetailInfo(query);
-			if(doctorModel == null)
+			if(doctorModel != null)
 			{
 				result.addObject("doctor", doctorModel);
 			}
