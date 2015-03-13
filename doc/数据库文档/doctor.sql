@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50022
 File Encoding         : 65001
 
-Date: 2015-03-09 02:12:38
+Date: 2015-03-13 12:20:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,6 +35,7 @@ CREATE TABLE `tab_activity` (
 -- ----------------------------
 -- Records of tab_activity
 -- ----------------------------
+INSERT INTO tab_activity VALUES ('1', '1', '111', '1', '1', '2015-03-13 09:32:32', '2015-03-13', '2015-03-13', null, null);
 
 -- ----------------------------
 -- Table structure for `tab_activity_doctor`
@@ -290,12 +291,15 @@ CREATE TABLE `tab_disease_history` (
   `descInHospital` varchar(500) default NULL COMMENT '住院情况',
   `descObserve` varchar(500) default NULL COMMENT '转归情况',
   `memo` varchar(500) default NULL COMMENT '备注',
+  `userId` int(12) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='疾病史';
 
 -- ----------------------------
 -- Records of tab_disease_history
 -- ----------------------------
+INSERT INTO tab_disease_history VALUES ('2', '24444', '2015-03-09', '2015-03-10', '344', '4', '5', '1');
+INSERT INTO tab_disease_history VALUES ('4', '44', '2015-03-10', '2015-03-10', '4', '4', '5', '1');
 
 -- ----------------------------
 -- Table structure for `tab_doctor`
@@ -306,8 +310,8 @@ CREATE TABLE `tab_doctor` (
   `doctorName` varchar(20) default NULL,
   `doctorGender` tinyint(4) default NULL,
   `doctorPhoto` varchar(150) default NULL,
-  `doctorHospitalld` int(11) default NULL,
-  `doctorDeptld` int(11) default NULL,
+  `doctorHospitalId` int(11) default NULL,
+  `doctorDeptId` int(11) default NULL,
   `doctorTitle` varchar(100) default NULL,
   `doctorEducation` tinyint(4) default NULL,
   `doctorSkill` varchar(200) default NULL,
@@ -318,6 +322,7 @@ CREATE TABLE `tab_doctor` (
 -- ----------------------------
 -- Records of tab_doctor
 -- ----------------------------
+INSERT INTO tab_doctor VALUES ('1', '王若光', '1', null, '1', '1', '主任医师', '1', '多囊卵巢综合征、月经失调、不孕不育、盆腔炎、功能性子宫出血、卵巢早衰、子宫内膜异位症、子宫内膜息肉、妇科炎症、子宫...', null);
 
 -- ----------------------------
 -- Table structure for `tab_doctor_advice`
@@ -483,12 +488,14 @@ CREATE TABLE `tab_nurser_score` (
   `score1` tinyint(4) default NULL,
   `score2` tinyint(4) default NULL,
   `score3` tinyint(4) default NULL,
+  `stime` datetime default NULL COMMENT '点评时间',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tab_nurser_score
 -- ----------------------------
+INSERT INTO tab_nurser_score VALUES ('1', '2', '1', '3', '4', null, null);
 
 -- ----------------------------
 -- Table structure for `tab_platform`
@@ -551,7 +558,6 @@ CREATE TABLE `tab_service` (
 -- Records of tab_service
 -- ----------------------------
 INSERT INTO tab_service VALUES ('2', '1', '33', '22', '1', '2015-03-03 14:45:44', '2015-03-03', '2015-03-27', '222', '0');
-INSERT INTO tab_service VALUES ('3', '1', '2', '22', '1', '2015-03-03 14:45:44', '2015-03-03', '2015-03-03', '222', '0');
 INSERT INTO tab_service VALUES ('4', '1', '2', '222<img src=\"/yhxt//upload/201503/20150303145102098_家具产品.png\" alt=\"\" />', '1', '2015-03-03 14:51:04', '2015-03-03', '2015-03-27', '222', '/upload/201503/20150303145054080_木制品.jpg');
 
 -- ----------------------------
@@ -586,6 +592,8 @@ CREATE TABLE `tab_user` (
 -- Records of tab_user
 -- ----------------------------
 INSERT INTO tab_user VALUES ('1', 'wcl', '1234', '1', null);
+INSERT INTO tab_user VALUES ('2', 'wangcl', '1234', '2', null);
+INSERT INTO tab_user VALUES ('3', 'wfp', '1234', '1', null);
 
 -- ----------------------------
 -- Table structure for `tab_userlogin_logs`
@@ -644,6 +652,7 @@ CREATE TABLE `tab_user_bind_nurse_request` (
 -- ----------------------------
 -- Records of tab_user_bind_nurse_request
 -- ----------------------------
+INSERT INTO tab_user_bind_nurse_request VALUES ('1', '3', '1', '0', '2015-03-13 10:02:00', null, '2121');
 
 -- ----------------------------
 -- Table structure for `tab_user_device`
@@ -698,7 +707,9 @@ CREATE TABLE `tab_user_info` (
 -- ----------------------------
 -- Records of tab_user_info
 -- ----------------------------
-INSERT INTO tab_user_info VALUES ('1', '332', '2', '2015-03-08', '13777777', '84305988', '1', '3408', '1', '1', '175', '75', '1', '抚顺', '1', '2', '2', '1', '137', '江宁', '2', '2', '通用', '光华路', '');
+INSERT INTO tab_user_info VALUES ('1', '5555', '2', '2015-03-08', '13777777', '84305988', '1', '3408', '1', '1', '175', '75', '1', '抚顺', '1', '2', '2', '1', '137', '江宁', '2', '2', '通用', '光华路', '');
+INSERT INTO tab_user_info VALUES ('2', '22', '1', '2015-03-11', '212121', '222@qq.com', '1', '22222', '1', '1', '186', '87', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO tab_user_info VALUES ('3', '33', '1', '2015-03-13', '212', '222', '1', '12', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `tab_user_nurse_relation`

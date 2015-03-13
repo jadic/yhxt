@@ -27,13 +27,22 @@ public class DoctorModel extends BaseModel
 	private String doctorDeptIdStr;		// 医生所在科室
 	private String doctorTitle;			// 医生职称
 	private String doctorEducation;		// 医生学历
-	private String docotorSkill;		// 医生擅长
+	private String doctorSkill;		// 医生擅长
 	private String doctorDetailDescription;// 医生详细介绍
 	private String hospitalName;		// 医院名称
 	private String hospitalAddr;		// 医院地址
 	private String deptName;			// 科室名称
+	private String doctorEducationName; // 学历名称
 	
 	
+	public String getDoctorEducationName()
+	{
+		return doctorEducationName;
+	}
+	public void setDoctorEducationName(String doctorEducationName)
+	{
+		this.doctorEducationName = doctorEducationName;
+	}
 	public String getHospitalName()
 	{
 		return hospitalName;
@@ -146,13 +155,14 @@ public class DoctorModel extends BaseModel
 	{
 		this.doctorEducation = doctorEducation;
 	}
-	public String getDocotorSkill()
+	
+	public String getDoctorSkill()
 	{
-		return docotorSkill;
+		return doctorSkill;
 	}
-	public void setDocotorSkill(String docotorSkill)
+	public void setDoctorSkill(String doctorSkill)
 	{
-		this.docotorSkill = docotorSkill;
+		this.doctorSkill = doctorSkill;
 	}
 	public String getDoctorDetailDescription()
 	{

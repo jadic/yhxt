@@ -82,10 +82,10 @@
 	    <result property="doctorName"  					column="doctorName"/>
 		<result property="doctorGender"  				column="doctorGender"/>
 		<result property="doctorPhoto"  				column="doctorPhoto"/>
-		<result property="doctorHospitalld"  			column="doctorHospitalld"/>
-		<result property="doctorDeptld"  				column="doctorDeptld"/>
+		<result property="doctorHospitalId"  			column="doctorHospitalId"/>
+		<result property="doctorDeptId"  				column="doctorDeptId"/>
 		<result property="doctorTitle"  				column="doctorTitle"/>
-		<result property="doctorEducation"  			column="doctorEducation"/>
+		<result property="doctorEducationName"  		column="doctorEducationName"/>
 		<result property="doctorSkill"  				column="doctorSkill"/>
 		<result property="doctorDetailDescriptior"  	column="doctorDetailDescriptior"/>
 		<result property="hospitalName"  				column="hospitalName"/>
@@ -359,15 +359,15 @@
 		<![CDATA[
 			select count(1) as cnt
 			from tab_doctor a1
-			left join tab_hospital a2 on a1.doctorHospitalld=a2.hospitalId
-			left join tab_hospital_dept a3 on a3.deptId=a1.doctorDeptld
+			left join tab_hospital a2 on a1.doctorHospitalId=a2.hospitalId
+			left join tab_hospital_dept a3 on a3.deptId=a1.doctorDeptId
 		]]>
 		<where>	
 	        <if test="hospitalId != null and hospitalId > 0">
-				AND a1.doctorHospitalld = #{hospitalId}
+				AND a1.doctorHospitalId = #{hospitalId}
 	        </if>
 	        <if test="deptId != null and deptId > 0">
-				AND a1.doctorDeptld = #{deptId}
+				AND a1.doctorDeptId = #{deptId}
 	        </if>
 	        <if test="name != null and name != ''">
 				AND a1.doctorName LIKE CONCAT('%', #{name}, '%') 
@@ -379,19 +379,20 @@
 	<!-- 分页查询医生信息-->
 	<select id="SearchMapper.queryDoctorInfo" parameterType="queryModel"	resultMap="mRetDoctorMap">
 		<![CDATA[
-			select a1.doctorId, a1.doctorName, a1.doctorGender, a1.doctorPhoto, a1.doctorHospitalld, 
-				a1.doctorDeptld, a1.doctorTitle, a1.doctorEducation, a1.doctorSkill, a1.doctorDetailDescriptior, 
+			select a1.doctorId, a1.doctorName, a1.doctorGender, a1.doctorPhoto, a1.doctorHospitalId, 
+				a1.doctorDeptId, a1.doctorTitle, a4.name as doctorEducationName, a1.doctorSkill, a1.doctorDetailDescriptior, 
 				a2.hospitalName, a2.hospitalAddr, a3.deptName
 			from tab_doctor a1
-			left join tab_hospital a2 on a1.doctorHospitalld=a2.hospitalId
-			left join tab_hospital_dept a3 on a3.deptId=a1.doctorDeptld
+			left join tab_hospital a2 on a1.doctorHospitalId=a2.hospitalId
+			left join tab_hospital_dept a3 on a3.deptId=a1.doctorDeptId
+			left join tab_dict_education a4 on a4.id=a1.doctorEducation
 		]]>
 		<where>	
 	        <if test="hospitalId != null and hospitalId > 0">
-				AND a1.doctorHospitalld = #{hospitalId}
+				AND a1.doctorHospitalId = #{hospitalId}
 	        </if>
 	        <if test="deptId != null and deptId > 0">
-				AND a1.doctorDeptld = #{deptId}
+				AND a1.doctorDeptId = #{deptId}
 	        </if>
 	        <if test="name != null and name != ''">
 				AND a1.doctorName LIKE CONCAT('%', #{name}, '%') 
@@ -407,12 +408,13 @@
 	<!-- 分页查询医生信息详细-->
 	<select id="SearchMapper.queryDoctorDetailInfo" parameterType="queryModel"	resultMap="mRetDoctorMap">
 		<![CDATA[
-			select a1.doctorId, a1.doctorName, a1.doctorGender, a1.doctorPhoto, a1.doctorHospitalld, 
-				a1.doctorDeptld, a1.doctorTitle, a1.doctorEducation, a1.doctorSkill, a1.doctorDetailDescriptior, 
+			select a1.doctorId, a1.doctorName, a1.doctorGender, a1.doctorPhoto, a1.doctorHospitalId, 
+				a1.doctorDeptId, a1.doctorTitle, a4.name as doctorEducationName, a1.doctorSkill, a1.doctorDetailDescriptior, 
 				a2.hospitalName, a2.hospitalAddr, a3.deptName
 			from tab_doctor a1
-			left join tab_hospital a2 on a1.doctorHospitalld=a2.hospitalId
-			left join tab_hospital_dept a3 on a3.deptId=a1.doctorDeptld
+			left join tab_hospital a2 on a1.doctorHospitalId=a2.hospitalId
+			left join tab_hospital_dept a3 on a3.deptId=a1.doctorDeptId
+			left join tab_dict_education a4 on a4.id=a1.doctorEducation
 			where a1.doctorId = #{id}
 		]]>
 	</select>
