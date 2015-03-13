@@ -21,6 +21,7 @@
 		<typeAlias alias="serviceModel" type="com.gesoft.model.ServiceModel" />
 		<typeAlias alias="doctorAdviceModel" type="com.gesoft.model.DoctorAdviceModel" />
 		<typeAlias alias="doctorAdvicePerformanceModel" type="com.gesoft.model.DoctorAdvicePerformanceModel" />
+		<typeAlias alias="doctorModel" type="com.gesoft.model.DoctorModel" />
 	</typeAliases>
 	<mappers></mappers>
 </configuration>

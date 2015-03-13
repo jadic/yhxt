@@ -42,7 +42,7 @@
 		<result property="createTime"  				column="activityCreateTime"/>
 		<result property="sdate"  					column="activityStartDate"/>
 		<result property="edate"  					column="activityDuration"/>
-		<result property="memo"  					column="activiyMemo"/>
+		<result property="memo"  					column="activityMemo"/>
 		<result property="icon"  					column="activityIcon"/>
 	</resultMap>
 	
@@ -134,7 +134,7 @@
 	<select id="SearchMapper.queryActivityInfo" 	parameterType="queryModel"	resultMap="mRetActivityMap">
 		<![CDATA[
 			select a1.activityId, a1.activityType, a1.activityName, a1.activityContent, a1.activityCreatorId, 
-				a1.activityCreateTime, a1.activityStartDate, a1.activityDuration, a1.activiyMemo,  a1.activityIcon
+				a1.activityCreateTime, a1.activityStartDate, a1.activityDuration, a1.activityMemo,  a1.activityIcon
 			from tab_activity a1
 			where a1.activityCreatorId = #{nurseId}
 		]]>
@@ -152,7 +152,7 @@
 	<select id="SearchMapper.queryActivityInfoById" 	parameterType="queryModel"	resultMap="mRetActivityMap">
 		<![CDATA[
 			select a1.activityId, a1.activityType, a1.activityName, a1.activityContent, a1.activityCreatorId, 
-				a1.activityCreateTime, a1.activityStartDate, a1.activityDuration, a1.activiyMemo,  a1.activityIcon
+				a1.activityCreateTime, a1.activityStartDate, a1.activityDuration, a1.activityMemo,  a1.activityIcon
 			from tab_activity a1
 			where a1.activityId = #{id}
 		]]>
@@ -161,7 +161,7 @@
 	<!-- 插入活动记录 -->
 	<insert id="SearchMapper.addActivityInfo" useGeneratedKeys="true" keyProperty="id">
 	    <![CDATA[
-	        INSERT INTO tab_activity (activityType, activityName, activityContent, activityCreatorId, activityCreateTime, activityStartDate, activityDuration, activiyMemo, activityIcon) 
+	        INSERT INTO tab_activity (activityType, activityName, activityContent, activityCreatorId, activityCreateTime, activityStartDate, activityDuration, activityMemo, activityIcon) 
 	        VALUES (#{type}, #{name}, #{content}, #{creatorId}, #{createTime}, #{sdate}, #{edate}, #{memo}, #{icon})
 	    ]]>
 	</insert>
@@ -175,9 +175,9 @@
 			activityContent = #{content}, 
 			activityStartDate = #{sdate}, 
 			activityDuration = #{edate}, 
-			activiyMemo = #{memo}, 
+			activityMemo = #{memo}, 
 			activityIcon = #{icon}
-			WHERE id = #{id} 
+			WHERE activityId = #{id} 
 		]]>
 	</update>
 	
@@ -185,8 +185,8 @@
 	<!-- 删除活动记录-->
 	<delete id="SearchMapper.delActivityInfo">
 		<![CDATA[
-			DELETE FROM tab_service 
-			WHERE id = #{id} 
+			DELETE FROM tab_activity 
+			WHERE activityId = #{id} 
 		]]>
 	</delete>
 	
@@ -224,7 +224,7 @@
 				AND a1.serviceName LIKE CONCAT('%', #{name}, '%') 
 	        </if>
 		<![CDATA[
-			order by a1.servcieStartDate
+			order by a1.serviceStartDate
 			LIMIT #{startNum}, #{rows}
 		]]>
 	</select>

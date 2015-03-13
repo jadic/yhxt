@@ -79,6 +79,19 @@ public class NSearchController extends BaseController
 	
 	
 	/**
+	 * 描述信息：进入用户基本信息
+	 * 创建时间：2015年3月13日 上午5:52:58
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/baseuser.do")
+	public String toUserBase()
+	{
+		return "/nurse/baseinfo/manage_userbase_info";
+	}
+	
+	
+	/**
 	 * 描述信息：活动管理
 	 * 创建时间：2015年3月12日 上午9:26:00
 	 * @author WCL (ln_admin@yeah.net)
@@ -90,7 +103,7 @@ public class NSearchController extends BaseController
 	@RequestMapping(value="/activity.do")
 	public ModelAndView toActivity(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
+		ModelAndView result = new ModelAndView("/nurse/activity/manage_activity_info");
 		try
 		{
 			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
@@ -124,7 +137,7 @@ public class NSearchController extends BaseController
 	@RequestMapping(value="/mergeActivity.do")
 	public ModelAndView toMergeActivity(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-		ModelAndView result = new ModelAndView("/patient/healthinfo/add_relative_phone_info");
+		ModelAndView result = new ModelAndView("/nurse/activity/add_activity_info");
 		try
 		{
 			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
@@ -242,7 +255,7 @@ public class NSearchController extends BaseController
 	@RequestMapping(value="/service.do")
 	public ModelAndView toService(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
+		ModelAndView result = new ModelAndView("/nurse/service/manage_service_info");
 		try
 		{
 			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
@@ -276,7 +289,7 @@ public class NSearchController extends BaseController
 	@RequestMapping(value="/mergeService.do")
 	public ModelAndView toMergeService(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-		ModelAndView result = new ModelAndView("/patient/healthinfo/add_relative_phone_info");
+		ModelAndView result = new ModelAndView("/nurse/service/add_service_info");
 		try
 		{
 			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
@@ -457,7 +470,7 @@ public class NSearchController extends BaseController
 	@RequestMapping(value="/doctor.do")
 	public ModelAndView toDoctor(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
+		ModelAndView result = new ModelAndView("/nurse/doctor/manage_doctor_info");
 		try
 		{
 			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
@@ -491,7 +504,7 @@ public class NSearchController extends BaseController
 	@RequestMapping(value="/doctorDetail.do")
 	public ModelAndView toDoctorDetail(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
+		ModelAndView result = new ModelAndView("/nurse/doctor/query_doctor_detail_info");
 		try
 		{
 			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));

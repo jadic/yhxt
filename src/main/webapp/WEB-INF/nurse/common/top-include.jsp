@@ -1,4 +1,7 @@
 <%@ include file="/WEB-INF/nurse/common/taglibs-include.jsp" %>
+<link rel="stylesheet" href="<c:url value='/nurse/themes/common.css'/>" type="text/css"/>
+<link rel="stylesheet" href="<c:url value='/nurse/themes/index_tab.css'/>" type="text/css"/>
+<link rel="stylesheet" href="<c:url value='/nurse/themes/index_common.css'/>" type="text/css"/>
 
 <script type="text/javascript">
 <!--
