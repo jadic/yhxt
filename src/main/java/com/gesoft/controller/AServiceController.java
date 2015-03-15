@@ -7,6 +7,9 @@
  **/
 package com.gesoft.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gesoft.model.DoctorModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.service.AServiceService;
@@ -141,6 +145,32 @@ public class AServiceController extends BaseController
 			logger.error("AServiceController delete error：", e);
 		}
 		return msgModel;
+	}
+
+	@RequestMapping(value="/queryDoctor.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel querySimpleDoctorInfo(ServiceModel model)
+	{
+	    MsgModel msgModel = new MsgModel();
+	    try
+	    {
+	        List<DoctorModel> list = new ArrayList<DoctorModel>();
+	        for (int i = 0; i < 3; i ++) {
+	            DoctorModel doctor = new DoctorModel();
+	            doctor.setDoctorId(i + 1);
+	            doctor.setDoctorName("doctor" + "-" + (i + 1));
+	            list.add(doctor);
+	        }
+	        if (list != null && list.size() > 0) {
+    	        msgModel.setTotal(list.size());
+    	        msgModel.setRows(list);
+	        }
+	    }
+	    catch (Exception e)
+	    {
+	        logger.error("AServiceController querySimpleDoctorInfo error：", e);
+	    }
+	    logger.info("querySimpleDoctorInfo invoked, msgModel:{}", msgModel);
+	    return msgModel;
 	}
 
 

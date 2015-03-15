@@ -19,7 +19,7 @@
 	<!-- 插入用户-->
 	<insert id="ServiceMapper.insert" useGeneratedKeys="true" keyProperty="id">
 	    <![CDATA[
-	        INSERT INTO tab_service (serviceType, serviceName, serviceContent, serviceCreatorId, serviceCreateTime, servcieStartDate, serviceDuration, serviceMemo, serviceIcon) 
+	        INSERT INTO tab_service (serviceType, serviceName, serviceContent, serviceCreatorId, serviceCreateTime, serviceStartDate, serviceDuration, serviceMemo, serviceIcon) 
 	        VALUES (#{type}, #{name}, #{content}, #{creatorId}, #{createTime}, #{sdate}, #{edate}, #{memo}, #{icon})
 	    ]]>
 	</insert>

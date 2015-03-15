@@ -65,13 +65,25 @@ var PageService =
 					}
 				}
 			},'-',{
-				text:'删除',
-				iconCls:'icon-cancel',
-				handler:function()
-				{
-					PageService.funDelInfo();
-				}
-			}],
+        text:'删除',
+        iconCls:'icon-cancel',
+        handler:function()
+        {
+          PageService.funDelInfo();
+        }
+      },'-',{
+        text:'关联医生',
+        iconCls:'icon-edit',
+        handler:function()
+        {
+          PageService.mSelDataGrid = PageMain.funSelectEd("#div_grid");
+          if(PageService.mSelDataGrid != null)
+          {
+            PageMain.funCreateWinInfo("#div_win", "baseinfo/associate_service_doctor", {});
+            PageService.funSetDataGrid(PageService.mSelDataGrid);
+          }
+        }
+      }],
 			pagination:true,
 			singleSelect:true,
 			rownumbers: true
