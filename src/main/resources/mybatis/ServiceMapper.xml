@@ -99,7 +99,7 @@
 		<![CDATA[
             SELECT a.doctorId, CONCAT(a.doctorName, '(', b.hospitalName, ')') as doctorName 
             from tab_doctor a
-            inner join tab_hospital b on b.hospitalId=a.doctorHospitalld
+            inner join tab_hospital b on b.hospitalId=a.doctorHospitalId
 		]]>
 	</select>
 	

@@ -2,7 +2,7 @@
 <script type="text/javascript">
 <!--
 	$(function(){
-		PageMain.funSetWinMaxAttr(400, 150, "关联医生", "icon-edit");
+		PageMain.funSetWinMaxAttr(400, 180, "关联医生", "icon-edit");
 		$('#div_win').window({
 			modal: true,
 			title : PageMain.mWinTitle,
@@ -49,7 +49,7 @@
 				<tr>
 					<td class="njty_bg" align="right" style="width: 80px;">请选择医生：</td>
 					<td class="njty_bl">
-                      <select id="doctor" style="width:280px;height:30px">
+                      <select id="doctor" style="width:280px;height:60px">
                       </select>
 					</td>
 				</tr>

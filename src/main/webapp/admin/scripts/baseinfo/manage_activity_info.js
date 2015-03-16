@@ -9,7 +9,6 @@ var PageActivity =
 	
 	showGrid : function()
 	{
-	  alert("showgrid start");
 		$("#div_grid").datagrid({
 			fit:true,
 			nowrap: true,
@@ -22,8 +21,8 @@ var PageActivity =
 				"name":$("#out01").val()
 			},
 			columns:[[
-				{field:'name',			title:'服务名称',		width:140,	align:'center'},
-				{field:'type',			title:'服务类型',		width:140,	align:'center',
+				{field:'name',			title:'活动名称',		width:140,	align:'center'},
+				{field:'type',			title:'活动类型',		width:140,	align:'center',
 					formatter: function(value,row,index)
 					{
 						switch(parseInt(value))
@@ -77,8 +76,6 @@ var PageActivity =
 			singleSelect:true,
 			rownumbers: true
 		});
-		
-		alert("showgrid end");
 	},
 	funSetDataGrid : function(record)
 	{
@@ -108,9 +105,10 @@ var PageActivity =
 	funSaveInfo : function(_param)
 	{
 
-		if (funIsNull("#in01", "服务名称")
+		if (funIsNull("#in01", "活动名称")
 				|| funIsNull("#in02", "开始时间")
 				|| funIsNull("#in03", "结束时间")
+				|| funIsSDateAfterEDate("#in02", "#in03", "开始时间", "结束时间")
 				|| funMaxLen("#in04", "备注")
 				|| funIsNull("#in06", "内容"))
 		{
@@ -249,7 +247,6 @@ var PageActivity =
 
 $(function()
 {
-    alert("activity js init")
 	PageActivity.init();
 	PageMain.funCloseProgressInfo();
 });

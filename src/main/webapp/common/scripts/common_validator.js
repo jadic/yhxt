@@ -21,6 +21,21 @@
 		return false;
 	}
 	
+	/**
+	 * 判断开始时间是否比结束时间大
+	 * @param _sdate
+	 * @param _edate
+	 * @returns {Boolean}
+	 */
+	function funIsSDateAfterEDate(_sdate, _edate, _label1, _label2) 
+	{
+	  if ($(_sdate).val() > $(_edate).val()) {
+	    $.messager.alert('信息提示', _label1 + '不能大于' + _label2 +'！','error');
+      return true;
+	  }
+	  return false;
+	}
+	
 	
 	/**
 	 * 描述信息：判断是否为空

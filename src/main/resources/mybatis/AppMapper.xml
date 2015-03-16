@@ -146,7 +146,7 @@
       <![CDATA[
         select a.id, a.serviceType, a.serviceName, a.serviceContent, a.serviceCreatorId, a.serviceCreateTime, 
                a.servcieStartDate, a.serviceDuration, a.serviceMemo, a.serviceIcon
-        from tab_service t
+        from tab_service a
         where (a.serviceType=2 and a.serviceCreatorId=#{creatorId}) 
            or (a.serviceTYpe<>2)
         order by a.serviceCreateTime

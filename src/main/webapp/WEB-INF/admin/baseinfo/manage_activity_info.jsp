@@ -17,7 +17,7 @@
 		      		<input type="text" id="out01" onblur="$(this).val($.trim($(this).val()));" class="njty_text"/>
 		      	</td>
 		      	<td class="njty_bl" colspan="2" style="height:28px;">
-			  		<a id="search" href="javascript:void(0)" class="easyui-linkbutton" icon="icon-search" onclick="PageService.funSearchInfo()">查询</a>
+			  		<a id="search" href="javascript:void(0)" class="easyui-linkbutton" icon="icon-search" onclick="PageActivity.funSearchInfo()">查询</a>
 					<a id="reset" href="javascript:void(0)" class="easyui-linkbutton" icon="icon-undo" onclick="PageMain.funReset()">重置</a>
 		      	</td>
 		      	<td class="njty_br">&nbsp;</td>

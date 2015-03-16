@@ -119,6 +119,7 @@ var PageService =
 		if (funIsNull("#in01", "服务名称")
 				|| funIsNull("#in02", "开始时间")
 				|| funIsNull("#in03", "结束时间")
+				|| funIsSDateAfterEDate("#in02", "#in03", "开始时间", "结束时间")
 				|| funMaxLen("#in04", "备注")
 				|| funIsNull("#in06", "内容"))
 		{

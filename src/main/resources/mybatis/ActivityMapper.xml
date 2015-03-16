@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ActivityMapper">
+	
+	<resultMap id="mRetActivityMap" 		type="activityModel">
+		<result property="id"  			column="activityId"/>
+		<result property="type"  		column="activityType"/>
+		<result property="name"  		column="activityName"/>
+		<result property="content"  	column="activityContent"/>
+		<result property="creatorId"  	column="activityCreatorId"/>
+		<result property="createTime"  	column="activityCreateTime"/>
+		<result property="sdate"  		column="activityStartDate"/>
+		<result property="edate"  		column="activityDuration"/>
+		<result property="memo"  		column="activityMemo"/>
+		<result property="icon"  		column="activityIcon"/>
+		<result property="userName"  	column="name"/>
+	</resultMap>
+	
+	<resultMap id="mDoctorMap" 		      type="doctorModel">
+		<result property="doctorId"       column="doctorId"/>
+		<result property="doctorName"  	  column="doctorName"/>
+	</resultMap>
+
+	<resultMap id="mDoctorIdMap" 		      type="doctorModel">
+		<result property="doctorId"       column="doctorId"/>
+	</resultMap>
+	
+	<!-- 插入用户-->
+	<insert id="ActivityMapper.insert" useGeneratedKeys="true" keyProperty="activityId">
+      <![CDATA[
+          INSERT INTO tab_activity (activityType, activityName, activityContent, activityCreatorId, activityCreateTime, activityStartDate, activityDuration, activityMemo, activityIcon) 
+          VALUES (#{type}, #{name}, #{content}, #{creatorId}, #{createTime}, #{sdate}, #{edate}, #{memo}, #{icon})
+      ]]>
+	</insert>
+	
+	
+	<!-- 查询总记录数-->
+	<select id="ActivityMapper.count" parameterType="activityModel" resultType="long">
+		<![CDATA[
+			SELECT COUNT(1) AS CNT
+			FROM tab_activity a1
+			left join tab_user a2 on a2.userId=a1.activityCreatorId
+		]]>
+		<where>	
+	        <if test="type != null and type > 0">
+				AND a1.activityType = #{type}
+	        </if>
+	        <if test="name != null and name != ''">
+				AND a1.activityName LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+		</where>
+	</select>
+	
+	<!-- 查询分页查询-->
+	<select id="ActivityMapper.list" parameterType="activityModel"	resultMap="mRetActivityMap">
+		<![CDATA[
+			SELECT a1.*, a2.name
+			FROM tab_activity a1
+			left join tab_user a2 on a2.userId=a1.activityCreatorId
+		]]>
+		<where>	
+	        <if test="type != null and type > 0">
+				AND a1.activityType = #{type}
+	        </if>
+	        <if test="name != null and name != ''">
+				AND a1.activityName LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+		</where>
+		<![CDATA[
+			LIMIT #{startNum}, #{rows}
+		]]>
+	</select>
+
+	        
+	<!-- 修改-->
+	<update id="ActivityMapper.update" parameterType="activityModel">
+		<![CDATA[
+			UPDATE tab_activity  SET  
+			activityType = #{type},
+			activityName = #{name}, 
+			activityContent = #{content}, 
+			activityStartDate = #{sdate}, 
+			activityDuration = #{edate}, 
+			activityMemo = #{memo}, 
+			activityIcon = #{icon}
+			WHERE activityId = #{id} 
+		]]>
+	</update>
+	
+	<!-- 删除-->
+	<delete id="ActivityMapper.delete">
+		<![CDATA[
+			DELETE FROM tab_activity 
+			WHERE activityId = #{id} 
+		]]>
+	</delete>
+	
+	<select id="ActivityMapper.queryDoctors" parameterType="queryModel"	resultMap="mDoctorMap">
+		<![CDATA[
+            SELECT a.doctorId, CONCAT(a.doctorName, '(', b.hospitalName, ')') as doctorName 
+            from tab_doctor a
+            inner join tab_hospital b on b.hospitalId=a.doctorHospitalId
+		]]>
+	</select>
+	
+	<select id="ActivityMapper.queryAssociatedDoctorIds" parameterType="queryModel"	resultMap="mDoctorIdMap">
+		<![CDATA[
+            SELECT a.doctorId
+            from tab_activity_doctor_relation a
+            where a.activityId=#{activityId}
+		]]>
+	</select>
+  
+	<delete id="ActivityMapper.deleteDoctorAssociation">
+		<![CDATA[
+            delete from tab_activity_doctor_relation 
+            where activityId=#{activityId}
+		]]>
+	</delete>
+  
+	<insert id="ActivityMapper.addDoctorAssociation" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_activity_doctor_relation (activityId, doctorId) 
+	        VALUES (#{activityId}, #{doctorId})
+	    ]]>
+	</insert>
+</mapper>
