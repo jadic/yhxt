@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gesoft.model.DoctorModel;
 import com.gesoft.model.MsgModel;
+import com.gesoft.model.QueryModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.service.AServiceService;
 import com.gesoft.util.SystemUtils;
@@ -148,30 +149,55 @@ public class AServiceController extends BaseController
 	}
 
 	@RequestMapping(value="/queryDoctor.do", method=RequestMethod.POST)
-	public @ResponseBody MsgModel querySimpleDoctorInfo(ServiceModel model)
+	public @ResponseBody List<DoctorModel> querySimpleDoctorInfo(QueryModel model)
 	{
-	    MsgModel msgModel = new MsgModel();
+	    List<DoctorModel> list = null;
 	    try
 	    {
-	        List<DoctorModel> list = new ArrayList<DoctorModel>();
-	        for (int i = 0; i < 3; i ++) {
-	            DoctorModel doctor = new DoctorModel();
-	            doctor.setDoctorId(i + 1);
-	            doctor.setDoctorName("doctor" + "-" + (i + 1));
-	            list.add(doctor);
-	        }
-	        if (list != null && list.size() > 0) {
-    	        msgModel.setTotal(list.size());
-    	        msgModel.setRows(list);
-	        }
+	        list = aServiceService.queryDoctors(model);
 	    }
 	    catch (Exception e)
 	    {
 	        logger.error("AServiceController querySimpleDoctorInfo error：", e);
 	    }
-	    logger.info("querySimpleDoctorInfo invoked, msgModel:{}", msgModel);
-	    return msgModel;
+	    return list;
+	}
+	
+	@RequestMapping(value="/queryAssociatedDoctorIds.do", method=RequestMethod.POST)
+	public @ResponseBody long[] queryAssociatedDoctorIds(QueryModel model)
+	{
+	    long[] ids = null;
+	    try
+        {
+	        List<DoctorModel> list = aServiceService.queryAssociatedDoctorIds(model);
+	        if (list != null) {
+	            ids = new long[list.size()];
+	            for (int i = 0; i < list.size(); i ++) {
+	                ids[i] = list.get(i).getDoctorId(); 
+	            }
+	        }
+        }
+        catch (Exception e)
+        {
+            logger.error("AServiceController querySimpleDoctorInfo error：", e);
+        }
+	    return ids;
 	}
 
+	@RequestMapping(value="/associateDoctor.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel associateDoctor(QueryModel model)
+	{
+	    MsgModel msgModel = new MsgModel();
+	    try
+	    {
+	        msgModel.setSuccess(aServiceService.insertDoctorAssociation(model));
+	        logger.info("id:{}, doctorIds:{}", model.getId(), model.getDoctorIds());
+	    }
+	    catch (Exception e)
+	    {
+	        logger.error("AServiceController delete error：", e);
+	    }
+	    return msgModel;
+	}
 
 }

@@ -16,6 +16,15 @@
 		<result property="userName"  		column="name"/>
 	</resultMap>
 	
+	<resultMap id="mDoctorMap" 		      type="doctorModel">
+		<result property="doctorId"       column="doctorId"/>
+		<result property="doctorName"  	  column="doctorName"/>
+	</resultMap>
+
+	<resultMap id="mDoctorIdMap" 		      type="doctorModel">
+		<result property="doctorId"       column="doctorId"/>
+	</resultMap>
+	
 	<!-- 插入用户-->
 	<insert id="ServiceMapper.insert" useGeneratedKeys="true" keyProperty="id">
 	    <![CDATA[
@@ -86,4 +95,33 @@
 		]]>
 	</delete>
 	
+	<select id="ServiceMapper.queryDoctors" parameterType="queryModel"	resultMap="mDoctorMap">
+		<![CDATA[
+            SELECT a.doctorId, CONCAT(a.doctorName, '(', b.hospitalName, ')') as doctorName 
+            from tab_doctor a
+            inner join tab_hospital b on b.hospitalId=a.doctorHospitalld
+		]]>
+	</select>
+	
+	<select id="ServiceMapper.queryAssociatedDoctorIds" parameterType="queryModel"	resultMap="mDoctorIdMap">
+		<![CDATA[
+            SELECT a.doctorId
+            from tab_service_doctor_relation a
+            where a.serviceId=#{serviceId}
+		]]>
+	</select>
+  
+	<delete id="ServiceMapper.deleteDoctorAssociation">
+		<![CDATA[
+            delete from tab_service_doctor_relation 
+            where serviceId=#{serviceId}
+		]]>
+	</delete>
+  
+	<insert id="ServiceMapper.addDoctorAssociation" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_service_doctor_relation (serviceId, doctorId) 
+	        VALUES (#{serviceId}, #{doctorId})
+	    ]]>
+	</insert>
 </mapper>

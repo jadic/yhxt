@@ -24,17 +24,21 @@
     	    textField:'doctorName',
     	    multiple:true,
     	    multiline:true,
-    	    url:_ctx_ + "/a/service/queryDoctor.do",
-    	    onLoadSuccess:function(ret) {
-    	      console.dir("loadSuccess ret");
-    	      console.dir(ret);
-    	      if (ret != undefined) {
-        	      console.dir(ret.rows);
-        	      console.dir("before loadData method")
-        	      $("#doctor").combobox("loadData", ret.rows);
-    	      }
-    	    }
+    	    url:_ctx_ + "/a/service/queryDoctor.do"
     	});
+		
+		$.ajax({
+          url : _ctx_ + "/a/service/queryAssociatedDoctorIds.do?a="+ Math.random(),
+          type : 'post',
+          dataType : 'json',
+          data :{
+            "serviceId" : PageService.mSelDataGrid.id
+          },
+          success:function(data)
+          {
+			$('#doctor').combobox('setValues', data);
+          }
+      });
 	});
 //-->
 </script>
@@ -58,7 +62,7 @@
 						<input type="hidden" id="in00" value="0">
 						<input type="hidden" id="in07" value="0">
 						<input type="hidden" id="in09" value="0">
-						<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:void(0)" id="btn_01" onclick="PageService.funSaveInfo('${param.param1}')">确定</a>
+						<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:void(0)" id="btn_01" onclick="PageService.funAssociateDoctor()">确定</a>
 						<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)"  onclick="$('#div_win').window('close')">关闭</a>
 					</td>
 				</tr>

@@ -26,6 +26,9 @@ public class QueryModel extends BaseModel
 	private int deptId;		// 科室
 	private int hospitalId; // 医院
 	private int adviceId;
+	private int serviceId;
+	private int doctorId;
+	private String doctorIds;
 	
 	public int getDeptId()
 	{
@@ -103,4 +106,23 @@ public class QueryModel extends BaseModel
     public void setAdviceId(int adviceId) {
         this.adviceId = adviceId;
     }
+    public int getServiceId() {
+        return serviceId;
+    }
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
+    }
+    public int getDoctorId() {
+        return doctorId;
+    }
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
+    }
+    public String getDoctorIds() {
+        return doctorIds;
+    }
+    public void setDoctorIds(String doctorIds) {
+        this.doctorIds = doctorIds;
+    }
+    
 }

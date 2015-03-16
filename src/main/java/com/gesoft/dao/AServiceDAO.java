@@ -7,9 +7,13 @@
  **/
 package com.gesoft.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.gesoft.common.EntityDAOImpl;
+import com.gesoft.model.DoctorModel;
+import com.gesoft.model.QueryModel;
 import com.gesoft.model.ServiceModel;
 
 /**
@@ -26,4 +30,20 @@ public class AServiceDAO extends EntityDAOImpl<ServiceModel, Long>
     {
         return "ServiceMapper";
     }
+	
+	public List<DoctorModel> queryDoctors(QueryModel model) {
+        return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryDoctors", model);
+    }
+	
+	public List<DoctorModel> queryAssociatedDoctorIds(QueryModel model) {
+	    return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryAssociatedDoctorIds", model);
+	}
+	
+	public int deleteDoctorAssociation(QueryModel model) {
+	    return getSqlSession().delete(getMybatisSqlMapNamespace() + ".deleteDoctorAssociation", model);
+	}
+	
+	public int addDoctorAssociation(QueryModel model) {
+	    return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addDoctorAssociation", model);
+	}
 }

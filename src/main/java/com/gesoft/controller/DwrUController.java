@@ -76,7 +76,7 @@ public class DwrUController
 		{
 			filedataFileName = SystemUtils.getCurrentSystemTime("yyyyMMddHHmmssSSS") + "_" + filedataFileName;
 			String realpath = request.getSession().getServletContext().getRealPath("/") + "//" + basePath;
-			realpath = "/Volumes/MacintoshHD2/Project/java/yhxt/src/main/webapp"+ "//" + basePath;
+//			realpath = "/Volumes/MacintoshHD2/Project/java/yhxt/src/main/webapp"+ "//" + basePath;
 			File savefile = new File(new File(realpath), filedataFileName);
 			if (!savefile.getParentFile().exists())
 			{

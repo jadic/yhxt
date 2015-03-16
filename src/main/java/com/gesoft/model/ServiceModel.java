@@ -30,7 +30,8 @@ public class ServiceModel extends BaseModel
 	private String icon;
 	private String userName;
 	private String buyTime;
-	
+	private String doctorIds;
+	private int doctorId;
 	
 	public long getBuyId()
 	{
@@ -159,5 +160,17 @@ public class ServiceModel extends BaseModel
 	{
 		this.userName = userName;
 	}
+    public String getDoctorIds() {
+        return doctorIds;
+    }
+    public void setDoctorIds(String doctorIds) {
+        this.doctorIds = doctorIds;
+    }
+    public int getDoctorId() {
+        return doctorId;
+    }
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
+    }
 	
 }

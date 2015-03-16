@@ -80,7 +80,6 @@ var PageService =
           if(PageService.mSelDataGrid != null)
           {
             PageMain.funCreateWinInfo("#div_win", "baseinfo/associate_service_doctor", {});
-            PageService.funSetDataGrid(PageService.mSelDataGrid);
           }
         }
       }],
@@ -253,6 +252,46 @@ var PageService =
 		}catch(e)
 		{
 		}
+	},
+	funAssociateDoctor : function() {
+	  var record = PageService.mSelDataGrid;
+	  var doctorIds = $("#doctor").combobox("getValues").toString();
+	  console.dir(doctorIds);
+	  PageMain.funOpenProgress();
+      $.ajax({
+          url : _ctx_ + "/a/service/associateDoctor.do?a="+ Math.random(),
+          type : 'post',
+          dataType : 'json',
+          data : 
+          {
+              "serviceId" : record.id,
+              "doctorIds" : doctorIds
+          },
+          error:function(data)
+          {
+              /**关闭进度条**/
+              PageMain.funCloseProgress();
+              $.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
+          },
+          success:function(data)
+          {
+              
+              /**关闭进度条**/
+              PageMain.funCloseProgress();
+              
+              /**数据处理**/
+              if(data.success)
+              {
+                  $("#out01").val($("#in01").val());
+                  $('#div_win').window('close');
+                  $.messager.alert('信息提示', data.msg, 'info');
+              }
+              else
+              {
+                  $.messager.alert('信息提示', data.msg, 'error');
+              }
+          }
+      });
 	}
 };
 
