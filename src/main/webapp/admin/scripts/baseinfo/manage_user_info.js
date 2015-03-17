@@ -12,7 +12,7 @@ var PageUser =
 			fit:true,
 			nowrap: true,
 			stripe:true,
-			url: _ctx_ + "/admin/user/query",
+			url: _ctx_ + "/a/user/query.do",
 			pageNumber: 1,
 			queryParams:
 			{
@@ -70,7 +70,7 @@ var PageUser =
 	funSearchInfo : function()
 	{
 		$("#div_grid").datagrid({
-			url: _ctx_ + "/admin/user/query",
+			url: _ctx_ + "/a/user/query.do",
 			pageNumber: 1,
 			queryParams:
 			{
@@ -93,7 +93,7 @@ var PageUser =
 		/**打开进度条**/
 		PageMain.funOpenProgress();
 		$.ajax({
-			url : _ctx_ + "/admin/user/"+_param+"?a="+ Math.random(),
+			url : _ctx_ + "/a/user/"+_param+".do?a="+ Math.random(),
 			type : 'post',
 			dataType : 'json',
 			data : 
@@ -145,7 +145,7 @@ var PageUser =
 					PageMain.funOpenProgress();
 					
 					$.ajax({
-						url : _ctx_ + "/admin/user/del?a="+ Math.random(),
+						url : _ctx_ + "/a/user/del?a="+ Math.random(),
 						type : 'post',
 						dataType : 'json',
 						data : 
