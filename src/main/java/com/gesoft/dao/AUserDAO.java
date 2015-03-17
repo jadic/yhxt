@@ -53,4 +53,13 @@ public class AUserDAO extends EntityDAOImpl<UserModel, Long>
 	{
 		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addUserLogsInfo", model);
 	}
+	
+	/**
+	 * 重置用户密码
+	 * @param model
+	 * @return
+	 */
+	public int resetUserPasswor(UserModel model) {
+	    return getSqlSession().update(getMybatisSqlMapNamespace() + ".resetUserPassword", model);
+	}
 }

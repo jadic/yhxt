@@ -59,7 +59,7 @@ public interface Constants
      */
     public static final int DEFAULT_PAGE_SIZE = 10;
     
-    
+    public static final String DEFAULT_USER_PASS = "567890";
     
     
 	

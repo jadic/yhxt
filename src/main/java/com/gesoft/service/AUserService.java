@@ -28,12 +28,15 @@ import com.gesoft.model.UserModel;
 public class AUserService extends EntityService<UserModel, Long>
 {
 	@Resource
-	private AUserDAO aUserDAO;
-	
+	private AUserDAO aUserDAO;	
 
 	@Override
 	protected EntityDAO<UserModel, Long> getEntityDao()
 	{
 		return this.aUserDAO;
+	}
+	
+	public int resetUserPassword(UserModel model) {
+	    return this.aUserDAO.resetUserPasswor(model);
 	}
 }

@@ -20,10 +20,11 @@ var PageUser =
 			},
 			columns:[[
 				{field:'userName',			title:'登录帐号',		width:140,	align:'left'},
-				{field:'userPwd',			title:'登录密码',		width:140,	align:'left'},
-				{field:'realName',			title:'用户名称',		width:140,	align:'left'},
-				{field:'userTel',			title:'联系电话',		width:140,	align:'left'},
-				{field:'userMemo',			title:'备注',		    width:200,	align:'left'}
+				{field:'name',			title:'用户名称',		width:140,	align:'left'},
+				{field:'cellphone',			title:'联系电话',		width:140,	align:'left'},
+				{field:'sysId',			title:'所属平台',		    width:200,	align:'left'},
+				{field:'parentId',			title:'子女账号',		    width:200,	align:'left'},				
+				{field:'parentName',			title:'关联老人',		    width:200,	align:'left'}				
 			]],
 			onClickRow: function(index, rec) {
 				
@@ -52,7 +53,17 @@ var PageUser =
 				{
 					PageUser.funDelInfo();
 				}
-			}],
+			},'-',{
+        text:'重置密码',
+        iconCls:'icon-edit',
+        handler:function(){
+          PageUser.mSelDataGrid = PageMain.funSelectEd("#div_grid");
+          if(PageUser.mSelDataGrid != null)
+          {
+            PageUser.funResetUserPassword(PageUser.mSelDataGrid);
+          }
+        }
+      }],
 			pagination:true,
 			singleSelect:true,
 			rownumbers: true
@@ -66,6 +77,38 @@ var PageUser =
 		$("#in03").val(record.realName);
 		$("#in04").val(record.userTel);
 		$("#in05").val(record.userMemo);
+	},
+	funResetUserPassword : function(record) {
+	  /**打开进度条**/
+    PageMain.funOpenProgress();
+    $.ajax({
+      url : _ctx_ + "/a/user/resetPassword.do?a="+ Math.random(),
+      type : 'post',
+      dataType : 'json',
+      data :{"userId":record.userId},
+      error:function(data)
+      {
+        /**关闭进度条**/
+        PageMain.funCloseProgress();
+        $.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
+      },
+      success:function(data)
+      {
+        
+        /**关闭进度条**/
+        PageMain.funCloseProgress();
+        
+        /**数据处理**/
+        if(data.success)
+        {
+          $.messager.alert('信息提示', data.msg, 'info');
+        }
+        else
+        {
+          $.messager.alert('信息提示', data.msg, 'error');
+        }
+      }
+    })
 	},
 	funSearchInfo : function()
 	{

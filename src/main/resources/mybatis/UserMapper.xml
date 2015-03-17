@@ -98,8 +98,9 @@
 	<!-- 查询分页查询-->
 	<select id="UserMapper.list" parameterType="userModel"	resultMap="mRetUserInfoMap">
 		<![CDATA[
-			SELECT *
+			SELECT a.*, CONCAT(b.userName, '(', b.name, ')') as parentName
 			FROM tab_user a
+            left join tab_user b on b.userId=a.userParentId
 		]]>
         <where> 
             <if test="userName != null and userName != ''">
@@ -122,7 +123,6 @@
 		<![CDATA[
 			UPDATE tab_user  SET  
             userName = #{userName},		
-            userPass = #{userPwd},		
             userSysId = #{sysId},		
             userParentId = #{parentId},	
             name = #{name},		
@@ -160,5 +160,13 @@
 			WHERE userId = #{userId} 
 		]]>
 	</delete>
+  
+    <update id="UserMapper.resetUserPassword" parameterType="userModel">
+      <![CDATA[
+        UPDATE tab_user set
+        userPass = #{userPass} 
+        WHERE userId = #{userId} 
+      ]]>    
+    </update>
 	
 </mapper>

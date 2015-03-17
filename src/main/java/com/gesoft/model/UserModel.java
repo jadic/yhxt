@@ -55,8 +55,9 @@ public class UserModel extends BaseModel
 	private int cnt;
 	private String genderStr;	//性别
 	
-	private int parentId;//子女用户关联的老人用户ID
 	private int sysId;//用户对应的平台类型
+	private int parentId;//子女用户关联的老人用户ID
+	private String parentName;//关联老人姓名 
 	
 	public String getGenderStr()
 	{
@@ -340,5 +341,11 @@ public class UserModel extends BaseModel
     }
     public void setSysId(int sysId) {
         this.sysId = sysId;
+    }
+    public String getParentName() {
+        return parentName;
+    }
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
     }
 }

@@ -75,6 +75,7 @@ public class AUserController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
+		    model.setUserPass(DEFAULT_USER_PASS);//新增用户时，采用默认密码
 			if (aUserService.save(model) > 0)
 			{
 				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
@@ -137,6 +138,32 @@ public class AUserController extends BaseController
 			logger.error("AUserController delete error：", e);
 		}
 		return msgModel;
+	}
+	
+	/**
+	 * 描述信息：重置用户名密码
+	 * 创建时间：2015年1月29日 下午5:54:47
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/resetPassword.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel resetPassword(UserModel model)
+	{
+	    MsgModel msgModel = new MsgModel();
+	    try
+	    {
+	        model.setUserPass(DEFAULT_USER_PASS);
+	        if (aUserService.resetUserPassword(model) > 0)
+	        {
+	            msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+	        }
+	    }
+	    catch (Exception e)
+	    {
+	        logger.error("AUserController delete error：", e);
+	    }
+	    return msgModel;
 	}
 
 }
