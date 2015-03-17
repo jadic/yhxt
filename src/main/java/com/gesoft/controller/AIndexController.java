@@ -145,7 +145,7 @@ public class AIndexController extends BaseController
 	}
 	
 	/**
-	 * 描述信息：服务管理
+	 * 描述信息：活动管理
 	 * 创建时间：2015年3月3日 下午12:48:03
 	 * @author WCL (ln_admin@yeah.net)
 	 * @return
@@ -155,5 +155,31 @@ public class AIndexController extends BaseController
 	{
 	    System.out.println("activity.do");
 	    return "/admin/baseinfo/manage_activity_info";
+	}
+	
+	/**
+	 * 描述信息：医院信息管理
+	 * 创建时间：2015年3月3日 下午12:48:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/hospital.do")
+	public String toHospital()
+	{
+	    System.out.println("hospital.do");
+	    return "/admin/dictinfo/manage_hospital_info";
+	}
+	
+	/**
+	 * 描述信息：医院科室管理
+	 * 创建时间：2015年3月3日 下午12:48:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/hospitalDept.do")
+	public String toDeptOfHospital()
+	{
+	    System.out.println("hospitalDept.do");
+	    return "/admin/dictinfo/manage_hospital_dept_info";
 	}
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="HospitalDeptMapper">
+	
+	<resultMap id="mRetHospitalDeptMap" 		type="hospitalDeptModel">
+		<result property="id"  			column="deptId"/>
+		<result property="name"  		column="deptName"/>
+	</resultMap>
+	
+	<!-- 插入用户-->
+	<insert id="HospitalDeptMapper.insert" useGeneratedKeys="true" keyProperty="deptId">
+	    <![CDATA[
+	        INSERT INTO tab_hospital_dept (deptName) 
+	        VALUES (#{name})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 查询总记录数-->
+	<select id="HospitalDeptMapper.count" parameterType="hospitalDeptModel" resultType="long">
+		<![CDATA[
+			SELECT COUNT(1) AS CNT
+			FROM tab_hospital_dept a
+		]]>
+        <where> 
+            <if test="name != null and name != ''">
+              a.deptName LIKE CONCAT('%', #{name}, '%') 
+            </if>
+        </where>     
+	</select>
+	
+	<!-- 查询分页查询-->
+	<select id="HospitalDeptMapper.list" parameterType="hospitalDeptModel"	resultMap="mRetHospitalDeptMap">
+		<![CDATA[
+			SELECT *
+			FROM tab_hospital_dept a
+		]]>
+        <where> 
+            <if test="name != null and name != ''">
+              a.deptName LIKE CONCAT('%', #{name}, '%') 
+            </if>
+        </where>         
+        <![CDATA[
+          LIMIT #{startNum}, #{rows}
+        ]]>        
+	</select>
+
+
+	<!-- 修改-->
+	<update id="HospitalDeptMapper.update" parameterType="hospitalDeptModel">
+		<![CDATA[
+			UPDATE tab_hospital_dept  SET  
+			deptName = #{name}
+			WHERE deptId = #{id} 
+		]]>
+	</update>
+	
+	<!-- 删除-->
+	<delete id="HospitalDeptMapper.delete">
+		<![CDATA[
+			DELETE FROM tab_hospital_dept 
+			WHERE deptId = #{id} 
+		]]>
+	</delete>
+	
+</mapper>

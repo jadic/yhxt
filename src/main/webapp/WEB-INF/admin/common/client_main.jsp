@@ -37,7 +37,9 @@
 					<div id="mm430000" style="width:145px; display: none;">
 						<div data-options="iconCls:'icon-27'" onclick="PageMain.funAddPanel('/a/devtype.do','字典管理>> 设备类型管理');  $('#430000').click()">设备类型管理</div>
 						<div class="menu-sep"></div>
-						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/newtype.do','字典管理>> 新闻类型管理');  $('#430000').click()">新闻类型管理</div>
+						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/hospital.do','字典管理>> 医院信息管理');  $('#430000').click()">医院信息管理</div>
+						<div class="menu-sep"></div>
+						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/hospitalDept.do','字典管理>> 医院科室管理');  $('#430000').click()">医院科室管理</div>
 					</div>
 				</div>
 				

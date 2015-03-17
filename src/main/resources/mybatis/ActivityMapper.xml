@@ -106,21 +106,21 @@
 	<select id="ActivityMapper.queryAssociatedDoctorIds" parameterType="queryModel"	resultMap="mDoctorIdMap">
 		<![CDATA[
             SELECT a.doctorId
-            from tab_activity_doctor_relation a
+            from tab_activity_doctor a
             where a.activityId=#{activityId}
 		]]>
 	</select>
   
 	<delete id="ActivityMapper.deleteDoctorAssociation">
 		<![CDATA[
-            delete from tab_activity_doctor_relation 
+            delete from tab_activity_doctor
             where activityId=#{activityId}
 		]]>
 	</delete>
   
 	<insert id="ActivityMapper.addDoctorAssociation" useGeneratedKeys="true" keyProperty="id">
 	    <![CDATA[
-	        INSERT INTO tab_activity_doctor_relation (activityId, doctorId) 
+	        INSERT INTO tab_activity_doctor (activityId, doctorId) 
 	        VALUES (#{activityId}, #{doctorId})
 	    ]]>
 	</insert>

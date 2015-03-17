@@ -28,6 +28,7 @@ public class QueryModel extends BaseModel
 	private int hospitalId; // 医院
 	private int adviceId;
 	private int serviceId;
+	private int activityId;
 	private int doctorId;
 	private String doctorIds;
 	private String startTime;
@@ -131,6 +132,12 @@ public class QueryModel extends BaseModel
     }
     public void setServiceId(int serviceId) {
         this.serviceId = serviceId;
+    }
+    public int getActivityId() {
+        return activityId;
+    }
+    public void setActivityId(int activityId) {
+        this.activityId = activityId;
     }
     public int getDoctorId() {
         return doctorId;

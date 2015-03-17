@@ -71,7 +71,18 @@ var PageActivity =
 				{
 				  PageActivity.funDelInfo();
 				}
-			}],
+			},'-',{
+		        text:'关联医生',
+		        iconCls:'icon-edit',
+		        handler:function()
+		        {
+		          PageActivity.mSelDataGrid = PageMain.funSelectEd("#div_grid");
+		          if(PageActivity.mSelDataGrid != null)
+		          {
+		            PageMain.funCreateWinInfo("#div_win", "baseinfo/associate_activity_doctor", {});
+		          }
+		        }
+		      }],
 			pagination:true,
 			singleSelect:true,
 			rownumbers: true
@@ -242,7 +253,46 @@ var PageActivity =
 		}catch(e)
 		{
 		}
-	}
+	},
+	funAssociateDoctor : function() {
+      var record = PageActivity.mSelDataGrid;
+      var doctorIds = $("#doctor").combobox("getValues").toString();
+      PageMain.funOpenProgress();
+      $.ajax({
+          url : _ctx_ + "/a/activity/associateDoctor.do?a="+ Math.random(),
+          type : 'post',
+          dataType : 'json',
+          data : 
+          {
+              "activityId" : record.id,
+              "doctorIds" : doctorIds
+          },
+          error:function(data)
+          {
+              /**关闭进度条**/
+              PageMain.funCloseProgress();
+              $.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
+          },
+          success:function(data)
+          {
+              
+              /**关闭进度条**/
+              PageMain.funCloseProgress();
+              
+              /**数据处理**/
+              if(data.success)
+              {
+                  $("#out01").val($("#in01").val());
+                  $('#div_win').window('close');
+                  $.messager.alert('信息提示', data.msg, 'info');
+              }
+              else
+              {
+                  $.messager.alert('信息提示', data.msg, 'error');
+              }
+          }
+      });
+    }
 };
 
 $(function()

@@ -5,11 +5,11 @@
 		
 		if("${param.param1}" == "modify")
 		{
-			PageMain.funSetWinMaxAttr(500, 120, "修改设备类型", "icon-edit");
+			PageMain.funSetWinMaxAttr(360, 120, "修改设备类型", "icon-edit");
 		}
 		else
 		{
-			PageMain.funSetWinMaxAttr(500, 120, "新增设备类型", "icon-add");		
+			PageMain.funSetWinMaxAttr(360, 120, "新增设备类型", "icon-add");		
 		}
 		
 		$('#div_win').window({
@@ -35,7 +35,7 @@
 		<div region="center" border="false" align="left" style="background:#fff; padding: 1px;">
 	  		<table border="0" cellspacing="0" cellpadding="0" bordercolordark="999999" bordercolorlight="cbe6a1" class="njty_table">
 				<tr>
-					<td class="njty_bg" align="right" style="width: 120px;">设备类型名称：</td>
+					<td class="njty_bg" align="right" style="width: 100px;">设备类型名称：</td>
 					<td class="njty_bl">
 						<input id="in01" class="njty_input" onblur="$(this).val($.trim($(this).val()))" maxlength="25"/>
 						<span style="color:red;">*</span>
