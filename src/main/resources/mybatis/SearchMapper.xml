@@ -126,6 +126,17 @@
 		<result property="photo"  					column="photo"/>
 	</resultMap>
 	
+	
+	 <!-- 加载用户基本信息 -->
+	<resultMap id="mRetDoctorAdivceMap" 			type="doctorAdviceModel">
+		<result property="id"  						column="id"/>
+		<result property="userId"  					column="userId"/>
+		<result property="adviceTime"  				column="adviceTime"/>
+		<result property="adviceContent"  			column="adviceContent"/>
+		<result property="typeId"  					column="adviceTypId"/>
+		<result property="typeName"  				column="typeName"/>
+	</resultMap>
+    
     <!-- 查询用户列表数据 -->
 	<select id="SearchMapper.queryUserListInfo" 	parameterType="queryModel"	resultMap="mRetUserMap">
 		<![CDATA[
@@ -491,4 +502,87 @@
 			where a1.userId=#{id}
 		]]>
 	</select>
+	
+	
+	<!-- 查询医嘱数据总记录数-->
+	<select id="SearchMapper.queryDoctorAdviceInfoCnt" parameterType="queryModel" resultType="long">
+		<![CDATA[
+			SELECT COUNT(1) AS CNT
+			FROM tab_doctor_advice a1
+			INNER JOIN tab_dict_doctor_advice_type a2 on a1.adviceTypId=a2.typeId
+			where a1.userId=#{userId}
+		]]>
+	        <if test="startTime != null and startTime != ''">
+			    AND a1.adviceTime >=   STR_TO_DATE(#{startTime},'%Y-%m-%d %H:%i:%s')
+			</if>
+			<if test="endTime != null and  endTime != ''">
+				<![CDATA[ 
+					AND a1.adviceTime <=   STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')
+				]]>
+			</if>
+	</select>
+	
+	
+	<!-- 分页查询医嘱数据-->
+	<select id="SearchMapper.queryDoctorAdviceInfo" parameterType="queryModel"	resultMap="mRetDoctorAdivceMap">
+		<![CDATA[
+			SELECT a1.id, a1.userId, a1.adviceTime, a1.adviceContent, a1.adviceTypId, a2.typeName
+			FROM tab_doctor_advice a1
+			INNER JOIN tab_dict_doctor_advice_type a2 on a1.adviceTypId=a2.typeId
+			where a1.userId=#{userId}
+		]]>
+	        <if test="startTime != null and startTime != ''">
+			    AND a1.adviceTime >=   STR_TO_DATE(#{startTime},'%Y-%m-%d %H:%i:%s')
+			</if>
+			<if test="endTime != null and  endTime != ''">
+				<![CDATA[ 
+					AND a1.adviceTime <=   STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')
+				]]>
+			</if>
+		<![CDATA[
+			order by a1.adviceTime desc
+			LIMIT #{startNum}, #{rows}
+		]]>
+	</select>
+	
+	<!-- 根据id查询医嘱数据-->
+	<select id="SearchMapper.queryDoctorAdviceInfoById" parameterType="queryModel"	resultMap="mRetDoctorAdivceMap">
+		<![CDATA[
+			SELECT a1.id, a1.userId, a1.adviceTime, a1.adviceContent, a1.adviceTypId, a2.typeName
+			FROM tab_doctor_advice a1
+			INNER JOIN tab_dict_doctor_advice_type a2 on a1.adviceTypId=a2.typeId
+			where a1.id=#{id}
+		]]>
+	</select>
+	
+	
+	<!-- 插入医嘱数据-->
+	<insert id="SearchMapper.addDoctorAdviceInfo" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_doctor_advice (userId, adviceTypId, adviceTime, adviceContent) 
+	        VALUES (#{userId}, #{typeId}, #{adviceTime}, #{adviceContent})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 修改医嘱数据-->
+	<update id="SearchMapper.modifyDoctorAdviceInfo" parameterType="serviceModel">
+		<![CDATA[
+			UPDATE tab_doctor_advice  SET  
+			userId = #{userId},
+			adviceTypId = #{typeId},
+			adviceTime = #{adviceTime},
+			adviceContent = #{adviceContent}
+			WHERE id = #{id} 
+		]]>
+	</update>
+	
+	
+	<!-- 删除医嘱数据-->
+	<delete id="SearchMapper.delDoctorAdviceInfo">
+		<![CDATA[
+			DELETE FROM tab_doctor_advice 
+			WHERE id = #{id} 
+		]]>
+	</delete>
 </mapper>

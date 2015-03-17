@@ -62,7 +62,7 @@ body{background:#ededed}
 .search_input{width:132px; height:20px; background-color:#fff; font:12px/20px "微软雅黑"; color:#5a5a5a; margin-top:6px; float:left; margin-left:10px; display:inline}
 .bg_search a{height:16px; width:16px; float:left; margin-top:8px; margin-left:10px; display:inline}
 .task_list{width:210px;}
-.task_list li{background:url(images/line.png) no-repeat center bottom; width:180px; padding:0 15px; float:left; height:42px; font:13px/18px "微软雅黑"; cursor:pointer; text-align:left; padding-top:6px}
+.task_list li{background:url(images/line.png) no-repeat bottom; width:180px; padding:0 15px; float:left; height:42px; font:13px/18px "微软雅黑"; cursor:pointer; text-align:left; padding-top:6px}
 .task_list li:active{background-color:#eff9e5}
 .task_wj{background:url(images/wj.png) no-repeat center center; height:16px; width:20px; display:block; text-align:center; font:12px/16px Arial; color:#fff; float:left; margin-top:10px; margin-right:16px}
 .task_yz{background:url(images/yz.png) no-repeat center center; height:16px; width:20px; display:block; text-align:center; font:12px/16px Arial; color:#fff; float:left; margin-top:10px; margin-right:16px}

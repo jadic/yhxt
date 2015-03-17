@@ -19,10 +19,10 @@ import com.gesoft.common.EntityService;
 import com.gesoft.dao.NSearchDAO;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.QueryModel;
-import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 
@@ -54,7 +54,7 @@ public class NSearchService extends EntityService<BaseModel, Long>
 	 * @return
 	 */
 	@Transactional(readOnly=true)
-	public List<UserModel> queryUserListInfo(RelativePhoneModel model)
+	public List<UserModel> queryUserListInfo(QueryModel model)
 	{
 		return nSearchDAO.queryUserListInfo(model);
 	}
@@ -393,5 +393,86 @@ public class NSearchService extends EntityService<BaseModel, Long>
 	public NurseRequestModel queryNurseQuestInfo(QueryModel model)
 	{
 		return nSearchDAO.queryNurseQuestInfo(model);
+	}
+
+
+	/**
+	 * 描述信息：查询医嘱总数
+	 * 创建时间：2015年3月17日 上午3:34:13
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public long queryDoctorAdviceInfoCnt(QueryModel model)
+	{
+		return nSearchDAO.queryDoctorAdviceInfoCnt(model);
+	}
+
+
+	/**
+	 * 描述信息：分页查询医嘱信息
+	 * 创建时间：2015年3月17日 上午3:33:55
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<DoctorAdviceModel> queryDoctorAdviceInfo(QueryModel model)
+	{
+		return nSearchDAO.queryDoctorAdviceInfo(model);
+	}
+
+
+	/**
+	 * 描述信息：根据用户ID来查询医嘱
+	 * 创建时间：2015年3月17日 上午3:33:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public DoctorAdviceModel queryDoctorAdviceInfoById(QueryModel model)
+	{
+		return nSearchDAO.queryDoctorAdviceInfoById(model);
+	}
+
+
+	/**
+	 * 描述信息：增加医嘱
+	 * 创建时间：2015年3月17日 上午3:33:23
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addDoctorAdviceInfo(DoctorAdviceModel model)
+	{
+		return nSearchDAO.addDoctorAdviceInfo(model);
+	}
+
+
+	/**
+	 * 描述信息：修改医嘱
+	 * 创建时间：2015年3月17日 上午3:33:04
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyDoctorAdviceInfo(DoctorAdviceModel model)
+	{
+		return nSearchDAO.modifyDoctorAdviceInfo(model);
+	}
+
+
+	/**
+	 * 描述信息：删除医嘱
+	 * 创建时间：2015年3月17日 上午3:32:42
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int delDoctorAdviceInfo(DoctorAdviceModel model)
+	{
+		return nSearchDAO.delDoctorAdviceInfo(model);
 	}
 }

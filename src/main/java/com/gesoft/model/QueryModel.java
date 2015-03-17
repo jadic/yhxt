@@ -16,6 +16,7 @@ public class QueryModel extends BaseModel
 {
 	private static final long serialVersionUID = -7896518111818576761L;
 	
+	
 	private long id;
 	private String name;
 	private long nurseId;
@@ -29,7 +30,26 @@ public class QueryModel extends BaseModel
 	private int serviceId;
 	private int doctorId;
 	private String doctorIds;
+	private String startTime;
+	private String endTime;
 	
+	
+	public String getStartTime()
+	{
+		return startTime;
+	}
+	public void setStartTime(String startTime)
+	{
+		this.startTime = startTime;
+	}
+	public String getEndTime()
+	{
+		return endTime;
+	}
+	public void setEndTime(String endTime)
+	{
+		this.endTime = endTime;
+	}
 	public int getDeptId()
 	{
 		return deptId;

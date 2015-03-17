@@ -14,10 +14,10 @@ import org.springframework.stereotype.Repository;
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.QueryModel;
-import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 
@@ -45,7 +45,7 @@ public class NSearchDAO extends EntityDAOImpl<BaseModel, Long>
 	 * @param model
 	 * @return
 	 */
-	public List<UserModel> queryUserListInfo(RelativePhoneModel model)
+	public List<UserModel> queryUserListInfo(QueryModel model)
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryUserListInfo", model);
 	}
@@ -375,5 +375,83 @@ public class NSearchDAO extends EntityDAOImpl<BaseModel, Long>
 	public NurseRequestModel queryNurseQuestInfo(QueryModel model)
 	{
 		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryNurseQuestInfo", model);
+	}
+	
+
+	/**
+	 * 描述信息：查询医嘱总数
+	 * 创建时间：2015年3月17日 上午3:34:13
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public long queryDoctorAdviceInfoCnt(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryDoctorAdviceInfoCnt", model);
+	}
+
+
+	/**
+	 * 描述信息：分页查询医嘱信息
+	 * 创建时间：2015年3月17日 上午3:33:55
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public List<DoctorAdviceModel> queryDoctorAdviceInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryDoctorAdviceInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：根据用户ID来查询医嘱
+	 * 创建时间：2015年3月17日 上午3:33:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public DoctorAdviceModel queryDoctorAdviceInfoById(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryDoctorAdviceInfoById", model);
+	}
+
+
+	/**
+	 * 描述信息：增加医嘱
+	 * 创建时间：2015年3月17日 上午3:33:23
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addDoctorAdviceInfo(DoctorAdviceModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addDoctorAdviceInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：修改医嘱
+	 * 创建时间：2015年3月17日 上午3:33:04
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyDoctorAdviceInfo(DoctorAdviceModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyDoctorAdviceInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：删除医嘱
+	 * 创建时间：2015年3月17日 上午3:32:42
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int delDoctorAdviceInfo(DoctorAdviceModel model)
+	{
+		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delDoctorAdviceInfo", model);
 	}
 }

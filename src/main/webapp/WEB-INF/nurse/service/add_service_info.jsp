@@ -41,6 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					"name"	: $("#name").val(),
 					"sdate"	: $("#sdate").val(),
 					"edate"	: $("#edate").val(),
+					"icon"	: $("#icon").val(),
 					"memo"	: $("#memo").val(),
 					"content": $("#content").val()
 				},
@@ -72,6 +73,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 				}
 			});
+		}
+		
+
+		function funUploadFileInfo()
+		{
+			try
+			{
+				var uploadFile = dwr.util.getValue("file"); 
+			    var filenames = uploadFile.value.split("\\"); 
+			    if(filenames.length <= 1)
+			    {
+			    	filenames = uploadFile.value.split("/"); 
+			    }	
+			    var filename = filenames[filenames.length-1].toLowerCase(); 
+			    var fileType = filename.substring(filename.indexOf("."));
+			    if(fileType == ".jpg" || fileType == ".bmp" || fileType == ".png" || fileType == ".gif")
+			    {
+				    loadDwr.uploadFileInfo(uploadFile, filename, {"callback":function(data){
+				    	if(data == 1 || data == "1")
+				    	{
+				    		$.messager.alert("提示", "图片上传失败", "error");
+				    		$("#showtitle").val("图片上传在功！");
+				    	}
+				    	else
+				    	{
+				    		$("#showtitle").val("图片上传在功！");
+				    		$("#icon").val(data);
+				    		$("#header_photo").attr("src", _ctx_+data);
+				    	}	
+					}});  
+			    }
+			    else
+			    {
+			    	$.messager.alert("提示", "上传的照片类型应当为jpg/bmp/png/gif！", "error");
+			    }
+			}catch(e)
+			{
+			}
 		}
 	</script>	
   </head>
@@ -106,13 +145,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    				<table>
 		    					<tr>
 		    						<td align="center">
+		    							<c:if test="${empty service.icon }">
 		    							<img style="width:120px; height: 140px;" id="header_photo" src="<c:url value='/nurse/themes/images/default_head.gif'/>">
+		    							</c:if>
+		    							<c:if test="${not empty service.icon }">
+		    							<img style="width:120px; height: 140px;" id="header_photo" src="<c:url value='/'/>${service.icon}">
+		    							</c:if>
 		    						</td>
 		    					</tr>
 		    					<tr>	
 		    						<td class="thead_informationModify" align="center">
 		    							<input type="hidden" id="icon" value="${service.icon}"/>
-		    							<a href="javascript:void(0)" style="font-size: 14px;">修改图标</a>
+		    							<span style="padding-left: 20px; color: red;" id="showtitle"></span>
 		    						</td>
 		    					</tr>
 		    				</table>
@@ -149,6 +193,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			<td align="left">
 		    				<input type="hidden" id="id" value="<c:if test="${empty service }">0</c:if>${service.id }"/>
 		    				<input class="inputMin_informationModify text-input" type="text"  value="${service.memo }" id="memo" maxlength="16" style="width: 400px;">
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td align="right" style="padding: 0px 5px 5px 0px; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    				图<span style="padding: 0 13px;"></span>标：
+		    			</td>
+		    			<td align="left" colspan="2">
+		    				<input id="file" type="file" class="inputMin_informationModify text-input" style="width: 400px;" onblur="$(this).val($.trim($(this).val()))"/>
+							<a class="easyui-linkbutton" href="javascript:void(0)" onclick="funUploadFileInfo()">上传</a>
 		    			</td>
 		    		</tr>
 		    		<tr>

@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.ActivityModel;
+import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.QueryModel;
-import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 import com.gesoft.service.NSearchService;
@@ -59,7 +59,7 @@ public class NSearchController extends BaseController
 	 * @return
 	 */
 	@RequestMapping(value="/userlist.do")
-	public @ResponseBody MsgModel toUserList(RelativePhoneModel model, HttpServletRequest request, HttpServletResponse response)
+	public @ResponseBody MsgModel toUserList(QueryModel model, HttpServletRequest request, HttpServletResponse response)
 	{
 		MsgModel msgModel = new MsgModel();
 		try
@@ -261,6 +261,36 @@ public class NSearchController extends BaseController
 	
 	
 	/**
+	 * 描述信息：进入活动信息
+	 * 创建时间：2015年3月13日 下午5:20:15
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/activitydetail.do")
+	public ModelAndView toActivityDetail(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/activity/query_activity_info");
+		try
+		{
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			if (query.getId() > 0)
+			{
+				ActivityModel model  = nSearchService.queryActivityInfoById(query);
+				result.addObject("activity", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toActivityDetail error：", e);
+		}
+		return result;
+	}
+	
+	/**
 	 * 描述信息：增加活动信息
 	 * 创建时间：2015年3月12日 上午9:22:06
 	 * @author WCL (ln_admin@yeah.net)
@@ -416,6 +446,38 @@ public class NSearchController extends BaseController
 		}
 		return result;
 	}
+	
+	
+	/**
+	 * 描述信息：服务详细
+	 * 创建时间：2015年3月13日 下午5:59:23
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/servicedetail.do")
+	public ModelAndView toServiceDetail(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/service/query_service_info");
+		try
+		{
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			if (query.getId() > 0)
+			{
+				ServiceModel model  = nSearchService.queryServiceInfoById(query);
+				result.addObject("service", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toServiceDetail error：", e);
+		}
+		return result;
+	}
+	
 	
 	
 	/**
@@ -700,5 +762,181 @@ public class NSearchController extends BaseController
 			logger.error("NSearchController toDoctorDetail error：", e);
 		}
 		return result;
+	}
+	
+	/**
+	 * 描述信息：进入用户主界面
+	 * 创建时间：2015年3月17日 上午4:16:53
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/usermain.do")
+	public ModelAndView toUserMain(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/userinfo/manage_main_info");
+		try
+		{
+			result.addObject("query", query);
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toUserMain error：", e);
+		}
+		return result;
+	}
+	
+	/**
+	 * 描述信息：医嘱
+	 * 创建时间：2015年3月17日 上午3:15:42
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/advice.do")
+	public ModelAndView toAdvice(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/userinfo/manage_advice_info");
+		try
+		{
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			
+			long recordCount = nSearchService.queryDoctorAdviceInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<DoctorAdviceModel> argArgs = nSearchService.queryDoctorAdviceInfo(query);
+				result.addObject("doctorFlys", argArgs);
+			}
+			
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toAdvice error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：进入医嘱管理界面
+	 * 创建时间：2015年3月17日 上午3:25:49
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/mergeAdvice.do")
+	public ModelAndView toMergeAdvice(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/userinfo/add_advice_info");
+		try
+		{
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			if (query.getId() > 0)
+			{
+				DoctorAdviceModel model  = nSearchService.queryDoctorAdviceInfoById(query);
+				result.addObject("service", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toMergeAdvice error：", e);
+		}
+		return result;
+	}
+	
+
+	/**
+	 * 描述信息：增加医嘱
+	 * 创建时间：2015年3月17日 上午3:29:01
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/addAdvice.do")
+	public @ResponseBody MsgModel toAddAdvice(DoctorAdviceModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			if(nSearchService.addDoctorAdviceInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toAddAdvice error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：修改医嘱
+	 * 创建时间：2015年3月17日 上午3:28:42
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyAdvice.do")
+	public @ResponseBody MsgModel toModifyAdvice(DoctorAdviceModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			if(nSearchService.modifyDoctorAdviceInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toModifyAdvice error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：删除医嘱
+	 * 创建时间：2015年3月17日 上午3:28:09
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/delAdvice.do")
+	public @ResponseBody MsgModel toDelAdvice(DoctorAdviceModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			if(nSearchService.delDoctorAdviceInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toDelAdvice error：", e);
+		}
+		return msgModel;
 	}
 }

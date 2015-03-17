@@ -25,6 +25,4 @@ public class NIndexController extends BaseController
 		return "/nurse/main";
 	}
 	
-	
-	
 }

@@ -33,10 +33,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			window.location.href = "<c:url value='/n/search/mergeActivity.do'/>?id="+id + "&name="+name;
 		}
 		
-		function funNurseDetail(id)
-		{
-			window.location.href = "<c:url value='/p/query/nursedetail.do'/>?id="+id;
-		}
 		
 		function funDelete(obj, id)
 		{
@@ -129,7 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:if test="${not empty activityFlys }">
 							<c:forEach items="${activityFlys }" var="activityItem" varStatus="item">
 								<tr class='<c:if test="${item.index mod 2 == 0 }">abnormal odd</c:if><c:if test="${item.index mod 2 == 1 }">even</c:if>' style="height: 40px;">
-									<td><a href="javascript:void(0)" onclick="funNurseDetail(${activityItem.id})">${activityItem.name }</a></td>
+									<td><a href="<c:url value='/n/search/activitydetail.do'/>?id=${activityItem.id}" >${activityItem.name }</a></td>
 									<td>${activityItem.sdate }</td>
 									<td>${activityItem.edate }</td>
 									<td>
