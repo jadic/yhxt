@@ -584,6 +584,7 @@ CREATE TABLE `tab_user` (
   `userName` varchar(30) default NULL,
   `userPass` varchar(32) default NULL,
   `userSysId` int(2) default NULL,
+  `isChild`  tinyint(4) NULL DEFAULT 0 COMMENT '用户平台中是否是子女账号   1：是  其他：不是' ,  
   `userParentId` int(12) default NULL,
   `name` varchar(30) default NULL,
   `gender` tinyint(4) default NULL,
