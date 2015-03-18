@@ -48,6 +48,29 @@ var ComDwr =
 			DWRUtil.addOptions(_param, data);
 			DWRUtil.setValue(_param, msgVal); 
 		}}); 
-	}
+	},
+	
+	/**
+	 * 描述信息：加载医嘱类型
+	 * 修改时间：2015-03-08
+	 * @author WCL
+	 * @param {} _param：id
+	 * @param {} flag：标志
+	 * @param {} msgVal：默认值
+	 */
+	loadAdviceTypeInfo: function(_param, flag, msgVal)
+	{
+		loadDwr.loadAdviceTypeInfo({"callback":function(data)
+		{
+			DWRUtil.removeAllOptions(_param);
+			if(flag)
+			{
+				DWRUtil.addOptions(_param, {"-1":"请选择"});
+			}
+			DWRUtil.addOptions(_param, data);
+			DWRUtil.setValue(_param, msgVal); 
+		}}); 
+	},
+	
 
 };

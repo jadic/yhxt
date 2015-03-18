@@ -56,11 +56,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				         		'<p class="task_Name" title="清波卫生99">'+data.rows[nItem].name +'</p>'+
 				         		'<span class="task_Time">'+data.rows[nItem].stime+'</span>'+
 				         	'</li>';
-							tmp += '<li onclick="cilckUser('+nItem+')">'+
-			         		'<span class="task_wj">'+data.rows[nItem].cnt+'</span>'+
-			         		'<p class="task_Name" title="清波卫生99">'+data.rows[nItem].name +'</p>'+
-			         		'<span class="task_Time">'+data.rows[nItem].stime+'</span>'+
-			         	'</li>';
 						}	
 						$("#userList").html(tmp);
 						if(paramFlag == 0)

@@ -49,4 +49,13 @@
 			where a.hospitalId = ${id}
 		]]>
 	</select>
+	
+	<!--医嘱类型 -->
+	<select id="DwrMapper.queryAdviceTypeInfo" 	resultMap="mRetDwrMap">
+		<![CDATA[
+			SELECT a1.typeId AS msgKey, a1.typeName AS msgVal
+			FROM tab_dict_doctor_advice_type a1
+
+		]]>
+	</select>
 </mapper>

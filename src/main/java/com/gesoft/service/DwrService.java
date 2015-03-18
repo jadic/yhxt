@@ -158,4 +158,18 @@ public class DwrService
 	{
 		return dwrDAO.queryHospitalAddressInfo(id);
 	}
+	
+	
+	/**
+	 * 描述信息：加载医嘱类型
+	 * 创建时间：2015年3月18日 上午5:09:44
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public LinkedHashMap<?, ?> queryAdviceTypeInfo()
+	{
+		return funDealDwrInfo(dwrDAO.queryAdviceTypeInfo());
+	}
+	
 }

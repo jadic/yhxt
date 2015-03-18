@@ -201,4 +201,26 @@ public class DwrUController
 		}
 		return strRet;
 	}
+	
+	
+	/**
+	 * 描述信息：加载医嘱类型
+	 * 创建时间：2015年3月18日 上午5:08:18
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RemoteMethod
+	public Map<?, ?> loadAdviceTypeInfo()
+	{
+		LinkedHashMap<?, ?> mRetMap = null;
+		try
+		{
+			mRetMap = dwrService.queryAdviceTypeInfo();
+		}
+		catch (Exception e)
+		{
+			logger.error("DwrUController loadHospitalDeptInfo error：", e);
+		}
+		return mRetMap;
+	}
 }
