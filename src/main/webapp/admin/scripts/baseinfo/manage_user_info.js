@@ -59,7 +59,6 @@ var PageUser =
 					if(PageUser.mSelDataGrid != null)
 					{
 						PageMain.funCreateWinInfo("#div_win", "baseinfo/add_user_info", {param1:"modify"});
-						console.dir(PageUser.mSelDataGrid);
 						PageUser.funSetDataGrid(PageUser.mSelDataGrid);
 					}
 				}

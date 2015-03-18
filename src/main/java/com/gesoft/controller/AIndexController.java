@@ -180,6 +180,19 @@ public class AIndexController extends BaseController
 	public String toDeptOfHospital()
 	{
 	    System.out.println("hospitalDept.do");
-	    return "/admin/dictinfo/manage_hospital_dept_info";
+	    return "/admin/baseinfo/manage_hospital_dept_info";
+	}
+
+	/**
+	 * 描述信息：医生管理
+	 * 创建时间：2015年3月3日 下午12:48:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/doctor.do")
+	public String toDoctor()
+	{
+	    System.out.println("doctor.do");
+	    return "/admin/baseinfo/manage_doctor_info";
 	}
 }
