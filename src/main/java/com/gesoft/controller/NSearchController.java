@@ -22,14 +22,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.ActivityModel;
+import com.gesoft.model.DiseaseHisModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorModel;
+import com.gesoft.model.GeneticDiseaseModel;
+import com.gesoft.model.HabbitModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 import com.gesoft.service.NSearchService;
+import com.gesoft.service.PQueryService;
 import com.gesoft.util.SystemUtils;
 
 /**
@@ -46,6 +50,9 @@ public class NSearchController extends BaseController
 	
 	@Resource
 	private NSearchService nSearchService;
+	
+	@Resource
+	private PQueryService pQueryService;
 	
 	
 	
@@ -124,7 +131,10 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			if (model.getOperType() == 0)
+			{
+				model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			}
 			if (nSearchService.modifyUserBaseInfo(model) > 0)
 			{
 				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
@@ -153,7 +163,10 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			if (model.getOperType() == 0)
+			{
+				model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			}
 			if (nSearchService.modifyUserDetailInfo(model) > 0)
 			{
 				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
@@ -182,7 +195,10 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			if (model.getOperType() == 0)
+			{
+				model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			}
 			if (nSearchService.modifyUserWorkInfo(model) > 0)
 			{
 				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
@@ -811,7 +827,7 @@ public class NSearchController extends BaseController
 			{
 				setPageModel(recordCount, query);
 				List<DoctorAdviceModel> argArgs = nSearchService.queryDoctorAdviceInfo(query);
-				result.addObject("doctorFlys", argArgs);
+				result.addObject("adviceFlys", argArgs);
 			}
 			
 		}
@@ -843,7 +859,7 @@ public class NSearchController extends BaseController
 			if (query.getId() > 0)
 			{
 				DoctorAdviceModel model  = nSearchService.queryDoctorAdviceInfoById(query);
-				result.addObject("service", model);
+				result.addObject("advice", model);
 			}
 		}
 		catch (Exception e)
@@ -854,6 +870,37 @@ public class NSearchController extends BaseController
 	}
 	
 
+	/**
+	 * 描述信息：显示医嘱详情
+	 * 创建时间：2015年3月18日 上午5:52:06
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/showAdvice.do")
+	public ModelAndView toShowAdvice(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/userinfo/show_advice_info");
+		try
+		{
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			if (query.getId() > 0)
+			{
+				DoctorAdviceModel model  = nSearchService.queryDoctorAdviceInfoById(query);
+				result.addObject("advice", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toShowAdvice error：", e);
+		}
+		return result;
+	}
+	
+	
 	/**
 	 * 描述信息：增加医嘱
 	 * 创建时间：2015年3月17日 上午3:29:01
@@ -939,4 +986,328 @@ public class NSearchController extends BaseController
 		}
 		return msgModel;
 	}
+	
+	
+	/**
+	 * 描述信息：健康档案
+	 * 创建时间：2015年3月18日 上午6:04:35
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/jkda.do")
+	public ModelAndView toJkda(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/userinfo/manage_jkda_info");
+		try
+		{
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toJkda error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：健康档案-用户基本信息
+	 * 创建时间：2015年3月18日 上午6:05:42
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/jkdaUserBase.do")
+	public ModelAndView toJkdaUserBase(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/userinfo/manage_userbase_info");
+		try
+		{
+			result.addObject("query", query);
+			//加载用户基本信息
+			UserModel model  = nSearchService.queryUserBaseInfo(query);
+			if (model != null)
+			{
+				result.addObject("userModel", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toJkdaUserBase error：", e);
+		}
+		return result;
+	}
+	
+	
+
+	/**
+	 * 描述信息：加载生活习惯
+	 * 创建时间：2015年3月8日 下午6:00:08
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/memberhabit.do")
+	public ModelAndView toMemberHabit(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/userinfo/manage_memberhabit_info");
+		try
+		{
+			result.addObject("query", query);
+			//加载用户基本信息
+			HabbitModel model  = pQueryService.queryHabbitInfo(query);
+			if (model != null)
+			{
+				result.addObject("habbit", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toUserBase error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：修改生活习惯
+	 * 创建时间：2015年3月9日 上午12:16:31
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyHabbit.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toModifyHabbit(HabbitModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			if (pQueryService.modifyHabbitInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toModifyHabbit error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：加载家族遗传史
+	 * 创建时间：2015年3月8日 下午6:00:08
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/familydisease.do")
+	public ModelAndView toFamilyDisease(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/userinfo/manage_familydisease_info");
+		try
+		{
+			result.addObject("query", query);
+			GeneticDiseaseModel model  = pQueryService.queryGeneticDiseaseInfo(query);
+			if (model != null)
+			{
+				result.addObject("genetic", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toFamilyDisease error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：修改家族遗传史
+	 * 创建时间：2015年3月9日 上午12:16:31
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyFamilyDisease.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toModifyFamilyDisease(GeneticDiseaseModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			if (pQueryService.modifyGeneticDiseaseInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toModifyFamilyDisease error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：分页加载疾病史
+	 * 创建时间：2015年3月10日 上午8:51:27
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/diseasehis.do")
+	public ModelAndView toDiseaseHis(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/userinfo/manage_diseasehis_info");
+		try
+		{
+			result.addObject("query", query);
+			
+			//分页加载建议执行结果
+			long recordCount = pQueryService.queryDiseaseHisInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<DiseaseHisModel> argArgs = pQueryService.queryDiseaseHisInfo(query);
+				result.addObject("diseaseHisFlys", argArgs);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toDiseaseHis error：", e);
+		}
+		return result;
+	}
+	
+	
+	
+	/**
+	 * 描述信息：跳转疾病史
+	 * 创建时间：2015年3月10日 上午9:44:33
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/mergeDiseaseHis.do")
+	public ModelAndView toMergeDiseaseHis(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/userinfo/add_diseasehis_info");
+		try
+		{
+			result.addObject("query", query);
+			if (query.getId() > 0)
+			{
+				DiseaseHisModel model  = pQueryService.queryDiseaseHisInfoById(query);
+				result.addObject("diseaseHis", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toMergeDiseaseHis error：", e);
+		}
+		return result;
+	}
+	
+	/**
+	 * 描述信息：增加疾病史
+	 * 创建时间：2015年3月10日 上午8:49:31
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/addDiseaseHis.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toAddDiseaseHis(DiseaseHisModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			if (pQueryService.addDiseaseHisInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toAddDiseaseHis error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：修改疾病史
+	 * 创建时间：2015年3月10日 上午8:50:43
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyDiseaseHis.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toModifyDiseaseHis(DiseaseHisModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			if (pQueryService.modifyDiseaseHisInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toModifyDiseaseHis error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：删除疾病史数据
+	 * 创建时间：2015年3月10日 上午9:43:09
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/delDiseaseHis.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toDelDiseaseHis(DiseaseHisModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			if (pQueryService.delDiseaseHisInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toDelDiseaseHis error：", e);
+		}
+		return msgModel;
+	}
+	
 }

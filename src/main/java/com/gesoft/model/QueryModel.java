@@ -33,8 +33,17 @@ public class QueryModel extends BaseModel
 	private String doctorIds;
 	private String startTime;
 	private String endTime;
+	private String command;
 	
 	
+	public String getCommand()
+	{
+		return command;
+	}
+	public void setCommand(String command)
+	{
+		this.command = command;
+	}
 	public String getStartTime()
 	{
 		return startTime;

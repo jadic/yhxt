@@ -59,6 +59,17 @@ public class UserModel extends BaseModel
 	private int parentId;//子女用户关联的老人用户ID
 	private String parentName;//关联老人姓名 
 	
+	private int operType = 0;
+	
+	
+	public int getOperType()
+	{
+		return operType;
+	}
+	public void setOperType(int operType)
+	{
+		this.operType = operType;
+	}
 	public String getGenderStr()
 	{
 		switch (this.gender)

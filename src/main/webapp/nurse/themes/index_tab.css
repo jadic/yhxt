@@ -57,7 +57,7 @@
 .ecg_titleGray a:hover{text-decoration:underline}
 .ecg_main{width:670px;float:left;text-align:left;}
 .ecg_main li{float:left;line-height:30px;}
-.img_ecg{background:url(../images/health/ecg.jpg) no-repeat; height:312px; width:670px; margin:20px 0;}
+.img_ecg{background:url(images/health/ecg.jpg) no-repeat; height:312px; width:670px; margin:20px 0;}
 .tgreen_ecg{font-size:18px; font-weight:500; color:#0ca7a1;width:670px;}
 .tgrey_ecg{color:#5a5a5a}
 .tGrey_ecgname{width:75px; color:#aeaeae; font-size:14px; text-align:right}
@@ -89,7 +89,7 @@ color: #aeaeae;
 }
 .advice_main table tr td{font: 13px/26px "微软雅黑";color: #5a5a5a;}
 .btn_save{
-	background:url(../images/button/btn_search.jpg) no-repeat;
+	background:url(images/btn_search.jpg) no-repeat;
 	height: 40px; 
 	width: 120px;
 	line-height: 40px;
@@ -100,7 +100,7 @@ color: #aeaeae;
 	margin-right: 20px;
 }
 .btn_save1{
-	background:url(../images/button/btn_location.png) no-repeat;
+	background:url(images/btn_location.png) no-repeat;
 	height: 30px; 
 	width: 80px;
 	line-height: 30px;
@@ -182,7 +182,7 @@ span.method{line-height: 30px;}
 /* .account_security{width:650px; height:80px; float:left; margin-top:10px; padding:20px 0;} */
 .account_security{width:650px; height:40px; float:left; margin-top:0px; padding:20px 0;}
 .account_security li{float:left}
-.imgHead_account{background:url(../images/health/head.jpg) left center no-repeat; width:100px; height:80px;}
+.imgHead_account{background:url(images/health/head.jpg) left center no-repeat; width:100px; height:80px;}
 .accountSecurity_information{width:249px; border-right:1px dotted #aeaeae; text-align:left; height:80px;}
 .account_name{font-size:24px; font-weight:500; width:249px; float:left; color:#5a5a5a; height:30px; line-height:30px;}
 .account_welcome{font-size:13px; width:249px; float:left; color:#aeaeae; height:30px; line-height:30px;}
@@ -232,8 +232,8 @@ span.method{line-height: 30px;}
 .img_bank{border:1px solid #aeaeae; margin-left:10px; margin-right:18px; margin-bottom:15px; width: 140px;}
 .savings_card{width:580px;float:left;text-align:left; padding-left:10px}
 .btn_recharge{width:500px; padding-top:30px; padding-left:90px; text-align:left}
-.btn_recharge a{background:url(../images/button/btn_register_login.png) no-repeat; height:39px; width:158px; display:block; text-align:center; line-height:39px; color:#fff; text-decoration:none}
-.order_success{background:url(../images/icon/right.png) 10px center no-repeat; width:620px; height:40px; padding-left:50px; text-align:left; line-height:40px; font-size:24px; font-weight:500; color:#0ca7a1;}
+.btn_recharge a{background:url(images/btn_register_login.png) no-repeat; height:39px; width:158px; display:block; text-align:center; line-height:39px; color:#fff; text-decoration:none}
+.order_success{background:url(images/icon/right.png) 10px center no-repeat; width:620px; height:40px; padding-left:50px; text-align:left; line-height:40px; font-size:24px; font-weight:500; color:#0ca7a1;}
 
 
 

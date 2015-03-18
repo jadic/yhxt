@@ -28,9 +28,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#inputform").submit();
 		}
 		
-		function goMerge(id, name)
+		function goMerge(id, name, command)
 		{
-			window.location.href = "<c:url value='/n/search/mergeService.do'/>?id="+id + "&name="+name;
+			window.location.href = "<c:url value='/n/search/mergeAdvice.do'/>?id="+id + "&name="+name + "&command="+command + "&userId="+${query.userId};
 		}
 		
 		
@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					PageMain.funOpenProgress();
 					
 					$.ajax({
-						url : _ctx_ + "/n/search/delService.do?a="+ Math.random(),
+						url : _ctx_ + "/n/search/delAdvice.do?a="+ Math.random(),
 						type : 'post',
 						dataType : 'json',
 						data : 
@@ -83,10 +83,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="account" >
 		<div class="account_title" >
 	      <ul>
-	        <li class="account_titleGreen">我的服务</li>
-	        <li class="account_titleGray" style="height: 33px; padding-top: 10px;">
-	        	<ul>
-	        		<li class="select_BPhistory" style="width: 120px; padding-top: 0px; float: right;"><a href="javascript:void(0)" onclick="goMerge(0, 'addService')"><img src="<c:url value='/nurse/themes/images/phone_add.png'/>"></a></li>
+	        <li class="account_titleGreen">医嘱历史</li>
+	        
+	        <li class="account_titleGray" style="padding-top: 1px; padding-bottom:0px; height: 47px;">
+	        	<ul style=" padding-right:10px;">
+	        	      <li class="select_BPhistory" style="width: 140px; height:40px; padding-top: 3px; float: right;">
+	        	      	<input type="button" style="cursor: pointer;" class="btn_save" name="begin_date" value="新建医嘱" onclick="goMerge(0, '新增医嘱', 'addAdvice')">
+	        	      </li>
 	        	</ul>
 	        </li>
 	      </ul>
@@ -95,19 +98,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="information_modify">
     <div class="information_modify_main" id="main_div">
     	<div class="search">
-    	<form id="inputform" name="inputform" action="<c:url value='/n/search/service.do'/>" method="post">
+    	<form id="inputform" name="inputform" action="<c:url value='/n/search/advice.do'/>?userId=${query.userId}" method="post">
 		    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
 		    	<tr>
-		    		<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				服务名称：
+		    		<td align="right" style="padding: 5px 5px 5px 0; width:80px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    				开始时间：
 	    			</td>
 		    		<td>
-		    			<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" value="${query.name }">
+		    			<input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" style="width: 140px;" type="text" id="startTime" name="startTime" value="${query.startTime }">
+		    		</td>
+		    		<td style="width: 30px;"></td>
+		    		<td align="right" style="padding: 5px 5px 5px 0; width:80px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    				结束时间：
+	    			</td>
+		    		<td>
+		    			<input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" style="width: 140px;" type="text" id="endTime" name="endTime" value="${query.endTime }">
 		    		</td>
 		    		<td>
-		    		<ul>
-		    			<li class="btn_search"><a href="javascript:void(0)" onclick="queryStart()">查询</a></li>
-		    		</ul>
+			    		<ul>
+			    			<li class="btn_search"><a href="javascript:void(0)" onclick="queryStart()">查询</a></li>
+			    		</ul>
 		    		</td>
 		    	</tr>
 		    </table>
@@ -118,19 +128,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<tbody>
 						<tr class="even">
 							<th style="width: 35%;">服务名称</th>
-							<th style="width: 20%;">开始日期</th>
-							<th style="width: 20%;">结束日期</th>
+							<th style="width: 15%;">医嘱类型</th>
+							<th style="width: 25%;">时间</th>
 							<th style="width: 25%;">操作</th>
 						</tr>
-						<c:if test="${not empty serviceFlys }">
-							<c:forEach items="${serviceFlys }" var="serviceItem" varStatus="item">
+						
+						
+						<c:if test="${not empty adviceFlys }">
+							<c:forEach items="${adviceFlys }" var="adviceItem" varStatus="item">
 								<tr class='<c:if test="${item.index mod 2 == 0 }">abnormal odd</c:if><c:if test="${item.index mod 2 == 1 }">even</c:if>' style="height: 40px;">
-									<td><a href="<c:url value='/n/search/servicedetail.do'/>?id=${serviceItem.id}">${serviceItem.name }</a></td>
-									<td>${serviceItem.sdate }</td>
-									<td>${serviceItem.edate }</td>
+									<td><a href="<c:url value='/n/search/showAdvice.do'/>?id=${adviceItem.id}"><div style="width:190px; text-overflow:ellipsis; white-space:nowrap; *white-space:nowrap; overflow:hidden; 
+									">${adviceItem.adviceContent }</div></a></td>
+									<td>${adviceItem.typeName }</td>
+									<td>${adviceItem.adviceTime }</td>
 									<td>
-										<a href="javascript:void(0)" onclick="goMerge(${serviceItem.id}, 'modifyService')"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">编辑</a>
-										<a href="javascript:void(0)" onclick="funDelete(this, ${serviceItem.id})"><img src="<c:url value='/patient/themes/images/phone_del.png'/>">删除</a>
+										<a href="javascript:void(0)" onclick="goMerge(${adviceItem.id}, '修改医嘱', 'modifyAdvice')"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">编辑</a>
+										<a href="javascript:void(0)" onclick="funDelete(this, ${adviceItem.id})"><img src="<c:url value='/patient/themes/images/phone_del.png'/>">删除</a>
 									</td>
 								</tr>
 							</c:forEach>

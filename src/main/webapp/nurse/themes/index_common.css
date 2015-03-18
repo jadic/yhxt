@@ -86,8 +86,8 @@ body{background:#ededed}
 .taqueation_left{width:100px; height:25px; line-height:25px; text-align:left;}
 .taqueation_middle{width:100px; height:25px; line-height:25px; text-align:center;}
 .taqueation_right{width:100px; height:25px; line-height:25px; text-align:right;}
-.wechat_code{background:url(images/health/wechat_code.png) center 5px no-repeat; width:122px; height:15px; margin-right:51px; margin-left:5px; display:inline; text-align:center; padding-top:135px; font-size:13px;}
-.blog_code{background:url(images/health/blog_code.png) center 5px no-repeat; width:122px; height:15px; text-align:center; padding-top:135px; font-size:13px;}
+.wechat_code{background:url(images/wechat_code.png) center 5px no-repeat; width:122px; height:15px; margin-right:51px; margin-left:5px; display:inline; text-align:center; padding-top:135px; font-size:13px;}
+.blog_code{background:url(images/blog_code.png) center 5px no-repeat; width:122px; height:15px; text-align:center; padding-top:135px; font-size:13px;}
 .copyright{width:1000px; float:left; margin-top:15px;  padding-top:0px; text-align:center; font-size:13px;}
 
 /*----------------index_right---------------*/

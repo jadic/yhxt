@@ -92,4 +92,17 @@ public class DwrDAO extends EntityDAOImpl<BaseModel, Long>
 	{
 		return getSqlSession().selectOne(getMybatisSqlMapNamespace()+".queryHospitalDeptInfo", id);
 	}
+	
+	
+
+	/**
+	 * 描述信息：加载医嘱类型
+	 * 创建时间：2015年3月18日 上午5:09:44
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	public List<DwrModel> queryAdviceTypeInfo()
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace()+".queryAdviceTypeInfo");
+	}
 }

@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <li class="selected" style="width: 132px;"><a style="width:130px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/n/search/advice.do'/>" target="indexFrame" title="视图" >视图</a></li>
         <li style="width: 132px;"><a style="width:132px; height: 48px; display:block; text-decoration:none;color:#fff; " href="<c:url value='/p/jkbl.do'/>" target="indexFrame" title="分析记录">分析记录</a></li>
         <li style="width: 132px;"><a style="width:133px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/n/search/advice.do'/>?userId=${query.userId}" target="indexFrame" title="医嘱">医嘱</a></li>
-        <li style="width: 133px;"><a style="width:133px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/modifypwd.do'/>" target="indexFrame" title="健康档案">健康档案</a></li>
+        <li style="width: 133px;"><a style="width:133px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/n/search/jkda.do'/>?userId=${query.userId}" target="indexFrame" title="健康档案">健康档案</a></li>
         <li style="margin-right:-2px; width: 133px;"><a style="width:122px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/modifypwd.do'/>" target="indexFrame" title="医生报告">医生报告</a></li>
       </ul>
    </div>
