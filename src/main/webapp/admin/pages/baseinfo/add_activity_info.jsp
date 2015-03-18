@@ -65,7 +65,7 @@
 					<td class="njty_bg" align="right">活动图标：</td>
 					<td class="njty_bl">
 						<input id="in05" type="file" class="njty_input" style="width: 50%;" onblur="$(this).val($.trim($(this).val()))"/>
-						<a class="easyui-linkbutton" href="javascript:void(0)" onclick="PageService.funUploadFileInfo()">上传</a>
+						<a class="easyui-linkbutton" href="javascript:void(0)" onclick="PageActivity.funUploadFileInfo()">上传</a>
 						<span style="padding-left: 20px; color: red;" id="showtitle"></span>
 					</td>
 				</tr>

@@ -38,8 +38,13 @@
 		<result property="photo"  		    column="photo"/>
 		<result property="parentId"  		column="userParentId"/>
 		<result property="sysId"  		    column="userSysId"/>
+		<result property="isChild"  	    column="isChild"/>
 	</resultMap>
   
+	<resultMap id="mRetParentInfoMap"	  type="userModel">
+      <result property="userId"       column="userId"/>
+      <result property="name"         column="name"/>
+	</resultMap>
 	
 	
 	<!-- 用户登录时根据用户名加载数据 -->
@@ -63,18 +68,26 @@
 	<!-- 插入用户-->
 	<insert id="UserMapper.insert" useGeneratedKeys="true" keyProperty="userId">
 	    <![CDATA[
-	        INSERT INTO tab_user (userId,userName,userPass,userSysId,userParentId,name,gender,
+	        INSERT INTO tab_user (userId,userName,userPass,userSysId,isChild,userParentId,name,gender,
                                   birthdate,cellphone,email,credentialType,credentialNo,isSoldier,
                                   isDisablity,height,weight,nationality,nativePlace,marriageStatus,
                                   householdType,education,policticsStatus,homePhone,homeAddress,
                                   workingAge,salary,companyName,companyAddress,photo) 
-	        VALUES (#{userId},#{userName},#{userPwd},#{sysId},#{parentId},#{name},#{gender},
+	        VALUES (#{userId},#{userName},#{userPwd},#{sysId},#{isChild},#{parentId},#{name},#{gender},
                     #{birthdate},#{cellphone},#{email},#{credentialType},#{credentialNo},#{isSoldier},
                     #{isDisablity},#{height},#{weight},#{nationality},#{nativePlace},#{marriageStatus},
                     #{householdType},#{education},#{policticsStatus},#{homePhone},#{homeAddress},
                     #{workingAge},#{salary},#{companyName},#{companyAddress},#{photo})
 	    ]]>
 	</insert>
+  
+    <select id="UserMapper.queryUserCountWithUserName" parameterType="userModel" resultType="int">
+        <![CDATA[
+            SELECT COUNT(1) AS CNT
+            FROM tab_user a
+            where a.userName = #{userName}
+        ]]>
+    </select>
 	
 	<!-- 查询总记录数-->
 	<select id="UserMapper.count" parameterType="userModel" resultType="long">
@@ -124,6 +137,7 @@
 			UPDATE tab_user  SET  
             userName = #{userName},		
             userSysId = #{sysId},		
+            isChild = #{isChild},
             userParentId = #{parentId},	
             name = #{name},		
             gender = #{gender},		
@@ -168,5 +182,13 @@
         WHERE userId = #{userId} 
       ]]>    
     </update>
-	
+
+  <select id="UserMapper.queryParents" parameterType="userModel"  resultMap="mRetParentInfoMap">
+    <![CDATA[
+      SELECT a.userId, CONCAT(a.userName, '(', a.name, ')') as name
+      FROM tab_user a
+      where a.userSysId = 1 and a.isChild = 0
+      order by name
+    ]]>
+  </select>	
 </mapper>

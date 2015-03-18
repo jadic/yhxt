@@ -7,6 +7,8 @@
  **/
 package com.gesoft.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -37,6 +39,15 @@ public class AUserService extends EntityService<UserModel, Long>
 	}
 	
 	public int resetUserPassword(UserModel model) {
-	    return this.aUserDAO.resetUserPasswor(model);
+	    return this.aUserDAO.resetUserPassword(model);
 	}
+	
+	public List<UserModel> queryParents(UserModel model) {
+	    return this.aUserDAO.queryParents(model);
+	}
+	
+	public int queryUserCountWithUsrName(UserModel model) {
+	    return this.aUserDAO.queryUserCountWithUsrName(model);
+	}
+	
 }

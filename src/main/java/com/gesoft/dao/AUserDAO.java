@@ -7,6 +7,8 @@
  **/
 package com.gesoft.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.gesoft.common.EntityDAOImpl;
@@ -59,7 +61,15 @@ public class AUserDAO extends EntityDAOImpl<UserModel, Long>
 	 * @param model
 	 * @return
 	 */
-	public int resetUserPasswor(UserModel model) {
+	public int resetUserPassword(UserModel model) {
 	    return getSqlSession().update(getMybatisSqlMapNamespace() + ".resetUserPassword", model);
+	}
+	
+	public List<UserModel> queryParents(UserModel model) {
+	    return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryParents", model);
+	}
+	
+	public int queryUserCountWithUsrName(UserModel model) {
+	    return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryUserCountWithUserName", model);
 	}
 }
