@@ -20,7 +20,15 @@ var PageDoctor =
 			},
 			columns:[[
 				{field:'doctorName',			    title:'医生姓名',		width:80,	align:'left'},
-				{field:'doctorGender',			  title:'性别',		  width:50,	align:'left'},
+				{field:'doctorGender',			  title:'性别',		  width:50,	align:'left',formatter: function(value,row,index){
+                  if (value == 1){
+                    return '男';
+                  } else if (value ==2) {
+                    return '女'
+                  }else {
+                      return '未知';
+                  }
+                }},
 				{field:'hospitalName',			  title:'工作医院',		width:150,	align:'left'},
 				{field:'deptName',			      title:'所在科室',		width:110,	align:'left'},
 				{field:'doctorTitle',			    title:'临床职称',		width:100,	align:'left'},
@@ -65,22 +73,15 @@ var PageDoctor =
 	{
 		$("#in00").val(record.doctorId);
 		$("#in01").textbox("setValue", record.doctorName);
-		$("#in01").textbox("disable");
-		$("#in02").attr("src", _ctx_ + record.photo);
-		$("#in03").combobox("setValue", record.sysId);
-		$("#in04").prop("checked", record.isChild == 1);
-		if (record.parentId > 0) {
-		  $("#in05").combobox("setValue", record.parentId);
-		}
-		 
-		$("#in07").textbox("setValue", record.name);
-		$("#in08").combobox("setValue", record.gender);
-		$("#in09").val(record.birthdate);
-		$("#in10").textbox("setValue", record.cellphone);
-		$("#in11").textbox("setValue", record.height);
-		$("#in12").textbox("setValue", record.weight);
-		$("#in13").textbox("setValue", record.homePhone);
-		$("#in14").textbox("setValue", record.homeAddress);
+		$("#in02").attr("src", _ctx_ + record.doctorPhoto);
+		$("#in04").combobox("setValue", record.doctorGender);
+		$("#in05").combobox("setValue", record.doctorHospitalId);
+		$("#in06").textbox("setValue", record.doctorDeptId);
+		$("#in07").combobox("setValue", record.doctorTitle);
+		$("#in08").combobox("setValue", record.doctorTeachingTitle);
+		$("#in09").combobox("setValue", record.doctorEducation);
+		$("#in10").textbox("setValue", record.doctorSkill);
+		$("#in11").textbox("setValue", record.doctorDetailDescription);
 		
 		$("#17").val(record.photo);
 	},
@@ -98,38 +99,24 @@ var PageDoctor =
 	funSaveInfo : function(_param)
 	{
 
-		if (funIsNull("#in01", "登录帐号"))
+		if (funIsNull("#in01", "医生姓名"))
 		{
 			return false;
 		}
 		
-		var sysId = $("#in03").combobox("getValue");
-		var isChild = 0;
-		var parentId = 0;
-		if (sysId == 1) {
-		  var isChecked = $("#in04").prop("checked");
-		  if (isChecked) {
-		    isChild = 1;
-		    if ($("#in05").combobox("getValue") != "") {
-		      parentId = $("#in05").combobox("getValue");
-		    }
-		  }
-		} else {
-		  isChild = 0;
-		  parentId = 0;
+		var hospitalId = $("#in05").combobox("getValue");
+		if (hospitalId == '') {
+		  hospitalId = 0;
 		}
-		var height = $("#in11").val();
-		var weight = $("#in12").val();
-		var birthday = $("#in09").val();
-		if (height == "") {
-		  height = 0;
+		var deptId = $("#in06").combobox("getValue");
+		if (deptId == '') {
+		  deptId = 0;
 		}
-		if (weight == "") {
-		  weight = 0;
+		var educationId = $("#in09").combobox("getValue");
+		if (educationId == '') {
+		  educationId = 0;
 		}
-		if (birthday == "") {
-		  birthday = "1899-12-31";
-		}
+		
 		/**打开进度条**/
 		PageMain.funOpenProgress();
 		$.ajax({
@@ -140,18 +127,15 @@ var PageDoctor =
 			{
 				"doctorId": $("#in00").val(),	
 				"doctorName": $("#in01").val(),
-				"sysId": sysId,
-				"isChild": isChild,
-				"parentId": parentId,
-				"name": $("#in07").val(),
-				"gender": $("#in08").combobox("getValue"),
-				"birthdate": birthday,
-				"cellphone": $("#in10").val(),
-				"height": height,
-				"weight": weight,
-				"homePhone": $("#in13").val(),
-				"homeAddress":$("#in14").val(),
-				"photo" : $("#in17").val()
+				"doctorGender": $("#in04").combobox("getValue"),
+				"doctorHospitalId": hospitalId,
+				"doctorDeptId": deptId,
+				"doctorTitle": $("#in07").combobox("getValue"),
+				"doctorTeachingTitle": $("#in08").combobox("getValue"),
+				"doctorEducation": educationId,
+				"doctorSkill": $("#in10").val(),
+				"doctorDetailDescription": $("#in11").val(),
+				"doctorPhoto" : $("#in17").val()
 			},
 			error:function(data)
 			{

@@ -68,12 +68,12 @@
 	<!-- 插入用户-->
 	<insert id="UserMapper.insert" useGeneratedKeys="true" keyProperty="userId">
 	    <![CDATA[
-	        INSERT INTO tab_user (userId,userName,userPass,userSysId,isChild,userParentId,name,gender,
+	        INSERT INTO tab_user (userName,userPass,userSysId,isChild,userParentId,name,gender,
                                   birthdate,cellphone,email,credentialType,credentialNo,isSoldier,
                                   isDisablity,height,weight,nationality,nativePlace,marriageStatus,
                                   householdType,education,policticsStatus,homePhone,homeAddress,
                                   workingAge,salary,companyName,companyAddress,photo) 
-	        VALUES (#{userId},#{userName},#{userPwd},#{sysId},#{isChild},#{parentId},#{name},#{gender},
+	        VALUES (#{userName},#{userPwd},#{sysId},#{isChild},#{parentId},#{name},#{gender},
                     #{birthdate},#{cellphone},#{email},#{credentialType},#{credentialNo},#{isSoldier},
                     #{isDisablity},#{height},#{weight},#{nationality},#{nativePlace},#{marriageStatus},
                     #{householdType},#{education},#{policticsStatus},#{homePhone},#{homeAddress},

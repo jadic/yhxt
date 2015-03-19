@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DoctorMapper">
+	
+	<resultMap id="mRetDoctorMap"			        type="doctorModel">
+		<result property="doctorId"  			    column="doctorId"/>
+		<result property="doctorName"  		        column="doctorName"/>
+		<result property="doctorGender"  		    column="doctorGender"/>
+		<result property="doctorPhoto"  		    column="doctorPhoto"/>
+		<result property="doctorHospitalId"  		column="doctorHospitalId"/>
+		<result property="doctorDeptId"  		    column="doctorDeptld"/>
+		<result property="doctorTitle"  		    column="doctorTitle"/>
+		<result property="doctorTeachingTitle"	    column="doctorTeachingTitle"/>
+		<result property="doctorEducation"  	    column="doctorEducation"/>
+		<result property="doctorSkill"  	        column="doctorSkill"/>
+		<result property="doctorDetailDescription"	column="doctorDetailDescriptior"/>
+		<result property="hospitalName"  	        column="hospitalName"/>
+		<result property="deptName"  		        column="deptName"/>
+		<result property="doctorEducationName"  	column="educationName"/>
+	</resultMap>
+  
+    <resultMap id="mRetHospitalMap" type="hospitalModel">
+		<result property="id"  		column="hospitalId"/>
+		<result property="name"  	column="hospitalName"/>
+    </resultMap>
+  
+    <resultMap id="mRetHospitalDeptMap" type="hospitalDeptModel">
+      <result property="id"     column="deptId"/>
+      <result property="name"   column="deptName"/>    
+    </resultMap>
+
+	<!-- 插入医生-->
+	<insert id="DoctorMapper.insert" useGeneratedKeys="true" keyProperty="doctorId">
+	    <![CDATA[
+	        INSERT INTO tab_doctor (doctorName,doctorGender,doctorPhoto,doctorHospitalId,doctorDeptId,doctorTitle,
+                                  doctorTeachingTitle,doctorEducation,doctorSkill,doctorDetailDescriptior) 
+	        VALUES (#{doctorName},#{doctorGender},#{doctorPhoto},#{doctorHospitalId},#{doctorDeptId},#{doctorTitle},
+                    #{doctorTeachingTitle},#{doctorEducation},#{doctorSkill},#{doctorDetailDescriptior})
+	    ]]>
+	</insert>
+	
+	<!-- 查询总记录数-->
+	<select id="DoctorMapper.count" parameterType="doctorModel" resultType="long">
+		<![CDATA[
+			SELECT COUNT(1) AS CNT
+			FROM tab_doctor a
+		]]>
+        <where> 
+            <if test="doctorName != null and doctorName != ''">
+              and a.doctorName LIKE CONCAT('%', #{doctorName}, '%') 
+            </if>
+            <if test="doctorHospitalId > 0 ">
+              and a.doctorHospitalId = #{doctorHospitalId} 
+            </if>
+            <if test="doctorDeptId > 0 ">
+              and a.doctorDeptId = #{doctorDeptId} 
+            </if>
+            <if test="doctorEducation > 0 ">
+              and a.doctorEducation = #{doctorEducation} 
+            </if>
+        </where>      
+	</select>
+	
+	<!-- 查询分页查询-->
+	<select id="DoctorMapper.list" parameterType="doctorModel"	resultMap="mRetDoctorMap">
+		<![CDATA[
+            select a.doctorId,a.doctorName,a.doctorGender,a.doctorPhoto,
+            	a.doctorHospitalId,a.doctorDeptld,a.doctorTitle,a.doctorTeachingTitle,
+            	a.doctorEducation,a.doctorSkill,a.doctorDetailDescriptior, b.hospitalName, 
+            	c.deptName, d.name as educationName
+            from tab_doctor a
+            left join tab_hospital b on b.hospitalId=a.doctorHospitalId
+            left join tab_hospital_dept c on c.deptId=a.doctorDeptld
+            left join tab_dict_education d on d.id=a.doctorEducation
+		]]>
+        <where> 
+            <if test="doctorName != null and doctorName != ''">
+              and a.doctorName LIKE CONCAT('%', #{doctorName}, '%') 
+            </if>
+            <if test="doctorHospitalId > 0 ">
+              and a.doctorHospitalId = #{doctorHospitalId} 
+            </if>
+            <if test="doctorDeptId > 0 ">
+              and a.doctorDeptId = #{doctorDeptId} 
+            </if>
+            <if test="doctorEducation > 0 ">
+              and a.doctorEducation = #{doctorEducation} 
+            </if>
+        </where>   
+		<![CDATA[
+			LIMIT #{startNum}, #{rows}
+		]]>
+	</select>
+
+	<!-- 修改-->
+	<update id="DoctorMapper.update" parameterType="doctorModel">
+		<![CDATA[
+			UPDATE tab_doctor  SET  
+            doctorName = #{doctorName},		
+            doctorGender = #{doctorGender},		
+            doctorPhoto = #{doctorPhoto},		
+            doctorHospitalId = #{doctorHospitalId},		
+            doctorDeptld = #{doctorDeptId},		
+            doctorTitle = #{doctorTitle},		
+            doctorTeachingTitle = #{doctorTeachingTitle},	
+            doctorEducation = #{doctorEducation},	
+            doctorSkill = #{doctorSkill},	
+            doctorDetailDescriptior = #{doctorDetailDescription}
+			WHERE doctorId = #{doctorId} 
+		]]>
+	</update>
+	
+	<!-- 删除-->
+	<delete id="DoctorMapper.delete">
+		<![CDATA[
+			DELETE FROM tab_doctor 
+			WHERE doctorId = #{doctorId} 
+		]]>
+	</delete>
+  
+    <select id="DoctorMapper.queryHospitals" parameterType="doctorModel" resultMap="mRetHospitalMap">
+      <![CDATA[
+        select hospitalId, hospitalName
+        from tab_hospital
+      ]]>    
+    </select>
+
+    <select id="DoctorMapper.queryHospitalDepts" parameterType="doctorModel" resultMap="mRetHospitalDeptMap">
+      <![CDATA[
+        select deptId, deptName
+        from tab_hospital_dept
+      ]]>    
+    </select>
+    
+
+</mapper>
