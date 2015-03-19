@@ -125,6 +125,40 @@ var PageMain =
 			});	
 		}
 	},
+	funCreateWinInfoNew : function(paramWin, paramPage, paramObj)
+	{
+		/**如果对象存在，则打开**/		
+		if($(paramWin).length != 0)
+		{
+			$(paramWin).window("open");
+		}
+		/**如果对象不存在，则加载**/
+		else
+		{
+			var div_b_jk = $("#div_gesoft_win");
+			if(div_b_jk.length == 0)
+			{
+				$('<div id="div_gesoft_win"></div>').appendTo($(document.body));
+			}
+			
+			/**加载界面**/
+			$.ajax({
+				type : "POST",
+				url  : paramPage,
+				async : false,
+				cache : false,
+				data  : paramObj,
+				dataType: 'html',
+				success:function(data){
+					try{
+					$("#div_gesoft_win").append(data);
+					$.parser.parse(paramWin);
+					$("#div_gesoft_win").css("z-index",9001);
+					}catch(e){alert(e);}					
+				}
+			});	
+		}
+	},
 	/**
 	 * 描述信息：公共打开窗口之二（同时打开2个win时关闭一个，另一个由于div_b_jk相同而出现问题）
 	 * 修改时间：2011-12-09

@@ -27,6 +27,7 @@ import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
+import com.gesoft.model.MessageModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.QueryModel;
@@ -1308,6 +1309,158 @@ public class NSearchController extends BaseController
 			logger.error("NSearchController toDelDiseaseHis error：", e);
 		}
 		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：首页
+	 * 创建时间：2015年3月19日 上午9:24:18
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/home.do")
+	public ModelAndView toHome(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/home");
+		try
+		{
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			long recordCount = nSearchService.queryMessageInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<MessageModel> argArgs = nSearchService.queryMessageInfo(query);
+				result.addObject("messageFlys", argArgs);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toHome error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：进入请留言界面
+	 * 创建时间：2015年3月19日 上午10:08:53
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/goMsg.do")
+	public ModelAndView toGoMsg(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/manage_send_msg");
+		try
+		{
+			result.addObject("query", query);
+			query.setStartTime(SystemUtils.getCurrentSystemTime());
+			nSearchService.modifyMessageStatusInfo(query);
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toGoMsg error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：发送留言
+	 * 创建时间：2015年3月19日 上午11:43:32
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/sendMsg.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toSendMessage(MessageModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setSendTime(SystemUtils.getCurrentSystemTime());
+			model.setSenderId(getSessionUserId(request, SESSION_KEY_NUID));
+			if (pQueryService.addSendMessageInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toSendMessage error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：进入留言界面
+	 * 创建时间：2015年3月19日 下午2:34:52
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/usermsg.do")
+	public @ResponseBody MsgModel toGoUserMsg(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			query.setStartTime(SystemUtils.getCurrentSystemTime());
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			
+			//加载此用户的未读留言
+			List<MessageModel> argFlys = nSearchService.queryMessageUserInfo(query);
+			if (argFlys != null && argFlys.size() > 0)
+			{
+				msgModel.setTotal(argFlys.size());
+				msgModel.setRows(argFlys);
+				
+				// 修改留言
+				nSearchService.modifyMessageStatusInfoByUserId(query);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toGoUserMsg error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：加载用户健康状态
+	 * 创建时间：2015年3月20日 上午6:09:30
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/userJkzt.do")
+	public ModelAndView toUserJkzt(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/userinfo/manage_jkzt_info");
+		try
+		{
+			result.addObject("query", query);
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toUserJkzt error：", e);
+		}
+		return result;
 	}
 	
 }

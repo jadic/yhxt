@@ -77,10 +77,6 @@ public class MessageModel extends BaseModel
 	}
 	public String getStatusStr()
 	{
-		return statusStr;
-	}
-	public void setStatusStr(String statusStr)
-	{
 		switch (this.status)
 		{
 		case 0:
@@ -92,6 +88,10 @@ public class MessageModel extends BaseModel
 		default:
 			break;
 		}
+		return statusStr;
+	}
+	public void setStatusStr(String statusStr)
+	{
 		this.statusStr = statusStr;
 	}
 	public String getReadTime()

@@ -136,6 +136,18 @@
 		<result property="typeId"  					column="adviceTypId"/>
 		<result property="typeName"  				column="typeName"/>
 	</resultMap>
+	
+	<!-- 查询消息列表数据 -->
+	<resultMap id="mRetHomeMsgMap" 					type="messageModel">
+	    <result property="id"  						column="id"/>
+	    <result property="senderId"  				column="senderId"/>
+		<result property="receiverId"  				column="receiverId"/>
+		<result property="sendTime"  				column="sendTime"/>
+		<result property="status"  					column="status"/>
+		<result property="readTime"  				column="readTime"/>
+		<result property="msg"  					column="msg"/>
+		<result property="name"  					column="name"/>
+	</resultMap>
     
     <!-- 查询用户列表数据 -->
 	<select id="SearchMapper.queryUserListInfo" 	parameterType="queryModel"	resultMap="mRetUserMap">
@@ -585,4 +597,88 @@
 			WHERE id = #{id} 
 		]]>
 	</delete>
+	
+	
+	<!-- 首页查询留言信息-->
+	<select id="SearchMapper.queryMessageInfoCnt" parameterType="queryModel" resultType="long">
+		<![CDATA[
+			SELECT COUNT(1) AS CNT
+			from tab_msg a1
+			left join tab_user a2 on a1.senderId=a2.userId
+			where a1.receiverId = #{nurseId}
+		]]>
+	        <if test="startTime != null and startTime != ''">
+			    AND a1.sendTime >=   STR_TO_DATE(#{startTime},'%Y-%m-%d %H:%i:%s')
+			</if>
+			<if test="endTime != null and  endTime != ''">
+				<![CDATA[ 
+					AND a1.sendTime <=   STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')
+				]]>
+			</if>
+			<if test="name != null and name != ''">
+			    AND a2.name LIKE CONCAT('%', #{name}, '%') 
+			</if>
+	</select>
+	
+	<!-- 分页显示留言数据-->
+	<select id="SearchMapper.queryMessageInfo" parameterType="queryModel"	resultMap="mRetHomeMsgMap">
+		<![CDATA[
+			select a1.id, a1.senderId, a1.receiverId, a1.sendTime, a1.status, a1.readTime, a1.msg, a2.name
+			from tab_msg a1
+			left join tab_user a2 on a1.senderId=a2.userId
+			where a1.receiverId = #{nurseId}
+		]]>
+	        <if test="startTime != null and startTime != ''">
+			    AND a1.sendTime >=   STR_TO_DATE(#{startTime},'%Y-%m-%d %H:%i:%s')
+			</if>
+			<if test="endTime != null and  endTime != ''">
+				<![CDATA[ 
+					AND a1.sendTime <=   STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')
+				]]>
+			</if>
+			<if test="name != null and name != ''">
+			    AND a2.name LIKE CONCAT('%', #{name}, '%') 
+			</if>
+		<![CDATA[
+			order by a1.sendTime desc, a1.status 
+			LIMIT #{startNum}, #{rows}
+		]]>
+	</select>
+	
+	<!-- 修改单条留言状态-->
+	<update id="SearchMapper.modifyMessageStatusInfo" parameterType="queryModel">
+		<![CDATA[
+			UPDATE tab_msg  SET  
+			status = 1,
+			readTime = #{startTime}
+			WHERE id = #{id} 
+		]]>
+	</update>
+	
+	
+	<!-- 按接收者与发送者来修改留言状态-->
+	<update id="SearchMapper.modifyMessageStatusInfoByUserId" parameterType="queryModel">
+		<![CDATA[
+			UPDATE tab_msg  SET  
+			status = 1,
+			readTime = #{startTime}
+			WHERE senderId = #{userId} 
+			and receiverId = #{nurseId}
+			and status = 0
+		]]>
+	</update>
+	
+	
+	<!-- 分页显示留言数据-->
+	<select id="SearchMapper.queryMessageUserInfo" parameterType="queryModel"	resultMap="mRetHomeMsgMap">
+		<![CDATA[
+			select a1.id, a1.senderId, a1.receiverId, a1.sendTime, a1.status, a1.readTime, a1.msg, a2.name
+			from tab_msg a1
+			left join tab_user a2 on a1.senderId=a2.userId
+			where a1.senderId = #{userId} 
+			and a1.receiverId = #{nurseId}
+			and a1.status = 0
+			order by a1.sendTime
+		]]>
+	</select>
 </mapper>

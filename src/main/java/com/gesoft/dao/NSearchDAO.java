@@ -10,12 +10,14 @@ package com.gesoft.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorModel;
+import com.gesoft.model.MessageModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.ServiceModel;
@@ -453,5 +455,69 @@ public class NSearchDAO extends EntityDAOImpl<BaseModel, Long>
 	public int delDoctorAdviceInfo(DoctorAdviceModel model)
 	{
 		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delDoctorAdviceInfo", model);
+	}
+	
+
+
+	/**
+	 * 描述信息：首页查询留言信息
+	 * 创建时间：2015年3月19日 上午9:32:55
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public long queryMessageInfoCnt(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryMessageInfoCnt", model);
+	}
+
+
+	/**
+	 * 描述信息：分页显示留言数据
+	 * 创建时间：2015年3月19日 上午9:33:20
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public List<MessageModel> queryMessageInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryMessageInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：修改读取状态
+	 * 创建时间：2015年3月19日 下午12:09:29
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 */
+	public long modifyMessageStatusInfo(QueryModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyMessageStatusInfo", model);
+	}
+	
+	/**
+	 * 描述信息：查看用户的留言
+	 * 创建时间：2015年3月20日 上午4:58:39
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<MessageModel> queryMessageUserInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryMessageUserInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：修改用户留言状态
+	 * 创建时间：2015年3月20日 上午4:59:02
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 */
+	public long modifyMessageStatusInfoByUserId(QueryModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyMessageStatusInfoByUserId", model);
 	}
 }
