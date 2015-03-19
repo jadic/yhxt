@@ -45,7 +45,7 @@
       <result property="name"             column="serviceName"/>
       <result property="content"          column="serviceContent"/>
       <result property="creatorId"        column="serviceCreatorId"/>
-      <result property="sdate"            column="servcieStartDate"/>
+      <result property="sdate"            column="serviceStartDate"/>
       <result property="edate"            column="serviceDuration"/>
       <result property="createTime"	      column="serviceCreateTime"/>
       <result property="memo"             column="serviceMemo"/>
@@ -145,7 +145,7 @@
     <select id="AppMapper.queryService"   parameterType="queryModel"  resultMap="mServiceMap">
       <![CDATA[
         select a.id, a.serviceType, a.serviceName, a.serviceContent, a.serviceCreatorId, a.serviceCreateTime, 
-               a.servcieStartDate, a.serviceDuration, a.serviceMemo, a.serviceIcon
+               a.serviceStartDate, a.serviceDuration, a.serviceMemo, a.serviceIcon
         from tab_service a
         where (a.serviceType=2 and a.serviceCreatorId=#{creatorId}) 
            or (a.serviceTYpe<>2)
