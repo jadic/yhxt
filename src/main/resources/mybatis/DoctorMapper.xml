@@ -8,7 +8,7 @@
 		<result property="doctorGender"  		    column="doctorGender"/>
 		<result property="doctorPhoto"  		    column="doctorPhoto"/>
 		<result property="doctorHospitalId"  		column="doctorHospitalId"/>
-		<result property="doctorDeptId"  		    column="doctorDeptld"/>
+		<result property="doctorDeptId"  		    column="doctorDeptId"/>
 		<result property="doctorTitle"  		    column="doctorTitle"/>
 		<result property="doctorTeachingTitle"	    column="doctorTeachingTitle"/>
 		<result property="doctorEducation"  	    column="doctorEducation"/>
@@ -35,7 +35,7 @@
 	        INSERT INTO tab_doctor (doctorName,doctorGender,doctorPhoto,doctorHospitalId,doctorDeptId,doctorTitle,
                                   doctorTeachingTitle,doctorEducation,doctorSkill,doctorDetailDescriptior) 
 	        VALUES (#{doctorName},#{doctorGender},#{doctorPhoto},#{doctorHospitalId},#{doctorDeptId},#{doctorTitle},
-                    #{doctorTeachingTitle},#{doctorEducation},#{doctorSkill},#{doctorDetailDescriptior})
+                    #{doctorTeachingTitle},#{doctorEducation},#{doctorSkill},#{doctorDetailDescription})
 	    ]]>
 	</insert>
 	
@@ -65,12 +65,12 @@
 	<select id="DoctorMapper.list" parameterType="doctorModel"	resultMap="mRetDoctorMap">
 		<![CDATA[
             select a.doctorId,a.doctorName,a.doctorGender,a.doctorPhoto,
-            	a.doctorHospitalId,a.doctorDeptld,a.doctorTitle,a.doctorTeachingTitle,
+            	a.doctorHospitalId,a.doctorDeptId,a.doctorTitle,a.doctorTeachingTitle,
             	a.doctorEducation,a.doctorSkill,a.doctorDetailDescriptior, b.hospitalName, 
             	c.deptName, d.name as educationName
             from tab_doctor a
             left join tab_hospital b on b.hospitalId=a.doctorHospitalId
-            left join tab_hospital_dept c on c.deptId=a.doctorDeptld
+            left join tab_hospital_dept c on c.deptId=a.doctorDeptId
             left join tab_dict_education d on d.id=a.doctorEducation
 		]]>
         <where> 
@@ -100,7 +100,7 @@
             doctorGender = #{doctorGender},		
             doctorPhoto = #{doctorPhoto},		
             doctorHospitalId = #{doctorHospitalId},		
-            doctorDeptld = #{doctorDeptId},		
+            doctorDeptId = #{doctorDeptId},		
             doctorTitle = #{doctorTitle},		
             doctorTeachingTitle = #{doctorTeachingTitle},	
             doctorEducation = #{doctorEducation},	

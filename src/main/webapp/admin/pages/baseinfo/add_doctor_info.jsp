@@ -52,7 +52,7 @@
             <tr>
               <td class="njty_bg" align="right" style="width: 80px;">医生姓名：</td>
               <td class="njty_bl">
-                <input id="in01" class="easyui-textbox" data-options="prompt:'请输入用户账号'" style="width: 95%" onblur="$(this).val($.trim($(this).val()))" maxlength="20"/>
+                <input id="in01" class="easyui-textbox" data-options="prompt:'请输入医生姓名'" style="width: 95%" onblur="$(this).val($.trim($(this).val()))" maxlength="20"/>
                 <span style="color:red;">*</span>
               </td>
               <td rowspan="5" class="njty_bl" style="width: 125px; padding: 1px;">
@@ -129,13 +129,13 @@
             <tr>
               <td class="njty_bg" align="right" style="width: 80px;">擅长疾病：</td>
               <td class="njty_bl" colspan="2">
-                <input id="in10" class="easyui-textbox" data-options="prompt:'请输入用户固定电话'" style="width: 95%" onblur="$(this).val($.trim($(this).val()))" maxlength="20"/>
+                <input id="in10" class="easyui-textbox" data-options="prompt:'请输入医生擅长疾病'" style="width: 95%" onblur="$(this).val($.trim($(this).val()))" maxlength="20"/>
               </td>
             </tr>
             <tr>
-              <td class="njty_bg" align="right" style="width: 80px;">详细介绍：</td>
+              <td class="njty_bg" align="right" style="width: 80px;">简要介绍：</td>
               <td class="njty_bl" colspan="2">
-                <input id="in11" class="easyui-textbox" data-options="prompt:'请输入用户固定电话'" style="width: 95%; height: 80px;" onblur="$(this).val($.trim($(this).val()))" maxlength="500"/>
+                <input id="in11" class="easyui-textbox" data-options="prompt:'请输入医生简要介绍',multiline:true" style="width: 95%; height: 80px;" onblur="$(this).val($.trim($(this).val()))" maxlength="500"/>
               </td>
             </tr>
           </table>      
@@ -145,7 +145,7 @@
 				<tr>
 					<td class="njty_bg" align="center" style="width:100%; background: #cccccc;" valign="middle">
 						<input type="hidden" id="in00" value="0">
-                        <input type="hidden" id="in17" value="0">
+                        <input type="hidden" id="in17" value="">
 						<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:void(0)" id="btn_01" onclick="PageDoctor.funSaveInfo('${param.param1}')">确定</a>
 						<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)"  onclick="$('#div_win').window('close')">关闭</a>
 					</td>

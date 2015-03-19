@@ -74,16 +74,24 @@ var PageDoctor =
 		$("#in00").val(record.doctorId);
 		$("#in01").textbox("setValue", record.doctorName);
 		$("#in02").attr("src", _ctx_ + record.doctorPhoto);
-		$("#in04").combobox("setValue", record.doctorGender);
-		$("#in05").combobox("setValue", record.doctorHospitalId);
-		$("#in06").textbox("setValue", record.doctorDeptId);
+		if (record.doctorGender > 0) {
+		  $("#in04").combobox("setValue", record.doctorGender);
+		}
+		if (record.doctorHospitalId > 0) {
+		  $("#in05").combobox("setValue", record.doctorHospitalId);
+		}
+		if (record.doctorDeptId > 0) {
+		  $("#in06").textbox("setValue", record.doctorDeptId);
+		}
 		$("#in07").combobox("setValue", record.doctorTitle);
 		$("#in08").combobox("setValue", record.doctorTeachingTitle);
-		$("#in09").combobox("setValue", record.doctorEducation);
+		if (record.doctorEducation > 0) {
+		  $("#in09").combobox("setValue", record.doctorEducation);
+		}
 		$("#in10").textbox("setValue", record.doctorSkill);
 		$("#in11").textbox("setValue", record.doctorDetailDescription);
 		
-		$("#17").val(record.photo);
+		$("#in17").val(record.doctorPhoto);
 	},
 	funSearchInfo : function()
 	{
@@ -168,7 +176,7 @@ var PageDoctor =
     {
         try
         {
-            var uploadFile = dwr.util.getValue("in06"); 
+            var uploadFile = dwr.util.getValue("in03"); 
             var filenames = uploadFile.value.split("\\"); 
             if(filenames.length <= 1)
             {
