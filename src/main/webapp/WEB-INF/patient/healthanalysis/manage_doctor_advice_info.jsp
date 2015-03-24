@@ -21,7 +21,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</style>
 	<script type="text/JavaScript">
-		
+		$(function(){
+			$(".page-first").bind("click", function(){
+				if($("#gopage").val() > 1)
+				{
+					$("#page").val("1");
+					$("#inputform").submit();
+				}	
+			});
+			
+			
+			$(".page-perv").bind("click", function(){
+				if($("#gopage").val() > 1)
+				{
+					$("#page").val($("#gopage").val() - 1);
+					$("#inputform").submit();
+				}	
+			});
+			
+			$(".page-next").bind("click", function(){
+				if($("#gopage").val() < "${query.pageCnt}")
+				{
+					$("#page").val(parseInt($("#gopage").val()) + 1);
+					$("#inputform").submit();
+				}	
+			});
+			
+			
+			$(".page-last").bind("click", function(){
+				if($("#gopage").val() < "${query.pageCnt}")
+				{
+					$("#page").val("${query.pageCnt}");
+					$("#inputform").submit();
+				}	
+			});
+			
+			$("#gopage").bind("change", function(){
+				$("#page").val($(this).val());
+				$("#inputform").submit();
+			});
+		});
 	</script>
   </head>
 <body>
@@ -30,6 +69,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<span class="tgrey_title_informationModify"><c:choose><c:when test="${query.adviceType == 1 }">用药</c:when><c:when test="${query.adviceType == 2 }">饮食</c:when><c:when test="${query.adviceType == 3 }">运动</c:when><c:when test="${query.adviceType == 4 }">就诊</c:when></c:choose></span>建议
     </div>
     <div class="information_modify_main" id="main_div">
+    	<form name="inputform" id="inputform"  style="padding: 0px; margin: 0px;" action="<c:url value='/p/query/advice.do?adviceType=${query.adviceType}'/>" method="post">
+			<input id="page" name="page" value="${query.page }" type="hidden"/>
+		</form>
     	<div class="search">
 		    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable" style="display: block;">
 		    	<tr>
@@ -63,16 +105,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div class="index_page">
 		  <ul>
-		    <li class="page_information">共<span id="showcount">${query.total }</span>条信息，当前：第<span id="showcurrentnum">${query.pageCnt }</span>页，共<span id="showpagecount">${query.page }</span>页</li>
+		    <li class="page_information">共<span id="showcount">${query.total }</span>条信息，当前：第<span id="showcurrentnum">${query.page }</span>页，共<span id="showpagecount">${query.pageCnt }</span>页</li>
 		    <li class="page_button">
-			    <a href="###" class="page-first">首页</a>
-			    <a href="###" class="page-perv">上一页</a>
-			    <a href="###" class="page-next">下一页</a>
-			    <a href="###" class="page-last">末页</a>
+			    <a href="javascript:void(0)" class="page-first">首页</a>
+			    <a href="javascript:void(0)" class="page-perv">上一页</a>
+			    <a href="javascript:void(0)" class="page-next">下一页</a>
+			    <a href="javascript:void(0)" class="page-last">末页</a>
 		    </li>
 		    <li class="page_select">
-		    转<select id="gopage" onchange="gotoPage()">
-		    	<option value="1">1</option>
+		    转<select id="gopage">
+		    	<c:forEach  var="temp"   begin="1"   step="1"   end="${ query.pageCnt}"> 
+					<option <c:if test="${query.page==temp }">selected="selected"</c:if> value="<c:out  value="${temp}"/>"><c:out  value="${temp}"/></option>
+				</c:forEach> 
 		    </select>页
 		    </li>
 		  </ul>

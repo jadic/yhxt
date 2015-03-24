@@ -69,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <li id="hMenu0" class="indexMenu_secondary_activation"><a href="<c:url value='/p/query/home.do'/>" target="mainFrame" title="首页">首页</a></li>
           <li id="hMenu1"><a href="<c:url value='/p/health.do'/>" target="mainFrame" title="健康档案">健康档案</a></li>
           <li id="hMenu2"><a href="<c:url value='/p/healthanalysis.do'/>" target="mainFrame" title="健康分析">健康分析</a></li>
-          <li id="hMenu3"><a href="<c:url value='/p/servicedevice.do'/>" target="mainFrame" title="我的设备">我的设备</a></li>
+          <li id="hMenu3"><a href="<c:url value='/p/servicedevice.do'/>" target="mainFrame" title="服务/设备">服务/设备</a></li>
           <li id="hMenu4"><a href="<c:url value='/p/query/mynuser.do'/>" target="mainFrame" title="我的医护人">我的医护人</a></li>
         </ul> 
       </div>

@@ -36,7 +36,7 @@ public class BaseModel implements Serializable
 	
 	// 分页传入参数
 	private int page = 1; // 当前页号
-	private int rows; // 每页条数
+	private int rows = 2; // 每页条数
 	private long total; // 总记录数
 	private long pageCnt = 1; //总页数
 	private long startNum; // 开始记录数

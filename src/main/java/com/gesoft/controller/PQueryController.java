@@ -107,7 +107,7 @@ public class PQueryController extends BaseController
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value="/advice.do", method=RequestMethod.GET)
+	@RequestMapping(value="/advice.do")
 	public ModelAndView toAdvice(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/healthanalysis/manage_doctor_advice_info");
@@ -1059,6 +1059,7 @@ public class PQueryController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
+			model.setSendTime(SystemUtils.getCurrentSystemTime());
 			model.setSenderId(getSessionUserId(request, SESSION_KEY_PUID));
 			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
 			if (pQueryService.addSendMessageInfo(model) > 0)
