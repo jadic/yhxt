@@ -149,6 +149,17 @@
 		<result property="name"  					column="name"/>
 	</resultMap>
     
+	<!-- 查询医生 -->
+	<resultMap id="mDoctorMap" 		      type="doctorModel">
+		<result property="doctorId"       column="doctorId"/>
+		<result property="doctorName"  	  column="doctorName"/>
+	</resultMap>
+	
+	<!-- 查询医生关联关系ID -->
+	<resultMap id="mDoctorIdMap" 		      type="doctorModel">
+		<result property="doctorId"       column="doctorId"/>
+	</resultMap>
+	
     <!-- 查询用户列表数据 -->
 	<select id="SearchMapper.queryUserListInfo" 	parameterType="queryModel"	resultMap="mRetUserMap">
 		<![CDATA[
@@ -681,4 +692,65 @@
 			order by a1.sendTime
 		]]>
 	</select>
+	
+	<!-- 插入医生与活动关系-->
+	<insert id="SearchMapper.addActivityDoctorInfo" useGeneratedKeys="true" keyProperty="adid">
+	    <![CDATA[
+	        INSERT INTO tab_activity_doctor (activityId, doctorId) 
+	        VALUES (#{id}, #{doctorId})
+	    ]]>
+	</insert>
+	
+	<!-- 删除医生与活动关系-->
+	<delete id="SearchMapper.delActivityDoctorInfo">
+		<![CDATA[
+            delete from tab_activity_doctor
+            where activityId=#{id}
+		]]>
+	</delete>
+	
+	<!-- 删除医生与服务关系-->
+	<delete id="SearchMapper.delServiceDoctorInfo">
+		<![CDATA[
+            delete from tab_service_doctor_relation 
+            where serviceId=#{id}
+		]]>
+	</delete>
+  
+	<!-- 插入医生服务与关系-->
+	<insert id="SearchMapper.addServiceDoctorInfo" useGeneratedKeys="true" keyProperty="sdid">
+	    <![CDATA[
+	        INSERT INTO tab_service_doctor_relation (serviceId, doctorId) 
+	        VALUES (#{id}, #{doctorId})
+	    ]]>
+	</insert>
+	
+	<!-- 加载医生-->
+	<select id="SearchMapper.queryDoctors" parameterType="queryModel"	resultMap="mDoctorMap">
+		<![CDATA[
+            SELECT a.doctorId, CONCAT(a.doctorName, '(', b.hospitalName, ')') as doctorName 
+            from tab_doctor a
+            inner join tab_hospital b on b.hospitalId=a.doctorHospitalId
+		]]>
+	</select>
+	
+	<!-- 加载服务所关联的医生-->
+	<select id="SearchMapper.queryServiceDoctorIds" parameterType="queryModel"	resultMap="mDoctorIdMap">
+		<![CDATA[
+            SELECT a.doctorId
+            from tab_service_doctor_relation a
+            where a.serviceId=#{serviceId}
+		]]>
+	</select>
+	
+	
+	<!-- 加载活动与关联的医生-->
+	<select id="SearchMapper.queryActivityDoctorIds" parameterType="queryModel"	resultMap="mDoctorIdMap">
+		<![CDATA[
+            SELECT a.doctorId
+            from tab_activity_doctor a
+            where a.activityId=#{activityId}
+		]]>
+	</select>
+	
 </mapper>

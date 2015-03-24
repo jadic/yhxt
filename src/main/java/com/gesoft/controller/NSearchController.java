@@ -1463,4 +1463,84 @@ public class NSearchController extends BaseController
 		return result;
 	}
 	
+	
+	/**
+	 * 描述信息：加载医生
+	 * 创建时间：2015年3月24日 上午9:10:39
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/queryDoctor.do", method=RequestMethod.POST)
+    public @ResponseBody List<DoctorModel> querySimpleDoctorInfo(QueryModel model)
+    {
+        List<DoctorModel> list = null;
+        try
+        {
+            list = nSearchService.queryDoctors(model);
+        }
+        catch (Exception e)
+        {
+            logger.error("NSearchController querySimpleDoctorInfo error：", e);
+        }
+        return list;
+    }
+	
+	
+	/**
+	 * 描述信息：加载服务与医生关联数据
+	 * 创建时间：2015年3月24日 上午9:22:44
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/serviceDoctor.do", method=RequestMethod.POST)
+    public @ResponseBody long[] serviceDoctor(QueryModel model)
+    {
+        long[] ids = null;
+        try
+        {
+            List<DoctorModel> list = nSearchService.queryServiceDoctorIds(model);
+            if (list != null) {
+                ids = new long[list.size()];
+                for (int i = 0; i < list.size(); i ++) {
+                    ids[i] = list.get(i).getDoctorId(); 
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("NSearchController serviceDoctor error：", e);
+        }
+        return ids;
+    }
+	
+	
+	/**
+	 * 描述信息：加载活动与医生对照关系
+	 * 创建时间：2015年3月24日 上午9:29:19
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/activityDoctor.do", method=RequestMethod.POST)
+    public @ResponseBody long[] activityDoctor(QueryModel model)
+    {
+        long[] ids = null;
+        try
+        {
+            List<DoctorModel> list = nSearchService.queryActivityDoctorIds(model);
+            if (list != null) {
+                ids = new long[list.size()];
+                for (int i = 0; i < list.size(); i ++) {
+                    ids[i] = list.get(i).getDoctorId(); 
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("NSearchController activityDoctor error：", e);
+        }
+        return ids;
+    }
 }

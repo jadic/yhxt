@@ -18,6 +18,7 @@ public class ServiceModel extends BaseModel
 	private static final long serialVersionUID = 5705483179208187468L;
 	private long id;
 	private long buyId; //购买表Id
+	private long sdid;  //关联关系ID
 	private int type;
 	private String typeName;
 	private String name;
@@ -33,6 +34,16 @@ public class ServiceModel extends BaseModel
 	private String doctorIds;
 	private int doctorId;
 	
+	
+	
+	public long getSdid()
+	{
+		return sdid;
+	}
+	public void setSdid(long sdid)
+	{
+		this.sdid = sdid;
+	}
 	public long getBuyId()
 	{
 		return buyId;

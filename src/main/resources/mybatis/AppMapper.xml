@@ -115,7 +115,7 @@
             a.homeAddress, a.workingAge, a.salary, a.companyName, a.companyAddress
           from tab_user a
           where a.userId =  #{userId}
- a.     ]]>
+	    ]]>
     </select>
     
     <select id="AppMapper.queryMyNurserWithUserId" parameterType="queryModel" resultMap="mUserInfoMap">

@@ -168,7 +168,21 @@ public class NSearchService extends EntityService<BaseModel, Long>
 	 */
 	public int addActivityInfo(ActivityModel model)
 	{
-		return nSearchDAO.addActivityInfo(model);
+		// 增加
+		int nRet = nSearchDAO.addActivityInfo(model);
+		
+		// 增加活动与医生关系
+		if (model.getDoctorIds() != null && model.getDoctorIds().trim().length() > 0)
+		{
+			String[] doctorFlys = model.getDoctorIds().split("\\,");
+			for (String doctorId : doctorFlys)
+			{
+				model.setDoctorId(Long.parseLong(doctorId));
+				nSearchDAO.addActivityDoctorInfo(model);
+			}
+		}
+		
+		return nRet;
 	}
 
 	
@@ -181,7 +195,23 @@ public class NSearchService extends EntityService<BaseModel, Long>
 	 */
 	public int modifyActivityInfo(ActivityModel model)
 	{
-		return nSearchDAO.modifyActivityInfo(model);
+		// 修改活动记录
+		int nRet = nSearchDAO.modifyActivityInfo(model);
+		
+		// 删除对应关系
+		nSearchDAO.delActivityDoctorInfo(model);
+		
+		// 增加活动与医生关系
+		if (model.getDoctorIds() != null && model.getDoctorIds().trim().length() > 0)
+		{
+			String[] doctorFlys = model.getDoctorIds().split("\\,");
+			for (String doctorId : doctorFlys)
+			{
+				model.setDoctorId(Long.parseLong(doctorId));
+				nSearchDAO.addActivityDoctorInfo(model);
+			}
+		}
+		return nRet;
 	}
 
 	
@@ -251,7 +281,20 @@ public class NSearchService extends EntityService<BaseModel, Long>
 	 */
 	public int addServiceInfo(ServiceModel model)
 	{
-		return nSearchDAO.addServiceInfo(model);
+		// 增加服务
+		int nRet = nSearchDAO.addServiceInfo(model);
+		
+		// 增加服务与医生关系
+		if (model.getDoctorIds() != null && model.getDoctorIds().trim().length() > 0)
+		{
+			String[] doctorFlys = model.getDoctorIds().split("\\,");
+			for (String doctorId : doctorFlys)
+			{
+				model.setDoctorId(Integer.parseInt(doctorId));
+				nSearchDAO.addServiceDoctorInfo(model);
+			}
+		}
+		return nRet;
 	}
 
 	
@@ -264,7 +307,23 @@ public class NSearchService extends EntityService<BaseModel, Long>
 	 */
 	public int modifyServiceInfo(ServiceModel model)
 	{
-		return nSearchDAO.modifyServiceInfo(model);
+		// 修改服务
+		int nRet = nSearchDAO.modifyServiceInfo(model);
+		
+		// 删除对应关系
+		nSearchDAO.delServiceDoctorInfo(model);
+		
+		// 增加服务与医生关系
+		if (model.getDoctorIds() != null && model.getDoctorIds().trim().length() > 0)
+		{
+			String[] doctorFlys = model.getDoctorIds().split("\\,");
+			for (String doctorId : doctorFlys)
+			{
+				model.setDoctorId(Integer.parseInt(doctorId));
+				nSearchDAO.addServiceDoctorInfo(model);
+			}
+		}
+		return nRet;
 	}
 
 	
@@ -542,4 +601,46 @@ public class NSearchService extends EntityService<BaseModel, Long>
 	{
 		return nSearchDAO.modifyMessageStatusInfoByUserId(model);
 	}
+
+	/**
+	 * 描述信息：加载医生
+	 * 创建时间：2015年3月24日 上午9:12:20
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<DoctorModel> queryDoctors(QueryModel model)
+	{
+		return this.nSearchDAO.queryDoctors(model);
+	}
+
+
+	/**
+	 * 描述信息：加载服务与医生关联关系
+	 * 创建时间：2015年3月24日 上午9:23:47
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<DoctorModel> queryServiceDoctorIds(QueryModel model)
+	{
+		return this.nSearchDAO.queryServiceDoctorIds(model);
+	}
+	
+
+	/**
+	 * 描述信息：加载活动与医生关联关系
+	 * 创建时间：2015年3月24日 上午9:23:47
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<DoctorModel> queryActivityDoctorIds(QueryModel model)
+	{
+		return this.nSearchDAO.queryActivityDoctorIds(model);
+	}
+	
 }

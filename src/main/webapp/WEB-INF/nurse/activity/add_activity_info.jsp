@@ -25,9 +25,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/JavaScript">
 		$(function(){
 			PageMain.funInitXheditor("#content");
+			$('#doctor').combobox({
+	    	    valueField:'doctorId',
+	    	    textField:'doctorName',
+	    	    multiple:true,
+	    	    multiline:true,
+	    	    url:_ctx_ + "/n/search/queryDoctor.do"
+	    	});
+			
+			<c:if test="${not empty activity }">
+			window.setTimeout(function(){
+				$.ajax({
+			          url : _ctx_ + "/n/search/activityDoctor.do?a="+ Math.random(),
+			          type : 'post',
+			          dataType : 'json',
+			          data :{
+			            "activityId" : "${activity.id }"
+			          },
+			          success:function(data)
+			          {
+						$('#doctor').combobox('setValues', data);
+			          }
+			      });
+			}, 200);	
+			</c:if>
 		});
 		function funSaveInfo()
 		{
+			var doctorIds = $("#doctor").combobox("getValues").toString();
 			
 			/**打开进度条**/
 			PageMain.funOpenProgress();
@@ -43,6 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					"edate"	: $("#edate").val(),
 					"icon"	: $("#icon").val(),
 					"memo"	: $("#memo").val(),
+					"doctorIds"	: doctorIds,
 					"content": $("#content").val()
 				},
 				error:function(data)

@@ -6,7 +6,9 @@ public class ActivityModel extends BaseModel {
     
     private long id;
     private long buyId; //购买表Id
-    private int type;
+    private long doctorId;
+    private long adid;	// 关联关系ID
+	private int type;
     private String typeName;
     private String name;
     private String content;
@@ -18,8 +20,35 @@ public class ActivityModel extends BaseModel {
     private String icon;
     private String userName;
     private String buyTime;
+    private String doctorIds;
     
-    public long getBuyId()
+    
+    
+    public long getAdid()
+	{
+		return adid;
+	}
+	public void setAdid(long adid)
+	{
+		this.adid = adid;
+	}
+	public long getDoctorId()
+   	{
+   		return doctorId;
+   	}
+   	public void setDoctorId(long doctorId)
+   	{
+   		this.doctorId = doctorId;
+   	}
+    public String getDoctorIds()
+	{
+		return doctorIds;
+	}
+	public void setDoctorIds(String doctorIds)
+	{
+		this.doctorIds = doctorIds;
+	}
+	public long getBuyId()
     {
         return buyId;
     }

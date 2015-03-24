@@ -30,11 +30,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	    textField:'doctorName',
 	    	    multiple:true,
 	    	    multiline:true,
-	    	    url:_ctx_ + "/a/activity/queryDoctor.do"
+	    	    url:_ctx_ + "/n/search/queryDoctor.do"
 	    	});
+			
+			<c:if test="${not empty service }">
+			window.setTimeout(function(){
+				$.ajax({
+			          url : _ctx_ + "/n/search/serviceDoctor.do?a="+ Math.random(),
+			          type : 'post',
+			          dataType : 'json',
+			          data :{
+			            "serviceId" : "${service.id }"
+			          },
+			          success:function(data)
+			          {
+						$('#doctor').combobox('setValues', data);
+			          }
+			      });
+			}, 200);
+			
+			</c:if>
 		});
 		function funSaveInfo()
 		{
+			var doctorIds = $("#doctor").combobox("getValues").toString();
 			
 			/**打开进度条**/
 			PageMain.funOpenProgress();
@@ -50,6 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					"edate"	: $("#edate").val(),
 					"icon"	: $("#icon").val(),
 					"memo"	: $("#memo").val(),
+					"doctorIds"	: doctorIds,
 					"content": $("#content").val()
 				},
 				error:function(data)

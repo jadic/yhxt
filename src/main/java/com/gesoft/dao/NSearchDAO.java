@@ -520,4 +520,94 @@ public class NSearchDAO extends EntityDAOImpl<BaseModel, Long>
 	{
 		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyMessageStatusInfoByUserId", model);
 	}
+
+
+	/**
+	 * 描述信息：增加活动与医生关系
+	 * 创建时间：2015年3月24日 上午8:45:34
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 */
+	public void addActivityDoctorInfo(ActivityModel model)
+	{
+		getSqlSession().insert(getMybatisSqlMapNamespace() + ".addActivityDoctorInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：删除活动与医生关系
+	 * 创建时间：2015年3月24日 上午8:58:18
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int delActivityDoctorInfo(ActivityModel model)
+	{
+		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delActivityDoctorInfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：增加服务与医生关系
+	 * 创建时间：2015年3月24日 上午9:06:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 */
+	public void addServiceDoctorInfo(ServiceModel model)
+	{
+		getSqlSession().insert(getMybatisSqlMapNamespace() + ".addServiceDoctorInfo", model);
+	}
+	
+	
+
+	/**
+	 * 描述信息：删除服务与医生关系
+	 * 创建时间：2015年3月24日 上午9:06:25
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int delServiceDoctorInfo(ServiceModel model)
+	{
+		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delServiceDoctorInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：加载医生
+	 * 创建时间：2015年3月24日 上午9:12:20
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<DoctorModel> queryDoctors(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryDoctors", model);
+	}
+	
+	/**
+	 * 描述信息：加载服务与医生关联关系
+	 * 创建时间：2015年3月24日 上午9:23:47
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<DoctorModel> queryServiceDoctorIds(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryServiceDoctorIds", model);
+	}
+	
+	
+	/**
+	 * 描述信息：加载活动与医生关联关系
+	 * 创建时间：2015年3月24日 上午9:23:47
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<DoctorModel> queryActivityDoctorIds(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryActivityDoctorIds", model);
+	}
+	
 }
