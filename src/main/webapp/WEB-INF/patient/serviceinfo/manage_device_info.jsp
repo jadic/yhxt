@@ -64,6 +64,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$("#inputform").submit();
 			});
 			
+			$("#btnsearch").bind("click", function(){
+				$("#inputform").submit();
+			});
 			ComDwr.loadDevType("deviceType", true, "${query.deviceType}");
 		});
 		
@@ -133,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		</td>
 		    		<td>
 			    		<ul>
-			    			<li class="btn_search"><a href="javascript:void(0)" onclick="queryStart()">查询</a></li>
+			    			<li class="btn_search"><a href="javascript:void(0)" id="btnsearch">查询</a></li>
 			    		</ul>
 		    		</td>
 		    	</tr>

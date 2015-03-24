@@ -61,6 +61,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$("#page").val($(this).val());
 				$("#inputform").submit();
 			});
+			
+			$("#btnsearch").bind("click", function(){
+				$("#inputform").submit();
+			});
 		});
 	
 		function buyinfo(obj, id)
@@ -117,7 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		</td>
 		    		<td>
 		    		<ul>
-		    			<li class="btn_search"><a href="javascript:void(0)" onclick="queryStart()">查询</a></li>
+		    			<li class="btn_search"><a href="javascript:void(0)" id="btnsearch">查询</a></li>
 		    		</ul>
 		    		</td>
 		    	</tr>
