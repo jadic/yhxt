@@ -634,6 +634,9 @@
 			<if test="name != null and name != ''">
 			    AND a2.name LIKE CONCAT('%', #{name}, '%') 
 			</if>
+			<if test="senderId != null and senderId > 0">
+			    AND a1.senderId = ${senderId}
+			</if>
 	</select>
 	
 	<!-- 分页显示留言数据-->
@@ -654,6 +657,9 @@
 			</if>
 			<if test="name != null and name != ''">
 			    AND a2.name LIKE CONCAT('%', #{name}, '%') 
+			</if>
+			<if test="senderId != null and senderId > 0">
+			    AND a1.senderId = ${senderId}
 			</if>
 		<![CDATA[
 			order by a1.status, a1.sendTime desc 

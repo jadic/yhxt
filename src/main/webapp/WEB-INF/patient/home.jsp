@@ -100,8 +100,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      </div>
 	      <div class="health_tip">
 	        <ul>
-	          <li class="tgreen_notice">留言</li>
-	          <li class="tgrey_notice">Announcement</li>
+	          <li class="tgreen_notice"></li>
+	          <li class="tgrey_notice"></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -114,20 +114,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		         <li class="bloodPressure_date">
 		           <ul>
 		             <li class="tblack_date" id="last_bloodpressure">132/92<span class="tblack_datemin">mmHg</span></li>
-		             <li class="tgrey_time" id="last_bloodpressure_time">最近一次血压值（2015-02-13 18:53:26）</li>
+		             <li class="tgrey_time" id="last_bloodpressure_time">最近一次血压值（2015-03-23 18:53:26）</li>
 		           </ul>
 		         </li>
 		         <li class="bloodPressure_alarm">
 		           <ul>
 		             <li class="tblack_date" id="last_bloodalert">132/92<span class="tblack_datemin">mmHg</span></li>
-		             <li class="tgrey_time" id="last_bloodalert_time">血压异常记录（2015-02-13 18:53:26）</li>
+		             <li class="tgrey_time" id="last_bloodalert_time">血压异常记录（2015-03-23 18:53:26）</li>
 		           </ul>
 		         </li>
 		         <li class="heartRate_date">
 		           <ul>
 		             <li class="tblack_date" id="last_heartrate">75<span class="tblack_datemin">bpm</span></li>
 		             
-		             <li class="tgrey_time" id="last_heartrate_time">最近一次脉率值（2015-02-13 18:53:26）</li>
+		             <li class="tgrey_time" id="last_heartrate_time">最近一次脉率值（2015-03-23 18:53:26）</li>
 		             
 		           </ul>
 		         </li>

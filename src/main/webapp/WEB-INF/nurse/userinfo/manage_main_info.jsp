@@ -48,6 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <li class="selected" style="width: 132px;"><a style="width:130px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/n/search/userJkzt.do'/>?userId=${query.userId}" target="indexFrame" title="健康状态" >健康状态</a></li>
         <li style="width: 133px;"><a style="width:133px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/n/search/jkda.do'/>?userId=${query.userId}" target="indexFrame" title="健康档案">健康档案</a></li>
         <li style="width: 132px;"><a style="width:133px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/n/search/advice.do'/>?userId=${query.userId}" target="indexFrame" title="医嘱">医嘱</a></li>
+        <li style="width: 132px;"><a style="width:133px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/n/search/userMsgList.do'/>?userId=${query.userId}&senderId=${query.userId}" target="indexFrame" title="留言">留言</a></li>
       </ul>
    </div>
    <div class="tab_box" >

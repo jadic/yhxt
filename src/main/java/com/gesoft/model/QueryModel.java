@@ -34,8 +34,17 @@ public class QueryModel extends BaseModel
 	private String startTime;
 	private String endTime;
 	private String command;
+	private long senderId;
 	
 	
+	public long getSenderId()
+	{
+		return senderId;
+	}
+	public void setSenderId(long senderId)
+	{
+		this.senderId = senderId;
+	}
 	public String getCommand()
 	{
 		return command;

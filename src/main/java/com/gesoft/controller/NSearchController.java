@@ -1602,4 +1602,28 @@ public class NSearchController extends BaseController
         }
         return ids;
     }
+	
+	
+	@RequestMapping(value="/userMsgList.do")
+	public ModelAndView toUserMsgList(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/nurse/userinfo/manage_user_msg");
+		try
+		{
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			long recordCount = nSearchService.queryMessageInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<MessageModel> argArgs = nSearchService.queryMessageInfo(query);
+				result.addObject("messageFlys", argArgs);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toUserMsgList error：", e);
+		}
+		return result;
+	}
 }
