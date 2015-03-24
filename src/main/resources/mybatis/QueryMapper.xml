@@ -637,7 +637,7 @@
 			from tab_user a1
 			inner join tab_user a2 on a1.userId=a2.userId and a1.userSysId=2
 			left join (
-				select nurserId, round(sum(IFNULL(score1,0) + IFNULL(score2,0) + IFNULL(score3, 0))/3) as score 
+				select nurserId, round(sum(IFNULL(score1,0))/ count(1)) as score 
 				from tab_nurser_score 
 				group by nurserId
 			) a3 on a3.nurserId=a2.userId
@@ -666,7 +666,7 @@
 			from tab_user_nurse_relation a1
 			inner join tab_user a2 on a1.nurseId=a2.userId
 			left join (
-				select nurserId, round(sum(IFNULL(score1,0) + IFNULL(score2,0) + IFNULL(score3, 0))/3) as score 
+				select nurserId, round(sum(IFNULL(score1,0))/ count(1)) as score 
 				from tab_nurser_score 
 				group by nurserId
 			) a3 on a3.nurserId=a2.userId
@@ -685,7 +685,7 @@
 			select a2.*, IFNULL(a3.score, 0) as score, IFNULL(a4.cnt,0) as cnt
 			from tab_user a2
 			left join (
-				select nurserId, round(sum(IFNULL(score1,0) + IFNULL(score2,0) + IFNULL(score3, 0))/3) as score 
+				select nurserId, round(sum(IFNULL(score1,0))/ count(1)) as score 
 				from tab_nurser_score 
 				group by nurserId
 			) a3 on a3.nurserId=a2.userId
@@ -743,8 +743,8 @@
 	<!-- 增加签约申请-->
 	<insert id="QueryMapper.addScoreInfo"  parameterType="scoreModel"  useGeneratedKeys="true" keyProperty="id">
 	    <![CDATA[
-	        INSERT INTO tab_nurser_score (userId, nurserId, score1, score2, score3) 
-	        VALUES (#{userId}, #{nurserId}, #{score1}, #{score2}, #{score3})
+	        INSERT INTO tab_nurser_score (userId, nurserId, score1, score2, score3, stime) 
+	        VALUES (#{userId}, #{nurserId}, #{score1}, #{score2}, #{score3}, #{stime})
 	    ]]>
 	</insert>
 	
@@ -758,4 +758,5 @@
 			and a1.userId = #{userId}
 		]]>
 	</select>
+	
 </mapper>

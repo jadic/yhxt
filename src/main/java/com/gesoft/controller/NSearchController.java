@@ -7,6 +7,7 @@
  **/
 package com.gesoft.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -32,6 +33,7 @@ import com.gesoft.model.MsgModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.ServiceModel;
+import com.gesoft.model.TreeNodeModel;
 import com.gesoft.model.UserModel;
 import com.gesoft.service.NSearchService;
 import com.gesoft.service.PQueryService;
@@ -85,6 +87,32 @@ public class NSearchController extends BaseController
 			logger.error("NSearchController toUserList error：", e);
 		}
 		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：加载用户节点树
+	 * 创建时间：2015年3月24日 下午1:09:45
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/userTree.do")
+	public @ResponseBody List<TreeNodeModel> toUserTree(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		List<TreeNodeModel> list = new ArrayList<TreeNodeModel>();
+		try
+		{
+			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			list = nSearchService.queryUserTreeInfo(model);
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toUserTree error：", e);
+		}
+		return list;
 	}
 	
 	
@@ -1400,6 +1428,37 @@ public class NSearchController extends BaseController
 		}
 		return msgModel;
 	}
+	
+	
+	/**
+	 * 描述信息：批量留言
+	 * 创建时间：2015年3月24日 下午1:47:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/sendMsgList.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toSendMessageList(MessageModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setSendTime(SystemUtils.getCurrentSystemTime());
+			model.setSenderId(getSessionUserId(request, SESSION_KEY_NUID));
+			if (pQueryService.addBathSendMessageInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toSendMessageList error：", e);
+		}
+		return msgModel;
+	}
+	
 	
 	
 	/**

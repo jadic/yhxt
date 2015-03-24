@@ -61,6 +61,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$("#page").val($(this).val());
 				$("#inputform").submit();
 			});
+			
+			$("#btnsearch").bind("click", function(){
+				$("#inputform").submit();
+			});
 		});
 		
 		
@@ -114,10 +118,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>    
   <div class="information_modify">
     <div class="information_modify_main" id="main_div">
-    	<div style="width: 100%; float: left; height: 20px;">
-			<form name="inputform" id="inputform"  style="padding: 0px; margin: 0px;" action="<c:url value='/n/search/home.do'/>" method="post">
-				<input id="page" name="page" value="${query.page }" type="hidden"/>
-			</form>
+		<div class="search">
+    	<form id="inputform" name="inputform" action="<c:url value='/n/search/home.do'/>" method="post">
+		    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
+		    	<tr>
+		    		<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    				姓名：
+	    			</td>
+		    		<td>
+		    			<input id="page" name="page" value="${query.page }" type="hidden"/>
+		    			<input class="inputMin_informationModify text-input" type="text" id="name" name="name" value="${query.name }">
+		    		</td>
+		    		<td>
+		    		<ul>
+		    			<li class="btn_search"><a href="javascript:void(0)"  id="btnsearch">查询</a></li>
+		    		</ul>
+		    		</td>
+		    	</tr>
+		    </table>
+		</form>    
 		</div>
         <div class="index_table">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">

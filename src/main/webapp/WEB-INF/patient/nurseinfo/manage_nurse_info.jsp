@@ -63,6 +63,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			PageMain.funCreateWinInfoNew("#div_win", "<c:url value='/patient/pages/send_msg_info.jsp'/>", {userId: "${nurse.userId }"});
 		}
 		
+		var mObj = null;
+		function funDpInfo(obj)
+		{
+			mObj = obj;
+			if(parseInt($(obj).attr("tag")) > 0)
+			{
+				$.messager.alert('信息提示', "您当月已无点评机会", 'info');
+			}	
+			else
+			{
+				PageMain.funCreateWinInfoNew("#div_win", "<c:url value='/patient/pages/dp_nurse_info.jsp'/>", {userId: "${nurse.userId }"});
+			}
+		}
+		
+		function funSaveDpInfo()
+		{
+			$.messager.confirm('确认', "您每月只有一次点评机会哟，您确定要进行点评吗", function(r)
+			{
+				if (r)
+				{
+					$.ajax({
+						url : _ctx_ + "/p/query/addScore.do?a="+ Math.random(),
+						type : 'post',
+						dataType : 'json',
+						data : 
+						{
+							"score1"	: $("#scoreid").val(),
+							"nurserId" 	: $("#nurserId").val()						
+						},
+						error:function(data)
+						{
+						},
+						success:function(data)
+						{
+							if(data.success)
+							{
+								$(mObj).attr("tag", 1);
+							}	
+							$.messager.alert('信息提示', data.msg, 'info');
+							$('#div_win').window('close');
+						}
+					});
+				}
+			});
+		}
 		
 		function funSendInfo()
 		{
@@ -97,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 					else
 					{
-						alert(data.msg);
+						$.messager.alert('信息提示', data.msg, 'error');
 					}	
 				}
 			});
@@ -128,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div class="btn_title_informationModify">
           <ul>
             <li class="tLeft">基本信息</li>
-            <li class="tRight"><a href="javascript:void(0)" onclick="window.history.back();"><img src="<c:url value='/patient/themes/images/btn_dp.png'/>"></a></li>
+            <li class="tRight"><a href="javascript:void(0)" tag="${dpCnt}" onclick="funDpInfo(this)"><img src="<c:url value='/patient/themes/images/btn_dp.png'/>"></a></li>
           </ul>
         </div>
         <div class="informationModify_main">

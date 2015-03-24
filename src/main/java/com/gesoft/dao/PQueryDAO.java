@@ -10,6 +10,7 @@ package com.gesoft.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.BaseModel;
@@ -606,4 +607,6 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	{
 		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryCurrentMonthMessageInfoCnt", model);
 	}
+	
+	
 }

@@ -92,8 +92,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	</a>
             </li>
             <li class="tGrayMax">您好！</li>
-            <li class="tGreen"><a class="title_info" href="<c:url value='/p/health.do'/>" onclick="$('#hMenu1').click()" target="mainFrame" title="${userModel.name }" id="left_memberName" style="color:#0ca7a1;">${userModel.name }</a></li>
-            <li class="tGrayMin" style="font-size:8px;">最近2015-02-28 00:14:35</li>
+            <li class="tGreen"><a class="title_info"  href="<c:url value='/p/health.do'/>" onclick="$('#hMenu1').click()" target="mainFrame" title="${userModel.name }" id="left_memberName" style="color:#0ca7a1; text-decoration: none;">${userModel.name }</a></li>
+            <li class="tGrayMin" style="font-size:8px;">最近登录：2015-03-21</li>
             <li class="wMedical"><a href="<c:url value='/p/health.do'/>" onclick="$('#hMenu1').click()" style="cursor: pointer;" target="mainFrame" title="健康档案">健康档案</a></li>
             <li class="wHome"><a href="<c:url value='/p/healthanalysis.do'/>" onclick="$('#hMenu2').click()" style="cursor: pointer;" target="mainFrame" title="健康分析">健康分析</a></li>
             <li class="tGray">我的家庭成员：

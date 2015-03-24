@@ -1091,6 +1091,7 @@ public class PQueryController extends BaseController
 		try
 		{
 			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			model.setStime(SystemUtils.getCurrentSystemTime());
 			if (pQueryService.addScoreInfo(model) > 0)
 			{
 				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
@@ -1102,6 +1103,5 @@ public class PQueryController extends BaseController
 		}
 		return msgModel;
 	}
-	
 	
 }

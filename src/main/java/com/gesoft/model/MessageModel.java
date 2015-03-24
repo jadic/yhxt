@@ -25,8 +25,17 @@ public class MessageModel extends BaseModel
 	private String readTime;
 	private String msg;
 	private String name;
+	private String receiverIds;
 	
 	
+	public String getReceiverIds()
+	{
+		return receiverIds;
+	}
+	public void setReceiverIds(String receiverIds)
+	{
+		this.receiverIds = receiverIds;
+	}
 	public String getName()
 	{
 		return name;

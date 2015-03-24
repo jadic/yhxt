@@ -71,6 +71,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							funOperInfo(0);
 						}	
 					}
+					else
+					{
+						$("#userList").html("");
+					}	
 					$("#memberNum").html(data.total);
 				}
 			});
@@ -145,6 +149,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 		}
 		
+		function funSendInfoList()
+		{
+			var treeNodes = $('#userTree').tree("getChecked");
+			var userFlys = [];
+			for(var i=0;i<treeNodes.length;i++)
+			{
+				if(treeNodes[i].id != 0)
+				{
+					userFlys.push(treeNodes[i].id);
+				}
+			}
+			
+			if(userFlys.length > 0)
+			{
+				/**打开进度条**/
+				$.ajax({
+					url : _ctx_ + "/n/search/sendMsgList.do?a="+ Math.random(),
+					type : 'post',
+					dataType : 'json',
+					data : 
+					{
+						"receiverIds": userFlys.join(","),
+						"status"	: 0,	
+						"msg"		: $("#content").val()						
+					},
+					error:function(data)
+					{
+					},
+					success:function(data)
+					{
+						if(data.success)
+						{
+							$('<div style="float: right; width: 100%; text-align: right; line-height: 30px;">'+
+									'<img src="<c:url value='/common/themes/icons/24.png'/>" style="float: right; padding-right: 20px; margin-top: 5px;"/>'+
+									'<span style="float: right; padding-right: 5px;">'+$("#content").val()+'</span>'+
+								'</div>').appendTo("#sendmsg");
+							$("#content").val("");
+						}
+						else 
+						{
+							$.messager.alert("提示", data.msg, "info");
+						}
+					}
+				});
+			}	
+			else 
+			{
+				$.messager.alert("提示", "请先选择留言用户", "info");
+			}
+		}
 		function openSendSMS()
 		{
 			PageMain.funCreateWinInfoNew("#div_win", "<c:url value='/nurse/pages/send_alluser_msg_info.jsp'/>", {});

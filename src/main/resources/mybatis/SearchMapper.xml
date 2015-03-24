@@ -156,8 +156,13 @@
 	</resultMap>
 	
 	<!-- 查询医生关联关系ID -->
-	<resultMap id="mDoctorIdMap" 		      type="doctorModel">
-		<result property="doctorId"       column="doctorId"/>
+	<resultMap id="mDoctorIdMap" 		      	type="doctorModel">
+		<result property="doctorId"       		column="doctorId"/>
+	</resultMap>
+	
+	<resultMap id="mRetTreeMap" 					type="treeNodeModel">
+		<result property="id" 						column="id" />
+		<result property="text" 					column="text" />
 	</resultMap>
 	
     <!-- 查询用户列表数据 -->
@@ -753,4 +758,13 @@
 		]]>
 	</select>
 	
+	<!-- 加载用户树-->
+	<select id="SearchMapper.queryUserTreeInfo" parameterType="queryModel"	resultMap="mRetTreeMap">
+		<![CDATA[
+			SELECT a1.userId as id, CONCAT(a1.userName, '(', a1.cellphone, ')') as text
+			FROM tab_user a1
+			INNER JOIN tab_user_nurse_relation a2 on a1.userId=a2.userId
+			where a2.nurseId = #{nurseId}
+		]]>
+	</select>
 </mapper>

@@ -21,6 +21,7 @@ import com.gesoft.model.MessageModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.ServiceModel;
+import com.gesoft.model.TreeNodeModel;
 import com.gesoft.model.UserModel;
 
 /**
@@ -610,4 +611,16 @@ public class NSearchDAO extends EntityDAOImpl<BaseModel, Long>
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryActivityDoctorIds", model);
 	}
 	
+	
+	/**
+	 * 描述信息：加载用户节点树
+	 * 创建时间：2015年3月24日 下午1:10:28
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<TreeNodeModel> queryUserTreeInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryUserTreeInfo", model);
+	}
 }

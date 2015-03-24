@@ -7,6 +7,7 @@
  **/
 package com.gesoft.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -25,6 +26,7 @@ import com.gesoft.model.MessageModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.ServiceModel;
+import com.gesoft.model.TreeNodeModel;
 import com.gesoft.model.UserModel;
 
 /**
@@ -641,6 +643,27 @@ public class NSearchService extends EntityService<BaseModel, Long>
 	public List<DoctorModel> queryActivityDoctorIds(QueryModel model)
 	{
 		return this.nSearchDAO.queryActivityDoctorIds(model);
+	}
+
+
+	/**
+	 * 描述信息：加载用户节点树
+	 * 创建时间：2015年3月24日 下午1:10:28
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<TreeNodeModel> queryUserTreeInfo(QueryModel model)
+	{
+		TreeNodeModel parent = new TreeNodeModel();
+		parent.setId(0);
+		parent.setText("所有");
+		parent.setChildren(nSearchDAO.queryUserTreeInfo(model));
+		
+		List<TreeNodeModel> list = new ArrayList<TreeNodeModel>();
+		list.add(parent);
+		return list;
 	}
 	
 }

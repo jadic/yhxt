@@ -1,0 +1,57 @@
+<anychart>
+	<settings>
+		<animation enabled="True"/>
+	</settings>
+	<charts>
+		<chart plot_type="CategorizedVertical">
+			<data_plot_settings default_series_type="line">
+				<bar_series point_padding="-0.5" group_padding="1">
+					<tooltip_settings enabled="True"/>
+				</bar_series>
+			</data_plot_settings>
+			<chart_settings>
+				<chart_background enabled="false">
+	       	<border enabled="True" thickness="1" type="Gradient"></border>
+	        <inside_margin  all="0" />
+	    </chart_background>
+				<title enabled="true">
+					<text>近期晨峰血压趋势图</text>
+				</title>
+				<legend enabled="True" position="right" align="Center" elements_align="Center">
+		          <title enabled="false" />
+		          <icon>
+		            <marker enabled="true" type="%MarkerType" size="8" />
+		          </icon>
+		        </legend>
+				<axes>
+		         <x_axis>
+		            <title enabled="false">
+		            </title>
+		          </x_axis>	
+		          <y_axis>
+		            <title enabled="true">
+		              <text>升缩压/舒张压(mmHg)</text>
+		              <font color="#135D8C" />
+		            </title>
+		            <labels align="Inside">
+		              <font color="#135D8C" />
+		              <format>{%Value}{numDecimals:0}</format>
+		            </labels>
+		          </y_axis>
+		        </axes>
+			</chart_settings>
+			<data>
+				<series name="舒张压">
+		    	</series>
+		    	
+		    	<series name="平均压">
+		    	</series>
+		    	
+		    	<series name="收缩压">
+		    	</series>
+		    	
+			</data>
+		</chart>
+	</charts>
+</anychart>
+			

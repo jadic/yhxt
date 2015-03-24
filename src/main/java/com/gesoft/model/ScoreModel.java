@@ -17,11 +17,21 @@ public class ScoreModel extends BaseModel
 {
 	private static final long serialVersionUID = 1307533546619731240L;
 	private long id;
-	private long nusersId;
+	private long nurserId;
 	private long userId;
 	private int score1;
 	private int score2;
 	private int score3;
+	private String stime;
+	
+	public String getStime()
+	{
+		return stime;
+	}
+	public void setStime(String stime)
+	{
+		this.stime = stime;
+	}
 	public long getId()
 	{
 		return id;
@@ -30,13 +40,13 @@ public class ScoreModel extends BaseModel
 	{
 		this.id = id;
 	}
-	public long getNusersId()
+	public long getNurserId()
 	{
-		return nusersId;
+		return nurserId;
 	}
-	public void setNusersId(long nusersId)
+	public void setNurserId(long nurserId)
 	{
-		this.nusersId = nusersId;
+		this.nurserId = nurserId;
 	}
 	public long getUserId()
 	{

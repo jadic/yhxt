@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/nurse/common/taglibs-include.jsp" %>
+<%@ include file="/WEB-INF/patient/common/taglibs-include.jsp" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -12,10 +12,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
-	<%@ include file="/WEB-INF/nurse/common/top-include.jsp"%>
-	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
-	
-	<link rel="stylesheet" href="<c:url value='/nurse/themes/health_records.css'/>" type="text/css"/>
+	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
+	<link rel="stylesheet" href="<c:url value='/patient/themes/index_right.css'/>" type="text/css"/>
+	<script type="text/javascript" src="<c:url value='/common/anychart/AnyChart.js'/>" ></script>
+	<script type="text/javascript">
+		var _chart_ = "<c:url value='/common/anychart/AnyChart.swf'/>";
+	</script>   
+
 	<style type="text/css">
 		td{word-break:break-all;}
 		.index_table table#faceTable tr th{
@@ -23,84 +26,128 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</style>
 	<script type="text/JavaScript">
+		$(function(){
+			var chart1 = new AnyChart(_chart_, _chart_);
+		    chart1.width = "100%";
+	        chart1.height = "100%";
+	        chart1.setXMLFile("<c:url value='/patient/pages/config1.xml'/>");
+		    chart1.write("container1");
+			
+		    var chart2 = new AnyChart(_chart_, _chart_);
+		    chart2.width = "100%";
+	        chart2.height = "100%";
+	        chart2.setXMLFile("<c:url value='/patient/pages/config2.xml'/>");
+		    chart2.write("container2");
+		    
+		    var chart3 = new AnyChart(_chart_, _chart_);
+		    chart3.width = "100%";
+	        chart3.height = "100%";
+	        chart3.setXMLFile("<c:url value='/patient/pages/config3.xml'/>");
+		    chart3.write("container3");
+		});
+		
 		function queryStart()
 		{
 			$("#inputform").submit();
 		}
 		
-		function goMerge(id, name, command)
+		function buyinfo(obj, id)
 		{
-			window.location.href = "<c:url value='/n/search/mergeAdvice.do'/>?id="+id + "&name="+name + "&command="+command + "&userId="+${query.userId};
-		}
-		
-		
-		function funDelete(obj, id)
-		{
-			$.messager.confirm('确认', "您确认要删除这条记录吗？", function(r)
-			{
-				if (r)
+			PageMain.funOpenProgress();
+			$.ajax({
+				url : _ctx_ + "/p/query/buyService.do?a="+ Math.random(),
+				type : 'post',
+				dataType : 'json',
+				data : 
 				{
-					/**打开进度条**/
-					PageMain.funOpenProgress();
+					"id": id
+				},
+				error:function(data)
+				{
+					/**关闭进度条**/
+					PageMain.funCloseProgress();
+					$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
+				},
+				success:function(data)
+				{
 					
-					$.ajax({
-						url : _ctx_ + "/n/search/delAdvice.do?a="+ Math.random(),
-						type : 'post',
-						dataType : 'json',
-						data : 
-						{
-							"id": id						
-						},
-						error:function(data)
-						{
-							/**关闭进度条**/
-							PageMain.funCloseProgress();
-							$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
-						},
-						success:function(data)
-						{
-							/**关闭进度条**/
-							PageMain.funCloseProgress();
-							
-							/**数据处理**/
-							if(data.success)
-							{
-								$.messager.alert('信息提示', data.msg, 'info');
-								$(obj).parent().parent().remove();
-							}
-							else
-							{
-								$.messager.alert('信息提示', data.msg, 'error');
-							}
-						}
-					});
+					/**关闭进度条**/
+					PageMain.funCloseProgress();
+					
+					/**数据处理**/
+					if(data.success)
+					{
+						$(obj).parent().html('<span style="color: #2998df; font-weight: bold;">已购买</span>');
+						$.messager.alert('信息提示', data.msg, 'info');
+					}
+					else
+					{
+						$.messager.alert('信息提示', data.msg, 'error');
+					}
 				}
 			});
 		}
 	</script>
   </head>
-<body style="background: #ffffff; min-height: 600px;">
-	<div class="account" >
-		<div class="account_title" >
-	      <ul>
-	        <li class="account_titleGreen" >检测分析</li>
-	        
-	        <li class="account_titleGray" style="padding-top: 1px; padding-bottom:0px; height: 47px;">
-	        	<ul style=" padding-right:10px;">
-	        	      <li class="select_BPhistory" style="width: 140px; height:40px; padding-top: 3px; float: right;">
-	        	      </li>
-	        	</ul>
-	        </li>
-	      </ul>
-	    </div>
-	</div>    
-  <div class="information_modify">
-    <div class="information_modify_main" id="main_div">
-    
-       
-		
-    </div>
-</div>
-   
+<body>
+	<div class="index_welcome">
+		<div class="index_welcome_main">
+			<div class="health_date">
+				<ul>
+		         <li class="tgreen_healthDate"><span class="tgrey_healthDate">健康</span>状况</li>
+		         <li class="bloodPressure_date">
+		           <ul>
+		             <li class="tblack_date" id="last_bloodpressure">132/92<span class="tblack_datemin">mmHg</span></li>
+		             <li class="tgrey_time" id="last_bloodpressure_time">最近一次血压值（2015-02-13 18:53:26）</li>
+		           </ul>
+		         </li>
+		         <li class="bloodPressure_alarm">
+		           <ul>
+		             <li class="tblack_date" id="last_bloodalert">132/92<span class="tblack_datemin">mmHg</span></li>
+		             <li class="tgrey_time" id="last_bloodalert_time">血压异常记录（2015-02-13 18:53:26）</li>
+		           </ul>
+		         </li>
+		         <li class="heartRate_date">
+		           <ul>
+		             <li class="tblack_date" id="last_heartrate">75<span class="tblack_datemin">bpm</span></li>
+		             
+		             <li class="tgrey_time" id="last_heartrate_time">最近一次脉率值（2015-02-13 18:53:26）</li>
+		             
+		           </ul>
+		         </li>
+		       </ul>
+	       </div>
+	       
+	       
+	       <div class="bpDiagnosis_results" id="doctorAdvice" style="display:block;margin-top:8px">
+	       		<div style="text-align: left;width:100%;color:#0ca7a1;font:18px/30px '微软雅黑'; font-weight: bolder;">最新医嘱</div>
+	       		<div class="bpDiagnosis_results_text" style="font-size: 12px;width: 100%;">
+					<ul id="advice">
+						<li class="tgreen_results" style="font-size: 16px; padding-left:20px">测压目标：</li>
+						<li class="tblack_results" style="font-size: 13px; padding-left:30px" id="goal">暂无</li>
+						
+						<li class="tgreen_results" style="font-size: 16px; padding-left:20px">测压方案：</li>
+						<li class="tblack_results" style="font-size: 13px; padding-left:30px" id="plan">暂无</li>
+						
+						<li class="tgreen_results" style="font-size: 16px; padding-left:20px">用药推荐：</li>
+						<li class="tblack_results" style="font-size: 13px; padding-left:30px" id="medicine">暂无</li>
+						
+						<li class="tgreen_results" style="font-size: 16px; padding-left:20px">保健建议：</li>
+	         			<li class="tblack_results" style="font-size: 13px; padding-left:30px" id="suggestion">暂无</li>
+					</ul>
+				</div>
+		  	</div>
+		  	
+		  	
+		  	 <div class="bpDiagnosis_results"  style="display:block;margin-top:8px">
+		  	 	<div class="bpDiagnosis_results_trendChart" style="width: 310px;" id="container1"></div> 
+       			<div class="bpDiagnosis_results_trendChart"  id="container2" style="padding-left: 10px; width:310px; "></div>
+		  	 </div>
+		  	 <div class="bpDiagnosis_results"  style="display:block;margin-top:8px">
+		  	 	<div class="bpDiagnosis_results_trendChart" style="width: 310px;" id="container3"></div> 
+       			<div class="bpDiagnosis_results_trendChart"  id="container4" style="padding-left: 10px; width:310px; "></div>
+		  	 </div>
+		</div>
+	</div>
 </body>
 </html>

@@ -564,6 +564,30 @@ public class PQueryService extends EntityService<BaseModel, Long>
 
 	
 	/**
+	 * 描述信息：批量增加留言
+	 * 创建时间：2015年3月24日 下午1:51:40
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addBathSendMessageInfo(MessageModel model)
+	{
+		int nRet = 0;
+		if (model.getReceiverIds() != null && model.getReceiverIds().trim().length() > 0)
+		{
+			String[] receiverFlys = model.getReceiverIds().split("\\,");
+			for (String receiverId : receiverFlys)
+			{
+				model.setReceiverId(Long.parseLong(receiverId));
+				pQueryDAO.addSendMessageInfo(model);
+			}
+		}
+		nRet = 1;
+		return nRet;
+	}
+	
+	
+	/**
 	 * 描述信息：加载消息数据
 	 * 创建时间：2015年3月11日 上午9:26:23
 	 * @author WCL (ln_admin@yeah.net)
@@ -602,4 +626,5 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	{
 		return pQueryDAO.queryCurrentMonthMessageInfoCnt(model);
 	}
+
 }

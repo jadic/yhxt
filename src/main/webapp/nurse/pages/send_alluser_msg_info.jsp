@@ -18,6 +18,13 @@
         		$('#div_win').window('destroy');
         	}
 		});
+		
+		$('#userTree').tree({
+	          url:_ctx_+'/n/search/userTree.do',
+	          checkbox:true,
+	          onClick:function(node){
+	          }
+		});
 	});
 //-->
 </script>
@@ -26,7 +33,9 @@
 		<div region="center" border="false" align="left" style="background:#fff; padding: 1px;">
             <table style="width: 100%; height: 100%;" border="0" cellpadding="0" cellspacing="0">
     			<tr>
-    				<td style="width: 200px; border: solid #ccc; border-width: 1px 0px 1px 1px;"></td>
+    				<td style="width: 200px; border: solid #ccc; border-width: 1px 0px 1px 1px;" valign="top">
+    					<ul id="userTree" animate="true"></ul>
+    				</td>
     				<td style="border: solid #ccc; border-width: 1px;">
     					<table style="width: 100%; height: 400px;" border="0" cellpadding="0" cellspacing="0">
     						<tr>
@@ -46,7 +55,7 @@
     						</tr>
     						<tr>
     							<td style="height: 40px; background: #f7f7f7; padding-right: 20px; border-top: 1px solid #ccc;" align="right">
-    								<a href="javascript:void(0)" onclick="funSendInfo();" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-ok'">发送信息</a>
+    								<a href="javascript:void(0)" onclick="funSendInfoList();" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-ok'">发送信息</a>
     								<a href="javascript:void(0)" onclick="$('#div_win').window('close');" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cancel'">关闭留言板</a>
     							</td>
     						</tr>

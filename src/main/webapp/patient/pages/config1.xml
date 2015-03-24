@@ -1,0 +1,87 @@
+<anychart>
+	<settings>
+		<animation enabled="True"/>
+	</settings>
+	<charts>
+		<chart plot_type="CategorizedVertical">
+			<data_plot_settings default_series_type="line">
+				<bar_series point_padding="-0.5" group_padding="1">
+					<tooltip_settings enabled="True"/>
+				</bar_series>
+			</data_plot_settings>
+			<chart_settings>
+				<chart_background enabled="false">
+	       	<border enabled="True" thickness="1" type="Gradient"></border>
+	        <inside_margin  all="0" />
+	    </chart_background>
+				<title enabled="true">
+					<text>近期血压趋势图</text>
+				</title>
+				<legend enabled="True" position="right" align="Center" elements_align="Center">
+		          <title enabled="false" />
+		          <icon>
+		            <marker enabled="true" type="%MarkerType" size="8" />
+		          </icon>
+		        </legend>
+				<axes>
+		         <x_axis>
+		            <title enabled="false">
+		            </title>
+		          </x_axis>	
+		          <y_axis>
+		            <title enabled="true">
+		              <text>升缩压/舒张压(mmHg)</text>
+		              <font color="#135D8C" />
+		            </title>
+		            <labels align="Inside">
+		              <font color="#135D8C" />
+		              <format>{%Value}{numDecimals:0}</format>
+		            </labels>
+		          </y_axis>
+		        </axes>
+			</chart_settings>
+			<data>
+				<series name="舒张压">
+		    		<point name="0" y="22"/>
+		    		<point name="1" y="34"/>
+		    		<point name="2" y="16"/>
+		    		<point name="3" y="32"/>
+		    		<point name="4" y="68"/>
+		    		<point name="5" y="56"/>
+		    		<point name="6" y="67"/>
+		    		<point name="7" y="45"/>
+		    		<point name="8" y="36"/>
+		    		<point name="9" y="75"/>
+		    	</series>
+		    	
+		    	<series name="平均压">
+		    		<point name="0" y="43"/>
+		    		<point name="1" y="45"/>
+		    		<point name="2" y="46"/>
+		    		<point name="3" y="86"/>
+		    		<point name="4" y="45"/>
+		    		<point name="5" y="78"/>
+		    		<point name="6" y="95"/>
+		    		<point name="7" y="68"/>
+		    		<point name="8" y="47"/>
+		    		<point name="9" y="67"/>
+		    	</series>
+		    	
+		    	<series name="收缩压">
+		    		<point name="0" y="28"/>
+		    		<point name="1" y="56"/>
+		    		<point name="2" y="67"/>
+		    		<point name="3" y="32"/>
+		    		<point name="4" y="27"/>
+		    		<point name="5" y="36"/>
+		    		<point name="6" y="68"/>
+		    		<point name="7" y="79"/>
+		    		<point name="8" y="57"/>
+		    		<point name="9" y="34"/>
+		    	</series>
+		    	
+			</data>
+		</chart>
+	</charts>
+</anychart>
+			
