@@ -10,7 +10,6 @@ package com.gesoft.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.BaseModel;
@@ -298,6 +297,19 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	{
 		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyUserBaseInfo", model);
 	}
+	
+	/**
+	 * 描述信息：修改照片数据
+	 * 创建时间：2015年3月24日 下午6:43:55
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserPhotoInfo(UserModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyUserPhotoInfo", model);
+	}
+	
 	
 	/**
 	 * 描述信息：修改用户详细信息

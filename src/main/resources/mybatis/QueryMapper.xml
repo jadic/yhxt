@@ -447,6 +447,16 @@
 	</update>
 	
 	
+	<!-- 修改用户照片信息 -->
+	<update id="QueryMapper.modifyUserPhotoInfo" parameterType="userModel">
+		<![CDATA[
+			UPDATE tab_user  SET  
+			photo=#{photo}
+			WHERE userId = #{userId}
+		]]>
+	</update>
+	
+	
 	<!-- 修改用户详细信息 -->
 	<update id="QueryMapper.modifyUserDetailInfo" parameterType="userModel">
 		<![CDATA[

@@ -97,7 +97,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			else
 			{
 				$("#age").html("年龄：- 岁");
+			}
+			if(user.photo != null && user.photo != "" && typeof(user.photo) != "undefined")
+			{
+				$("#header_photo").attr("src", "<c:url value='/'/>" + user.photo);
 			}	
+			else
+			{
+				$("#header_photo").attr("src", "<c:url value='/nurse/themes/images/btn_editor.png'/>");
+			}
 			$("#credentials_id").html(user.credentialNo);
 			$("#cell_phone").html(user.cellphone);
 			$("#phone").html(user.homePhone);

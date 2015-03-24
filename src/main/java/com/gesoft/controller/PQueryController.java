@@ -512,6 +512,34 @@ public class PQueryController extends BaseController
 	
 	
 	/**
+	 * 描述信息：修改照片
+	 * 创建时间：2015年3月24日 下午6:42:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyUserPhoto.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toModifyUserPhoto(UserModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if (pQueryService.modifyUserPhotoInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toModifyUserPhoto error：", e);
+		}
+		return msgModel;
+	}
+	
+	/**
 	 * 描述信息：修改用户详细信息
 	 * 创建时间：2015年3月8日 下午10:23:59
 	 * @author WCL (ln_admin@yeah.net)

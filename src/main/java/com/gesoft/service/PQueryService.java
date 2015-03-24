@@ -294,6 +294,19 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	
 	
 	/**
+	 * 描述信息：修改照片数据
+	 * 创建时间：2015年3月24日 下午6:43:55
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserPhotoInfo(UserModel model)
+	{
+		return pQueryDAO.modifyUserPhotoInfo(model);
+	}
+	
+	
+	/**
 	 * 描述信息：修改用户详细信息
 	 * 创建时间：2015年3月8日 下午10:24:53
 	 * @author WCL (ln_admin@yeah.net)

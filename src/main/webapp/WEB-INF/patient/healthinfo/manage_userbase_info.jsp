@@ -128,6 +128,85 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});
 			}	
 		}
+		
+		function funUploadFileInfo()
+		{
+			try
+			{
+				var uploadFile = dwr.util.getValue("file"); 
+			    var filenames = uploadFile.value.split("\\"); 
+			    if(filenames.length <= 1)
+			    {
+			    	filenames = uploadFile.value.split("/"); 
+			    }	
+			    var filename = filenames[filenames.length-1].toLowerCase(); 
+			    var fileType = filename.substring(filename.indexOf("."));
+			    if(fileType == ".jpg" || fileType == ".bmp" || fileType == ".png" || fileType == ".gif")
+			    {
+				    loadDwr.uploadFileInfo(uploadFile, filename, {"callback":function(data){
+				    	if(data == 1 || data == "1")
+				    	{
+				    		$.messager.alert("提示", "图片上传失败", "error");
+				    		$("#showtitle").val("图片上传在功！");
+				    	}
+				    	else
+				    	{
+				    		$("#showtitle").val("图片上传在功！");
+				    		$("#photo").val(data);
+				    		$("#header_photo").attr("src", _ctx_+data);
+				    	}	
+					}});  
+			    }
+			    else
+			    {
+			    	$.messager.alert("提示", "上传的照片类型应当为jpg/bmp/png/gif！", "error");
+			    }
+			}catch(e)
+			{
+			}
+		}
+		
+		function funOpenPhotoInfo()
+		{
+			PageMain.funCreateWinInfoNew("#div_win", "<c:url value='/patient/pages/user_phone_info.jsp'/>", {});
+		}
+		
+		
+		function funSavePhotoInfo()
+		{
+			PageMain.funOpenProgress();
+			$.ajax({
+				url : _ctx_ + "/p/query/modifyUserPhoto.do?a="+ Math.random(),
+				type : 'post',
+				dataType : 'json',
+				data : 
+				{
+					"photo" : $("#photo").val()
+				},
+				error:function(data)
+				{
+					/**关闭进度条**/
+					PageMain.funCloseProgress();
+					$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
+				},
+				success:function(data)
+				{
+					/**关闭进度条**/
+					PageMain.funCloseProgress();
+					
+					/**数据处理**/
+					if(data.success)
+					{
+						$('#div_win').window('close');
+						$.messager.alert('信息提示', data.msg, 'info');
+					}
+					else
+					{
+						$.messager.alert('信息提示', data.msg, 'error');
+					}
+				}
+			});
+		}
 	</script>
   </head>
 <body>
@@ -154,16 +233,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				<table>
 	    					<tr>
 	    						<td>
+	    							<c:if test="${empty  userModel.photo}">
 	    							<img style="width:120px; height: 160px;" id="header_photo" src="<c:url value='/patient/themes/images/default_head.gif'/>">
+	    							</c:if>
+	    							<c:if test="${not empty  userModel.photo}">
+	    							<img style="width:120px; height: 160px;" id="header_photo" src="<c:url value='/'/>${userModel.photo}">
+	    							</c:if>
 	    						</td>
 	    					</tr>
 	    					<tr>	
 	    						<td class="thead_informationModify">
-	    							<a href="javascript:void(0)" style="font-size: 14px;">修改图像</a>
+	    							<a href="javascript:void(0)" style="font-size: 14px;" onclick="funOpenPhotoInfo()">修改图像</a>
 	    						</td>
 	    					</tr>
 	    				</table>
-	    				<input id="photo" name="photo" type="hidden"/>
+	    				<input id="photo" name="photo" type="hidden" value="${userModel.photo}" />
 	    			</td>
 	    		</tr>
 	    		<tr>
