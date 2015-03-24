@@ -52,6 +52,52 @@ public class PQueryController extends BaseController
 	@Resource
 	private PQueryService pQueryService;
 	
+	@RequestMapping(value="/main.do")
+	public ModelAndView main(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/main");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+			
+			UserModel mUserModel= pQueryService.queryUserBaseInfo(query);
+			result.addObject("userModel", mUserModel);
+			
+			
+			//加载亲人
+			query.setStartNum(0);
+			query.setRows(1000);
+			List<RelativePhoneModel> relativeFlys = pQueryService.queryRelativePhoneInfo(query);
+			if (relativeFlys != null && relativeFlys.size() > 0)
+			{
+				result.addObject("relativeFlys", relativeFlys);
+			}
+			
+			
+			//加载我的设备
+			query.setType(-1);
+			List<DeviceModel> deviceFlys = pQueryService.queryDeviceInfo(query);
+			if (deviceFlys != null && deviceFlys.size() > 0)
+			{
+				result.addObject("deviceFlys", deviceFlys);
+			}
+			
+			//加载我的医护人员
+			//加载我的医护人员
+			UserModel mRetNurse = pQueryService.queryMyNurseInfo(query);
+			if (mRetNurse != null)
+			{
+				result.addObject("nurseModel", mRetNurse);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController main error：", e);
+		}
+		return result;
+	}
+	
 	/**
 	 * 描述信息：查询建议-健康分析
 	 * 创建时间：2015年3月5日 上午5:18:15
@@ -869,7 +915,7 @@ public class PQueryController extends BaseController
 				
 				// 判断是否当月已点评过
 				query.setNurseId(mRetUser.getUserId());
-				int nRet = pQueryService.queryCurrentMonthMessageInfoCnt(query);
+				long nRet = pQueryService.queryCurrentMonthMessageInfoCnt(query);
 				result.addObject("dpCnt", nRet);
 			}
 		}
@@ -1055,4 +1101,6 @@ public class PQueryController extends BaseController
 		}
 		return msgModel;
 	}
+	
+	
 }

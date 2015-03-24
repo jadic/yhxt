@@ -232,6 +232,10 @@ public class BaseController implements Constants
 	protected long getSessionUserId(HttpServletRequest request, String sessionKey)
 	{
 		long mUserId = 1L;
+		if (sessionKey.equals(SESSION_KEY_NUID))
+		{
+			mUserId = 2L;
+		}
 		HttpSession session = request.getSession();
 		try
 		{

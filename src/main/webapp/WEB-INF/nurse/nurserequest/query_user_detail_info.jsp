@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <div class="information_modify_main" id="main_div">
 	    	<div class="btn_title_informationModify" style="margin-top: 20px;">
 	          <ul>
-	            <li class="tLeft">医护人员信息</li>
+	            <li class="tLeft">用户addb信息</li>
 	            <li class="tRight"><a href="javascript:void(0)" onclick="window.history.back();"><img src="<c:url value='/nurse/themes/images/btn_back.png'/>"></a></li>
 	          </ul>
 	        </div>
@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        
 	        <div class="btn_title_informationModify">
 	          <ul>
-	            <li class="tLeft">医护人员详细信息</li>
+	            <li class="tLeft">用户详细信息</li>
 	          </ul>
 	        </div>
 	        <div class="informationModify_main">

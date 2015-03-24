@@ -603,7 +603,7 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	 * @param query
 	 * @return
 	 */
-	public int queryCurrentMonthMessageInfoCnt(QueryModel model)
+	public long queryCurrentMonthMessageInfoCnt(QueryModel model)
 	{
 		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryCurrentMonthMessageInfoCnt", model);
 	}

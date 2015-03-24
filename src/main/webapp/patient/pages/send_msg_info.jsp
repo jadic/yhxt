@@ -2,12 +2,12 @@
 <script type="text/javascript">
 <!--
 	$(function(){
-		PageMain.funSetWinMaxAttr(600, 475, "用户留言板", "icon-edit");
+		PageMain.funSetWinMaxAttr(500, 375, "留言", "icon-edit");
 		$('#div_win').window({
 			modal: true,
 			title : PageMain.mWinTitle,
 			shadow: false,
-			top: 150,
+			top: 100,
 			left: PageMain.mWinMaxLeft,
 			width: PageMain.mWinMaxWidth,
 			height: PageMain.mWinMaxHeight,
@@ -29,10 +29,10 @@
     			<tr>
     				<td style="width: 150px; border: solid #ccc; border-width: 1px; display: none;"></td>
     				<td style="border: solid #ccc; border-width: 1px;">
-    					<table style="width: 100%; height: 400px;" border="0" cellpadding="0" cellspacing="0">
+    					<table style="width: 100%; height: 300px;" border="0" cellpadding="0" cellspacing="0">
     						<tr>
     							<td style="border: 0px;">
-    								<div style="width: 100%; height: 250px; max-height: 250px; overflow: auto;" id="sendmsg">
+    								<div style="width: 100%; height: 170px; max-height: 170px; overflow: auto;" id="sendmsg">
     									
     								</div>
     							</td>
@@ -41,7 +41,7 @@
     							<td style="height: 40px; background: #f7f7f7; padding-left: 10px; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;" align="left">留言回复</td>
     						</tr>
     						<tr>
-    							<td style="height: 100px;">
+    							<td style="height: 80px;">
     								<textarea class="text-input " style="width: 100%; height: 100%;" id="content"></textarea>
     							</td>
     						</tr>

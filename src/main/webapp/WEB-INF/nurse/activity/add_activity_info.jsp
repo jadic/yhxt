@@ -166,7 +166,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    				参与医生：
 		    			</td>
 		    			<td align="left">
-		    				<input class="inputMin_informationModify text-input" type="text" id="doctor" value="${nurseRequest.userName }" maxlength="16" style="width: 400px;">
+		    				<select id="doctor" style="width:410px;height:60px">
+                      		</select>
 		    			</td>
 		    		</tr>
 		    		<tr>

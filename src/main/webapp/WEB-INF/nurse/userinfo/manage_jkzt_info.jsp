@@ -83,12 +83,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="account" >
 		<div class="account_title" >
 	      <ul>
-	        <li class="account_titleGreen">医嘱历史</li>
+	        <li class="account_titleGreen" >检测分析</li>
 	        
 	        <li class="account_titleGray" style="padding-top: 1px; padding-bottom:0px; height: 47px;">
 	        	<ul style=" padding-right:10px;">
 	        	      <li class="select_BPhistory" style="width: 140px; height:40px; padding-top: 3px; float: right;">
-	        	      	<input type="button" style="cursor: pointer;" class="btn_save" name="begin_date" value="新建医嘱" onclick="goMerge(0, '新增医嘱', 'addAdvice')">
 	        	      </li>
 	        	</ul>
 	        </li>
@@ -97,74 +96,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>    
   <div class="information_modify">
     <div class="information_modify_main" id="main_div">
-    	<div class="search">
-    	<form id="inputform" name="inputform" action="<c:url value='/n/search/advice.do'/>?userId=${query.userId}" method="post">
-		    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
-		    	<tr>
-		    		<td align="right" style="padding: 5px 5px 5px 0; width:80px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				开始时间：
-	    			</td>
-		    		<td>
-		    			<input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" style="width: 140px;" type="text" id="startTime" name="startTime" value="${query.startTime }">
-		    		</td>
-		    		<td style="width: 30px;"></td>
-		    		<td align="right" style="padding: 5px 5px 5px 0; width:80px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				结束时间：
-	    			</td>
-		    		<td>
-		    			<input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" style="width: 140px;" type="text" id="endTime" name="endTime" value="${query.endTime }">
-		    		</td>
-		    		<td>
-			    		<ul>
-			    			<li class="btn_search"><a href="javascript:void(0)" onclick="queryStart()">查询</a></li>
-			    		</ul>
-		    		</td>
-		    	</tr>
-		    </table>
-		</form>    
-		</div>
-        <div class="index_table">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
-					<tbody>
-						<tr class="even">
-							<th style="width: 35%;">服务名称</th>
-							<th style="width: 15%;">医嘱类型</th>
-							<th style="width: 25%;">时间</th>
-							<th style="width: 25%;">操作</th>
-						</tr>
-						
-						
-						<c:if test="${not empty adviceFlys }">
-							<c:forEach items="${adviceFlys }" var="adviceItem" varStatus="item">
-								<tr class='<c:if test="${item.index mod 2 == 0 }">abnormal odd</c:if><c:if test="${item.index mod 2 == 1 }">even</c:if>' style="height: 40px;">
-									<td><a href="<c:url value='/n/search/showAdvice.do'/>?id=${adviceItem.id}"><div style="width:190px; text-overflow:ellipsis; white-space:nowrap; *white-space:nowrap; overflow:hidden; 
-									">${adviceItem.adviceContent }</div></a></td>
-									<td>${adviceItem.typeName }</td>
-									<td>${adviceItem.adviceTime }</td>
-									<td>
-										<a href="javascript:void(0)" onclick="goMerge(${adviceItem.id}, '修改医嘱', 'modifyAdvice')"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">编辑</a>
-										<a href="javascript:void(0)" onclick="funDelete(this, ${adviceItem.id})"><img src="<c:url value='/patient/themes/images/phone_del.png'/>">删除</a>
-									</td>
-								</tr>
-							</c:forEach>
-						</c:if>
-					</tbody>
-				</table>
-		</div>
-		<div class="index_page">
-		  <ul>
-		    <li class="page_information">共<span id="showcount">10</span>条信息，当前：第<span id="showcurrentnum">1</span>页，共<span id="showpagecount">1</span>页</li>
-		    <li class="page_button">
-			    <a href="###" class="page-first">首页</a>
-			    <a href="###" class="page-perv">上一页</a>
-			    <a href="###" class="page-next">下一页</a>
-			    <a href="###" class="page-last">末页</a>
-		    </li>
-		    <li class="page_select">
-		    转<select id="gopage" onchange="gotoPage()"><option value="1">1</option></select>页
-		    </li>
-		  </ul>
-		</div>
+    
+       
+		
     </div>
 </div>
    

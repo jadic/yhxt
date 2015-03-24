@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </ul>
    </div>
    <div class="tab_box" >
-       <iframe id="indexFrame"  name = "indexFrame" src="<c:url value='/n/search/usermsg.do'/>?userId=${query.userId}"  frameborder="0" width="100%"  scrolling="no"  onload="sonIframeResize();"></iframe>
+       <iframe id="indexFrame"  name = "indexFrame" src="<c:url value='/n/search/userJkzt.do'/>?userId=${query.userId}"  frameborder="0" width="100%"  scrolling="no"  onload="sonIframeResize();"></iframe>
    </div> 
   </div>   
    

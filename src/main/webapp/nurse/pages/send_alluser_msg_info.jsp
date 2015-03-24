@@ -7,7 +7,7 @@
 			modal: true,
 			title : PageMain.mWinTitle,
 			shadow: false,
-			top: 100,
+			top: 150,
 			left: PageMain.mWinMaxLeft,
 			width: PageMain.mWinMaxWidth,
 			height: PageMain.mWinMaxHeight,
@@ -19,10 +19,9 @@
         	}
 		});
 	});
-
 //-->
 </script>
-<div id="div_win" class="easyui-window" title="角色管理"  closed="false" maximizable="false" minimizable="false" collapsible="false"  style="background: #fafafa;">
+<div id="div_win" class="easyui-window" closed="false" maximizable="false" minimizable="false" collapsible="false"  style="background: #fafafa;">
 	<div class="easyui-layout" fit="true">
 		<div region="center" border="false" align="left" style="background:#fff; padding: 1px;">
             <table style="width: 100%; height: 100%;" border="0" cellpadding="0" cellspacing="0">

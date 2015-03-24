@@ -14,18 +14,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/nurse/common/top-include.jsp"%>
 	<%@ include file="/WEB-INF/nurse/common/easyui-include.jsp"%>
-	<style>
-		.window {
-		  background-color: #0ca7a1;
-		  background: -webkit-linear-gradient(top,#0ca7a1 0,#60e3de 20%);
-		  background: -moz-linear-gradient(top,#0ca7a1 0,#60e3de 20%);
-		  background: -o-linear-gradient(top,#0ca7a1 0,#60e3de 20%);
-		  background: linear-gradient(to bottom,#0ca7a1,#60e3de 20%);
-		  background-repeat: repeat-x;
-		  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#0ca7a1,endColorstr=#60e3de,GradientType=0);
-		}
-	</style>
 	<script type="text/JavaScript">
+		$(function(){
+			$("#helathMenuNav li").bind("click", function(){
+				$("#helathMenuNav li").removeClass("indexMenu_secondary_activation");
+				$(this).addClass("indexMenu_secondary_activation");
+			});
+		});
+	
 		function reinitIframe() 
 		{
 			var iframe = document.getElementById("mainFrame");
@@ -102,13 +98,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#cell_phone").html(user.cellphone);
 			$("#phone").html(user.homePhone);
 			$("#address").html(user.homeAddress);
+			$("#baseId").attr("href", "<c:url value='/n/search/usermain.do'/>?userId="+user.userId);
 		}
 		function cilckUser(item)
 		{
 			funOperInfo(item);
 			var user = userList[item];
-			//
-			PageMain.funCreateWinInfoNew("#div_win", "<c:url value='/nurse/pages/send_msg_info.jsp'/>", {userId: user.userId});
 			$("#mainFrame").attr("src", "<c:url value='/n/search/usermain.do'/>?userId="+user.userId);
 		}
 		
@@ -182,12 +177,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="indexMenu_secondary">
       <div class="indexMenu_secondary_main">
         <ul id="helathMenuNav">
-          <li id="hMenu0" onclick="activeHelathMenu(0)" class="indexMenu_secondary_activation"><a id="ahome" href="<c:url value='/n/search/home.do'/>" target="mainFrame" title="欢迎页">首页</a></li>
-          <li id="hMenu3" onclick="activeHelathMenu(3)"><a href="<c:url value='/n/search/baseuser.do'/>" target="mainFrame" title="我的档案">我的档案</a></li>
-          <li id="hMenu1" onclick="activeHelathMenu(1)"><a href="<c:url value='/n/search/activity.do'/>" target="mainFrame" title="我的活动">我的活动</a></li>
-          <li id="hMenu4" onclick="activeHelathMenu(4)"><a href="<c:url value='/n/search/service.do'/>" target="mainFrame" title="我的服务">我的服务</a></li>
-          <li id="hMenu5" onclick="activeHelathMenu(5)"><a href="<c:url value='/n/search/nurseRequest.do'/>" target="mainFrame" title="我的签约">我的签约</a></li>
-          <li id="hMenu6" onclick="activeHelathMenu(5)"><a href="<c:url value='/n/search/doctor.do'/>" target="mainFrame" title="账户/套餐">平台医生</a></li>
+          <li id="hMenu0" class="indexMenu_secondary_activation"><a id="ahome" href="<c:url value='/n/search/home.do'/>" target="mainFrame" title="首页">首页</a></li>
+          <li id="hMenu1"><a href="<c:url value='/n/search/baseuser.do'/>" target="mainFrame" title="我的档案">我的档案</a></li>
+          <li id="hMenu2"><a href="<c:url value='/n/search/activity.do'/>" target="mainFrame" title="我的活动">我的活动</a></li>
+          <li id="hMenu3"><a href="<c:url value='/n/search/service.do'/>" target="mainFrame" title="我的服务">我的服务</a></li>
+          <li id="hMenu4"><a href="<c:url value='/n/search/nurseRequest.do'/>" target="mainFrame" title="我的签约">我的签约</a></li>
+          <li id="hMenu5"><a href="<c:url value='/n/search/doctor.do'/>" target="mainFrame" title="平台医生">平台医生</a></li>
         </ul> 
       </div>
     </div>
@@ -221,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="wInformation">
           <ul id="member_detail">
             <li class="wInformation_img"><img id="header_photo" src="<c:url value='/nurse/themes/images/default_head.gif'/>" width="145" height="165"></li>
-            <li class="tGreen"><span id="membername" title=""></span><a style="display: none;" title="基本信息" href="/doctor/jsp/doctor/userarchives/userarchives.jsp" target="indexFrame"><img src="<c:url value='/nurse/themes/images/phone_editor.png'/>"></a></li>
+            <li class="tGreen"><span id="membername" title=""></span><a id="baseId" title="基本信息" target="mainFrame"><img src="<c:url value='/nurse/themes/images/phone_editor.png'/>"></a></li>
             <li class="tGrayMin" id="sex">性别：男</li>
             <li class="tGrayMin" id="age">年龄：岁</li>
             <li class="tGray">身份证号：</li>

@@ -7,8 +7,13 @@
  **/
 package com.gesoft.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.gesoft.model.QueryModel;
 
 /**
  * @author WCL
@@ -19,12 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/p")
 public class PIndexController extends BaseController
 {
-	@RequestMapping(value="/main.do")
-	public String main()
-	{
-		return "/patient/main";
-	}
-	
 	
 	/**
 	 * 描述信息：健康档案
@@ -33,8 +32,9 @@ public class PIndexController extends BaseController
 	 * @return
 	 */
 	@RequestMapping(value="/health.do")
-	public String toHealth()
+	public String toHealth(QueryModel model, HttpServletRequest request, HttpServletResponse response)
 	{
+		request.setAttribute("query", model);
 		return "/patient/healthinfo/manage_health_info";
 	}
 	
@@ -73,8 +73,9 @@ public class PIndexController extends BaseController
 	 * @return
 	 */
 	@RequestMapping(value="/servicedevice.do")
-	public String toServiceDevice()
+	public String toServiceDevice(QueryModel model, HttpServletRequest request, HttpServletResponse response)
 	{
+		request.setAttribute("query", model);
 		return "/patient/serviceinfo/manage_service_device_info";
 	}
 	

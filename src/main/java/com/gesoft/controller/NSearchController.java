@@ -1355,20 +1355,20 @@ public class NSearchController extends BaseController
 	 * @return
 	 */
 	@RequestMapping(value="/goMsg.do")
-	public ModelAndView toGoMsg(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	public @ResponseBody MsgModel toGoMsg(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
-		ModelAndView result = new ModelAndView("/nurse/manage_send_msg");
+		MsgModel msgModel = new MsgModel();
 		try
 		{
-			result.addObject("query", query);
 			query.setStartTime(SystemUtils.getCurrentSystemTime());
 			nSearchService.modifyMessageStatusInfo(query);
+			msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
 		}
 		catch (Exception e)
 		{
 			logger.error("NSearchController toGoMsg error：", e);
 		}
-		return result;
+		return msgModel;
 	}
 	
 	

@@ -45,12 +45,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="index_tab">   
    <div class="tab_menu">
       <ul>
-        <li class="selected"><a style="width:166px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/query/service.do'/>" target="indexFrame" title="基本信息" >我的服务</a></li>
-        <li><a style="width:166px; height: 48px; display:block; text-decoration:none;color:#fff; " href="<c:url value='/p/query/device.do'/>?deviceType=-1&type=-1" target="indexFrame" title="健康病历">我的设备</a></li>
+        <li  <c:if test="${query.type != 1 }">class="selected"</c:if>><a style="width:166px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/p/query/service.do'/>" target="indexFrame" title="基本信息" >我的服务</a></li>
+        <li  <c:if test="${query.type == 1 }">class="selected"</c:if>><a style="width:166px; height: 48px; display:block; text-decoration:none;color:#fff; " href="<c:url value='/p/query/device.do'/>?deviceType=-1&type=-1" target="indexFrame" title="健康病历">我的设备</a></li>
       </ul>
    </div>
    <div class="tab_box" >
-       <iframe id="indexFrame"  name = "indexFrame" src="<c:url value='/p/query/service.do'/>"  frameborder="0" width="100%"  scrolling="no"  onload="sonIframeResize();"></iframe>
+       <iframe id="indexFrame"  name = "indexFrame" src="<c:if test="${query.type != 1 }"><c:url value='/p/query/service.do'/></c:if><c:if test="${query.type == 1 }"><c:url value='/p/query/device.do'/></c:if>"  frameborder="0" width="100%"  scrolling="no"  onload="sonIframeResize();"></iframe>
    </div> 
   </div>   
    

@@ -13,7 +13,7 @@
 		<result property="doctorTeachingTitle"	    column="doctorTeachingTitle"/>
 		<result property="doctorEducation"  	    column="doctorEducation"/>
 		<result property="doctorSkill"  	        column="doctorSkill"/>
-		<result property="doctorDetailDescription"	column="doctorDetailDescriptior"/>
+		<result property="doctorDetailDescription"	column="doctorDetailDescription"/>
 		<result property="hospitalName"  	        column="hospitalName"/>
 		<result property="deptName"  		        column="deptName"/>
 		<result property="doctorEducationName"  	column="educationName"/>
@@ -33,7 +33,7 @@
 	<insert id="DoctorMapper.insert" useGeneratedKeys="true" keyProperty="doctorId">
 	    <![CDATA[
 	        INSERT INTO tab_doctor (doctorName,doctorGender,doctorPhoto,doctorHospitalId,doctorDeptId,doctorTitle,
-                                  doctorTeachingTitle,doctorEducation,doctorSkill,doctorDetailDescriptior) 
+                                  doctorTeachingTitle,doctorEducation,doctorSkill,doctorDetailDescription) 
 	        VALUES (#{doctorName},#{doctorGender},#{doctorPhoto},#{doctorHospitalId},#{doctorDeptId},#{doctorTitle},
                     #{doctorTeachingTitle},#{doctorEducation},#{doctorSkill},#{doctorDetailDescription})
 	    ]]>
@@ -66,7 +66,7 @@
 		<![CDATA[
             select a.doctorId,a.doctorName,a.doctorGender,a.doctorPhoto,
             	a.doctorHospitalId,a.doctorDeptId,a.doctorTitle,a.doctorTeachingTitle,
-            	a.doctorEducation,a.doctorSkill,a.doctorDetailDescriptior, b.hospitalName, 
+            	a.doctorEducation,a.doctorSkill,a.doctorDetailDescription, b.hospitalName, 
             	c.deptName, d.name as educationName
             from tab_doctor a
             left join tab_hospital b on b.hospitalId=a.doctorHospitalId
@@ -105,7 +105,7 @@
             doctorTeachingTitle = #{doctorTeachingTitle},	
             doctorEducation = #{doctorEducation},	
             doctorSkill = #{doctorSkill},	
-            doctorDetailDescriptior = #{doctorDetailDescription}
+            doctorDetailDescription = #{doctorDetailDescription}
 			WHERE doctorId = #{doctorId} 
 		]]>
 	</update>

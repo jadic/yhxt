@@ -87,7 +87,7 @@
 		<result property="doctorTitle"  				column="doctorTitle"/>
 		<result property="doctorEducationName"  		column="doctorEducationName"/>
 		<result property="doctorSkill"  				column="doctorSkill"/>
-		<result property="doctorDetailDescriptior"  	column="doctorDetailDescriptior"/>
+		<result property="doctorDetailDescription"  	column="doctorDetailDescription"/>
 		<result property="hospitalName"  				column="hospitalName"/>
 		<result property="hospitalAddr"  				column="hospitalAddr"/>
 		<result property="deptName"  					column="deptName"/>
@@ -403,7 +403,7 @@
 	<select id="SearchMapper.queryDoctorInfo" parameterType="queryModel"	resultMap="mRetDoctorMap">
 		<![CDATA[
 			select a1.doctorId, a1.doctorName, a1.doctorGender, a1.doctorPhoto, a1.doctorHospitalId, 
-				a1.doctorDeptId, a1.doctorTitle, a4.name as doctorEducationName, a1.doctorSkill, a1.doctorDetailDescriptior, 
+				a1.doctorDeptId, a1.doctorTitle, a4.name as doctorEducationName, a1.doctorSkill, a1.doctorDetailDescription, 
 				a2.hospitalName, a2.hospitalAddr, a3.deptName
 			from tab_doctor a1
 			left join tab_hospital a2 on a1.doctorHospitalId=a2.hospitalId
@@ -432,7 +432,7 @@
 	<select id="SearchMapper.queryDoctorDetailInfo" parameterType="queryModel"	resultMap="mRetDoctorMap">
 		<![CDATA[
 			select a1.doctorId, a1.doctorName, a1.doctorGender, a1.doctorPhoto, a1.doctorHospitalId, 
-				a1.doctorDeptId, a1.doctorTitle, a4.name as doctorEducationName, a1.doctorSkill, a1.doctorDetailDescriptior, 
+				a1.doctorDeptId, a1.doctorTitle, a4.name as doctorEducationName, a1.doctorSkill, a1.doctorDetailDescription, 
 				a2.hospitalName, a2.hospitalAddr, a3.deptName
 			from tab_doctor a1
 			left join tab_hospital a2 on a1.doctorHospitalId=a2.hospitalId
@@ -640,7 +640,7 @@
 			    AND a2.name LIKE CONCAT('%', #{name}, '%') 
 			</if>
 		<![CDATA[
-			order by a1.sendTime desc, a1.status 
+			order by a1.status, a1.sendTime desc 
 			LIMIT #{startNum}, #{rows}
 		]]>
 	</select>

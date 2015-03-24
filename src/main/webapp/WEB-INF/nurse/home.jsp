@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/nurse/common/top-include.jsp"%>
-	
+	<%@ include file="/WEB-INF/nurse/common/easyui-include.jsp"%>
 	<link rel="stylesheet" href="<c:url value='/nurse/themes/health_records.css'/>" type="text/css"/>
 	<style type="text/css">
 		td{word-break:break-all;}
@@ -36,6 +36,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		{
 			window.location.href = "<c:url value='/n/search/userdetail.do'/>?id="+id;
 		}
+		
+		function funOpenInfo(obj, id, userId, userName, stime, content)
+		{
+			$.ajax({
+				url : _ctx_ + "/n/search/goMsg.do?a="+ Math.random(),
+				type : 'post',
+				dataType : 'json',
+				data : 
+				{
+					"id"	: id,
+					"userId": userId,
+					"name": userName
+				},
+				error:function(data)
+				{
+				},
+				success:function(data)
+				{
+					if(data.success)
+					{
+						$(obj).attr("onclick", "");
+						$(obj).find("img").attr("src", "<c:url value='/nurse/themes/images/mail_01.png'/>");
+						parent.PageMain.funCreateWinInfoNew("#div_win", "<c:url value='/nurse/pages/send_msg_info.jsp'/>", {userId: userId, userNmae:userName, stime:stime, content:content});
+					}
+				}
+			});
+		}
+		
 	</script>
   </head>
 <body style="background: #ffffff; min-height: 600px;">
@@ -56,18 +84,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<tbody>
 						<tr class="even">
 							<th style="width: 15%;">姓名</th>
-							<th style="width: 25%;">时间</th>
-							<th style="width: 20%;">内容</th>
-							<th style="width: 15%;">状态</th>
+							<th style="width: 130px;">时间</th>
+							<th style="width: 50%;">内容</th>
+							<th style="width: 60px;">状态</th>
 						</tr>
 						<c:if test="${not empty messageFlys }">
 							<c:forEach items="${messageFlys }" var="msgItem" varStatus="item">
 								<tr class='<c:if test="${item.index mod 2 == 0 }">abnormal odd</c:if><c:if test="${item.index mod 2 == 1 }">even</c:if>' style="height: 40px;">
 									<td><a href="javascript:void(0)" onclick="funNurseDetail(${msgItem.senderId})">${msgItem.name }</a></td>
 									<td>${msgItem.sendTime }</td>
-									<td><div style="width:180px; white-space:nowrap; text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;">${msgItem.msg }</div></td>
+									<td><div style="width:280px; white-space:nowrap; text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;">${msgItem.msg }</div></td>
 									<td>
-										<a href="<c:url value='/n/search/goMsg.do'/>?userId=${msgItem.senderId}&name=${msgItem.name}&command=${msgItem.msg }" ><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">${msgItem.statusStr }</a>
+										<a <c:if test="${msgItem.status == 0 }">onclick="funOpenInfo(this, ${msgItem.id}, ${msgItem.senderId}, '${msgItem.name}', '${msgItem.sendTime }','${msgItem.msg }')"</c:if> href="javascript:void(0)" ><img src="<c:url value='/nurse/themes/images/mail_0${msgItem.status}.png'/>"></a>
 									</td>
 								</tr>
 							</c:forEach>

@@ -598,7 +598,7 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	 * @return
 	 */
 	@Transactional(readOnly=true)
-	public int queryCurrentMonthMessageInfoCnt(QueryModel model)
+	public long queryCurrentMonthMessageInfoCnt(QueryModel model)
 	{
 		return pQueryDAO.queryCurrentMonthMessageInfoCnt(model);
 	}
