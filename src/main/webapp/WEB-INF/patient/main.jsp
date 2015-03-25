@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body>
 	<div class="index_health_header">
-      <div class="bgTop_index">
+      <div class="bgTop_index" style="display: none;">
         <div class="index_out">
           <ul>
            <li class="index_wechat"><a href="/jsp/health/index/wechat.jsp" title="995120健康服务中心官方微信" target="_blank">官方微信</a></li>

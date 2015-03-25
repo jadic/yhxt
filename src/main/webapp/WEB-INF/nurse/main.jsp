@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <base href="<%=basePath%>">
-    <title>南京通用电器有限公司 </title>
+    <title>自已人健康服务中心</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
@@ -215,7 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body>
 	<div class="index_health_header">
-      <div class="bgTop_index">
+      <div class="bgTop_index" style="display: none;">
         <div class="index_out">
           <ul>
            <li class="index_title">医生业务平台V3.2</li>
