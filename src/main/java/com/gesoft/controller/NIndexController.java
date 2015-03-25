@@ -25,4 +25,16 @@ public class NIndexController extends BaseController
 		return "/nurse/main";
 	}
 	
+	
+	@RequestMapping(value="/index.do")
+	public String login()
+	{
+		return "/nurse/login";
+	}
+	
+	@RequestMapping(value="/img.do")
+	public String img()
+	{
+		return "/nurse/image";
+	}
 }

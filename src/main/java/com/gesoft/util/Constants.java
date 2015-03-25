@@ -33,17 +33,22 @@ public interface Constants
 	 */
 	public static final String SESSION_KEY_TYPE_USER = "isuser";
 	public static final String SESSION_KEY_ISLOGIN = "islogin";
+	
 	public static final String SESSION_KEY_UID = "uid";
 	public static final String SESSION_KEY_LOGINNAME = "loginname";
 	public static final String SESSION_KEY_FULLNAME = "fullname";
 	
-	public static final String SESSION_KEY_NEW_TYPE = "newtype";
-	public static final String SESSION_KEY_CUSTOM_ID = "customid";
-	
-	
 	
 	public static final String SESSION_KEY_PUID = "puid"; // 用户平台
+	public static final String SESSION_KEY_PISLOGIN = "pislogin";
+	public static final String SESSION_KEY_PLOGINNAME = "ploginname";
+	public static final String SESSION_KEY_PFULLNAME = "pfullname";
+	
+	
 	public static final String SESSION_KEY_NUID = "nuid"; // 医护人员平台
+	public static final String SESSION_KEY_NISLOGIN = "nislogin";
+	public static final String SESSION_KEY_NLOGINNAME = "nloginname";
+	public static final String SESSION_KEY_NFULLNAME = "nfullname";
 	
 	
 	public static final String GLOBAL_YES = "Y";

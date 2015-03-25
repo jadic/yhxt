@@ -623,4 +623,17 @@ public class NSearchDAO extends EntityDAOImpl<BaseModel, Long>
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryUserTreeInfo", model);
 	}
+
+
+	/**
+	 * 描述信息：
+	 * 创建时间：2015年3月25日 下午6:13:08
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public UserModel queryLoginInfo(UserModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryLoginInfo", model);
+	}
 }

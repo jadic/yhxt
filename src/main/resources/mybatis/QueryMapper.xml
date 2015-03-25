@@ -2,6 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="QueryMapper">
 	
+    <!-- 用户登录 -->
+    <resultMap id="mRetLoginMap" 					type="userModel">
+		<result property="userId"  					column="userId"/>
+		<result property="userName"  				column="userName"/>
+		<result property="name"  					column="name"/>
+		<result property="userSysId"  				column="userSysId"/>
+		<result property="userPwd"  				column="userPass"/>
+		<result property="gender"  					column="gender"/>
+		<result property="birthdate"  				column="birthdate"/>
+		<result property="cellphone"  				column="cellphone"/>
+		<result property="email"  					column="email"/>
+		
+		<result property="credentialType"  			column="credentialType"/>
+		<result property="credentialNo"  			column="credentialNo"/>
+		<result property="isSoldier"  				column="isSoldier"/>
+		<result property="isDisablity"  			column="isDisablity"/>
+		<result property="height"  					column="height"/>
+		
+		<result property="weight"  					column="weight"/>
+		<result property="nationality"  			column="nationality"/>
+		<result property="nativePlace"  			column="nativePlace"/>
+		<result property="marriageStatus"  			column="marriageStatus"/>
+		<result property="householdType"  			column="householdType"/>
+		
+		<result property="education"  				column="education"/>
+		<result property="policticsStatus"  		column="policticsStatus"/>
+		<result property="homePhone"  				column="homePhone"/>
+		<result property="homeAddress"  			column="homeAddress"/>
+		<result property="photo"  					column="photo"/>
+	</resultMap>
+	
 	<!-- 加载最新一条建议 -->
 	<resultMap id="mRetAdviceOneMap" 		type="outModel">
 		<result property="id"  				column="id"/>
@@ -195,6 +226,17 @@
 		<result property="msg"  					column="msg"/>
 		<result property="name"  					column="name"/>
 	</resultMap>
+	
+	
+	<!-- 用户登录 -->
+	<select id="QueryMapper.queryLoginInfo" 	parameterType="userModel"	resultMap="mRetLoginMap">
+		<![CDATA[
+			select a1.*
+			from tab_user a1 
+			where a1.userSysId = 1
+			and a1.userName = #{userName}
+		]]>
+	</select>
 	
 	
 	<!-- 加载最新一条建议 -->

@@ -12,10 +12,12 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,6 +53,93 @@ public class PQueryController extends BaseController
 	
 	@Resource
 	private PQueryService pQueryService;
+	
+	/**
+	 * 描述信息：用户登录
+	 * 创建时间：2015年3月25日 下午5:56:55
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/login.do")
+	public ModelAndView login(UserModel user, ModelMap model, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/login");
+		HttpSession session = request.getSession();
+		try
+		{
+			if(user != null)
+			{
+				if (session.getAttribute("rand") != null)
+				{
+					if (user.getRand().equals(session.getAttribute("rand")))
+					{
+						UserModel mLoginModel = pQueryService.login(user);
+						if (user.state == GLOBAL_SERVICE_SUCCESS)
+						{
+							result = new ModelAndView("/patient/main");
+							model.addAttribute("loginUser", mLoginModel);
+							session = request.getSession(true);
+							session.setAttribute(SESSION_KEY_PISLOGIN, GLOBAL_YES);
+							session.setAttribute(SESSION_KEY_PLOGINNAME, mLoginModel.getUserName());
+							session.setAttribute(SESSION_KEY_PUID, mLoginModel.getUserId());
+							
+							QueryModel query = new QueryModel();
+							query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+							result.addObject("query", query);
+							
+							UserModel mUserModel= pQueryService.queryUserBaseInfo(query);
+							result.addObject("userModel", mUserModel);
+							
+							
+							//加载亲人
+							query.setStartNum(0);
+							query.setRows(1000);
+							List<RelativePhoneModel> relativeFlys = pQueryService.queryRelativePhoneInfo(query);
+							if (relativeFlys != null && relativeFlys.size() > 0)
+							{
+								result.addObject("relativeFlys", relativeFlys);
+							}
+							
+							
+							//加载我的设备
+							query.setType(-1);
+							List<DeviceModel> deviceFlys = pQueryService.queryDeviceInfo(query);
+							if (deviceFlys != null && deviceFlys.size() > 0)
+							{
+								result.addObject("deviceFlys", deviceFlys);
+							}
+							
+							//加载我的医护人员
+							//加载我的医护人员
+							UserModel mRetNurse = pQueryService.queryMyNurseInfo(query);
+							if (mRetNurse != null)
+							{
+								result.addObject("nurseModel", mRetNurse);
+							}
+						}
+						else 
+						{
+							result.addObject("errorinfo", user.msgValue);
+						}	
+					}
+					else
+					{
+						result.addObject("errorinfo", "验证码输入不正确！");
+					}
+				}
+			}
+			result.addObject("userName", user.getUserName());
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toLogin error：", e);
+		}
+		return result;
+	}
+	
 	
 	@RequestMapping(value="/main.do")
 	public ModelAndView main(QueryModel query, HttpServletRequest request, HttpServletResponse response)

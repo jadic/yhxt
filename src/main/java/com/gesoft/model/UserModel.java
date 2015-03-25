@@ -26,6 +26,7 @@ public class UserModel extends BaseModel
 	private String stime = SystemUtils.getCurrentSystemTime(); 
 	// 验证码
 	private String rand;
+	private int userSysId;
 	
 	private String name;		// 姓名
 	private int gender;  		// 性别 1：男， 2，女，0，未知
@@ -63,6 +64,14 @@ public class UserModel extends BaseModel
 	private int operType = 0;
 	
 	
+	public int getUserSysId()
+	{
+		return userSysId;
+	}
+	public void setUserSysId(int userSysId)
+	{
+		this.userSysId = userSysId;
+	}
 	public int getOperType()
 	{
 		return operType;

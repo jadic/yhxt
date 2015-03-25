@@ -25,6 +25,19 @@ import com.gesoft.model.QueryModel;
 public class PIndexController extends BaseController
 {
 	
+	
+	@RequestMapping(value="/index.do")
+	public String login()
+	{
+		return "/patient/login";
+	}
+	
+	@RequestMapping(value="/img.do")
+	public String img()
+	{
+		return "/patient/image";
+	}
+	
 	/**
 	 * 描述信息：健康档案
 	 * 创建时间：2015年3月3日 下午11:32:19

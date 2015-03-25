@@ -28,6 +28,7 @@ import com.gesoft.model.QueryModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.model.TreeNodeModel;
 import com.gesoft.model.UserModel;
+import com.gesoft.util.Constants;
 
 /**
  * 医护人员平台
@@ -664,6 +665,39 @@ public class NSearchService extends EntityService<BaseModel, Long>
 		List<TreeNodeModel> list = new ArrayList<TreeNodeModel>();
 		list.add(parent);
 		return list;
+	}
+
+
+	/**
+	 * 描述信息：用户登录
+	 * 创建时间：2015年3月25日 下午6:07:12
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param user
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public UserModel login(UserModel user)
+	{
+		UserModel model = nSearchDAO.queryLoginInfo(user);
+		if (model != null)
+		{
+			if (model.getUserPwd().equals(user.getUserPwd()))
+			{
+				user.state = Constants.GLOBAL_SERVICE_SUCCESS;
+			}
+			else 
+			{
+				user.msgValue = "密码输入错误";
+				user.state = Constants.GLOBAL_SERVICE_FAIL;
+			}
+		}
+		else
+		{
+			user.msgValue = "用户不存在";
+			user.state = Constants.GLOBAL_SERVICE_FAIL;
+		}
+		
+		return model;
 	}
 	
 }

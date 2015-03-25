@@ -43,7 +43,7 @@
 	</filter-mapping> 
 	<filter-mapping>
 		<filter-name>BackURLFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>*.do</url-pattern>
 	</filter-mapping> 
      
 	<listener>
