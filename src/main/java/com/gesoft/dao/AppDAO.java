@@ -110,4 +110,14 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long>
     {
         return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryDoctorAdvicePerformance", model);
     }
+    
+    public String queryServiceDetail(QueryModel model)
+    {
+        return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryServiceDetail", model);
+    }
+    
+    public String queryActivityDetail(QueryModel model)
+    {
+        return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryActivityDetail", model);
+    }
 }

@@ -139,4 +139,15 @@ public class AppService extends EntityService<BaseModel, Long> {
     public List<DoctorAdvicePerformanceModel> queryDoctorAdvicePerformance(QueryModel model) {
         return appDAO.queryDoctorAdvicePerformance(model);
     }
+    
+    @Transactional(readOnly = true)
+    public String queryServiceDetail(QueryModel model) {
+        return appDAO.queryServiceDetail(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public String queryActivityDetail(QueryModel model) {
+        return appDAO.queryActivityDetail(model);
+    }    
+    
 }

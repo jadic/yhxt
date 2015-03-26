@@ -43,7 +43,6 @@
       <result property="id"               column="id"/>
       <result property="type"             column="serviceType"/>
       <result property="name"             column="serviceName"/>
-      <result property="content"          column="serviceContent"/>
       <result property="creatorId"        column="serviceCreatorId"/>
       <result property="sdate"            column="serviceStartDate"/>
       <result property="edate"            column="serviceDuration"/>
@@ -56,7 +55,6 @@
       <result property="id"               column="activityId"/>
       <result property="type"             column="activityType"/>
       <result property="name"             column="activityName"/>
-      <result property="content"          column="activityContent"/>
       <result property="creatorId"        column="activityCreatorId"/>
       <result property="sdate"            column="activityCreateTime"/>
       <result property="edate"            column="activityStartDate"/>
@@ -144,7 +142,7 @@
     <!-- 分页查询服务 仅显示关联医护联系人创建的服务和平台服务 -->
     <select id="AppMapper.queryService"   parameterType="queryModel"  resultMap="mServiceMap">
       <![CDATA[
-        select a.id, a.serviceType, a.serviceName, a.serviceContent, a.serviceCreatorId, a.serviceCreateTime, 
+        select a.id, a.serviceType, a.serviceName, a.serviceCreatorId, a.serviceCreateTime, 
                a.serviceStartDate, a.serviceDuration, a.serviceMemo, a.serviceIcon
         from tab_service a
         where (a.serviceType=2 and a.serviceCreatorId=#{creatorId}) 
@@ -168,7 +166,7 @@
     <!-- 分页查询活动 仅显示关联医护联系人创建的活动和平台活动 -->     
     <select id="AppMapper.queryActivity"   parameterType="queryModel"  resultMap="mActivityMap">
       <![CDATA[
-        select a.activityId, a.activityType, a.activityName, a.activityContent, a.activityCreatorId, a.activityCreateTime, 
+        select a.activityId, a.activityType, a.activityName, a.activityCreatorId, a.activityCreateTime, 
                a.activityStartDate, a.activityDuration, a.activityMemo, a.activityIcon
         from tab_activity a
         where (a.activityType=2 and a.activityCreatorId=#{creatorId}) 
@@ -213,7 +211,6 @@
       ]]>
     </select>
     
-    
     <!-- 查询医生建议执行情况 -->     
     <select id="AppMapper.queryDoctorAdvicePerformance"   parameterType="queryModel"  resultMap="mDoctorAdviceMap">
       <![CDATA[
@@ -222,6 +219,24 @@
         where a.doctorAdviceId = #{adviceId}
         order by a.recordTime
         limit #{startNum}, #{rows}
+      ]]>
+    </select>
+    
+    <!-- 查询服务详细情况-->     
+    <select id="AppMapper.queryServiceDetail"   parameterType="queryModel"  resultType="string">
+      <![CDATA[
+        select a.serviceContent
+        from tab_service a
+        where a.id = #{id}
+      ]]>
+    </select>
+    
+    <!-- 查询活动详细情况-->     
+    <select id="AppMapper.queryActivityDetail"   parameterType="queryModel"  resultType="string">
+      <![CDATA[
+        select a.activityContent
+        from tab_activity a
+        where a.activityId = #{id}
       ]]>
     </select>
 	

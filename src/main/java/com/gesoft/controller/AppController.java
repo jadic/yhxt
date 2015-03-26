@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.DoctorAdviceModel;
@@ -216,5 +217,19 @@ public class AppController extends BaseController
             logger.error("AppController queryActivity error：", e);
         }
         return msgModel;
+    }
+    
+    @RequestMapping(value="/queryServiceDetail.do")
+    public @ResponseBody ModelAndView queryServiceDetail(QueryModel model) {
+        ModelAndView mv = new ModelAndView("app/detail");
+        mv.getModel().put("content", appService.queryServiceDetail(model));
+        return mv;
+    }
+    
+    @RequestMapping(value="/queryActivityDetail.do")
+    public @ResponseBody ModelAndView queryActivityDetail(QueryModel model) {
+        ModelAndView mv = new ModelAndView("app/detail");
+        mv.getModel().put("content", appService.queryActivityDetail(model));
+        return mv;
     }
 }
