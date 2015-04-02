@@ -210,8 +210,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
 <body>
+<div class="account" style="background: #ffffff;">
+	<div class="account_title" style="background: #ffffff;">
+      <ul>
+        <li class="account_titleGreen">基本信息</li>
+        <li class="account_titleGray" style="padding-top: 8px; height: 35px;">
+        </li>
+      </ul>
+    </div>
+</div>    	
   <div class="information_modify">
-    <div class="title_informationModify"><span class="tgrey_title_informationModify">基本</span>信息</div>
+  	<div style="float: left; width: 100%; height: 20px;"></div>
     <div class="information_modify_main" id="main_div">
     	<div class="btn_title_informationModify">
           <ul>

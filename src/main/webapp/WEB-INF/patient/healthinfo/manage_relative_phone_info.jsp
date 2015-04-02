@@ -68,14 +68,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
 <body>
-  <div class="bp_history" style="height:650px">
-    <div class="title_BPhistory">
-	    <ul>
-	      <li class="tgreen_title_BPhistory"><span class="tgrey_title_BPhistory">亲情</span>号码</li>
-	      <li class="select_BPhistory"><a href="javascript:void(0)" onclick="mergeRelative(0)"><img src="<c:url value='/patient/themes/images/phone_add.png'/>"></a></li>
-	    </ul>
-	</div>
-
+<div class="account" style="background: #ffffff;">
+	<div class="account_title" style="background: #ffffff;">
+      <ul>
+        <li class="account_titleGreen">亲情号码</li>
+        <li class="account_titleGray" style="padding-top: 8px; height: 35px;">
+        	<ul>
+		      <li class="select_BPhistory" style="width: 120px; padding-top: 0px; float: right;"><a href="javascript:void(0)" onclick="mergeRelative(0)"><img src="<c:url value='/patient/themes/images/phone_add.png'/>"></a></li>
+		    </ul>
+        </li>
+      </ul>
+    </div>
+</div> 
+	
+   <div class="information_modify">
+  	<div style="float: left; width: 100%; height: 20px;"></div>
+    <div class="information_modify_main" id="main_div">
 		<div class="index_table">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
 					<tbody>
@@ -108,6 +116,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</table>
 		</div>
 	</div>
-   
+   </div>
 </body>
 </html>

@@ -74,12 +74,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
 <body>
+<div class="account" style="background: #ffffff;">
+	<div class="account_title" style="background: #ffffff;">
+      <ul>
+        <li class="account_titleGreen">亲情号码</li>
+        <li class="account_titleGray">
+        	当前位置：<c:if test="${query.id  > 0}">修改</c:if><c:if test="${query.id  == 0}">新增</c:if>亲情号码
+        </li>
+      </ul>
+    </div>
+</div> 
  <div class="information_modify">
-    <div class="title_informationModify"><span class="tgrey_title_informationModify">亲情</span>号码</div>
+ 	<div style="float: left; width: 100%; height: 20px;"></div>
     <div class="information_modify_main" id="main_div">
     	<div class="btn_title_informationModify">
           <ul>
-            <li class="tLeft"><c:if test="${query.id  > 0}">修改</c:if><c:if test="${query.id  == 0}">增加</c:if>数据</li>
+            <li class="tLeft"><c:if test="${query.id  > 0}">修改</c:if><c:if test="${query.id  == 0}">新增</c:if>数据</li>
             <li class="tRight"><a href="javascript:void(0)" onclick="window.history.back();"><img src="<c:url value='/patient/themes/images/btn_back.png'/>"></a></li>
           </ul>
         </div>

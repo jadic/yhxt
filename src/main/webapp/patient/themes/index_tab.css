@@ -172,7 +172,7 @@ span.method{line-height: 30px;}
 @charset "utf-8";
 
 /*----------------account---------------*/
-.account{width:670px;margin:0 auto; font-family:"微软雅黑"}
+.account{width:670px;margin:10px 0px 5px 40px; font-family:"微软雅黑"}
 .account_title{width:670px;float:left;text-align:left;}
 .account_titleGreen{font-size:24px; color:#0ca7a1; height:30px; padding-top:13px; padding-bottom:5px; font-weight:500; border-bottom:2px solid #0ca7a1; width:120px; float:left}
 .account_titleGray{font-size:14px; color:#aeaeae;border-bottom:2px solid #aeaeae; width:550px;height:20px; padding-top:23px; padding-bottom:5px;float:left; text-align:right}

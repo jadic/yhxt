@@ -143,8 +143,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<tbody>
 						<tr class="even">
 							<th style="width: 15%;">姓名</th>
-							<th style="width: 130px;">时间</th>
-							<th style="width: 50%;">内容</th>
+							<th style="width: 140px;">时间</th>
+							<th style="width: 45%;">内容</th>
 							<th style="width: 60px;">状态</th>
 						</tr>
 						<c:if test="${not empty messageFlys }">

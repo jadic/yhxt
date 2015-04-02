@@ -15,142 +15,258 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
 	<script type="text/JavaScript">
 		$(function(){
-			$("#helathMenuNav li").bind("click", function(){
-				$("#helathMenuNav li").removeClass("indexMenu_secondary_activation");
+			reinitIframe();
+			$("#helathMenuNav li, #helathMenuNav2 li").bind("click", function(){
+				$("#helathMenuNav li, #helathMenuNav2 li").removeClass("indexMenu_secondary_activation");
 				$(this).addClass("indexMenu_secondary_activation");
+				if($(this).attr("id") == "hMenu0")
+				{
+					$(".tree-group-li").show();
+					$(".tree-item-label").attr("id", "");
+					$(".tree-group-label").removeClass("tree-group-label-cur");
+				}	
+				else
+				{
+					$(".tree-group-li").hide();
+					$("li[name='"+$(this).attr("id")+"']").show();
+					$("li[name='"+$(this).attr("id")+"']").find(".tree-item-label").each(function(){
+						$(this).click();
+						$(this).find("a").each(function(){
+							$("#mainFrame").attr("src", $(this).attr("href"));
+						});
+						return false;
+					})
+				}	
+			});
+			
+			$(".tree-group-label").bind("click", function(){
+				$(".tree-group-label").removeClass("tree-group-label-cur");
+				$(this).addClass("tree-group-label-cur");
+				var obj = this;
+				$(this).children(".tree-item-arrow").each(function(){
+					if($(this).hasClass("tree-item-arrow-hx"))
+					{
+						$(this).removeClass("tree-item-arrow-hx");
+						$(obj).next().show();
+					}	
+					else
+					{
+						$(this).addClass("tree-item-arrow-hx");
+						$(obj).next().hide();
+					}	
+				});
+			});
+			
+			$(".tree-item-label").bind("click", function(){
+				$(".tree-group-label").removeClass("tree-group-label-cur");
+				$(".tree-item-label").attr("id", "");
+				$(this).attr("id", "tree-item-label-cur");
+				$(this).parent().parent().prev().addClass("tree-group-label-cur");
 			});
 		});
 	
 		function reinitIframe() 
 		{
-			var iframe = document.getElementById("mainFrame");
-			try {
-				var bHeight = iframe.contentWindow.document.body.scrollHeight;
-				var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
-				var height = Math.min(bHeight, dHeight);
-				iframe.height = height;
-			} catch (ex) {
-			}
+			$("#center-table").attr("height", $(window).height() - $("#top-table").height());
+			$("#mainFrame").attr("height", $(window).height() - $("#top-table").height());
+			$(".main-left").css("height", $(window).height() - $("#top-table").height()-10);
 		}
 		window.setInterval("reinitIframe();", 500);
-
 	</script>
   </head>
-<body>
-	<div class="index_health_header">
-      <div class="bgTop_index" style="display: none;">
-        <div class="index_out">
-          <ul>
-           <li class="index_wechat"><a href="/jsp/health/index/wechat.jsp" title="995120健康服务中心官方微信" target="_blank">官方微信</a></li>
-           <li class="index_bolg"><a href="http://weibo.com/5137507355/profile" title="995120健康服务中心官方微博" target="_blank">官方微博</a></li>
-           <li class="index_service_phone" title="400电话">400-0785-120</li>
-           <li class="index_username">欢迎您，qbws1</li>
-           <li class="index_signout">
-               <a href="javascript:void(0)" onclick="logout();" title="安全退出">安全退出</a>
-               <form action="/h/level.helowin" id="logoutForm" name="logoutForm" method="post">
-               </form>
-           </li> 
-          </ul>
-        </div>
-      </div>
-      <!--indexMenu start-->
-      <div class="logo_menu">
-        <div class="bg_logo">
-          <div class="index_menu">
-           
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="indexMenu_secondary">
-      <div class="indexMenu_secondary_main">
-        <ul id="helathMenuNav">
+<body style="padding: 0px; margin: 0px; min-width: 1000px;">
+	<table cellpadding="0" cellspacing="0" style="width: 100%; min-width:904px; overflow: hidden;" border="0" id="top-table">
+		<tr>
+			<td style="height: 70px; max-height: 70px; width:452px; min-width:452px; background: url('<c:url value='/patient/themes/images/top-left.png'/>')  repeat-y;">&nbsp;</td>
+			<td style="height: 70px; max-height: 70px; background: #aaa0a1;">&nbsp;</td>
+			<td style="height: 70px; max-height: 70px; width:452px; min-width:452px; background: url('<c:url value='/patient/themes/images/top-right.png'/>')  repeat-y;">&nbsp;</td>
+		</tr>
+		<tr>
+			<td style="height: 40px; max-height: 40px;" colspan="3">
+				<table cellpadding="0" cellspacing="0" border="0" style="height:40px; width: 100%;">
+					<tr>
+						<td style="width:226px; min-width:226px; background: url('<c:url value='/patient/themes/images/menu-left.png'/>')  no-repeat;">&nbsp;</td>
+						<td style=" background: url('<c:url value='/patient/themes/images/menu-center.png'/>');">&nbsp;</td>
+						<td style="width:226px; min-width:226px; background: url('<c:url value='/patient/themes/images/menu-right.png'/>')  no-repeat;">&nbsp;</td>
+					</tr>
+				</table>
+			
+			</td>
+		</tr>
+	</table>	
+	<table cellpadding="0" cellspacing="0" style="width: 100%;" border="0" id="center-table">
+		<tr>
+			<td style="width:200px;" valign="top">
+				<div class="main-left">
+				<ul class="left-tree">
+					<li name="hMenu0" class="tree-group-li">
+						<div id="health-tree-group" class="tree-group-label">
+							<span class="tree-item-text">健康监护</span>
+							<span class="tree-item-arrow"></span>
+						</div>
+						
+						<ul class="">
+							<li id="tree-xyjc-li">
+								<div class="tree-item-label" onclick="loadPage('/user/product/findBpDateInfoAction.action?productBean.firstLoad=true','');" id="">
+									<span class="tree-item-text" title="血压信息">血压信息</span>
+								</div>
+							</li>
+						
+							<li id="tree-xtjc-li">
+								<div class="tree-item-label" onclick="loadPage('/user/product/findBdsDateInfoAction.action?productBean.firstLoad=true','')">
+									<span class="tree-item-text" title="血糖信息">血糖信息</span>
+								</div>
+							</li>
+						</ul>
+					</li>
+				
+					<li name="hMenu1" class="tree-group-li">
+						<div id="m-health-tree-group" class="tree-group-label">
+							<span class="tree-item-text">健康分析</span>
+							<span class="tree-item-arrow"></span>
+						</div>
+						<ul class="">
+							<li id="tree-jjhj-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="用药建议">
+										<a style="display:block;text-decoration:none; color:#000;" href="<c:url value='/p/query/advice.do?adviceType=1'/>" target="mainFrame">用药建议</a>
+									</span>
+								</div>
+							</li>
+							
+							<li id="tree-jjhj-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="饮食建议">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/advice.do?adviceType=2'/>" target="mainFrame">饮食建议</a>
+									</span>
+								</div>
+							</li>
+							
+							<li id="tree-jjhj-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="运动建议">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/advice.do?adviceType=3'/>" target="mainFrame">运动建议</a>
+									</span>
+								</div>
+							</li>
+							
+							<li id="tree-jjhj-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="就诊建议">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/advice.do?adviceType=4'/>" target="mainFrame">就诊建议</a>
+									</span>
+								</div>
+							</li>
+							
+						</ul>
+					</li>
+					
+					
+					<li name="hMenu2" class="tree-group-li">
+						<div id="safe-tree-group" class="tree-group-label">
+							<span class="tree-item-text">健康档案</span>
+							<span class="tree-item-arrow"></span>
+						</div>
+						<ul class="">
+							<li id="tree-wzcx-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="基本信息">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/userbase.do'/>" target="mainFrame">基本信息</a>
+									</span>
+								</div>
+							</li>
+							
+							<li id="tree-gjcx-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="健康病历">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/jkbl.do'/>" target="mainFrame">健康病历</a>
+									</span>
+								</div>
+							</li>
+							
+							<li id="tree-gjcx-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="亲情号码">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/relative.do'/>" target="mainFrame">亲情号码</a>
+									</span>
+								</div>
+							</li>
+							
+							<li id="tree-gjcx-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="密码修改">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/modifypwd.do'/>" target="mainFrame">密码修改</a>
+									</span>
+								</div>
+							</li>
+						</ul>
+					</li>
+					
+					
+						<li name="hMenu3" class="tree-group-li">
+							<div id="app-tree-group" class="tree-group-label">
+								<span class="tree-item-text">服务和设备</span>
+								<span class="tree-item-arrow"></span>
+							</div>
+							<ul>
+								<li id="tree-gjcx-li">
+									<div class="tree-item-label">
+										<span class="tree-item-text" title="我的服务">
+											<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/service.do'/>" target="mainFrame">我的服务</a>
+										</span>
+									</div>
+								</li>
+								<li id="tree-gjcx-li">
+									<div class="tree-item-label">
+										<span class="tree-item-text" title="我的设备">
+											<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/device.do'/>?deviceType=-1&type=-1" target="mainFrame">我的设备</a>
+										</span>
+									</div>
+								</li>	
+							</ul>
+						</li>
+					
+					
+					<li name="hMenu4" class="tree-group-li">
+						<div id="sync-tree-group" class="tree-group-label">
+							<span class="tree-item-text">我的医护人</span>
+							<span class="tree-item-arrow"></span>
+						</div>
+						
+						<ul>
+							<li id="tree-gjcx-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="我的医护人">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/mynuser.do'/>" target="mainFrame">我的医护人</a>
+									</span>
+								</div>
+							</li>		
+						</ul>
+					</li>
+				</ul>
+			</div>
+			</td>
+			<td valign="top" align="left">
+				<iframe src="<c:url value='/p/query/home.do'/>" align="top" border="0" width="100%" scrolling="auto" frameborder="0" name="mainFrame" id="mainFrame" onload="reinitIframe();"></iframe>
+			</td>
+		</tr>
+	</table>
+	<div style="height:70px; width:100%; position: absolute; top: 0px; left:30px; background: url('<c:url value='/patient/themes/images/logo.png'/>') left no-repeat;">
+  	</div>
+  	<div style="height:30px; width:100%; position: absolute; top: 40px; right: 20px;">
+  		<span style="float: right;"><a href="<c:url value='/p/query/logout.do'/>" style="color: #fff; text-decoration: none; display: block; font-size: 12px;">退出</a></span>
+  	</div>
+  	
+  	<div style="height:30px; width:100%; position: absolute; top: 76px; left: 0px;">
+		<div class="indexMenu_secondary_main" style="margin: 0 0 0 40px;">
+		<ul id="helathMenuNav">
           <li id="hMenu0" class="indexMenu_secondary_activation"><a href="<c:url value='/p/query/home.do'/>" target="mainFrame" title="首页">首页</a></li>
-          <li id="hMenu1"><a href="<c:url value='/p/health.do'/>" target="mainFrame" title="健康档案">健康档案</a></li>
-          <li id="hMenu2"><a href="<c:url value='/p/healthanalysis.do'/>" target="mainFrame" title="健康分析">健康分析</a></li>
-          <li id="hMenu3"><a href="<c:url value='/p/servicedevice.do'/>" target="mainFrame" title="服务/设备">服务/设备</a></li>
-          <li id="hMenu4"><a href="<c:url value='/p/query/mynuser.do'/>" target="mainFrame" title="我的医护人">我的医护人</a></li>
+		  <li id="hMenu1"><a href="javascript:void(0)" title="健康分析">健康分析</a></li>
+		  <li id="hMenu2"><a href="javascript:void(0)" title="健康档案">健康档案</a></li>
+          <li id="hMenu3"><a href="javascript:void(0)" target="mainFrame" title="服务和设备">服务和设备</a></li>
+          <li id="hMenu4"><a href="javascript:void(0)" target="mainFrame" title="我的医护人">我的医护人</a></li>
         </ul> 
-      </div>
-    </div>
-    
-	<div class="index_health_middle" style="background: #ededed;">
-    <div class="index_health_main">
-      <!--index_health_left start-->
-      <div class="index_health_left">
-        <div class="wInformation">
-          <ul>
-            <li class="wInformation_img">
-            	<a href="<c:url value='/p/health.do'/>" onclick="$('#hMenu1').click()"  target="mainFrame" title="健康档案">
-            		<c:if test="${empty userModel.photo }">
-            		<img width="80" height="90" id="memberHeadImg" src="<c:url value='/patient/themes/images/default_head.gif'/>">
-            		</c:if>
-            		<c:if test="${not empty userModel.photo }">
-            		<img width="80" height="90" id="memberHeadImg" src="<c:url value='/'/>${userModel.photo}">
-            		</c:if>
-            	</a>
-            </li>
-            <li class="tGrayMax">您好！</li>
-            <li class="tGreen"><a class="title_info"  href="<c:url value='/p/health.do'/>" onclick="$('#hMenu1').click()" target="mainFrame" title="${userModel.name }" id="left_memberName" style="color:#0ca7a1; text-decoration: none;">${userModel.name }</a></li>
-            <li class="tGrayMin" style="font-size:8px;">最近登录：2015-03-21</li>
-            <li class="wMedical"><a href="<c:url value='/p/health.do'/>" onclick="$('#hMenu1').click()" style="cursor: pointer;" target="mainFrame" title="健康档案">健康档案</a></li>
-            <li class="wHome"><a href="<c:url value='/p/healthanalysis.do'/>" onclick="$('#hMenu2').click()" style="cursor: pointer;" target="mainFrame" title="健康分析">健康分析</a></li>
-            <li class="tGray">我的家庭成员：
-             	<ul>
-             		<c:if test="${not empty relativeFlys }">
-             		<c:forEach items="${relativeFlys}" var="relativeItem">
-             		<li class="wtBlack">
-             			<div style="width: 45px; float: left;">${relativeItem.name }</div>
-             			<div style="float: left;">
-             			【${relativeItem.typeName }】
-             			【${relativeItem.cellPhone }】
-             			</div>
-             		</li>
-             		</c:forEach>
-             		</c:if>
-             		<li class="wtaGreen">
-            			<a href="<c:url value='/p/health.do'/>?type=3" onclick="$('#hMenu1').click()" target="mainFrame" title="增加家庭成员">增加家庭成员</a>
-            		</li>
-            	</ul>
-             </li>
-            <li class="tGray">我的设备：
-            	<ul>
-					<c:if test="${not empty deviceFlys }">
-             		<c:forEach items="${deviceFlys}" var="deviceItem">
-             		<li class="wtBlack">
-             			${deviceItem.model } 
-             			【${deviceItem.typeName }】
-             		</li>
-             		</c:forEach>
-             		</c:if>
-					<li class="wtaGreen"><a href="<c:url value='/p/servicedevice.do'/>?type=1" onclick="$('#hMenu3').click()" target="mainFrame" title="增加设备">增加设备</a></li>
-            	</ul>
-            </li>
-            <li class="tGray" id="hos_doc">我的医护人员：
-            	<ul id="hosDocListUL">
-            		<li class="wtBlack">
-            		<c:if test="${not empty nurseModel }">
-            		${nurseModel.name}(${nurseModel.cellphone })
-            		</c:if>
-            		</li>
-            		<li class="wtaGreen">
-            		<c:if test="${empty nurseModel }">
-            			<a href="<c:url value='/p/query/mynuser.do'/>" onclick="$('#hMenu4').click()" target="mainFrame" title="增加医护人员">增加医护人员</a>
-            		</c:if>
-            		</li>
-            	</ul>
-            </li>
-          </ul>
-        </div>  
-      </div>
-      <!--index_health_left end-->
-      <!--index_health_right start-->
-      <div class="index_health_right">
-        <iframe src="<c:url value='/p/query/home.do'/>" scrolling="no" frameborder="0" name="mainFrame" id="mainFrame" onload="reinitIframe();" height="1388"></iframe>
-      </div>
-      <!--index_health_right end-->
-    </div>
-    </div>
+       </div>
+	</div>
 </body>
 </html>

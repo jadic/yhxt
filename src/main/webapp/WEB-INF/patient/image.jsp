@@ -17,7 +17,7 @@ response.setHeader("Cache-Control","no-cache");
 response.setDateHeader("Expires", 0);
 
 // 在内存中创建图象
-int width=60, height=20;
+int width=60, height=30;
 BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
 // 获取图形上下文
@@ -31,7 +31,7 @@ g.setColor(getRandColor(200,250));
 g.fillRect(0, 0, width, height);
 
 //设定字体
-g.setFont(new Font("Times New Roman",Font.PLAIN,18));
+g.setFont(new Font("Times New Roman",Font.PLAIN,24));
 
 //画边框
 //g.setColor(new Color());
@@ -60,7 +60,7 @@ String rand=String.valueOf(random.nextInt(10));
 sRand+=rand;
 // 将认证码显示到图象中
 g.setColor(new Color(20+random.nextInt(110),20+random.nextInt(110),20+random.nextInt(110)));// 调用函数出来的颜色相同，可能是因为种子太接近，所以只能直接生成
-g.drawString(rand,13*i+6,16);
+g.drawString(rand,13*i+6,26);
 }
 
 // 将认证码存入SESSION

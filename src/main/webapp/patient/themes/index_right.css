@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /*----------------index_welcome---------------*/
-.index_welcome{width:670px; margin:0 auto; font-family:"微软雅黑"}
+.index_welcome{width:670px; margin:10px 0px 5px 50px; font-family:"微软雅黑"}
 .index_welcome_header{width:670px; height:75px; border-bottom:1px solid #aeaeae; float:left}
 .notice{width:144px; float:left; border-right:1px solid #aeaeae; height:57px; background:url(images/notice.jpg) left no-repeat; padding-top:18px;}
 .notice li{width:104px; float:left; padding-left:40px;text-align:left; }

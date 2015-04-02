@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
 <body style="background: #ededed;">
- <div class="information_modify">
+ <div class="information_modify" style="margin: 0px;">
     <div class="information_modify_main" id="main_div">
     	<div class="btn_title_informationModify">
           <ul>
@@ -90,20 +90,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="informationModify_main">
         	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				疾病称名：
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; max-width:100px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    				<div>疾病称名：</div>
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="diseaseName" name="diseaseName" maxlength="50" style="width: 350px;" value="${diseaseHis.diseaseName }">
+	    				<input class="inputMin_informationModify text-input" type="text" id="diseaseName" name="diseaseName" maxlength="50" style="width: 350px;" value="${diseaseHis.diseaseName }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 13px;">
 	    				开始日期：
 	    			</td>
 	    			<td align="left">
-		               <input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]]  Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="startDate" name="startDate" maxlength="16" style="width: 350px;" value="${diseaseHis.startDate }">
+		               <input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="startDate" name="startDate" maxlength="16" style="width: 350px;" value="${diseaseHis.startDate }">
 	    			   <span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				结束日期：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]]  Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="endDate" name="endDate" maxlength="16" style="width: 350px;" value="${diseaseHis.endDate }">
+	    				<input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="endDate" name="endDate" maxlength="16" style="width: 350px;" value="${diseaseHis.endDate }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
@@ -121,15 +121,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				住院情况：
 	    			</td>
 	    			<td align="left">
-	    				<textarea class="inputMin_informationModify text-input" style="width: 550px; height: 60px;" id="descInHospital" name="descInHospital" maxlength="250">${diseaseHis.descInHospital }</textarea>
+	    				<textarea class="inputMin_informationModify text-input" style="width: 500px; height: 60px;" id="descInHospital" name="descInHospital" maxlength="250">${diseaseHis.descInHospital }</textarea>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 70px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:80px; height: 70px; color: #aeaeae; font-size: 13px;">
 	    				转院情况：
 	    			</td>
 	    			<td align="left">
-	    				<textarea class="inputMin_informationModify text-input" style="width: 550px; height: 60px;" id="descObserve" name="descObserve" maxlength="250">${diseaseHis.descObserve }</textarea>
+	    				<textarea class="inputMin_informationModify text-input" style="width: 500px; height: 60px;" id="descObserve" name="descObserve" maxlength="250">${diseaseHis.descObserve }</textarea>
 	    			</td>
 	    		</tr>
 	    		<tr>
@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    			<td align="left">
 	    				<input type="hidden" id="id" name="id" value="${diseaseHis.id}"/>
-	    				<textarea class="inputMin_informationModify text-input" style="width: 550px; height: 60px;" id="memo" name="memo" maxlength="250">${diseaseHis.memo }</textarea>
+	    				<textarea class="inputMin_informationModify text-input" style="width: 500px; height: 60px;" id="memo" name="memo" maxlength="250">${diseaseHis.memo }</textarea>
 	    			</td>
 	    		</tr>
 	    		<tr>

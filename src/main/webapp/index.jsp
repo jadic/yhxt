@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body style="height: 400px; background: red;">
-	<a href="/yhxt/p/query/main.do">进入用户平台</a>
+	<a href="/yhxt/p/index.do">进入用户平台  用户名：wcl  密码：1234   </a>
 	<p>
-	<a href="/yhxt/n/main.do">进入医护平台</a>
+	<a href="/yhxt/n/index.do">进入医护平台  用户名：wangcl  密码：1234  </a>
 </body>
 </html>
