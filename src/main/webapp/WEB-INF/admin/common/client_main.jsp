@@ -3,7 +3,7 @@
 <html>
   <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
-    <title>南京艺格儿展示工程有限公司</title>
+    <title>自己人健康服务中心--运营管理</title>
  	<%@ include file="/WEB-INF/admin/common/top-include.jsp" %>
  	<link rel="stylesheet" href="<c:url value='/admin/themes/self/blue/main.css'/>" type="text/css"/>
  	<script type="text/javascript" src="<c:url value='/admin/scripts/common/client_main.js'/>" ></script>
@@ -53,8 +53,6 @@
 					<div id="mm440000" style="width:145px; display: none;">
 						<div data-options="iconCls:'icon-28'" onclick="PageMain.funAddPanel('/a/user.do','系统管理>> 用户管理');  $('#440000').click()">用户管理</div>
 						<div class="menu-sep"></div>
-						<div data-options="iconCls:'icon-29'" onclick="PageMain.funAddPanel('/a/classiccase.do','系统管理>> 经典案例管理');  $('#440000').click()">修改密码</div>
-						<div class="menu-sep"></div>
 						<div data-options="iconCls:'icon-30'" onclick="PageMain.funLogout();  $('#440000').click()">安全退出</div>
 					</div>
 				</div>
@@ -99,7 +97,7 @@
 			<div class="njty_main_bottom_right"></div>
 			<div style="font-size: 11px; -webkit-text-size-adjust: none; line-height: 25px; float: right; cursor: pointer;" onclick="PageMain.funAddPanelUrl('/a/updatelog.do','软件版本信息');">V1版（2015-01-31）</div>
 		</div>
-		<div style="margin:0 150px 0 100px; position: relative; text-align: center; border: 0px solid #ff0000; line-height: 20px;">&#169;&nbsp;<span style="font-size:10px; -webkit-text-size-adjust: none;">南京艺格儿展示工程有限公司</span></div>
+		<div style="margin:0 150px 0 100px; position: relative; text-align: center; border: 0px solid #ff0000; line-height: 20px;">&#169;&nbsp;<span style="font-size:10px; -webkit-text-size-adjust: none;"></span></div>
 	</div>
  </body>
 </html>
