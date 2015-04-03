@@ -6,7 +6,7 @@
 	<!-- Log4j配置 -->
 	<context-param>
 		<param-name>webAppRootKey</param-name>
-		<param-value>webapp.root2</param-value>
+		<param-value>webapp.root5</param-value>
 	</context-param>
 	
 	<context-param>
@@ -99,4 +99,8 @@
 		<servlet-name>UpLoadServlet</servlet-name>
 		<url-pattern>/UpLoadServlet</url-pattern>
 	</servlet-mapping>  
+	
+	<session-config>
+		<session-timeout>1440</session-timeout>
+	</session-config>
 </web-app>

@@ -88,12 +88,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
 					<tbody>
 						<tr class="even">
-							<th>姓名</th>
-							<th>亲属关系</th>
+							<th style="width:70px;">姓名</th>
+							<th style="width:50px;">关系</th>
 							<th>手机号码</th>
 							<th>固定电话</th>
 							<th>联系地址</th>
-							<th style="width: 130px;">操作</th>
+							<th>操作</th>
 						</tr>
 					<tr>
 						<c:if test="${not empty relativeFlys }">
@@ -103,10 +103,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td>${relativeItem.typeName }</td>
 									<td>${relativeItem.cellPhone }</td>
 									<td>${relativeItem.tel }</td>
-									<td>${relativeItem.address }</td>
+									<td><div style="width:210px; white-space:nowrap; text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;">${relativeItem.address }</div></td>
 									<td>
+										<div style="width:130px;">
 										<a href="javascript:void(0)" onclick="mergeRelative(${relativeItem.id})"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">编辑</a>
 										<a href="javascript:void(0)" onclick="deleteRelative(this, ${relativeItem.id})"><img src="<c:url value='/patient/themes/images/phone_del.png'/>">删除</a>
+										</div>
 									</td>
 								</tr>
 							</c:forEach>

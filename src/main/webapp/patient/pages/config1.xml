@@ -25,6 +25,7 @@
 		        </legend>
 				<axes>
 		         <x_axis>
+		              <labels align="Inside" enabled="false" rotation="45"></labels>	
 		            <title enabled="false">
 		            </title>
 		          </x_axis>	
@@ -33,7 +34,7 @@
 		              <text>升缩压/舒张压(mmHg)</text>
 		              <font color="#135D8C" />
 		            </title>
-		            <labels align="Inside">
+		            <labels align="Inside" enabled="false" rotation="45">
 		              <font color="#135D8C" />
 		              <format>{%Value}{numDecimals:0}</format>
 		            </labels>

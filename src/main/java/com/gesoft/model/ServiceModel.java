@@ -65,10 +65,10 @@ public class ServiceModel extends BaseModel
 		switch (this.type)
 		{
 		case 1:
-			this.typeName = "平台创建";
+			this.typeName = "平台";
 			break;
 		case 2:
-			this.typeName = "医护联系人创建";
+			this.typeName = "医护联系人";
 			break;
 		case 3:
 			this.typeName = "第三方服务";

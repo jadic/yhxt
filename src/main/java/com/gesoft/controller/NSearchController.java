@@ -459,7 +459,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setType(1);
+			model.setType(2);
 			model.setCreateTime(SystemUtils.getCurrentSystemTime());
 			model.setCreatorId(getSessionUserId(request, SESSION_KEY_NUID));
 			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
@@ -491,7 +491,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setType(1);
+			model.setType(2);
 			model.setCreateTime(SystemUtils.getCurrentSystemTime());
 			model.setCreatorId(getSessionUserId(request, SESSION_KEY_NUID));
 			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
@@ -649,7 +649,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setType(1);
+			model.setType(2);
 			model.setCreateTime(SystemUtils.getCurrentSystemTime());
 			model.setCreatorId(getSessionUserId(request, SESSION_KEY_NUID));
 			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
@@ -681,7 +681,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setType(1);
+			model.setType(2);
 			model.setCreateTime(SystemUtils.getCurrentSystemTime());
 			model.setCreatorId(getSessionUserId(request, SESSION_KEY_NUID));
 			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
