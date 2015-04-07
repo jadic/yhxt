@@ -156,6 +156,10 @@
 		<result property="companyName"  			column="companyName"/>
 		<result property="companyAddress"  			column="companyAddress"/>
 		<result property="photo"  					column="photo"/>
+		<result property="spousePhone"  			column="spousePhone"/>
+		<result property="spouseName"  				column="spouseName"/>
+		<result property="achievement"  			column="achievement"/>
+		
 	</resultMap>
 	
 	
@@ -547,6 +551,8 @@
 			education=#{education},
 			policticsStatus=#{policticsStatus},
 			homeAddress=#{homeAddress},
+			spouseName=#{spouseName},
+			spousePhone=#{spousePhone},
 			homePhone=#{homePhone}
 			WHERE userId = #{userId}
 		]]>
@@ -560,6 +566,7 @@
 			workingAge = #{workingAge},
 			salary = #{salary},
 			companyName = #{companyName},
+			achievement = #{achievement},
 			companyAddress = #{companyAddress}
 			WHERE userId = #{userId}
 		]]>

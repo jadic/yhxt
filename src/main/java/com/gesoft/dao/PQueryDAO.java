@@ -15,6 +15,7 @@ import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
+import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
 import com.gesoft.model.MessageModel;
@@ -630,5 +631,18 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	public UserModel queryLoginInfo(UserModel model)
 	{
 		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryLoginInfo", model);
+	}
+	
+
+	/**
+	 * 描述信息：增加反馈
+	 * 创建时间：2015年4月7日 下午5:36:29
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addFeedBackInfo(FeedBackModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addFeedBackInfo", model);
 	}
 }

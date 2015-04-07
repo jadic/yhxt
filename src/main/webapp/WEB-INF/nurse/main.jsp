@@ -129,6 +129,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 		}
+		function funFeedBack()
+		{
+			PageMain.funCreateWinInfoNew("#div_win", "<c:url value='/nurse/pages/feedback.jsp'/>", {});
+		}
+		
+		function funSaveFeedBackInfo()
+		{
+			/**打开进度条**/
+			$.ajax({
+				url : _ctx_ + "/n/search/addFeedBack.do?a="+ Math.random(),
+				type : 'post',
+				dataType : 'json',
+				data : 
+				{
+					"content": $("#in002").val(),
+					"type": $("#in001").val()	
+				},
+				error:function(data)
+				{
+				},
+				success:function(data)
+				{
+					alert(data.msg);
+					if(data.success)
+					{
+						$('#div_win').window('close');
+					}
+				}
+			});
+		}
 		
 		function funOperInfo(item)
 		{
@@ -356,8 +386,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<ul class="">
 							<li id="tree-gjcx-li">
 								<div class="tree-item-label">
-									<span class="tree-item-text" title="平台医生">
-										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/n/search/doctor.do'/>" target="mainFrame">平台医生</a>
+									<span class="tree-item-text" title="专家库">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/n/search/doctor.do'/>" target="mainFrame">专家库</a>
 									</span>
 								</div>
 							</li>
@@ -390,7 +420,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div style="height:70px; width:100%; position: absolute; top: 0px; left:30px; background: url('<c:url value='/nurse/themes/images/logo.png'/>') left no-repeat;">
   	</div>
   	<div style="height:30px; width:100%; position: absolute; top: 40px; right: 20px;">
-  		<span style="float: right;"><a href="<c:url value='/n/search/logout.do'/>" style="color: #fff; text-decoration: none; display: block; font-size: 12px;">退出</a></span>
+  		<span style="float: right; padding: 0 5px;"><a href="javascript:funFeedBack()" style="color: #fff; text-decoration: none; display: block; font-size: 12px;">反馈</a></span>
+  		<div style="float: right; width: 1px; height:12px; background:#fff;"></div>
+  		<span style="float: right; padding: 0 5px;"><a href="<c:url value='/n/search/logout.do'/>" style="color: #fff; text-decoration: none; display: block; font-size: 12px;">退出</a></span>
   	</div>
 	
 	<div style="height:30px; width:100%; position: absolute; top: 76px; left: 0px;">
@@ -401,7 +433,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <li id="hMenu2"><a href="javascript:void(0)" target="mainFrame" title="我的活动">我的活动</a></li>
           <li id="hMenu3"><a href="javascript:void(0)" target="mainFrame" title="我的服务">我的服务</a></li>
           <li id="hMenu4"><a href="javascript:void(0)" target="mainFrame" title="我的签约">我的签约</a></li>
-          <li id="hMenu5"><a href="javascript:void(0)" target="mainFrame" title="平台医生">平台医生</a></li>
+          <li id="hMenu5"><a href="javascript:void(0)" target="mainFrame" title="平台医生">专家库</a></li>
         </ul> 
        </div>
 	</div>

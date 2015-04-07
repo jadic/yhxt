@@ -11,6 +11,12 @@
     <script type="text/javascript" src="<c:url value='/common/scripts/jquery-1.8.0.min.js'/>" ></script>
  	<script>
  		$(function(){
+ 			if(top.location!=self.location)
+ 		    {
+ 		        top.location=self.location;
+ 		    }
+ 			
+ 			
  			var tmp = $(window).height() - $("#top-table").height() - $("#center-table").height();
  			if(tmp > 0)
  			{

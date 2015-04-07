@@ -63,6 +63,9 @@ public class UserModel extends BaseModel
 	
 	private int operType = 0;
 	
+	private String spouseName;  // 配偶姓名
+	private String spousePhone; // 配偶手机
+	private String achievement; // 工作成就
 	
 	public int getUserSysId()
 	{
@@ -375,4 +378,28 @@ public class UserModel extends BaseModel
     public void setParentName(String parentName) {
         this.parentName = parentName;
     }
+	public String getSpouseName()
+	{
+		return spouseName;
+	}
+	public void setSpouseName(String spouseName)
+	{
+		this.spouseName = spouseName;
+	}
+	public String getSpousePhone()
+	{
+		return spousePhone;
+	}
+	public void setSpousePhone(String spousePhone)
+	{
+		this.spousePhone = spousePhone;
+	}
+	public String getAchievement()
+	{
+		return achievement;
+	}
+	public void setAchievement(String achievement)
+	{
+		this.achievement = achievement;
+	}
 }

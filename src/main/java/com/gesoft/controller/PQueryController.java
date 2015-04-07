@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
+import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
 import com.gesoft.model.MessageModel;
@@ -1245,4 +1246,33 @@ public class PQueryController extends BaseController
 		return msgModel;
 	}
 	
+	
+	/**
+	 * 描述信息：增加反馈信息
+	 * 创建时间：2015年4月7日 下午5:36:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/addFeedBack.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toAddFeedBack(FeedBackModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			model.setStime(SystemUtils.getCurrentSystemTime());
+			if (pQueryService.addFeedBackInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toAddFeedBack error：", e);
+		}
+		return msgModel;
+	}
 }

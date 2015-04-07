@@ -13,6 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
+	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
 	<script type="text/JavaScript">
 		$(function(){
 			reinitIframe();
@@ -71,6 +72,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#mainFrame").attr("height", $(window).height() - $("#top-table").height());
 			$(".main-left").css("height", $(window).height() - $("#top-table").height()-10);
 		}
+		
+		function funFeedBack()
+		{
+			PageMain.funCreateWinInfoNew("#div_win", "<c:url value='/patient/pages/feedback.jsp'/>", {});
+		}
+		
+		function funSaveFeedBackInfo()
+		{
+			/**打开进度条**/
+			$.ajax({
+				url : _ctx_ + "/p/query/addFeedBack.do?a="+ Math.random(),
+				type : 'post',
+				dataType : 'json',
+				data : 
+				{
+					"content": $("#in002").val(),
+					"type": $("#in001").val()	
+				},
+				error:function(data)
+				{
+				},
+				success:function(data)
+				{
+					alert(data.msg);
+					if(data.success)
+					{
+						$('#div_win').window('close');
+					}
+				}
+			});
+		}
+		
+		//
 		window.setInterval("reinitIframe();", 500);
 	</script>
   </head>
@@ -137,47 +171,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</ul>
 					</li>
 				
-					<li name="hMenu1" class="tree-group-li">
-						<div id="m-health-tree-group" class="tree-group-label">
-							<span class="tree-item-text">健康分析</span>
-							<span class="tree-item-arrow"></span>
-						</div>
-						<ul class="">
-							<li id="tree-jjhj-li">
-								<div class="tree-item-label">
-									<span class="tree-item-text" title="用药建议">
-										<a style="display:block;text-decoration:none; color:#000;" href="<c:url value='/p/query/advice.do?adviceType=1'/>" target="mainFrame">用药建议</a>
-									</span>
-								</div>
-							</li>
-							
-							<li id="tree-jjhj-li">
-								<div class="tree-item-label">
-									<span class="tree-item-text" title="饮食建议">
-										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/advice.do?adviceType=2'/>" target="mainFrame">饮食建议</a>
-									</span>
-								</div>
-							</li>
-							
-							<li id="tree-jjhj-li">
-								<div class="tree-item-label">
-									<span class="tree-item-text" title="运动建议">
-										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/advice.do?adviceType=3'/>" target="mainFrame">运动建议</a>
-									</span>
-								</div>
-							</li>
-							
-							<li id="tree-jjhj-li">
-								<div class="tree-item-label">
-									<span class="tree-item-text" title="就诊建议">
-										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/advice.do?adviceType=4'/>" target="mainFrame">就诊建议</a>
-									</span>
-								</div>
-							</li>
-							
-						</ul>
-					</li>
-					
 					
 					<li name="hMenu2" class="tree-group-li">
 						<div id="safe-tree-group" class="tree-group-label">
@@ -219,6 +212,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</ul>
 					</li>
 					
+					<li name="hMenu1" class="tree-group-li">
+						<div id="m-health-tree-group" class="tree-group-label">
+							<span class="tree-item-text">健康分析</span>
+							<span class="tree-item-arrow"></span>
+						</div>
+						<ul class="">
+							<li id="tree-jjhj-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="健康报告">
+										<a style="display:block;text-decoration:none; color:#000;" href="<c:url value='/p/query/advice.do?adviceType=1'/>" target="mainFrame">健康报告</a>
+									</span>
+								</div>
+							</li>
+							
+							<li id="tree-jjhj-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="用药建议">
+										<a style="display:block;text-decoration:none; color:#000;" href="<c:url value='/p/query/advice.do?adviceType=1'/>" target="mainFrame">用药建议</a>
+									</span>
+								</div>
+							</li>
+							
+							<li id="tree-jjhj-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="饮食建议">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/advice.do?adviceType=2'/>" target="mainFrame">饮食建议</a>
+									</span>
+								</div>
+							</li>
+							
+							<li id="tree-jjhj-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="运动建议">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/advice.do?adviceType=3'/>" target="mainFrame">运动建议</a>
+									</span>
+								</div>
+							</li>
+							
+							<li id="tree-jjhj-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="就诊建议">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/advice.do?adviceType=4'/>" target="mainFrame">就诊建议</a>
+									</span>
+								</div>
+							</li>
+							
+						</ul>
+					</li>
 					
 						<li name="hMenu3" class="tree-group-li">
 							<div id="app-tree-group" class="tree-group-label">
@@ -229,7 +270,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<li id="tree-gjcx-li">
 									<div class="tree-item-label">
 										<span class="tree-item-text" title="我的服务">
-											<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/service.do'/>" target="mainFrame">我的服务</a>
+											<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/service.do'/>?type=1" target="mainFrame">我的服务</a>
+										</span>
+									</div>
+								</li>
+								<li id="tree-gjcx-li">
+									<div class="tree-item-label">
+										<span class="tree-item-text" title="第三方服务">
+											<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/service.do'/>?type=3" target="mainFrame">第三方服务</a>
 										</span>
 									</div>
 								</li>
@@ -271,17 +319,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div style="height:70px; width:100%; position: absolute; top: 0px; left:30px; background: url('<c:url value='/patient/themes/images/logo.png'/>') left no-repeat;">
   	</div>
   	<div style="height:30px; width:100%; position: absolute; top: 40px; right: 20px;">
-  		<span style="float: right;"><a href="<c:url value='/p/query/logout.do'/>" style="color: #fff; text-decoration: none; display: block; font-size: 12px;">退出</a></span>
+  		<span style="float: right; padding: 0 5px;"><a href="javascript:funFeedBack()" style="color: #fff; text-decoration: none; display: block; font-size: 12px;">反馈</a></span>
+  		<div style="float: right; width: 1px; height:12px; background:#fff;"></div>
+  		<span style="float: right; padding: 0 5px;"><a href="<c:url value='/p/query/logout.do'/>" style="color: #fff; text-decoration: none; display: block; font-size: 12px;">退出</a></span>
   	</div>
   	
   	<div style="height:30px; width:100%; position: absolute; top: 76px; left: 0px;">
 		<div class="indexMenu_secondary_main" style="margin: 0 0 0 40px;">
 		<ul id="helathMenuNav">
           <li id="hMenu0" class="indexMenu_secondary_activation"><a href="<c:url value='/p/query/home.do'/>" target="mainFrame" title="首页">首页</a></li>
-		  <li id="hMenu1"><a href="javascript:void(0)" title="健康分析">健康分析</a></li>
 		  <li id="hMenu2"><a href="javascript:void(0)" title="健康档案">健康档案</a></li>
+		  <li id="hMenu1"><a href="javascript:void(0)" title="健康分析">健康分析</a></li>
           <li id="hMenu3"><a href="javascript:void(0)" target="mainFrame" title="服务和设备">服务和设备</a></li>
           <li id="hMenu4"><a href="javascript:void(0)" target="mainFrame" title="我的医护人">我的医护人</a></li>
+          <li id="hMenu5"><a href="javascript:void(0)" target="mainFrame" title="快乐驿站">快乐驿站</a></li>
         </ul> 
        </div>
 	</div>

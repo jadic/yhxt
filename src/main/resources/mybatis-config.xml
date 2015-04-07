@@ -25,6 +25,8 @@
 		<typeAlias alias="hospitalModel" type="com.gesoft.model.HospitalModel" />
 		<typeAlias alias="hospitalDeptModel" type="com.gesoft.model.HospitalDeptModel" />
 		<typeAlias alias="treeNodeModel" type="com.gesoft.model.TreeNodeModel" />
+		<typeAlias alias="feedBackModel" type="com.gesoft.model.FeedBackModel" />
+		
 	</typeAliases>
 	<mappers></mappers>
 </configuration>

@@ -20,6 +20,7 @@ import com.gesoft.dao.PQueryDAO;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
+import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
 import com.gesoft.model.MessageModel;
@@ -672,6 +673,20 @@ public class PQueryService extends EntityService<BaseModel, Long>
 		}
 		
 		return model;
+	}
+
+	
+	
+	/**
+	 * 描述信息：增加反馈
+	 * 创建时间：2015年4月7日 下午5:36:29
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addFeedBackInfo(FeedBackModel model)
+	{
+		return pQueryDAO.addFeedBackInfo(model);
 	}
 	
 }

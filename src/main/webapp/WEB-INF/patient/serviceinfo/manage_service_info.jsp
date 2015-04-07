@@ -117,6 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 		    		<td>
 		    			<input id="page" name="page" value="${query.page }" type="hidden"/>
+		    			<input id="type" name="type" value="${query.type }" type="hidden"/>
 		    			<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" value="${query.name }">
 		    		</td>
 		    		<td>

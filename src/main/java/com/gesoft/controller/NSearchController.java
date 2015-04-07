@@ -28,6 +28,7 @@ import com.gesoft.model.ActivityModel;
 import com.gesoft.model.DiseaseHisModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorModel;
+import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
 import com.gesoft.model.MessageModel;
@@ -1734,5 +1735,34 @@ public class NSearchController extends BaseController
 			logger.error("NSearchController toUserMsgList error：", e);
 		}
 		return result;
+	}
+	
+	/**
+	 * 描述信息：增加反馈信息
+	 * 创建时间：2015年4月7日 下午5:36:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/addFeedBack.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toAddFeedBack(FeedBackModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_NUID));
+			model.setStime(SystemUtils.getCurrentSystemTime());
+			if (pQueryService.addFeedBackInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toAddFeedBack error：", e);
+		}
+		return msgModel;
 	}
 }
