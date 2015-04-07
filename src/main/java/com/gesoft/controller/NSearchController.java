@@ -113,7 +113,29 @@ public class NSearchController extends BaseController
 	}
 	
 	
-	
+	/** 描述信息：注销
+	 * 创建时间：2015年4月2日 下午3:22:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/logout.do")
+	public String logout(HttpServletRequest request, HttpServletResponse response)
+	{
+		try
+		{
+			HttpSession session = request.getSession();
+			session.invalidate();
+		}
+		catch (Exception e)
+		{
+			logger.error("LoginController logout error：", e);
+		}
+		return "/nurse/login";
+	}
+	 
+	 
 	/**
 	 * 描述信息：首页加载用户列表数据，以及消息数，与最近时间
 	 * 创建时间：2015年3月12日 上午9:14:15
@@ -437,7 +459,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setType(1);
+			model.setType(2);
 			model.setCreateTime(SystemUtils.getCurrentSystemTime());
 			model.setCreatorId(getSessionUserId(request, SESSION_KEY_NUID));
 			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
@@ -469,7 +491,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setType(1);
+			model.setType(2);
 			model.setCreateTime(SystemUtils.getCurrentSystemTime());
 			model.setCreatorId(getSessionUserId(request, SESSION_KEY_NUID));
 			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
@@ -627,7 +649,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setType(1);
+			model.setType(2);
 			model.setCreateTime(SystemUtils.getCurrentSystemTime());
 			model.setCreatorId(getSessionUserId(request, SESSION_KEY_NUID));
 			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
@@ -659,7 +681,7 @@ public class NSearchController extends BaseController
 		MsgModel msgModel = new MsgModel();
 		try
 		{
-			model.setType(1);
+			model.setType(2);
 			model.setCreateTime(SystemUtils.getCurrentSystemTime());
 			model.setCreatorId(getSessionUserId(request, SESSION_KEY_NUID));
 			model.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));

@@ -106,4 +106,28 @@ public class PIndexController extends BaseController
 		return "/patient/healthanalysis/manage_health_analysis_info";
 	}
 	
+	
+	@RequestMapping(value="/chart1.do")
+	public String toChart1()
+	{
+		return "/patient/chartinfo/chart1";
+	}
+	
+	@RequestMapping(value="/chart2.do")
+	public String toChart2()
+	{
+		return "/patient/chartinfo/chart2";
+	}
+	
+	@RequestMapping(value="/chart3.do")
+	public String toChart3()
+	{
+		return "/patient/chartinfo/chart3";
+	}
+
+	@RequestMapping(value="/chart4.do")
+	public String toChart4()
+	{
+		return "/patient/chartinfo/chart4";
+	}
 }

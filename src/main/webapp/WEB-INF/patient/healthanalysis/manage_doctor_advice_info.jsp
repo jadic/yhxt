@@ -64,10 +64,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
 <body>
-  <div class="information_modify">
-    <div class="title_informationModify">
-		<span class="tgrey_title_informationModify"><c:choose><c:when test="${query.adviceType == 1 }">用药</c:when><c:when test="${query.adviceType == 2 }">饮食</c:when><c:when test="${query.adviceType == 3 }">运动</c:when><c:when test="${query.adviceType == 4 }">就诊</c:when></c:choose></span>建议
+<div class="account" style="background: #ffffff;">
+	<div class="account_title" style="background: #ffffff;">
+      <ul>
+        <li class="account_titleGreen"><c:choose><c:when test="${query.adviceType == 1 }">用药</c:when><c:when test="${query.adviceType == 2 }">饮食</c:when><c:when test="${query.adviceType == 3 }">运动</c:when><c:when test="${query.adviceType == 4 }">就诊</c:when></c:choose>建议</li>
+        <li class="account_titleGray" style="padding-top: 8px; height: 35px;">
+        </li>
+      </ul>
     </div>
+</div> 	
+  <div class="information_modify">
+  	<div style="float: left; width: 100%; height: 20px;"></div>
     <div class="information_modify_main" id="main_div">
     	<form name="inputform" id="inputform"  style="padding: 0px; margin: 0px;" action="<c:url value='/p/query/advice.do?adviceType=${query.adviceType}'/>" method="post">
 			<input id="page" name="page" value="${query.page }" type="hidden"/>

@@ -55,8 +55,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
 <body>
+<div class="account" style="background: #ffffff;">
+	<div class="account_title" style="background: #ffffff;">
+      <ul>
+        <li class="account_titleGreen">修改密码</li>
+        <li class="account_titleGray" style="padding-top: 8px; height: 35px;">
+        </li>
+      </ul>
+    </div>
+</div> 
   <div class="information_modify">
-    <div class="title_informationModify"><span class="tgrey_title_informationModify">密码</span>修改</div>
+  	<div style="float: left; width: 100%; height: 20px;"></div>
     <div class="information_modify_main" id="main_div">
         <div class="informationModify_main">
         	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">

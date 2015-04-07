@@ -33,7 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   $(this).addClass("selected_healthRecords_yuan").siblings().removeClass("selected_healthRecords_yuan");
 			   var index = $div_hrli.index(this);
 			   $("div.tab_healthRecords_box > div").eq(index).show().siblings().hide(); 
-
+				
+			   $("#title_tip").html($(this).attr("title"));
 			   //页签已经加载
 				if(index in tab_map){
 					   
@@ -67,9 +68,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
 <body>
-  <div class="health_records">
-  <div class="title_informationModify"><span class="tgrey_title_informationModify">健康</span>病历</div>
-  <!--tab_healthRecords start-->
+<div class="account" style="background: #ffffff;">
+	<div class="account_title" style="background: #ffffff;">
+      <ul>
+        <li class="account_titleGreen">健康病历</li>
+        <li class="account_titleGray">
+        	当前位置：<span id="title_tip">生活习惯</span>
+        </li>
+      </ul>
+    </div>
+</div> 
+  <div class="information_modify">
+  	<div style="float: left; width: 100%; height: 20px;"></div>
   <div class="tab_healthRecords">
 	<div class="healthRecords_menu_yuan">
            <ul>
@@ -83,7 +93,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            </ul>
 	 </div>
     <div class="tab_healthRecords_box">
-       	
       <div>
       		<iframe id="memberHabitIframe"  name = "memberHabitIframe" src="<c:url value='/p/query/memberhabit.do'/>"  frameborder="0" width="100%"  scrolling="no"   height="350px" ></iframe>
       </div>
@@ -106,7 +115,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  			<iframe id="memberMedicalExamintaionIframe"  name = "memberMedicalExamintaionIframe" src=""  frameborder="0" width="100%"  scrolling="no"   height="650px" ></iframe>
       </div>
   </div>
-  <!--tab_healthRecords end-->
 </div>
 
 </body>

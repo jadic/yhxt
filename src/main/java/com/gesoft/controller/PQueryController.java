@@ -141,6 +141,30 @@ public class PQueryController extends BaseController
 	}
 	
 	
+	/**
+	 * 描述信息：注销
+	 * 创建时间：2015年4月2日 下午3:22:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/logout.do")
+	public String logout(HttpServletRequest request, HttpServletResponse response)
+	{
+		try
+		{
+			HttpSession session = request.getSession();
+			session.invalidate();
+		}
+		catch (Exception e)
+		{
+			logger.error("LoginController logout error：", e);
+		}
+		return "/patient/login";
+	}
+	
+	
 	@RequestMapping(value="/main.do")
 	public ModelAndView main(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{

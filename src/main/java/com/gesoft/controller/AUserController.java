@@ -70,7 +70,7 @@ public class AUserController extends BaseController {
         MsgModel msgModel = new MsgModel();
         try {
             if (aUserService.queryUserCountWithUsrName(model) <= 0) {
-                model.setUserPass(DEFAULT_USER_PASS);// 新增用户时，采用默认密码
+                model.setUserPwd(DEFAULT_USER_PASS);// 新增用户时，采用默认密码
                 if (aUserService.save(model) > 0) {
                     msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
                 }

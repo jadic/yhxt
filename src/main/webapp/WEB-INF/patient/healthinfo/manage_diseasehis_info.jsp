@@ -111,9 +111,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body style="background: #ededed;">
 	<div style="font-size:13px;font-family:微软雅黑;color:#5a5a5a;">	
 	  	<div class="bp_history">
-		    <div class="search">
+		    <div class="search" style="padding: 5px 0; margin: 0px; width: 100%;">
 		    	<ul>
-		      		<li class="criteria_search" style="height: 40px;">疾病史</li>
+		      		<li class="criteria_search" style="height: 40px;"></li>
 		      		<li class="btn_search" style="height: 40px;"><a href="javascript:void(0)" onclick="mergeDiseaseHis(0)">新建疾病史</a></li>           
 		    	</ul>
 		  	</div>

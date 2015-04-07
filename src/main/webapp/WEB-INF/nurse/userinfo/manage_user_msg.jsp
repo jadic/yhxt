@@ -129,15 +129,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
 					<tbody>
 						<tr class="even">
-							<th style="width: 130px;">时间</th>
-							<th style="width: 65%;">内容</th>
+							<th style="width: 140px;">时间</th>
+							<th style="width: 60%;">内容</th>
 							<th style="width: 60px;">状态</th>
 						</tr>
 						<c:if test="${not empty messageFlys }">
 							<c:forEach items="${messageFlys }" var="msgItem" varStatus="item">
 								<tr class='<c:if test="${item.index mod 2 == 0 }">abnormal odd</c:if><c:if test="${item.index mod 2 == 1 }">even</c:if>' style="height: 40px;">
 									<td>${msgItem.sendTime }</td>
-									<td><div style="width:380px; white-space:nowrap; text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;">${msgItem.msg }</div></td>
+									<td><div style="width:280px; white-space:nowrap; text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;">${msgItem.msg }</div></td>
 									<td>
 										<a <c:if test="${msgItem.status == 0 }">onclick="funOpenInfo(this, ${msgItem.id}, ${msgItem.senderId}, '${msgItem.name}', '${msgItem.sendTime }','${msgItem.msg }')"</c:if> href="javascript:void(0)" ><img src="<c:url value='/nurse/themes/images/mail_0${msgItem.status}.png'/>"></a>
 									</td>

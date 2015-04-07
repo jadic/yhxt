@@ -46,51 +46,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    chart3.write("container3");
 		});
 		
-		function queryStart()
-		{
-			$("#inputform").submit();
-		}
 		
-		function buyinfo(obj, id)
-		{
-			PageMain.funOpenProgress();
-			$.ajax({
-				url : _ctx_ + "/p/query/buyService.do?a="+ Math.random(),
-				type : 'post',
-				dataType : 'json',
-				data : 
-				{
-					"id": id
-				},
-				error:function(data)
-				{
-					/**关闭进度条**/
-					PageMain.funCloseProgress();
-					$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
-				},
-				success:function(data)
-				{
-					
-					/**关闭进度条**/
-					PageMain.funCloseProgress();
-					
-					/**数据处理**/
-					if(data.success)
-					{
-						$(obj).parent().html('<span style="color: #2998df; font-weight: bold;">已购买</span>');
-						$.messager.alert('信息提示', data.msg, 'info');
-					}
-					else
-					{
-						$.messager.alert('信息提示', data.msg, 'error');
-					}
-				}
-			});
-		}
 	</script>
   </head>
 <body>
-	<div class="index_welcome">
+	<div class="index_welcome" style="margin: 0 auto;">
 		<div class="index_welcome_main">
 			<div class="health_date">
 				<ul>

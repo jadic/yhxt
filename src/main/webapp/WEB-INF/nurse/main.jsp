@@ -16,9 +16,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%@ include file="/WEB-INF/nurse/common/easyui-include.jsp"%>
 	<script type="text/JavaScript">
 		$(function(){
-			$("#helathMenuNav li").bind("click", function(){
-				$("#helathMenuNav li").removeClass("indexMenu_secondary_activation");
+			reinitIframe();
+			$("#helathMenuNav li, #helathMenuNav2 li").bind("click", function(){
+				$("#helathMenuNav li, #helathMenuNav2 li").removeClass("indexMenu_secondary_activation");
 				$(this).addClass("indexMenu_secondary_activation");
+				if($(this).attr("id") == "hMenu0")
+				{
+					$(".tree-group-li").show();
+					$(".tree-item-label").attr("id", "");
+					$(".tree-group-label").removeClass("tree-group-label-cur");
+				}	
+				else
+				{
+					$(".tree-group-li").hide();
+					$("li[name='"+$(this).attr("id")+"']").show();
+					$("li[name='"+$(this).attr("id")+"']").find(".tree-item-label").each(function(){
+						$(this).click();
+						$(this).find("a").each(function(){
+							$("#mainFrame").attr("src", $(this).attr("href"));
+						});
+						return false;
+					})
+				}	
+			});
+			
+			$(".tree-group-label").bind("click", function(){
+				$(".tree-group-label").removeClass("tree-group-label-cur");
+				$(this).addClass("tree-group-label-cur");
+				var obj = this;
+				$(this).children(".tree-item-arrow").each(function(){
+					if($(this).hasClass("tree-item-arrow-hx"))
+					{
+						$(this).removeClass("tree-item-arrow-hx");
+						$(obj).next().show();
+					}	
+					else
+					{
+						$(this).addClass("tree-item-arrow-hx");
+						$(obj).next().hide();
+					}	
+				});
+			});
+			
+			$(".tree-item-label").bind("click", function(){
+				$(".tree-group-label").removeClass("tree-group-label-cur");
+				$(".tree-item-label").attr("id", "");
+				$(this).attr("id", "tree-item-label-cur");
+				$(this).parent().parent().prev().addClass("tree-group-label-cur");
 			});
 		});
 	
@@ -29,9 +73,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				var bHeight = iframe.contentWindow.document.body.scrollHeight;
 				var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
 				var height = Math.min(bHeight, dHeight);
+				height = Math.max($(window).height() - $("#top-table").height(), height);
 				iframe.height = height;
+				$(".main-left").css("height", height);
 			} catch (ex) {
 			}
+			
+			//$("#center-table").attr("height", $(window).height() - $("#top-table").height());
+			//$("#mainFrame").attr("height", $(window).height() - $("#top-table").height());
+			//$(".main-left").css("height", $(window).height() - $("#top-table").height()-10);
 		}
 		window.setInterval("reinitIframe();", 500);
 
@@ -213,94 +263,147 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</script>
   </head>
-<body>
-	<div class="index_health_header">
-      <div class="bgTop_index" style="display: none;">
-        <div class="index_out">
-          <ul>
-           <li class="index_title">医生业务平台V3.2</li>
-           <li class="index_username">欢迎您，清波医生医生</li>
-           <li class="index_signout">
-               <a href="javascript:void(0)" onclick="logout();" title="安全退出">安全退出</a>
-               <form action="/doctor/login/level.action" id="logoutForm" name="logoutForm" method="post">
-               </form>
-           </li> 
-          </ul>
-        </div>
-      </div>
-      <!--indexMenu start-->
-      <div class="logo_menu">
-        <div class="bg_logo">
-          
-        </div>
-      </div>
-    </div>
-    
-    <div class="indexMenu_secondary">
-      <div class="indexMenu_secondary_main">
-        <ul id="helathMenuNav">
-          <li id="hMenu0" class="indexMenu_secondary_activation"><a id="ahome" href="<c:url value='/n/search/home.do'/>" target="mainFrame" title="首页">首页</a></li>
-          <li id="hMenu1"><a href="<c:url value='/n/search/baseuser.do'/>" target="mainFrame" title="我的档案">我的档案</a></li>
-          <li id="hMenu2"><a href="<c:url value='/n/search/activity.do'/>" target="mainFrame" title="我的活动">我的活动</a></li>
-          <li id="hMenu3"><a href="<c:url value='/n/search/service.do'/>" target="mainFrame" title="我的服务">我的服务</a></li>
-          <li id="hMenu4"><a href="<c:url value='/n/search/nurseRequest.do'/>" target="mainFrame" title="我的签约">我的签约</a></li>
-          <li id="hMenu5"><a href="<c:url value='/n/search/doctor.do'/>" target="mainFrame" title="平台医生">平台医生</a></li>
+<body style="padding: 0px; margin: 0px; min-width: 1000px;">
+	<table cellpadding="0" cellspacing="0" style="width: 100%; min-width:904px; overflow: hidden;" border="0" id="top-table">
+		<tr>
+			<td style="height: 70px; max-height: 70px; width:452px; min-width:452px; background: url('<c:url value='/nurse/themes/images/top-left.png'/>')  repeat-y;">&nbsp;</td>
+			<td style="height: 70px; max-height: 70px; background: #aaa0a1;">&nbsp;</td>
+			<td style="height: 70px; max-height: 70px; width:452px; min-width:452px; background: url('<c:url value='/nurse/themes/images/top-right.png'/>')  repeat-y;">&nbsp;</td>
+		</tr>
+		<tr>
+			<td style="height: 40px; max-height: 40px;" colspan="3">
+				<table cellpadding="0" cellspacing="0" border="0" style="height:40px; width: 100%;">
+					<tr>
+						<td style="width:226px; min-width:226px; background: url('<c:url value='/nurse/themes/images/menu-left.png'/>')  no-repeat;">&nbsp;</td>
+						<td style=" background: url('<c:url value='/nurse/themes/images/menu-center.png'/>');">&nbsp;</td>
+						<td style="width:226px; min-width:226px; background: url('<c:url value='/nurse/themes/images/menu-right.png'/>')  no-repeat;">&nbsp;</td>
+					</tr>
+				</table>
+			
+			</td>
+		</tr>
+	</table>	
+	<table cellpadding="0" cellspacing="0" style="width: 100%;" border="0" id="center-table">
+		<tr>
+			<td style="width:200px;" valign="top">
+				<div class="main-left">
+				<ul class="left-tree">
+					<li name="hMenu1" class="tree-group-li">
+						<div id="health-tree-group" class="tree-group-label">
+							<span class="tree-item-text">我的档案</span>
+							<span class="tree-item-arrow"></span>
+						</div>
+						<ul class="">
+							<li id="tree-gjcx-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="我的档案">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/n/search/baseuser.do'/>" target="mainFrame">我的档案</a>
+									</span>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li name="hMenu2" class="tree-group-li">
+						<div id="health-tree-group" class="tree-group-label">
+							<span class="tree-item-text">我的活动</span>
+							<span class="tree-item-arrow"></span>
+						</div>
+						<ul class="">
+							<li id="tree-gjcx-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="我的活动">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/n/search/activity.do'/>" target="mainFrame">我的活动</a>
+									</span>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li name="hMenu3" class="tree-group-li">
+						<div id="health-tree-group" class="tree-group-label">
+							<span class="tree-item-text">我的服务</span>
+							<span class="tree-item-arrow"></span>
+						</div>
+						<ul class="">
+							<li id="tree-gjcx-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="我的服务">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/n/search/service.do'/>" target="mainFrame">我的服务</a>
+									</span>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li name="hMenu4" class="tree-group-li">
+						<div id="health-tree-group" class="tree-group-label">
+							<span class="tree-item-text">我的签约</span>
+							<span class="tree-item-arrow"></span>
+						</div>
+						<ul class="">
+							<li id="tree-gjcx-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="我的签约">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/n/search/nurseRequest.do'/>" target="mainFrame">我的签约</a>
+									</span>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li name="hMenu5" class="tree-group-li">
+						<div id="health-tree-group" class="tree-group-label">
+							<span class="tree-item-text">平台医生</span>
+							<span class="tree-item-arrow"></span>
+						</div>
+						<ul class="">
+							<li id="tree-gjcx-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="平台医生">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/n/search/doctor.do'/>" target="mainFrame">平台医生</a>
+									</span>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			</td>
+			<td valign="top" align="left">
+				<iframe src="<c:url value='/n/search/home.do'/>" align="top" border="0" width="100%" scrolling="no" height="200" frameborder="0" name="mainFrame" id="mainFrame" onload="reinitIframe();"></iframe>
+			</td>
+			<td style="width: 240px; background: #f6f6f6; border-left: 1px solid #ccc;" valign="top" align="center">
+				<div style="width: 230px; height: 10px;"></div>
+				<div class="user_list">
+			       <div class="user_list_header">
+			       我的用户（<span id="memberNum" style="color:#ff9600">0</span>&nbsp;个）<a href="javascript:void(0)" onclick="openSendSMS();" style="display: block;"><img src="<c:url value='/nurse/themes/images/mail.png'/>"/></a>
+			       </div>
+			       <div class="bg_search">
+			         <input type="text" class="search_input" id="search_name" title="请输入用户姓名">
+			         <a href="javascript:void(0)" onclick="funSearchUserInfo(1);"><img title="搜索用户" src="<c:url value='/nurse/themes/images/search.png'/>"></a>
+			       </div>
+			       <div class="task_list" style="overflow-y: hidden; outline: none;" tabindex="5000">
+			         <ul id="userList">
+			         </ul>
+			       </div>
+			      </div>
+			</td>
+		</tr>
+	</table>
+	<div style="height:70px; width:100%; position: absolute; top: 0px; left:30px; background: url('<c:url value='/nurse/themes/images/logo.png'/>') left no-repeat;">
+  	</div>
+  	<div style="height:30px; width:100%; position: absolute; top: 40px; right: 20px;">
+  		<span style="float: right;"><a href="<c:url value='/n/search/logout.do'/>" style="color: #fff; text-decoration: none; display: block; font-size: 12px;">退出</a></span>
+  	</div>
+	
+	<div style="height:30px; width:100%; position: absolute; top: 76px; left: 0px;">
+		<div class="indexMenu_secondary_main" style="margin: 0 0 0 40px;">
+		<ul id="helathMenuNav">
+          <li id="hMenu0" class="indexMenu_secondary_activation"><a href="<c:url value='/n/search/home.do'/>" target="mainFrame" title="首页">首页</a></li>
+          <li id="hMenu1"><a href="javascript:void(0)" target="mainFrame" title="我的档案">我的档案</a></li>
+          <li id="hMenu2"><a href="javascript:void(0)" target="mainFrame" title="我的活动">我的活动</a></li>
+          <li id="hMenu3"><a href="javascript:void(0)" target="mainFrame" title="我的服务">我的服务</a></li>
+          <li id="hMenu4"><a href="javascript:void(0)" target="mainFrame" title="我的签约">我的签约</a></li>
+          <li id="hMenu5"><a href="javascript:void(0)" target="mainFrame" title="平台医生">平台医生</a></li>
         </ul> 
-      </div>
-    </div>
-    
-	<div class="index_health_middle" style="background: #ededed;">
-    <div class="index_health_main">
-      <!--index_health_left start-->
-      <div class="user_list">
-       <div class="user_list_header">
-       我的用户（<span id="memberNum" style="color:#ff9600">0</span>&nbsp;个）
-         <a title="发送短信" href="javascript:void(0)" onclick="openSendSMS();"><img src="<c:url value='/nurse/themes/images/mail.png'/>"></a>
        </div>
-       <div class="bg_search">
-         <input type="text" class="search_input" id="search_name" title="请输入用户姓名">
-         <a href="javascript:void(0)" onclick="funSearchUserInfo(1);"><img title="搜索用户" src="<c:url value='/nurse/themes/images/search.png'/>"></a>
-       </div>
-       <div class="task_list" style="height: 500px; overflow-y: hidden; outline: none;" tabindex="5000">
-         <ul id="userList">
-         </ul>
-       </div>
-       <div class="count"></div>
-      </div>
-      <!--index_health_left end-->
-      <!--index_health_right start-->
-      <div class="index_health_right">
-        <iframe src="<c:url value='/n/search/home.do'/>" scrolling="no" frameborder="0" name="mainFrame" id="mainFrame" onload="reinitIframe();" height="1388"></iframe>
-      </div>
-      <!--index_health_right end-->
-      
-      <div class="index_health_left" id="userdetail" style="display: block;">
-        <div class="wInformation">
-          <ul id="member_detail">
-            <li class="wInformation_img"><img id="header_photo" src="<c:url value='/nurse/themes/images/default_head.gif'/>" width="145" height="165"></li>
-            <li class="tGreen"><span id="membername" title=""></span><a id="baseId" title="基本信息" target="mainFrame"><img src="<c:url value='/nurse/themes/images/phone_editor.png'/>"></a></li>
-            <li class="tGrayMin" id="sex">性别：男</li>
-            <li class="tGrayMin" id="age">年龄：岁</li>
-            <li class="tGray">身份证号：</li>
-            <li class="wtBlack" id="credentials_id"></li>
-            <li class="tGray">联系电话：</li>
-            <li class="wtBlack" id="cell_phone"></li>
-            <li class="tGray">家庭电话：</li>
-            <li class="wtBlack" id="phone"></li>
-            <li class="tGray">家庭住址：</li>
-            <li class="wtBlack" id="address" title=""></li>
-            <li><input type="hidden" id="member_unit_id" value="20979"><input type="hidden" id="member_cluster_id" value="1"><input type="hidden" id="member_unit_type" value="2"> </li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="xygj_list" style="display: none;">
-          <p class="xygj_top" id="bp_alert">血压告警（3&nbsp;条）</p>
-          <ul id="bp_alert_list"><li onclick="applyBpAlertTask(1567,21051)"><p><span class="xygj_Name" title="清波卫生99">清波卫生9</span><span class="xygj_value">回复</span></p><span class="xygj_time">2015-03-06 13:57:38</span></li><li onclick="applyBpAlertTask(1568,21051)"><p><span class="xygj_Name" title="清波卫生99">清波卫生9</span><span class="xygj_value">回复</span></p><span class="xygj_time">2015-03-06 14:04:55</span></li><li onclick="applyBpAlertTask(1569,21051)"><p><span class="xygj_Name" title="清波卫生99">清波卫生9</span><span class="xygj_value">回复</span></p><span class="xygj_time">2015-03-06 14:25:30</span></li></ul>
-      </div>
-      
-      
-    </div>
-    </div>
+	</div>
 </body>
 </html>

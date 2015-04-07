@@ -42,6 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
 <body>
+ <div style="height: 10px; width: 670px;"></div>	
   <div class="index_tab">   
    <div class="tab_menu">
       <ul>

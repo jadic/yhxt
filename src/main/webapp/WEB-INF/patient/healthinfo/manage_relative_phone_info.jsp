@@ -68,24 +68,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
 <body>
-  <div class="bp_history" style="height:650px">
-    <div class="title_BPhistory">
-	    <ul>
-	      <li class="tgreen_title_BPhistory"><span class="tgrey_title_BPhistory">亲情</span>号码</li>
-	      <li class="select_BPhistory"><a href="javascript:void(0)" onclick="mergeRelative(0)"><img src="<c:url value='/patient/themes/images/phone_add.png'/>"></a></li>
-	    </ul>
-	</div>
-
+<div class="account" style="background: #ffffff;">
+	<div class="account_title" style="background: #ffffff;">
+      <ul>
+        <li class="account_titleGreen">亲情号码</li>
+        <li class="account_titleGray" style="padding-top: 8px; height: 35px;">
+        	<ul>
+		      <li class="select_BPhistory" style="width: 120px; padding-top: 0px; float: right;"><a href="javascript:void(0)" onclick="mergeRelative(0)"><img src="<c:url value='/patient/themes/images/phone_add.png'/>"></a></li>
+		    </ul>
+        </li>
+      </ul>
+    </div>
+</div> 
+	
+   <div class="information_modify">
+  	<div style="float: left; width: 100%; height: 20px;"></div>
+    <div class="information_modify_main" id="main_div">
 		<div class="index_table">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
 					<tbody>
 						<tr class="even">
-							<th>姓名</th>
-							<th>亲属关系</th>
+							<th style="width:70px;">姓名</th>
+							<th style="width:50px;">关系</th>
 							<th>手机号码</th>
 							<th>固定电话</th>
 							<th>联系地址</th>
-							<th style="width: 130px;">操作</th>
+							<th>操作</th>
 						</tr>
 					<tr>
 						<c:if test="${not empty relativeFlys }">
@@ -95,10 +103,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td>${relativeItem.typeName }</td>
 									<td>${relativeItem.cellPhone }</td>
 									<td>${relativeItem.tel }</td>
-									<td>${relativeItem.address }</td>
+									<td><div style="width:210px; white-space:nowrap; text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;">${relativeItem.address }</div></td>
 									<td>
+										<div style="width:130px;">
 										<a href="javascript:void(0)" onclick="mergeRelative(${relativeItem.id})"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">编辑</a>
 										<a href="javascript:void(0)" onclick="deleteRelative(this, ${relativeItem.id})"><img src="<c:url value='/patient/themes/images/phone_del.png'/>">删除</a>
+										</div>
 									</td>
 								</tr>
 							</c:forEach>
@@ -108,6 +118,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</table>
 		</div>
 	</div>
-   
+   </div>
 </body>
 </html>

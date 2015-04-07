@@ -58,12 +58,45 @@ public class BackURLFilter implements Filter, Constants
 				//response.sendRedirect(request.getContextPath() + "/index.html");
 				//return ;
 			}
-//			else
-//			{
-//				response.sendRedirect(request.getContextPath() + "/index.html");
-//				return ;
-//			}
 		}
+		
+		if (request.getRequestURI().indexOf("/n/") > 0)
+		{
+			if (session.getAttribute(SESSION_KEY_NISLOGIN) == null)
+			{
+				if (request.getRequestURI().indexOf("/n/index.do") > 0
+						|| request.getRequestURI().indexOf("/n/img.do") > 0
+						|| request.getRequestURI().indexOf("/n/search/login.do") > 0
+						|| request.getRequestURI().indexOf("/n/search/logout.do") > 0
+				){
+					
+				}
+				else 
+				{
+					response.sendRedirect(request.getContextPath() + "/n/index.do");
+				}
+			}
+		}
+		else if (request.getRequestURI().indexOf("/p/") > 0)
+		{
+
+			if (session.getAttribute(SESSION_KEY_PISLOGIN) == null)
+			{
+				if (request.getRequestURI().indexOf("/p/index.do") > 0
+						|| request.getRequestURI().indexOf("/p/img.do") > 0
+						|| request.getRequestURI().indexOf("/p/query/login.do") > 0
+						|| request.getRequestURI().indexOf("/p/query/logout.do") > 0
+				){
+					
+				}
+				else 
+				{
+					response.sendRedirect(request.getContextPath() + "/p/index.do");
+				}
+			}
+		
+		}
+		
 		filterChain.doFilter(request, response);
 	}
 

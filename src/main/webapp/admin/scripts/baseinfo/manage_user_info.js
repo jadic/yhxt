@@ -103,8 +103,8 @@ var PageUser =
 		$("#in10").textbox("setValue", record.cellphone);
 		$("#in11").textbox("setValue", record.height);
 		$("#in12").textbox("setValue", record.weight);
-		$("#in13").textbox("setValue", record.homePhone);
-		$("#in14").textbox("setValue", record.homeAddress);
+		$("#in13").textbox("setValue", record.homeAddress);
+		$("#in14").textbox("setValue", record.homePhone);
 		
 		$("#17").val(record.photo);
 	},
@@ -205,8 +205,8 @@ var PageUser =
 				"cellphone": $("#in10").val(),
 				"height": height,
 				"weight": weight,
-				"homePhone": $("#in13").val(),
-				"homeAddress":$("#in14").val(),
+				"homeAddress":$("#in13").val(),
+				"homePhone": $("#in14").val(),
 				"photo" : $("#in17").val()
 			},
 			error:function(data)

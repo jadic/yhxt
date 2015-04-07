@@ -1,7 +1,8 @@
 @charset "utf-8";
 
+
 /*----------------basic_information---------------*/
-.information_modify{width:670px; margin:0 auto; font-family:"微软雅黑"}
+.information_modify{width:670px; margin:10px 0px 5px 40px; font-family:"微软雅黑"}
 .title_informationModify{float:left;width:670px; font-size:30px; font-weight:500; line-height:45px; height:45px; color:#0ca7a1; text-align:left; margin-top:30px; margin-bottom:20px;}
 .tgrey_title_informationModify{color:#5a5a5a}
 .information_modify_main{float:left;width:670px; font-size:13px;}
