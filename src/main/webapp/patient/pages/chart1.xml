@@ -1,0 +1,127 @@
+<anychart>
+	<settings>
+		<animation enabled="True"/>
+	</settings>
+	<charts>
+		<chart plot_type="CategorizedVertical">
+			<data_plot_settings default_series_type="line">
+        <line_series point_padding="0.2" group_padding="1">
+          <label_settings enabled="true">
+            <background enabled="false" />
+            <font color="Rgb(45,45,45)" bold="true" size="9">
+              <effects enabled="true">
+                <glow enabled="true" color="White" opacity="1" blur_x="1.5" blur_y="1.5" strength="3" />
+              </effects>
+            </font>
+            <format enabled="false"></format>
+          </label_settings>
+          <tooltip_settings enabled="true">
+            <format>
+                {%Name}
+{%SeriesName}为： {%YValue}{numDecimals:0}</format>
+            <background>
+              <border type="Solid" color="DarkColor(%Color)" />
+            </background>
+            <font color="DarkColor(%Color)" />
+          </tooltip_settings>
+          <marker_settings enabled="true" />
+          <line_style>
+            <line thickness="3" />
+          </line_style>
+        </line_series>
+      </data_plot_settings>
+			<chart_settings>
+				<chart_background enabled="false">
+	       	<border enabled="True" thickness="1" type="Gradient"></border>
+	        <inside_margin  all="0" />
+	    </chart_background>
+				<title enabled="true">
+					<text>近期血压趋势图</text>
+				</title>
+				<legend enabled="True" position="bottom" align="Center" elements_align="Center">
+		          <title enabled="false" />
+		          <icon>
+		            <marker enabled="true" type="%MarkerType" size="8" />
+		          </icon>
+		        </legend>
+				<axes>
+		         <x_axis>
+		            <labels align="Inside" enabled="false" rotation="45"></labels>	
+		            <title enabled="false">
+		            </title>
+		          </x_axis>	
+		          <y_axis>
+		            <title enabled="true">
+		              <text>升缩压/舒张压(mmHg)</text>
+		              <font color="#135D8C" />
+		            </title>
+		            <labels align="Inside">
+		              <font color="#135D8C" />
+		              <format>{%Value}{numDecimals:0}</format>
+		            </labels>
+		          </y_axis>
+		        </axes>
+			</chart_settings>
+			<data>
+				<series name="心率">
+		    		<point name="2015-04-04 05:08:35" y="76"/>
+		    		<point name="2015-04-04 06:23:31" y="65"/>
+		    		<point name="2015-04-04 07:14:34" y="57"/>
+		    		<point name="2015-04-04 07:58:20" y="59"/>
+		    		<point name="2015-04-04 08:40:45" y="48"/>
+		    		<point name="2015-04-04 09:18:02" y="78"/>
+		    		<point name="2015-04-04 10:08:10" y="82"/>
+		    		<point name="2015-04-04 10:57:35" y="63"/>
+		    		<point name="2015-04-04 11:36:32" y="85"/>
+		    		<point name="2015-04-04 12:49:26" y="58"/>
+		    		<point name="2015-04-04 13:20:46" y="66"/>
+		    		<point name="2015-04-04 14:15:53" y="76"/>
+		    		<point name="2015-04-04 15:10:23" y="67"/>
+		    		<point name="2015-04-04 16:18:14" y="49"/>
+		    		<point name="2015-04-04 17:35:53" y="73"/>
+		    		<point name="2015-04-04 18:27:49" y="70"/>
+		    	</series>
+		    	
+		    	<series name="高压(收缩压)">
+		    		<point name="2015-04-04 05:08:35" y="93"/>
+		    		<point name="2015-04-04 06:23:31" y="108"/>
+		    		<point name="2015-04-04 07:14:34" y="89"/>
+		    		<point name="2015-04-04 07:58:20" y="122"/>
+		    		<point name="2015-04-04 08:40:45" y="156"/>
+		    		<point name="2015-04-04 09:18:02" y="110"/>
+		    		<point name="2015-04-04 10:08:10" y="124"/>
+		    		<point name="2015-04-04 10:57:35" y="90"/>
+		    		<point name="2015-04-04 11:36:32" y="130"/>
+		    		<point name="2015-04-04 12:49:26" y="180"/>
+		    		<point name="2015-04-04 13:20:46" y="106"/>
+		    		<point name="2015-04-04 14:15:53" y="110"/>
+		    		<point name="2015-04-04 15:10:23" y="99"/>
+		    		<point name="2015-04-04 16:18:14" y="144"/>
+		    		<point name="2015-04-04 17:35:53" y="120"/>
+		    		<point name="2015-04-04 18:27:49" y="113"/>
+		    	</series>
+		    	
+		    	<series name="低压(舒张压)">
+		    		<point name="2015-04-04 05:08:35" y="73"/>
+		    		<point name="2015-04-04 06:23:31" y="87"/>
+		    		<point name="2015-04-04 07:14:34" y="76"/>
+		    		<point name="2015-04-04 07:58:20" y="112"/>
+		    		<point name="2015-04-04 08:40:45" y="134"/>
+		    		<point name="2015-04-04 09:18:02" y="98"/>
+		    		<point name="2015-04-04 10:08:10" y="80"/>
+		    		<point name="2015-04-04 10:57:35" y="70"/>
+		    		<point name="2015-04-04 11:36:32" y="50"/>
+		    		<point name="2015-04-04 12:49:26" y="74"/>
+		    		<point name="2015-04-04 13:20:46" y="69"/>
+		    		<point name="2015-04-04 14:15:53" y="74"/>
+		    		<point name="2015-04-04 15:10:23" y="59"/>
+		    		<point name="2015-04-04 16:18:14" y="114"/>
+		    		<point name="2015-04-04 17:35:53" y="77"/>
+		    		<point name="2015-04-04 18:27:49" y="89"/>
+		    	</series>
+		    	
+			</data>
+		</chart>
+	</charts>
+</anychart>
+			
