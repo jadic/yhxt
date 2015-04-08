@@ -435,6 +435,11 @@ public class NSearchController extends BaseController
 			if (query.getId() > 0)
 			{
 				ActivityModel model  = nSearchService.queryActivityInfoById(query);
+				List<DoctorModel> doctorFlys = nSearchService.queryActivityDoctorInfo(query);
+				if (doctorFlys != null && doctorFlys.size() > 0)
+				{
+					result.addObject("doctorFlys", doctorFlys);
+				}
 				result.addObject("activity", model);
 			}
 		}
@@ -623,6 +628,11 @@ public class NSearchController extends BaseController
 			if (query.getId() > 0)
 			{
 				ServiceModel model  = nSearchService.queryServiceInfoById(query);
+				List<DoctorModel> doctorFlys = nSearchService.queryServiceDoctorInfo(query);
+				if (doctorFlys != null && doctorFlys.size() > 0)
+				{
+					result.addObject("doctorFlys", doctorFlys);
+				}
 				result.addObject("service", model);
 			}
 		}

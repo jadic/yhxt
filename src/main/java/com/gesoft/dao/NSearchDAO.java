@@ -636,4 +636,31 @@ public class NSearchDAO extends EntityDAOImpl<BaseModel, Long>
 	{
 		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryLoginInfo", model);
 	}
+	
+
+	/**
+	 * 描述信息：加载活动医生
+	 * 创建时间：2015年4月9日 上午5:32:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<DoctorModel> queryActivityDoctorInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryActivityDoctorInfo", model);
+	}
+	
+	
+
+	/**
+	 * 描述信息：加载服务医生
+	 * 创建时间：2015年4月9日 上午5:32:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<DoctorModel> queryServiceDoctorInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryServiceDoctorInfo", model);
+	}
 }

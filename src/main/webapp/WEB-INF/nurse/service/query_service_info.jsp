@@ -64,7 +64,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		</tr>
 		    		<tr>
 		    			<td align="left" class="odd">
-		    				参与医生：${service.userName }
+		    				参与医生：<c:forEach items="${doctorFlys }" var="doctorItem" varStatus="item">
+		    					<span style="padding-right: 10px; ">${doctorItem.doctorName } <c:if test="${item.last == false}">；</c:if> </span>
+		    				</c:forEach>
 		    			</td>
 		    		</tr>
 		    		<tr>

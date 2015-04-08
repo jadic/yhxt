@@ -17,9 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gesoft.common.EntityDAO;
 import com.gesoft.common.EntityService;
 import com.gesoft.dao.PQueryDAO;
+import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
+import com.gesoft.model.DoctorModel;
 import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
@@ -687,6 +689,62 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	public int addFeedBackInfo(FeedBackModel model)
 	{
 		return pQueryDAO.addFeedBackInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：加载活动总数
+	 * 创建时间：2015年4月9日 上午4:44:29
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public long queryActivityInfoCnt(QueryModel model)
+	{
+		return pQueryDAO.queryActivityInfoCnt(model);
+	}
+
+	
+	/**
+	 * 描述信息：分页加载活动
+	 * 创建时间：2015年4月9日 上午4:44:47
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<ActivityModel> queryActivityInfo(QueryModel model)
+	{
+		return pQueryDAO.queryActivityInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：加载活动详细
+	 * 创建时间：2015年4月9日 上午5:15:38
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public ActivityModel queryActivityInfoById(QueryModel model)
+	{
+		return pQueryDAO.queryActivityInfoById(model);
+	}
+
+	
+	/**
+	 * 描述信息：加载活动医生
+	 * 创建时间：2015年4月9日 上午5:32:02
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<DoctorModel> queryActivityDoctorInfo(QueryModel model)
+	{
+		return pQueryDAO.queryActivityDoctorInfo(model);
 	}
 	
 }

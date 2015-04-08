@@ -10,11 +10,14 @@ package com.gesoft.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gesoft.common.EntityDAOImpl;
+import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
+import com.gesoft.model.DoctorModel;
 import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
@@ -644,5 +647,57 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	public int addFeedBackInfo(FeedBackModel model)
 	{
 		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addFeedBackInfo", model);
+	}
+	
+	
+	
+	/**
+	 * 描述信息：加载活动总数
+	 * 创建时间：2015年4月9日 上午4:44:29
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public long queryActivityInfoCnt(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryActivityInfoCnt", model);
+	}
+
+	
+	/**
+	 * 描述信息：分页加载活动
+	 * 创建时间：2015年4月9日 上午4:44:47
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @return
+	 */
+	public List<ActivityModel> queryActivityInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryActivityInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：加载活动详细
+	 * 创建时间：2015年4月9日 上午5:15:38
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public ActivityModel queryActivityInfoById(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryActivityInfoById", model);
+	}
+	
+	/**
+	 * 描述信息：加载活动医生
+	 * 创建时间：2015年4月9日 上午5:32:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<DoctorModel> queryActivityDoctorInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryActivityDoctorInfo", model);
 	}
 }

@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gesoft.model.ActivityModel;
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
+import com.gesoft.model.DoctorModel;
 import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
@@ -254,6 +256,66 @@ public class PQueryController extends BaseController
 		return result;
 	}
 	
+	
+	
+	
+	/**
+	 * 描述信息：我的活动
+	 * 创建时间：2015年3月4日 下午11:15:53
+	 * @author WCL (ln_admin@yeah.net)
+	 * @return
+	 */
+	@RequestMapping(value="/activity.do")
+	public ModelAndView toActivity(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/serviceinfo/manage_activity_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+			
+			//分页加载建议执行结果
+			long recordCount = pQueryService.queryActivityInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<ActivityModel> argArgs = pQueryService.queryActivityInfo(query);
+				result.addObject("activityFlys", argArgs);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toActivity error：", e);
+		}
+		return result;
+	}
+	
+	
+	@RequestMapping(value="/activitydetail.do")
+	public ModelAndView toActivityDetail(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/serviceinfo/query_activity_info");
+		try
+		{
+			query.setNurseId(getSessionUserId(request, SESSION_KEY_NUID));
+			result.addObject("query", query);
+			if (query.getId() > 0)
+			{
+				ActivityModel model  = pQueryService.queryActivityInfoById(query);
+				List<DoctorModel> doctorFlys = pQueryService.queryActivityDoctorInfo(query);
+				if (doctorFlys != null && doctorFlys.size() > 0)
+				{
+					result.addObject("doctorFlys", doctorFlys);
+				}
+				result.addObject("activity", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toActivityDetail error：", e);
+		}
+		return result;
+	}
 	
 	/**
 	 * 描述信息：我的服务

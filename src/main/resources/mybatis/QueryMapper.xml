@@ -228,6 +228,24 @@
 		<result property="name"  					column="name"/>
 	</resultMap>
 	
+	<!-- 分页查询活动记录 -->
+    <resultMap id="mRetActivityMap" 				type="activityModel">
+		<result property="id"  						column="activityId"/>
+		<result property="type"  					column="activityType"/>
+		<result property="name"  					column="activityName"/>
+		<result property="content"  				column="activityContent"/>
+		<result property="creatorId"  				column="activityCreatorId"/>
+		<result property="createTime"  				column="activityCreateTime"/>
+		<result property="sdate"  					column="activityStartDate"/>
+		<result property="edate"  					column="activityDuration"/>
+		<result property="memo"  					column="activityMemo"/>
+		<result property="icon"  					column="activityIcon"/>
+	</resultMap>
+	
+    <resultMap id="mDoctorMap" 		      type="doctorModel">
+		<result property="doctorId"       column="doctorId"/>
+		<result property="doctorName"  	  column="doctorName"/>
+	</resultMap>
 	
 	<!-- 用户登录 -->
 	<select id="QueryMapper.queryLoginInfo" 	parameterType="userModel"	resultMap="mRetLoginMap">
@@ -839,4 +857,61 @@
 	        VALUES (#{type}, #{content}, #{userId}, #{stime})
 	    ]]>
 	</insert>
+	
+		<!-- 查询活动的总数 -->
+	<select id="QueryMapper.queryActivityInfoCnt" 	parameterType="queryModel"	resultType="long">
+		<![CDATA[
+			select count(1) as cnt
+			from tab_activity a1
+		]]>
+		<where>	
+			<if test="name != null and name != ''">
+				AND a1.activityName LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+        </where>
+	</select>
+    
+	
+	<!-- 分页查询活动记录 -->
+	<select id="QueryMapper.queryActivityInfo" 	parameterType="queryModel"	resultMap="mRetActivityMap">
+		<![CDATA[
+			select a1.activityId, a1.activityType, a1.activityName, a1.activityContent, a1.activityCreatorId, 
+				a1.activityCreateTime, a1.activityStartDate, a1.activityDuration, a1.activityMemo,  a1.activityIcon
+			from tab_activity a1
+		]]>
+	     <where>	
+			<if test="name != null and name != ''">
+				AND a1.activityName LIKE CONCAT('%', #{name}, '%') 
+	        </if>
+        </where>
+		<![CDATA[
+			order by activityStartDate desc
+			limit #{startNum}, #{rows}
+		]]>
+	</select>
+	
+	<!-- 分页查询活动记录 -->
+	<select id="QueryMapper.queryActivityInfoById" 	parameterType="queryModel"	resultMap="mRetActivityMap">
+		<![CDATA[
+			select a1.activityId, a1.activityType, a1.activityName, a1.activityContent, a1.activityCreatorId, 
+				a1.activityCreateTime, a1.activityStartDate, a1.activityDuration, a1.activityMemo,  a1.activityIcon
+			from tab_activity a1
+			where a1.activityId = #{id}
+		]]>
+	</select>
+	
+	
+	<!-- 加载活动医生 -->
+	<select id="QueryMapper.queryActivityDoctorInfo" 	parameterType="queryModel"	resultMap="mDoctorMap">
+		<![CDATA[
+			select CONCAT(a2.doctorName, '(', a3.hospitalName,')') as doctorName, a1.doctorId
+			from tab_activity_doctor a1
+			inner join tab_doctor a2 on a1.doctorId=a2.doctorId
+			left join tab_hospital a3 on a3.hospitalId=a2.doctorHospitalId
+			where a1.activityId = #{id}
+		]]>
+	</select>
+	
+
+	
 </mapper>

@@ -700,4 +700,31 @@ public class NSearchService extends EntityService<BaseModel, Long>
 		return model;
 	}
 	
+	/**
+	 * 描述信息：加载活动医生
+	 * 创建时间：2015年4月9日 上午5:32:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<DoctorModel> queryActivityDoctorInfo(QueryModel model)
+	{
+		return nSearchDAO.queryActivityDoctorInfo(model);
+	}
+	
+	
+
+	/**
+	 * 描述信息：加载服务医生
+	 * 创建时间：2015年4月9日 上午5:32:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<DoctorModel> queryServiceDoctorInfo(QueryModel model)
+	{
+		return nSearchDAO.queryServiceDoctorInfo(model);
+	}
 }

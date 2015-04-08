@@ -201,7 +201,6 @@
 		<result property="text" 					column="text" />
 	</resultMap>
 	
-	
 	<!-- 用户登录 -->
 	<select id="SearchMapper.queryLoginInfo" 	parameterType="userModel"	resultMap="mRetLoginMap">
 		<![CDATA[
@@ -822,6 +821,29 @@
 			FROM tab_user a1
 			INNER JOIN tab_user_nurse_relation a2 on a1.userId=a2.userId
 			where a2.nurseId = #{nurseId}
+		]]>
+	</select>
+	
+	<!-- 加载活动医生 -->
+	<select id="SearchMapper.queryActivityDoctorInfo" 	parameterType="queryModel"	resultMap="mDoctorMap">
+		<![CDATA[
+			select CONCAT(a2.doctorName, '(', a3.hospitalName,')') as doctorName, a1.doctorId
+			from tab_activity_doctor a1
+			inner join tab_doctor a2 on a1.doctorId=a2.doctorId
+			left join tab_hospital a3 on a3.hospitalId=a2.doctorHospitalId
+			where a1.activityId = #{id}
+		]]>
+	</select>
+	
+	
+	<!-- 加载服务医生 -->
+	<select id="SearchMapper.queryServiceDoctorInfo" 	parameterType="queryModel"	resultMap="mDoctorMap">
+		<![CDATA[
+			select CONCAT(a2.doctorName, '(', a3.hospitalName,')') as doctorName, a1.doctorId
+			from tab_activity_doctor a1
+			inner join tab_doctor a2 on a1.doctorId=a2.doctorId
+			left join tab_hospital a3 on a3.hospitalId=a2.doctorHospitalId
+			where a1.activityId = #{id}
 		]]>
 	</select>
 </mapper>
