@@ -111,17 +111,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body style="padding: 0px; margin: 0px; min-width: 1000px;">
 	<table cellpadding="0" cellspacing="0" style="width: 100%; min-width:904px; overflow: hidden;" border="0" id="top-table">
 		<tr>
-			<td style="height: 70px; max-height: 70px; width:452px; min-width:452px; background: url('<c:url value='/patient/themes/images/top-left.png'/>')  repeat-y;">&nbsp;</td>
-			<td style="height: 70px; max-height: 70px; background: #aaa0a1;">&nbsp;</td>
-			<td style="height: 70px; max-height: 70px; width:452px; min-width:452px; background: url('<c:url value='/patient/themes/images/top-right.png'/>')  repeat-y;">&nbsp;</td>
+			<td style="height: 70px; max-height: 70px; width:452px; min-width:452px; background: #2aa495;">&nbsp;</td>
+			<td style="height: 70px; max-height: 70px; background: #2aa495;">&nbsp;</td>
+			<td style="height: 70px; max-height: 70px; width:452px; min-width:452px; background:#2aa495;">&nbsp;</td>
 		</tr>
 		<tr>
 			<td style="height: 40px; max-height: 40px;" colspan="3">
 				<table cellpadding="0" cellspacing="0" border="0" style="height:40px; width: 100%;">
 					<tr>
-						<td style="width:226px; min-width:226px; background: url('<c:url value='/patient/themes/images/menu-left.png'/>')  no-repeat;">&nbsp;</td>
-						<td style=" background: url('<c:url value='/patient/themes/images/menu-center.png'/>');">&nbsp;</td>
-						<td style="width:226px; min-width:226px; background: url('<c:url value='/patient/themes/images/menu-right.png'/>')  no-repeat;">&nbsp;</td>
+						<td style="width:226px; min-width:226px; background: #16bab1;">&nbsp;</td>
+						<td style=" background: #16bab1;">&nbsp;</td>
+						<td style="width:226px; min-width:226px; background: #16bab1;">&nbsp;</td>
 					</tr>
 				</table>
 			
@@ -267,6 +267,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<span class="tree-item-arrow"></span>
 							</div>
 							<ul>
+								<li id="tree-gjcx-li">
+									<div class="tree-item-label">
+										<span class="tree-item-text" title="我的活动">
+											<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/activity.do'/>" target="mainFrame">我的活动</a>
+										</span>
+									</div>
+								</li>
 								<li id="tree-gjcx-li">
 									<div class="tree-item-label">
 										<span class="tree-item-text" title="我的服务">

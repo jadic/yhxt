@@ -296,17 +296,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body style="padding: 0px; margin: 0px; min-width: 1000px;">
 	<table cellpadding="0" cellspacing="0" style="width: 100%; min-width:904px; overflow: hidden;" border="0" id="top-table">
 		<tr>
-			<td style="height: 70px; max-height: 70px; width:452px; min-width:452px; background: url('<c:url value='/nurse/themes/images/top-left.png'/>')  repeat-y;">&nbsp;</td>
-			<td style="height: 70px; max-height: 70px; background: #aaa0a1;">&nbsp;</td>
-			<td style="height: 70px; max-height: 70px; width:452px; min-width:452px; background: url('<c:url value='/nurse/themes/images/top-right.png'/>')  repeat-y;">&nbsp;</td>
+			<td style="height: 70px; max-height: 70px; width:452px; min-width:452px; background: #2aa495;">&nbsp;</td>
+			<td style="height: 70px; max-height: 70px; background: #2aa495;">&nbsp;</td>
+			<td style="height: 70px; max-height: 70px; width:452px; min-width:452px; background:#2aa495;">&nbsp;</td>
 		</tr>
 		<tr>
 			<td style="height: 40px; max-height: 40px;" colspan="3">
 				<table cellpadding="0" cellspacing="0" border="0" style="height:40px; width: 100%;">
 					<tr>
-						<td style="width:226px; min-width:226px; background: url('<c:url value='/nurse/themes/images/menu-left.png'/>')  no-repeat;">&nbsp;</td>
-						<td style=" background: url('<c:url value='/nurse/themes/images/menu-center.png'/>');">&nbsp;</td>
-						<td style="width:226px; min-width:226px; background: url('<c:url value='/nurse/themes/images/menu-right.png'/>')  no-repeat;">&nbsp;</td>
+						<td style="width:226px; min-width:226px; background: #16bab1;">&nbsp;</td>
+						<td style=" background: #16bab1;">&nbsp;</td>
+						<td style="width:226px; min-width:226px; background: #16bab1;">&nbsp;</td>
 					</tr>
 				</table>
 			
@@ -380,7 +380,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</li>
 					<li name="hMenu5" class="tree-group-li">
 						<div id="health-tree-group" class="tree-group-label">
-							<span class="tree-item-text">平台医生</span>
+							<span class="tree-item-text">专家库</span>
 							<span class="tree-item-arrow"></span>
 						</div>
 						<ul class="">
@@ -433,7 +433,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <li id="hMenu2"><a href="javascript:void(0)" target="mainFrame" title="我的活动">我的活动</a></li>
           <li id="hMenu3"><a href="javascript:void(0)" target="mainFrame" title="我的服务">我的服务</a></li>
           <li id="hMenu4"><a href="javascript:void(0)" target="mainFrame" title="我的签约">我的签约</a></li>
-          <li id="hMenu5"><a href="javascript:void(0)" target="mainFrame" title="平台医生">专家库</a></li>
+          <li id="hMenu5"><a href="javascript:void(0)" target="mainFrame" title="专家库">专家库</a></li>
         </ul> 
        </div>
 	</div>

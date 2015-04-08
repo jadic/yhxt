@@ -79,6 +79,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						"education" 		: $("#education").val(),
 						"policticsStatus" 	: $("#policticsStatus").val(),
 						"homeAddress" 		: $("#homeAddress").val(),
+						"spouseName" 		: $("#spouseName").val(),
+						"spousePhone" 		: $("#spousePhone").val(),
 						"homePhone" 		: $("#homePhone").val()
 					};
 				}
@@ -413,6 +415,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				<select class="selectMax_informationModify  text-input validate[required]" id="policticsStatus" name="policticsStatus">
 		                    <option value="-1">请选择</option>
 		               </select>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    				配偶姓名：
+	    			</td>
+	    			<td align="left">
+	    				<input class="inputMin_informationModify text-input" type="text" id="spouseName" name="spouseName" value="${userModel.spouseName }" maxlength="30">
+	    			</td>
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    				配偶手机：
+	    			</td>
+	    			<td align="left">
+	    				<input class="inputMin_informationModify text-input" type="text" id="spousePhone" name="spousePhone" value="${userModel.spousePhone }" maxlength="30">
 	    			</td>
 	    		</tr>
 	    		<tr>

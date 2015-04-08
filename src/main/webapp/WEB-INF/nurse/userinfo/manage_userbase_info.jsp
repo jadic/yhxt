@@ -82,6 +82,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						"policticsStatus" 	: $("#policticsStatus").val(),
 						"homeAddress" 		: $("#homeAddress").val(),
 						"homePhone" 		: $("#homePhone").val(),
+						"spouseName" 		: $("#spouseName").val(),
+						"spousePhone" 		: $("#spousePhone").val(),
 						"operType"			: 1,
 						"userId"			: "${query.userId}"
 					};
@@ -234,7 +236,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				真实姓名：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" value="${userModel.name }" maxlength="16">
+	    				<input class="inputMin_informationModify text-input" type="text" id="name" name="name" value="${userModel.name }" >
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    			<td rowspan="5">
@@ -276,7 +278,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				出生日期：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="birthdate" name="birthdate" maxlength="16" value="${userModel.birthdate }">
+	    				<input class="inputMin_informationModify text-inputWdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="birthdate" name="birthdate"  value="${userModel.birthdate }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
@@ -285,7 +287,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				手机号码：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="cellphone" name="cellphone" maxlength="11" value="${userModel.cellphone }">
+	    				<input class="inputMin_informationModify text-input" type="text" id="cellphone" name="cellphone" maxlength="11" value="${userModel.cellphone }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
@@ -294,7 +296,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				电子邮箱：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="email" name="email" maxlength="40" value="${userModel.email }">
+	    				<input class="inputMin_informationModify text-input" type="text" id="email" name="email" maxlength="40" value="${userModel.email }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
@@ -323,7 +325,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				证件号码：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="credentialNo" name="credentialNo" maxlength="50" value="${userModel.credentialNo }">
+	    				<input class="inputMin_informationModify text-input" type="text" id="credentialNo" name="credentialNo" maxlength="50" value="${userModel.credentialNo }">
 	    			</td>
 	    		</tr>
 	    		<tr>
@@ -353,13 +355,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				身高(cm)：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="height" name="height" value="${userModel.height }" maxlength="3">
+	    				<input class="inputMin_informationModify text-input" type="text" id="height" name="height" value="${userModel.height }" maxlength="3">
 	    			</td>
 	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
 	    				体重(kg)：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="weight" name="weight" value="${userModel.weight }" maxlength="3">
+	    				<input class="inputMin_informationModify text-input" type="text" id="weight" name="weight" value="${userModel.weight }" maxlength="3">
 	    			</td>
 	    		</tr>
 	    		<tr>
@@ -375,7 +377,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				籍<span style="padding: 0 13px;"></span>贯：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="nativePlace" name="nativePlace" value="${userModel.nativePlace }" maxlength="80">
+	    				<input class="inputMin_informationModify text-input" type="text" id="nativePlace" name="nativePlace" value="${userModel.nativePlace }" maxlength="80">
 	    			</td>
 	    		</tr>
 	    		<tr>
@@ -416,10 +418,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		</tr>
 	    		<tr>
 	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    				配偶姓名：
+	    			</td>
+	    			<td align="left">
+	    				<input class="inputMin_informationModify text-input" type="text" id="spouseName" name="spouseName" value="${userModel.spouseName }" maxlength="30">
+	    			</td>
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    				配偶手机：
+	    			</td>
+	    			<td align="left">
+	    				<input class="inputMin_informationModify text-input" type="text" id="spousePhone" name="spousePhone" value="${userModel.spousePhone }" maxlength="30">
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
 	    				家庭电话：
 	    			</td>
 	    			<td align="left" colspan="3">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="homePhone" name="homePhone" value="${userModel.homePhone }" maxlength="15">
+	    				<input class="inputMin_informationModify text-input" type="text" id="homePhone" name="homePhone" value="${userModel.homePhone }" maxlength="15">
 	    			</td>
 	    		</tr>
 	    		<tr>
@@ -427,7 +443,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				家庭地址：
 	    			</td>
 	    			<td align="left" colspan="3">
-	    				<input class="inputMax_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="homeAddress" name="homeAddress" value="${userModel.homeAddress }" maxlength="80">
+	    				<input class="inputMax_informationModify text-input" type="text" id="homeAddress" name="homeAddress" value="${userModel.homeAddress }" maxlength="80">
 	    			</td>
 	    		</tr>
 	    	</table>
@@ -464,7 +480,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				公司名称：
 	    			</td>
 	    			<td align="left" colspan="3">
-	    				<input class="inputMax_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="companyName" name="companyName" value="${userModel.companyName }" maxlength="16">
+	    				<input class="inputMax_informationModify text-input" type="text" id="companyName" name="companyName" value="${userModel.companyName }" >
 	    			</td>
 	    		</tr>
 	    		<tr>
@@ -472,7 +488,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				公司地址：
 	    			</td>
 	    			<td align="left" colspan="3">
-	    				<input class="inputMax_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="companyAddress" name="companyAddress" value="${userModel.companyAddress }" maxlength="16">
+	    				<input class="inputMax_informationModify text-input" type="text" id="companyAddress" name="companyAddress" value="${userModel.companyAddress }" >
 	    			</td>
 	    		</tr>	
 	    	</table>

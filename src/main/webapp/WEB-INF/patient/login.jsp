@@ -46,20 +46,7 @@
   <body style="padding: 0px; margin: 0px; overflow: hidden;">
   	<table cellpadding="0" cellspacing="0" style="width: 100%; min-width:904px; overflow: hidden;" border="0" id="top-table">
 		<tr>
-			<td style="height: 90px; max-height: 90px; width:452px; min-width:452px; background: url('<c:url value='/patient/themes/images/top-left.png'/>')  repeat-y;">&nbsp;</td>
-			<td style="height: 90px;;; max-height: 90px;;; background: #aaa0a1;">&nbsp;</td>
-			<td style="height: 90px; max-height: 90px; width:452px; min-width:452px; background: url('<c:url value='/patient/themes/images/top-right.png'/>')  repeat-y;">&nbsp;</td>
-		</tr>
-		<tr>
-			<td style="height: 40px; max-height: 40px;" colspan="3">
-				<table cellpadding="0" cellspacing="0" border="0" style="height:40px; width: 100%;">
-					<tr>
-						<td style="width:226px; min-width:226px; background: url('<c:url value='/patient/themes/images/menu-left.png'/>')  no-repeat;">&nbsp;</td>
-						<td style=" background: url('<c:url value='/patient/themes/images/menu-center.png'/>');">&nbsp;</td>
-						<td style="width:226px; min-width:226px; background: url('<c:url value='/patient/themes/images/menu-right.png'/>')  no-repeat;">&nbsp;</td>
-					</tr>
-				</table>
-			</td>
+			<td style="height: 130px;;; max-height: 130px;;; background: #2aa495;">&nbsp;</td>
 		</tr>
 	</table>
 	<table id="center-table" cellpadding="0" cellspacing="0" style="width: 100%; min-width:904px; height:500px; overflow: hidden; background: url('<c:url value='/patient/themes/images/login_03.png'/>');" border="0" >
@@ -137,7 +124,7 @@
 		</tr>
 	</table>
 	
-	<div style="height:70px; width:100%; position: absolute; top: 15px; background: url('<c:url value='/patient/themes/images/login_00.png'/>') center no-repeat;">
+	<div style="height:70px; width:100%; position: absolute; top: 25px; background: url('<c:url value='/patient/themes/images/login_00.png'/>') center no-repeat;">
   	</div>
   </body>
 </html>
