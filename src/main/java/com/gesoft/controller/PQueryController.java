@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.ActivityModel;
+import com.gesoft.model.CommentModel;
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
 import com.gesoft.model.DoctorModel;
@@ -34,6 +35,7 @@ import com.gesoft.model.MessageModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.OutModel;
+import com.gesoft.model.PostModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ScoreModel;
@@ -88,6 +90,7 @@ public class PQueryController extends BaseController
 							session.setAttribute(SESSION_KEY_PISLOGIN, GLOBAL_YES);
 							session.setAttribute(SESSION_KEY_PLOGINNAME, mLoginModel.getUserName());
 							session.setAttribute(SESSION_KEY_PUID, mLoginModel.getUserId());
+							session.setAttribute(SESSION_KEY_PFULLNAME, mLoginModel.getName());
 							
 							QueryModel query = new QueryModel();
 							query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
@@ -1337,4 +1340,163 @@ public class PQueryController extends BaseController
 		}
 		return msgModel;
 	}
+	
+	
+	/**
+	 * 描述信息：论坛管理
+	 * 创建时间：2015年4月9日 上午5:57:55
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/post.do")
+	public ModelAndView toPost(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/postinfo/manage_post_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+			
+			long recordCount = pQueryService.queryPostInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<PostModel> argArgs = pQueryService.queryPostInfo(query);
+				result.addObject("postFlys", argArgs);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toPost error：", e);
+		}
+		return result;
+	}
+	
+	/**
+	 * 描述信息：进行增加论坛界面
+	 * 创建时间：2015年4月9日 上午6:03:33
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/mergePost.do")
+	public ModelAndView toMergePost(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/postinfo/add_post_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toMergePost error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：增加论坛
+	 * 创建时间：2015年4月9日 上午6:04:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/addPost.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toAddPost(PostModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			model.setUserName(getSessionUserName(request, SESSION_KEY_NFULLNAME));
+			model.setStime(SystemUtils.getCurrentSystemTime());
+			if (pQueryService.addPostInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toAddPost error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：论坛详细
+	 * 创建时间：2015年4月9日 上午8:29:12
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/postDetail.do")
+	public ModelAndView toPostDetail(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/postinfo/query_post_detail_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+			
+			//加载论坛内容
+			PostModel mPostModel = pQueryService.queryPostInfoById(query);
+			result.addObject("post", mPostModel);
+			
+			//加载评论
+			List<CommentModel> argFlys = pQueryService.queryPostCommentInfo(query);
+			if (argFlys != null && argFlys.size() > 0)
+			{
+				result.addObject("commentFlys", argFlys);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toPostDetail error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：提交评论
+	 * 创建时间：2015年4月9日 上午8:33:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/addComment.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toAddComment(CommentModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			model.setUserName(getSessionUserName(request, SESSION_KEY_NFULLNAME));
+			model.setStime(SystemUtils.getCurrentSystemTime());
+			if (pQueryService.addPostCommentInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toAddComment error：", e);
+		}
+		return msgModel;
+	}
+	
 }

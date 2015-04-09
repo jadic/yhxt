@@ -10,11 +10,11 @@ package com.gesoft.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.CommentModel;
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
 import com.gesoft.model.DoctorModel;
@@ -24,6 +24,7 @@ import com.gesoft.model.HabbitModel;
 import com.gesoft.model.MessageModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.OutModel;
+import com.gesoft.model.PostModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ScoreModel;
@@ -700,4 +701,82 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryActivityDoctorInfo", model);
 	}
+	
+
+	/**
+	 * 描述信息：加载论坛总数
+	 * 创建时间：2015年4月9日 上午6:11:06
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public long queryPostInfoCnt(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryPostInfoCnt", model);
+	}
+
+	
+	/**
+	 * 描述信息：分页加载论坛
+	 * 创建时间：2015年4月9日 上午6:10:49
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<PostModel> queryPostInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryPostInfo", model);
+	}
+
+	/**
+	 * 描述信息：增加论坛
+	 * 创建时间：2015年4月9日 上午6:10:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addPostInfo(PostModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addPostInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：查看论坛详细
+	 * 创建时间：2015年4月9日 上午8:35:04
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public PostModel queryPostInfoById(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryPostInfoById", model);
+	}
+	
+
+	/**
+	 * 描述信息：查询评论列表
+	 * 创建时间：2015年4月9日 上午8:35:08
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<CommentModel> queryPostCommentInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryPostCommentInfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：增加评论
+	 * 创建时间：2015年4月9日 上午8:35:18
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addPostCommentInfo(CommentModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addPostCommentInfo", model);
+	}
+	
 }

@@ -249,4 +249,29 @@ public class BaseController implements Constants
 		}
 		return mUserId;
 	}
+	
+	/**
+	 * 描述信息：取用户名
+	 * 创建时间：2015年4月9日 上午6:05:58
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param request
+	 * @param sessionKey
+	 * @return
+	 */
+	protected String getSessionUserName(HttpServletRequest request, String sessionKey)
+	{
+		String strRet = "";
+		HttpSession session = request.getSession();
+		try
+		{
+			if (session.getAttribute(sessionKey) != null)
+			{
+				strRet = session.getAttribute(sessionKey).toString();
+			}
+		}
+		catch (Exception e)
+		{
+		}
+		return strRet;
+	}
 }

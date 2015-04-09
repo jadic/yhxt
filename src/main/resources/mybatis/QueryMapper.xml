@@ -242,11 +242,31 @@
 		<result property="icon"  					column="activityIcon"/>
 	</resultMap>
 	
+    <!-- 活动医生 -->
     <resultMap id="mDoctorMap" 		      type="doctorModel">
 		<result property="doctorId"       column="doctorId"/>
 		<result property="doctorName"  	  column="doctorName"/>
 	</resultMap>
 	
+	
+    <!-- 加载论坛 -->
+    <resultMap id="mRetPostMap" 		      	type="postModel">
+		<result property="id"       			column="postId"/>
+		<result property="title"  	  			column="postTitle"/>
+		<result property="content"  	  		column="postContent"/>
+		<result property="stime"  	  			column="postTime"/>
+		<result property="userId"  	  			column="postUserId"/>
+		<result property="userName"  	 	 	column="postUserName"/>
+	</resultMap>
+    
+    <!-- 加载论坛 -->
+    <resultMap id="mRetPostCommentMap" 		     type="commentModel">
+		<result property="content"  	  		column="commentContent"/>
+		<result property="stime"  	  			column="commentTime"/>
+		<result property="userName"  	 	 	column="commentUserName"/>
+	</resultMap>
+    
+    
 	<!-- 用户登录 -->
 	<select id="QueryMapper.queryLoginInfo" 	parameterType="userModel"	resultMap="mRetLoginMap">
 		<![CDATA[
@@ -912,6 +932,69 @@
 		]]>
 	</select>
 	
-
+	<!-- 查询论坛的总数 -->
+	<select id="QueryMapper.queryPostInfoCnt" 	parameterType="queryModel"	resultType="long">
+		<![CDATA[
+			select count(1) as cnt
+			from tab_post a1
+		]]>
+		<where>	
+			<if test="title != null and title != ''">
+				AND a1.postTitle LIKE CONCAT('%', #{title}, '%') 
+	        </if>
+        </where>
+	</select>
 	
+	
+	<!-- 分页查询论坛记录 -->
+	<select id="QueryMapper.queryPostInfo" 	parameterType="queryModel"	resultMap="mRetPostMap">
+		<![CDATA[
+			select a1.postId, a1.postTitle, a1.postContent, a1.postTime, a1.postUserId, a1.postUserName
+			from tab_post a1
+		]]>
+	     <where>	
+			<if test="title != null and title != ''">
+				AND a1.postTitle LIKE CONCAT('%', #{title}, '%') 
+	        </if>
+        </where>
+		<![CDATA[
+			order by postTime desc
+			limit #{startNum}, #{rows}
+		]]>
+	</select>
+	
+	<!-- 查看论坛详细 -->
+	<select id="QueryMapper.queryPostInfoById" 	parameterType="queryModel"	resultMap="mRetPostMap">
+		<![CDATA[
+			select a1.postId, a1.postTitle, a1.postContent, a1.postTime, a1.postUserId, a1.postUserName
+			from tab_post a1
+			where a1.postId = #{id}
+		]]>
+	</select>
+	
+	<!-- 插入论坛信息 -->
+	<insert id="QueryMapper.addPostInfo"  parameterType="feedBackModel"  useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_post (postTitle, postContent, postTime, postUserId, postUserName) 
+	        VALUES (#{title}, #{content}, #{stime}, #{userId}, #{userName})
+	    ]]>
+	</insert>
+	
+	<!-- 查询评论列表 -->
+	<select id="QueryMapper.queryPostCommentInfo" 	parameterType="queryModel"	resultMap="mRetPostCommentMap">
+		<![CDATA[
+			select a1.commentContent, a1.commentTime, a1.commentUserName
+			from tab_comment a1
+			where a1.commentPostId = #{id}
+		]]>
+	</select>
+	
+	
+	<!-- 插入评论信息 -->
+	<insert id="QueryMapper.addPostCommentInfo"  parameterType="commentModel"  useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_comment (commentPostId, commentContent, commentTime, commentUserId, commentUserName) 
+	        VALUES (#{pid}, #{content}, #{stime}, #{userId}, #{userName})
+	    ]]>
+	</insert>
 </mapper>

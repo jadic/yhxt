@@ -19,6 +19,7 @@ import com.gesoft.common.EntityService;
 import com.gesoft.dao.PQueryDAO;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.CommentModel;
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
 import com.gesoft.model.DoctorModel;
@@ -28,6 +29,7 @@ import com.gesoft.model.HabbitModel;
 import com.gesoft.model.MessageModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.OutModel;
+import com.gesoft.model.PostModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ScoreModel;
@@ -745,6 +747,87 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	public List<DoctorModel> queryActivityDoctorInfo(QueryModel model)
 	{
 		return pQueryDAO.queryActivityDoctorInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：加载论坛总数
+	 * 创建时间：2015年4月9日 上午6:11:06
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public long queryPostInfoCnt(QueryModel model)
+	{
+		return pQueryDAO.queryPostInfoCnt(model);
+	}
+
+	
+	/**
+	 * 描述信息：分页加载论坛
+	 * 创建时间：2015年4月9日 上午6:10:49
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<PostModel> queryPostInfo(QueryModel model)
+	{
+		return pQueryDAO.queryPostInfo(model);
+	}
+
+	/**
+	 * 描述信息：增加论坛
+	 * 创建时间：2015年4月9日 上午6:10:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addPostInfo(PostModel model)
+	{
+		return pQueryDAO.addPostInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：查看论坛详细
+	 * 创建时间：2015年4月9日 上午8:35:04
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public PostModel queryPostInfoById(QueryModel model)
+	{
+		return pQueryDAO.queryPostInfoById(model);
+	}
+	
+
+	/**
+	 * 描述信息：查询评论列表
+	 * 创建时间：2015年4月9日 上午8:35:08
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<CommentModel> queryPostCommentInfo(QueryModel model)
+	{
+		return pQueryDAO.queryPostCommentInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：增加评论
+	 * 创建时间：2015年4月9日 上午8:35:18
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addPostCommentInfo(CommentModel model)
+	{
+		return pQueryDAO.addPostCommentInfo(model);
 	}
 	
 }

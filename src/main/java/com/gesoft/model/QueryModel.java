@@ -35,8 +35,16 @@ public class QueryModel extends BaseModel
 	private String endTime;
 	private String command;
 	private long senderId;
+	private String title;
 	
-	
+	public String getTitle()
+	{
+		return title;
+	}
+	public void setTitle(String title)
+	{
+		this.title = title;
+	}
 	public long getSenderId()
 	{
 		return senderId;

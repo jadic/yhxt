@@ -315,6 +315,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</li>		
 						</ul>
 					</li>
+					
+					
+					<li name="hMenu5" class="tree-group-li">
+						<div id="sync-tree-group" class="tree-group-label">
+							<span class="tree-item-text">快乐驿站</span>
+							<span class="tree-item-arrow"></span>
+						</div>
+						
+						<ul>
+							<li id="tree-gjcx-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="快乐驿站">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/post.do'/>" target="mainFrame">快乐驿站</a>
+									</span>
+								</div>
+							</li>		
+						</ul>
+					</li>
 				</ul>
 			</div>
 			</td>
