@@ -45,6 +45,18 @@ CREATE TABLE `tab_activity_doctor` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='活动与医生关联，用户统计医生的绩效';
 
 -- ----------------------------
+-- Table structure for tab_blood_glucose
+-- ----------------------------
+CREATE TABLE `tab_blood_glucose` (
+  `id` int(11) NOT NULL,
+  `userId` int(11) DEFAULT NULL COMMENT '用户编号',
+  `bloodGlucose` smallint(6) DEFAULT NULL COMMENT '血糖值  存储值=实际值*10',
+  `flag` smallint(6) DEFAULT '0' COMMENT '空腹、饭后标识    0：空腹  1：饭后',
+  `takeTime` datetime DEFAULT NULL COMMENT '测量时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='血糖测试记录表';
+
+-- ----------------------------
 -- Table structure for tab_comment
 -- ----------------------------
 DROP TABLE IF EXISTS `tab_comment`;
@@ -251,6 +263,17 @@ CREATE TABLE `tab_doctor_advice_performace` (
   `recordTime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='医生建议执行效果';
+
+-- ----------------------------
+-- Table structure for tab_ear_thermometer
+-- ----------------------------
+CREATE TABLE `tab_ear_thermometer` (
+  `id` int(11) NOT NULL,
+  `userId` int(11) DEFAULT NULL COMMENT '用户编号',
+  `temperature` smallint(11) DEFAULT NULL COMMENT '耳温  实际值*10， 378表示37.8°',
+  `takeTime` datetime DEFAULT NULL COMMENT '测温时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='耳温测量记录';
 
 -- ----------------------------
 -- Table structure for tab_feedback
