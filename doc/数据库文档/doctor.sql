@@ -79,6 +79,24 @@ CREATE TABLE `tab_blood_glucose` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `tab_blood_pressure`
+-- ----------------------------
+DROP TABLE IF EXISTS `tab_blood_pressure`;
+CREATE TABLE `tab_blood_pressure` (
+  `id` int(11) NOT NULL COMMENT '自增ID',
+  `userId` int(11) DEFAULT NULL COMMENT '用户ID',
+  `highBloodPressure` smallint(6) DEFAULT NULL COMMENT '高压值',
+  `lowBloodPressure` smallint(6) DEFAULT NULL COMMENT '低压值',
+  `pulse` smallint(6) DEFAULT NULL COMMENT '脉搏',
+  `takeTime` datetime DEFAULT NULL COMMENT '测量时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='血压测量记录'
+
+-- ----------------------------
+-- Records of tab_blood_pressure
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `tab_comment`
 -- ----------------------------
 DROP TABLE IF EXISTS `tab_comment`;
