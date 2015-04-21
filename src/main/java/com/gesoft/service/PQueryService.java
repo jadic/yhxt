@@ -19,6 +19,7 @@ import com.gesoft.common.EntityService;
 import com.gesoft.dao.PQueryDAO;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.BloodModel;
 import com.gesoft.model.CommentModel;
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
@@ -804,6 +805,21 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	}
 	
 
+	
+	/**
+	 * 描述信息：查询评论列表
+	 * 创建时间：2015年4月9日 上午8:35:08
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public long queryPostCommentInfoCnt(QueryModel model)
+	{
+		return pQueryDAO.queryPostCommentInfoCnt(model);
+	}
+	
+	
 	/**
 	 * 描述信息：查询评论列表
 	 * 创建时间：2015年4月9日 上午8:35:08
@@ -828,6 +844,60 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	public int addPostCommentInfo(CommentModel model)
 	{
 		return pQueryDAO.addPostCommentInfo(model);
+	}
+
+	/**
+	 * 描述信息：统计血糖
+	 * 创建时间：2015年4月21日 上午11:37:40
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<BloodModel> queryStatBloodInfo(QueryModel model)
+	{
+		return pQueryDAO.queryStatBloodInfo(model);
+	}
+
+	/**
+	 * 描述信息：统计体温
+	 * 创建时间：2015年4月21日 上午11:37:40
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<BloodModel> queryStatEarInfo(QueryModel model)
+	{
+		return pQueryDAO.queryStatEarInfo(model);
+	}
+
+	/**
+	 * 描述信息：显示最近血糖与体温
+	 * 创建时间：2015年4月21日 上午11:37:40
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public OutModel queryRecentlyHomeInfo(QueryModel model)
+	{
+		OutModel mRetModel = null;
+		// 加载最近血糖
+		mRetModel = pQueryDAO.queryRecentlyHomeBloodInfo(model);
+		
+		// 加载最近体温
+		OutModel mEarModel = pQueryDAO.queryRecentlyHomeEarInfo(model);
+		if (mRetModel == null)
+		{
+			mRetModel = mEarModel;
+		}
+		else 
+		{
+			mRetModel.setE(mEarModel.getE());
+			mRetModel.setF(mEarModel.getF());
+		}
+		return mRetModel;
 	}
 	
 }

@@ -151,7 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:if test="${not empty postFlys }">
 							<c:forEach items="${postFlys }" var="postItem" varStatus="item">
 								<tr class='<c:if test="${item.index mod 2 == 0 }">abnormal odd</c:if><c:if test="${item.index mod 2 == 1 }">even</c:if>' style="height: 40px;">
-									<td>${postItem.title }</td>
+									<td><a href="<c:url value='/p/query/postDetail.do'/>?id=${postItem.id}" ><div style="width:360px; white-space:nowrap; text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;">${postItem.title }</div></a></td>
 									<td>${postItem.stime }</td>
 									<td>${postItem.userName }</td>
 								</tr>

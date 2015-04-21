@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.ActivityModel;
+import com.gesoft.model.BloodModel;
 import com.gesoft.model.CommentModel;
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
@@ -1058,11 +1059,16 @@ public class PQueryController extends BaseController
 	 * @return
 	 */
 	@RequestMapping(value="/home.do")
-	public ModelAndView toHome(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView toHome(QueryModel model, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/home");
 		try
 		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			OutModel mOutModel = pQueryService.queryRecentlyHomeInfo(model);
+			
+			result.addObject("homeBase", mOutModel);
+			
 			
 		}
 		catch (Exception e)
@@ -1417,7 +1423,7 @@ public class PQueryController extends BaseController
 		try
 		{
 			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
-			model.setUserName(getSessionUserName(request, SESSION_KEY_NFULLNAME));
+			model.setUserName(getSessionUserName(request, SESSION_KEY_PLOGINNAME));
 			model.setStime(SystemUtils.getCurrentSystemTime());
 			if (pQueryService.addPostInfo(model) > 0)
 			{
@@ -1455,9 +1461,11 @@ public class PQueryController extends BaseController
 			result.addObject("post", mPostModel);
 			
 			//加载评论
-			List<CommentModel> argFlys = pQueryService.queryPostCommentInfo(query);
-			if (argFlys != null && argFlys.size() > 0)
+			long recordCount = pQueryService.queryPostCommentInfoCnt(query);
+			if(recordCount>0)
 			{
+				setPageModel(recordCount, query);
+				List<CommentModel> argFlys = pQueryService.queryPostCommentInfo(query);
 				result.addObject("commentFlys", argFlys);
 			}
 		}
@@ -1478,25 +1486,121 @@ public class PQueryController extends BaseController
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value="/addComment.do", method=RequestMethod.POST)
-	public @ResponseBody MsgModel toAddComment(CommentModel model, HttpServletRequest request, HttpServletResponse response)
+	@RequestMapping(value="/addComment.do")
+	public ModelAndView toAddComment(CommentModel model, HttpServletRequest request, HttpServletResponse response)
 	{
-		MsgModel msgModel = new MsgModel();
+		ModelAndView result = new ModelAndView("/patient/postinfo/query_post_detail_info");	
 		try
 		{
 			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
-			model.setUserName(getSessionUserName(request, SESSION_KEY_NFULLNAME));
+			model.setUserName(getSessionUserName(request, SESSION_KEY_PLOGINNAME));
 			model.setStime(SystemUtils.getCurrentSystemTime());
 			if (pQueryService.addPostCommentInfo(model) > 0)
 			{
-				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+				
+			}
+			
+			QueryModel query = new QueryModel();
+			query.setId(model.getPid());
+			result.addObject("query", query);
+			
+			//加载论坛内容
+			PostModel mPostModel = pQueryService.queryPostInfoById(query);
+			result.addObject("post", mPostModel);
+			
+			//加载评论
+			long recordCount = pQueryService.queryPostCommentInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<CommentModel> argFlys = pQueryService.queryPostCommentInfo(query);
+				result.addObject("commentFlys", argFlys);
 			}
 		}
 		catch (Exception e)
 		{
 			logger.error("PQueryController toAddComment error：", e);
 		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：加载血糖统计
+	 * 创建时间：2015年4月21日 上午1:21:55
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/statBlood.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toStatBlood(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			List<BloodModel> argFlys = pQueryService.queryStatBloodInfo(model);
+			if (argFlys != null && argFlys.size() > 0)
+			{
+				msgModel.setTotal(argFlys.size());
+				msgModel.setRows(argFlys);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toStatBlood error：", e);
+		}
 		return msgModel;
 	}
 	
+	
+
+	
+	/**
+	 * 描述信息：加载耳温
+	 * 创建时间：2015年4月21日 上午1:21:55
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/statEar.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toStatEar(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			List<BloodModel> argFlys = pQueryService.queryStatEarInfo(model);
+			if (argFlys != null && argFlys.size() > 0)
+			{
+				msgModel.setTotal(argFlys.size());
+				msgModel.setRows(argFlys);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toStatEar error：", e);
+		}
+		return msgModel;
+	}
+	
+	@RequestMapping(value="/homeBase.do", method=RequestMethod.POST)
+	public @ResponseBody OutModel toHomeBase(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		OutModel mOutModel = new OutModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			mOutModel = pQueryService.queryRecentlyHomeInfo(model);
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toStatEar error：", e);
+		}
+		return mOutModel;
+	}
 }

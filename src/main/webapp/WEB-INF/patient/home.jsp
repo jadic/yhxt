@@ -27,23 +27,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
 	<script type="text/JavaScript">
 		$(function(){
-			var chart1 = new AnyChart(_chart_, _chart_);
-		    chart1.width = "100%";
-	        chart1.height = "100%";
-	        chart1.setXMLFile("<c:url value='/patient/pages/config1.xml'/>");
-		    chart1.write("container1");
 			
-		    var chart2 = new AnyChart(_chart_, _chart_);
-		    chart2.width = "100%";
-	        chart2.height = "100%";
-	        chart2.setXMLFile("<c:url value='/patient/pages/config2.xml'/>");
-		    chart2.write("container2");
+	
 		    
-		    var chart3 = new AnyChart(_chart_, _chart_);
-		    chart3.width = "100%";
-	        chart3.height = "100%";
-	        chart3.setXMLFile("<c:url value='/patient/pages/config3.xml'/>");
-		    chart3.write("container3");
+		    PageFx.initChart();
 		});
 		
 		function queryStart()
@@ -87,6 +74,135 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 		}
+		
+		var PageFx = {
+				Chart1:null,
+				Chart2:null,
+				Chart3:null,
+				stime:DateAdd("d",-15,new Date()).pattern("yyyy-MM-dd 00:00:00"),
+				etime:new Date().pattern("yyyy-MM-dd 23:59:59"),
+				initChart : function()
+				{
+					PageFx.Chart1 = new AnyChart(_chart_);
+					PageFx.Chart1.wMode = "opaque";
+					PageFx.Chart1.width = "100%";
+					PageFx.Chart1.height = "100%";
+					
+					PageFx.Chart2 = new AnyChart(_chart_);
+					PageFx.Chart2.wMode = "opaque";
+					PageFx.Chart2.width = "100%";
+					PageFx.Chart2.height = "100%";
+					
+					PageFx.Chart3 = new AnyChart(_chart_);
+					PageFx.Chart3.wMode = "opaque";
+					PageFx.Chart3.width = "100%";
+					PageFx.Chart3.height = "100%";
+					PageFx.Chart3.setXMLFile("<c:url value='/patient/pages/config3.xml'/>");
+					PageFx.Chart3.write("container3");
+					
+					PageFx.funSearch(0, "/p/query/statBlood.do");
+					PageFx.funSearch(1, "/p/query/statEar.do");
+				},
+				funSearch : function(paramType, paramUrl)
+				{
+					$.ajax({
+						url : _ctx_ + paramUrl + '?a='+ Math.random(),
+						type : 'post',
+						dataType : 'json',
+						data : 
+						{
+							"startTime"	: PageFx.stime,
+							"endTime"	: PageFx.etime
+						},
+						error:function(data)
+						{
+							
+						},
+						success:function(data)
+						{
+							if(paramType == 1)
+							{
+								PageFx.showEarChart(data);
+							}		
+							else if(paramType == 0)
+							{
+								PageFx.showBloodChart(data);
+							}
+						}
+					});
+				},
+				showBloodChart : function(data)
+				{
+					var myParamObj = {
+						mLabelFormat: '{%YValue}{numDecimals:2}',
+						mYtitle		: '升缩压/舒张压(mmHg)',
+						mChartType  : 'Spline', 
+						mFormateTip : '{%YValue}{numDecimals:2}',
+						mFormateXTip: '{%Value}{numDecimals:2}',
+						mViewData 	: ''
+					};
+					var mViewData1 = '<series name="空腹">';
+					var mViewData2 = '<series name="饭后">';
+					if(data.total > 0)
+					{
+						for(var nItem=0; nItem<data.total; nItem++)
+						{
+							mViewData1 += '<point name="'+data.rows[nItem].stime+'" y="'+(parseFloat(data.rows[nItem].value)/10).toFixed(2)+'"/>';
+							mViewData2 += '<point name="'+data.rows[nItem].stime+'" y="'+(parseFloat(data.rows[nItem].type)/10).toFixed(2)+'"/>';
+						}	
+					}
+					mViewData1 += '</series>';
+					mViewData2 += '</series>';
+					myParamObj.mViewData = mViewData1 + mViewData2;
+					try{
+					PageFx.funChart(PageFx.Chart1, "container1", "/patient/pages/chart2", myParamObj);
+					}catch(e){}
+				},
+				showEarChart : function(data)
+				{
+					var myParamObj = {
+						mLabelFormat: '{%YValue}{numDecimals:2}',
+						mYtitle		: '体温(°C)',
+						mChartType  : 'Spline', 
+						mFormateTip : '{%YValue}{numDecimals:2}',
+						mFormateXTip: '{%Value}{numDecimals:2}',
+						
+						mViewData 	: ''
+					};
+					var mViewData = '<series name="体温">';
+					if(data.total > 0)
+					{
+						for(var nItem=0; nItem<data.total; nItem++)
+						{
+							mViewData += '<point name="'+data.rows[nItem].stime+'" y="'+(parseFloat(data.rows[nItem].value)/10).toFixed(2)+'"/>';
+						}	
+					}
+					mViewData += '</series>'
+					myParamObj.mViewData = mViewData;
+					try{
+					PageFx.funChart(PageFx.Chart2, "container2", "/patient/pages/chart3", myParamObj);
+					}catch(e){}
+				},
+				funChart : function(mObj, paramId, paramUrl, paramObj)
+				{
+					$.ajax({
+						type : "POST",
+						url  : _ctx_ + paramUrl +".jsp",
+						async : false,
+						cache : false,
+						success:function(data)
+						{
+							var viewData = data;
+							for (prop in paramObj)
+							{
+								viewData = viewData.replace(eval("/"+prop+"/g"), paramObj[prop]);
+							}
+							mObj.setData(viewData);
+							mObj.write(paramId);
+						}
+					});	
+				},
+			};
 	</script>
   </head>
 <body>
@@ -113,22 +229,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		         <li class="tgreen_healthDate"><span class="tgrey_healthDate">健康</span>状况</li>
 		         <li class="bloodPressure_date">
 		           <ul>
-		             <li class="tblack_date" id="last_bloodpressure">132/92<span class="tblack_datemin">mmHg</span></li>
-		             <li class="tgrey_time" id="last_bloodpressure_time">最近一次血压值（2015-03-23 18:53:26）</li>
+		             <li class="tblack_date" id="last_bloodpressure">${homeBase.b }<span class="tblack_datemin">mmol/L</span></li>
+		             <li class="tgrey_time" id="last_bloodpressure_time">最近一次空腹血糖值（${homeBase.a }）</li>
+		           </ul>
+		         </li>
+		         <li class="bloodPressure_alarm">
+		           <ul>
+		             <li class="tblack_date" id="last_bloodalert">${homeBase.d }<span class="tblack_datemin">mmol/L</span></li>
+		             <li class="tgrey_time" id="last_bloodalert_time">最近一次饭后血糖值（${homeBase.c }）</li>
+		           </ul>
+		         </li>
+		         <li class="heartRate_date">
+		           <ul>
+		             <li class="tblack_date" id="last_heartrate">${homeBase.f }<span class="tblack_datemin">°C</span></li>
+		             
+		             <li class="tgrey_time" id="last_heartrate_time">最近一次体温值（${homeBase.e }）</li>
+		             
 		           </ul>
 		         </li>
 		         <li class="bloodPressure_alarm">
 		           <ul>
 		             <li class="tblack_date" id="last_bloodalert">132/92<span class="tblack_datemin">mmHg</span></li>
 		             <li class="tgrey_time" id="last_bloodalert_time">血压异常记录（2015-03-23 18:53:26）</li>
-		           </ul>
-		         </li>
-		         <li class="heartRate_date">
-		           <ul>
-		             <li class="tblack_date" id="last_heartrate">75<span class="tblack_datemin">bpm</span></li>
-		             
-		             <li class="tgrey_time" id="last_heartrate_time">最近一次脉率值（2015-03-23 18:53:26）</li>
-		             
 		           </ul>
 		         </li>
 		       </ul>
@@ -156,12 +278,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  	
 		  	
 		  	 <div class="bpDiagnosis_results"  style="display:block;margin-top:8px">
-		  	 	<div class="bpDiagnosis_results_trendChart" style="width: 310px;" id="container1"></div> 
-       			<div class="bpDiagnosis_results_trendChart"  id="container2" style="padding-left: 10px; width:310px; "></div>
+		  	 	<div class="bpDiagnosis_results_trendChart" style="width: 630px;" id="container1"></div> 
 		  	 </div>
 		  	 <div class="bpDiagnosis_results"  style="display:block;margin-top:8px">
-		  	 	<div class="bpDiagnosis_results_trendChart" style="width: 310px;" id="container3"></div> 
-       			<div class="bpDiagnosis_results_trendChart"  id="container4" style="padding-left: 10px; width:310px; "></div>
+		  	 	<div class="bpDiagnosis_results_trendChart" style="width: 630px;" id="container2"></div> 
+		  	 </div>
+		  	 <div class="bpDiagnosis_results"  style="display:block;margin-top:8px">
+		  	 	<div class="bpDiagnosis_results_trendChart" style="width: 630px;" id="container3"></div> 
 		  	 </div>
 		</div>
 	</div>

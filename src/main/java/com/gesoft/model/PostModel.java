@@ -21,6 +21,17 @@ public class PostModel extends BaseModel
 	private String content;
 	private String stime;
 	private String userName;
+	private String photo;
+	
+	
+	public String getPhoto()
+	{
+		return photo;
+	}
+	public void setPhoto(String photo)
+	{
+		this.photo = photo;
+	}
 	public long getId()
 	{
 		return id;

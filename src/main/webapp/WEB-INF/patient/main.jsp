@@ -140,13 +140,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						
 						<ul class="">
-							<li id="tree-xyjc-li">
-								<div class="tree-item-label">
-									<span class="tree-item-text" title="血压信息">
-										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/chart1.do'/>" target="mainFrame">血压信息</a>
-									</span>
-								</div>	
-							</li>
 							<li id="tree-xtjc-li">
 								<div class="tree-item-label">
 									<span class="tree-item-text" title="血糖信息">
@@ -156,15 +149,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</li>
 							<li id="tree-xtjc-li">
 								<div class="tree-item-label">
-									<span class="tree-item-text" title="体重信息">
-										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/chart3.do'/>" target="mainFrame">体重信息</a>
-									</span>
-								</div>	
-							</li>
-							<li id="tree-xtjc-li">
-								<div class="tree-item-label">
-									<span class="tree-item-text" title="体脂信息">
-										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/chart4.do'/>" target="mainFrame">体脂信息</a>
+									<span class="tree-item-text" title="体温信息">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/chart3.do'/>" target="mainFrame">体温信息</a>
 									</span>
 								</div>	
 							</li>

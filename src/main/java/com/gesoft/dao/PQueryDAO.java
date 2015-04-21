@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.BloodModel;
 import com.gesoft.model.CommentModel;
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
@@ -754,6 +755,21 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	}
 	
 
+	
+	
+	/**
+	 * 描述信息：查询评论列表
+	 * 创建时间：2015年4月9日 上午8:35:08
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public long queryPostCommentInfoCnt(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryPostCommentInfoCnt", model);
+	}
+	
+	
 	/**
 	 * 描述信息：查询评论列表
 	 * 创建时间：2015年4月9日 上午8:35:08
@@ -777,6 +793,56 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	public int addPostCommentInfo(CommentModel model)
 	{
 		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addPostCommentInfo", model);
+	}
+	
+	/**
+	 * 描述信息：统计血糖
+	 * 创建时间：2015年4月21日 上午11:38:41
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<BloodModel> queryStatBloodInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryStatBloodInfo", model);
+	}
+
+	/**
+	 * 描述信息：统计体温
+	 * 创建时间：2015年4月21日 上午11:38:41
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<BloodModel> queryStatEarInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryStatEarInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：加载最近的血糖
+	 * 创建时间：2015年4月21日 上午11:45:12
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public OutModel queryRecentlyHomeBloodInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryRecentlyHomeBloodInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：加载最近的体温
+	 * 创建时间：2015年4月21日 上午11:45:27
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public OutModel queryRecentlyHomeEarInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryRecentlyHomeEarInfo", model);
 	}
 	
 }

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50022
 File Encoding         : 65001
 
-Date: 2015-04-15 13:28:40
+Date: 2015-04-21 17:41:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -68,33 +68,21 @@ DROP TABLE IF EXISTS `tab_blood_glucose`;
 CREATE TABLE `tab_blood_glucose` (
   `id` int(11) NOT NULL,
   `userId` int(11) default NULL COMMENT '用户编号',
-  `bloodGlucose` smallint(6) default NULL COMMENT '血糖值  存储值=实际值*10',
-  `flag` smallint(6) default '0' COMMENT '空腹、饭后标识    0：空腹  1：饭后',
-  `takeTime` datetime default NULL COMMENT '测量时间',
+  `bloodGlucose1` smallint(6) default NULL COMMENT '血糖值  空腹值=实际值*10',
+  `bloodGlucose2` smallint(6) default '0' COMMENT '血糖值  饭后值=实际值*10',
+  `takeTime` date default NULL COMMENT '测量时间',
+  `takeTime1` datetime default NULL,
+  `takeTime2` datetime default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='血糖测试记录表';
 
 -- ----------------------------
 -- Records of tab_blood_glucose
 -- ----------------------------
-
--- ----------------------------
--- Table structure for `tab_blood_pressure`
--- ----------------------------
-DROP TABLE IF EXISTS `tab_blood_pressure`;
-CREATE TABLE `tab_blood_pressure` (
-  `id` int(11) NOT NULL COMMENT '自增ID',
-  `userId` int(11) DEFAULT NULL COMMENT '用户ID',
-  `highBloodPressure` smallint(6) DEFAULT NULL COMMENT '高压值',
-  `lowBloodPressure` smallint(6) DEFAULT NULL COMMENT '低压值',
-  `pulse` smallint(6) DEFAULT NULL COMMENT '脉搏',
-  `takeTime` datetime DEFAULT NULL COMMENT '测量时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='血压测量记录'
-
--- ----------------------------
--- Records of tab_blood_pressure
--- ----------------------------
+INSERT INTO tab_blood_glucose VALUES ('1', '1', '10', '12', '2015-04-20', '2015-04-20 11:58:05', '2015-04-20 11:49:12');
+INSERT INTO tab_blood_glucose VALUES ('2', '1', '14', '34', '2015-04-21', '2015-04-21 11:58:20', '2015-04-21 12:58:23');
+INSERT INTO tab_blood_glucose VALUES ('3', '1', '21', '45', '2015-04-19', '2015-04-19 11:58:29', '2015-04-19 11:58:34');
+INSERT INTO tab_blood_glucose VALUES ('4', '1', '24', '34', '2015-04-18', '2015-04-18 11:58:38', '2015-04-18 11:58:41');
 
 -- ----------------------------
 -- Table structure for `tab_comment`
@@ -113,6 +101,8 @@ CREATE TABLE `tab_comment` (
 -- ----------------------------
 -- Records of tab_comment
 -- ----------------------------
+INSERT INTO tab_comment VALUES ('1', '1', 'cczxcxcxczx', '2015-04-21 09:38:08', '1', 'wcl');
+INSERT INTO tab_comment VALUES ('2', '1', 'dsdfsdfsdfsfsffsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs', '2015-04-21 09:38:32', '3', 'wfp');
 
 -- ----------------------------
 -- Table structure for `tab_device`

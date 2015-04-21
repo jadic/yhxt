@@ -67,101 +67,98 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 		});
 	
-		function buyinfo(obj, id)
+		function funSaveInfo()
 		{
-			PageMain.funOpenProgress();
-			$.ajax({
-				url : _ctx_ + "/p/query/buyService.do?a="+ Math.random(),
-				type : 'post',
-				dataType : 'json',
-				data : 
-				{
-					"id": id
-				},
-				error:function(data)
-				{
-					/**关闭进度条**/
-					PageMain.funCloseProgress();
-					$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
-				},
-				success:function(data)
-				{
-					
-					/**关闭进度条**/
-					PageMain.funCloseProgress();
-					
-					/**数据处理**/
-					if(data.success)
-					{
-						$(obj).parent().html('<span style="color: #2998df; font-weight: bold;">已购买</span>');
-						$.messager.alert('信息提示', data.msg, 'info');
-					}
-					else
-					{
-						$.messager.alert('信息提示', data.msg, 'error');
-					}
-				}
-			});
+			if($("#content").val() == "")
+			{
+				alert("评论内容不为空")
+				return ;
+			}	
+			else if($("#content").val().length > 200)
+			{
+				alert("评论内容在太长")
+				return ;
+			}	
+			$("#inputform2").submit();
 		}
 	</script>
   </head>
 <body>
+<div class="account" style="background: #ffffff;">
+		<div class="account_title" style="background: #ffffff;">
+	      <ul>
+	        <li class="account_titleGreen">快乐驿站</li>
+	        <li class="account_titleGray">当前位置：<a href="<c:url value='/p/query/post.do'/>" >快乐驿站</a> >> 论坛
+	        </li>
+	      </ul>
+	    </div>
+	</div> 
+	
   <div class="information_modify">
     <div class="information_modify_main" id="main_div">
-    	<div class="search">
-    	<form id="inputform" name="inputform" action="<c:url value='/p/query/service.do'/>" method="post">
-		    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
-		    	<tr>
-		    		<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				服务名称：
-	    			</td>
-		    		<td>
-		    			<input id="page" name="page" value="${query.page }" type="hidden"/>
-		    			<input id="type" name="type" value="${query.type }" type="hidden"/>
-		    			<input class="inputMin_informationModify text-input" type="text" id="name" name="name" value="${query.name }">
-		    		</td>
-		    		<td>
-		    		<ul>
-		    			<li class="btn_search"><a href="javascript:void(0)" id="btnsearch">查询</a></li>
-		    		</ul>
-		    		</td>
-		    	</tr>
-		    </table>
-		</form>    
-		</div>
         <div class="index_table">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
-					<tbody>
-						<tr class="even">
-							<th style="width: 15%;">服务类型</th>
-							<th style="width: 20%;">服务名称</th>
-							<th style="width: 17%;">开始日期</th>
-							<th style="width: 17%;">结束日期</th>
-							<th style="width: 20%;">备注</th>
-							<th style="width: 10%;">操作</th>
-						</tr>
-						<c:if test="${not empty serviceFlys }">
-							<c:forEach items="${serviceFlys }" var="serviceItem" varStatus="item">
-								<tr class='<c:if test="${item.index mod 2 == 0 }">abnormal odd</c:if><c:if test="${item.index mod 2 == 1 }">even</c:if>' style="height: 40px;">
-									<td>${serviceItem.typeName }</td>
-									<td>${serviceItem.name }</td>
-									<td>${serviceItem.sdate }</td>
-									<td>${serviceItem.edate }</td>
-									<td>${serviceItem.memo }</td>
-									<td>
-										<c:if test="${ serviceItem.userId == 0 }">
-											<span style="color: #0ca7a1; font-weight: bold; cursor: pointer;"  onclick="buyinfo(this, '${serviceItem.id}')">购买</span>
-										</c:if>
-										<c:if test="${ serviceItem.userId != 0 }">
-											<span style="color: #2998df; font-weight: bold;">已购买</span>
-										</c:if>
-									</td>
-								</tr>
-							</c:forEach>
-						</c:if>
-						
-					</tbody>
-				</table>
+        	<div style="height: 20px; width: 100%;">
+        		<form id="inputform" name="inputform" action="<c:url value='/p/query/postDetail.do'/>" method="post">
+		    		<input id="page" name="page" value="${query.page }" type="hidden"/>
+		    		<input id="id" name="id" value="${query.id }" type="hidden"/>
+				</form>    
+        	</div>
+        	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
+        		<tr>
+        			<td rowspan="2" style="border: 1px #ccc solid; background: #cbeccf; width: 120px; padding: 5px 0px;" align="center">
+        				<c:if test="${not empty post.photo}">
+        					<img style="width:100px; height: 120px;" id="header_photo" src="<c:url value='/'/>${post.photo}"></img></br>
+        				</c:if>
+        				<c:if test="${empty post.photo}">
+        				<img style="width:100px; height: 120px;" id="header_photo" src="<c:url value='/patient/themes/images/default_head.gif'/>"></img></br>
+        				</c:if>
+        				<span style="padding-top: 10px; font-size: 14px; color: #3c8cd6; font-weight: bold;">${post.userName }</span>
+        					
+        			</td>
+        			<td style="border: #ccc solid; border-width: 1px 0px 1px 0px; height: 35px; padding: 0px 5px">
+        				发布时间：${post.stime }
+        			</td>
+        			<td style="width: 30px; border: #ccc solid; border-width: 1px 1px 1px 0px; height: 35px; padding: 0px 5px">楼主</td>
+        		</tr>
+        		<tr>
+        			<td style="border: #ccc solid; border-width: 0px 1px 1px 0px; padding: 0px 5px" colspan="2" valign="top">
+	        				<div style="line-height: 35px; font-weight: bolder; width: 100%; text-align: center; font-size: 16px; color: #000;">${post.title }</div>
+        					<div style="width: 100%">
+        						${post.content }
+        					</div>
+        			</td>
+        		</tr>
+        		
+        	<c:if test="${not empty commentFlys }">
+				<c:forEach items="${commentFlys }" var="commentItem" varStatus="item">
+					<tr>
+        			<td rowspan="2" style="border: #ccc solid; border-width: 0px 1px 1px 1px;  background: #cbeccf; width: 120px; padding: 5px 0px;" align="center">
+        				<c:if test="${not empty commentItem.photo}">
+        					<img style="width:100px; height: 120px;" id="header_photo" src="<c:url value='/'/>${commentItem.photo}"></img></br>
+        				</c:if>
+        				<c:if test="${empty commentItem.photo}">
+        				<img style="width:100px; height: 120px;" id="header_photo" src="<c:url value='/patient/themes/images/default_head.gif'/>"></img></br>
+        				</c:if>
+        				<span style="padding-top: 10px; font-size: 14px; color: #3c8cd6; font-weight: bold;">${commentItem.userName }</span>
+        					
+        			</td>
+        			<td style="border: #ccc solid; border-width: 0px 0px 1px 0px; height: 35px; padding: 0px 5px">
+        				发布时间：${commentItem.stime }
+        			</td>
+        			<td style="width: 30px; border: #ccc solid; border-width: 0px 1px 1px 0px; height: 35px; padding: 0px 5px"><span style="padding: 0px 2px;">${item.index + 1 + (query.page - 1) * query.rows }</span>楼</td>
+        		</tr>
+        		<tr>
+        			<td style="border: #ccc solid; border-width: 0px 1px 1px 0px; padding: 0px 5px" colspan="2" valign="top">
+        					<div style="width: 100%">
+        						${commentItem.content }
+        					</div>
+        			</td>
+        		</tr>
+				</c:forEach>
+			</c:if>
+        	</table>
+        
+				
 		</div>
 		<div class="index_page">
 		  <ul>
@@ -181,6 +178,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    </li>
 		  </ul>
 		</div>
+		
+		<form id="inputform2" name="inputform2" action="<c:url value='/p/query/addComment.do'/>" method="post">
+		
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
+			<tr>
+				<td style="height: 30px;"></td>
+			</tr>
+			<tr>
+				<td style="border: #ccc solid; border-width: 1px 1px 1px 1px; padding: 5px; height: 30px; background: #cbeccf; font-weight: bold; font-size: 16px;">
+					我要评论
+				</td>
+			</tr>
+			<tr>
+				<td style="border: #ccc solid; border-width: 0px 1px 0px 1px; padding: 5px; height: 180px; ">
+					<textarea name="content" id="content" class="inputMin_informationModify text-input" style="width: 98%; height: 100%;"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" style="border: #ccc solid; border-width: 0px 1px 1px 1px; padding: 5px; height: 60px;">
+					<ul>
+    					<li class="btn_reguster" style="margin-top: 0px;"><a onclick="funSaveInfo()" style="cursor: pointer;">确定</a></li>
+    				</ul>
+				</td>
+			</tr>
+			<tr>
+				<td style="height: 10px;">
+					<input type="hidden" name="pid" value="${post.id }"/>
+				</td>
+			</tr>
+		</table>
+		</form>
     </div>
 </div>
    

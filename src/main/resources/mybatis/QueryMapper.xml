@@ -257,6 +257,7 @@
 		<result property="stime"  	  			column="postTime"/>
 		<result property="userId"  	  			column="postUserId"/>
 		<result property="userName"  	 	 	column="postUserName"/>
+		<result property="photo"  	 	 		column="photo"/>
 	</resultMap>
     
     <!-- 加载论坛 -->
@@ -264,8 +265,43 @@
 		<result property="content"  	  		column="commentContent"/>
 		<result property="stime"  	  			column="commentTime"/>
 		<result property="userName"  	 	 	column="commentUserName"/>
+		<result property="photo"  	 	 		column="photo"/>
 	</resultMap>
     
+	
+    <!-- 统计 -->
+    <resultMap id="mRetStatBooldMap" 		    type="bloodModel">
+		<result property="value"  	  			column="value"/>
+		<result property="type"  	  			column="flag"/>
+		<result property="stime"  	 	 		column="takeTime"/>
+	</resultMap>
+    
+    
+    <!-- 加载近期血糖 -->
+    <resultMap id="mRetRecentlyHomeBloodMap" 	type="outModel">
+		<result property="a"  	  				column="takeTime1"/>
+		<result property="b"  	  				column="bloodGlucose1"/>
+		<result property="c"  	 	 			column="takeTime2"/>
+		<result property="d"  	 	 			column="bloodGlucose2"/>
+	</resultMap>
+    
+    	
+    
+    <!-- 加载近期体温 -->
+    <resultMap id="mRetRecentlyHomeEarMap" 		type="outModel">
+		<result property="e"  	  				column="takeTime"/>
+		<result property="f"  	  				column="temperature"/>
+	</resultMap>
+	
+    
+    <!-- 首页加载医嘱  -->
+    <resultMap id="mRetHomeDoctorAdviceMap" 	type="outModel">
+		<result property="a"  	  				column="a"/>
+		<result property="b"  	  				column="b"/>
+		<result property="c"  	  				column="c"/>
+		<result property="d"  	  				column="d"/>
+	</resultMap>
+	
     
 	<!-- 用户登录 -->
 	<select id="QueryMapper.queryLoginInfo" 	parameterType="userModel"	resultMap="mRetLoginMap">
@@ -949,8 +985,9 @@
 	<!-- 分页查询论坛记录 -->
 	<select id="QueryMapper.queryPostInfo" 	parameterType="queryModel"	resultMap="mRetPostMap">
 		<![CDATA[
-			select a1.postId, a1.postTitle, a1.postContent, a1.postTime, a1.postUserId, a1.postUserName
+			select a1.postId, a1.postTitle, a1.postContent, a1.postTime, a1.postUserId, a1.postUserName, a2.photo
 			from tab_post a1
+			left join tab_user a2 on a2.userId=a1.postUserId
 		]]>
 	     <where>	
 			<if test="title != null and title != ''">
@@ -966,8 +1003,9 @@
 	<!-- 查看论坛详细 -->
 	<select id="QueryMapper.queryPostInfoById" 	parameterType="queryModel"	resultMap="mRetPostMap">
 		<![CDATA[
-			select a1.postId, a1.postTitle, a1.postContent, a1.postTime, a1.postUserId, a1.postUserName
+			select a1.postId, a1.postTitle, a1.postContent, a1.postTime, a1.postUserId, a1.postUserName, a2.photo
 			from tab_post a1
+			left join tab_user a2 on a2.userId=a1.postUserId
 			where a1.postId = #{id}
 		]]>
 	</select>
@@ -980,12 +1018,24 @@
 	    ]]>
 	</insert>
 	
+	<!-- 查询评论列表总数 -->
+	<select id="QueryMapper.queryPostCommentInfoCnt" 	parameterType="queryModel"	resultType="long">
+		<![CDATA[
+			select count(1) as cnt
+			from tab_comment a1
+			where a1.commentPostId = #{id}
+		]]>
+	</select>
+	
 	<!-- 查询评论列表 -->
 	<select id="QueryMapper.queryPostCommentInfo" 	parameterType="queryModel"	resultMap="mRetPostCommentMap">
 		<![CDATA[
-			select a1.commentContent, a1.commentTime, a1.commentUserName
+			select a1.commentContent, a1.commentTime, a1.commentUserName, a2.photo
 			from tab_comment a1
+			left join tab_user a2 on a2.userId=a1.commentUserId
 			where a1.commentPostId = #{id}
+			order by commentTime
+			limit #{startNum}, #{rows}
 		]]>
 	</select>
 	
@@ -997,4 +1047,76 @@
 	        VALUES (#{pid}, #{content}, #{stime}, #{userId}, #{userName})
 	    ]]>
 	</insert>
+	
+	<!-- 血糖统计 -->
+	<select id="QueryMapper.queryStatBloodInfo" 	parameterType="queryModel"	resultMap="mRetStatBooldMap">
+		<![CDATA[
+			select a.bloodGlucose1 as value, a.bloodGlucose2 as flag, STR_TO_DATE(a.takeTime,'%Y-%m-%d')  as takeTime 
+			from tab_blood_glucose a
+			where a.userId = #{userId}
+		]]>
+		<if test="startTime != null and startTime != ''">
+		    AND a.takeTime >=   STR_TO_DATE(#{startTime},'%Y-%m-%d %H:%i:%s')
+		</if>
+		<if test="endTime != null and  endTime != ''">
+			<![CDATA[ 
+				AND a.takeTime <=   STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')
+			]]>
+		</if>
+	</select>
+	
+	<!-- 耳朵统计 -->
+	<select id="QueryMapper.queryStatEarInfo" 	parameterType="queryModel"	resultMap="mRetStatBooldMap">
+		<![CDATA[
+			select a.temperature as value, 0 as flag, a.takeTime 
+			from tab_ear_thermometer a
+			where a.userId = #{userId}
+		]]>
+		<if test="startTime != null and startTime != ''">
+		    AND a.takeTime >=   STR_TO_DATE(#{startTime},'%Y-%m-%d %H:%i:%s')
+		</if>
+		<if test="endTime != null and  endTime != ''">
+			<![CDATA[ 
+				AND a.takeTime <=   STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')
+			]]>
+		</if>
+	</select>
+	
+	
+	<!-- 加载最近的血糖 -->
+	<select id="QueryMapper.queryRecentlyHomeBloodInfo" 	parameterType="queryModel"	resultMap="mRetRecentlyHomeBloodMap">
+		<![CDATA[
+			select FORMAT(a.bloodGlucose1/10, 2) as bloodGlucose1, a.takeTime1, FORMAT(a.bloodGlucose2/10, 2) as bloodGlucose2, a.takeTime2
+			from tab_blood_glucose a
+			where a.userId = #{userId}
+			order by a.takeTime DESC
+			LIMIT 0, 1
+		]]>
+	</select>
+	
+	
+	<!-- 加载最近的体温 -->
+	<select id="QueryMapper.queryRecentlyHomeEarInfo" 	parameterType="queryModel"	resultMap="mRetRecentlyHomeEarMap">
+		<![CDATA[
+			select FORMAT(a.temperature/10, 2) as temperature, a.takeTime
+			from tab_ear_thermometer a
+			where a.userId = #{userId}
+			order by a.takeTime DESC
+			LIMIT 0, 1
+		]]>
+	</select>
+	
+	<!-- 加载最近 -->
+	<select id="QueryMapper.queryHomeDoctorAdviceInfo" 	parameterType="queryModel"	resultMap="mRetHomeDoctorAdviceMap">
+		<![CDATA[
+			select a.adviceTime as a, a.adviceContent as b, b.doctorAdvicePerformace as c, b.recordTime as d
+			from tab_doctor_advice a
+			inner join tab_doctor_advice_performace b on a.id=b.doctorAdviceId
+			where a.userId = #{userId}
+			and a.adviceTypId = #{adviceType}
+			order by a.adviceTime DESC
+			LIMIT 0, 1
+		]]>
+	</select>
+	
 </mapper>

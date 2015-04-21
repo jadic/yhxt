@@ -28,6 +28,8 @@
 		<typeAlias alias="feedBackModel" type="com.gesoft.model.FeedBackModel" />
 		<typeAlias alias="postModel" type="com.gesoft.model.PostModel" />
 		<typeAlias alias="commentModel" type="com.gesoft.model.CommentModel" />
+		<typeAlias alias="bloodModel" type="com.gesoft.model.BloodModel" />
+		
 	</typeAliases>
 	<mappers></mappers>
 </configuration>

@@ -147,7 +147,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</tr>
 							</c:forEach>
 						</c:if>
-						
 					</tbody>
 				</table>
 		</div>
