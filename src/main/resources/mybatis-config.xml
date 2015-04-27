@@ -29,7 +29,8 @@
 		<typeAlias alias="postModel" type="com.gesoft.model.PostModel" />
 		<typeAlias alias="commentModel" type="com.gesoft.model.CommentModel" />
 		<typeAlias alias="bloodModel" type="com.gesoft.model.BloodModel" />
-		
+		<typeAlias alias="earTemperatureModel" type="com.gesoft.model.EarTemperatureModel" />
+		<typeAlias alias="bloodGlucoseModel" type="com.gesoft.model.BloodGlucoseModel" />
 	</typeAliases>
 	<mappers></mappers>
 </configuration>

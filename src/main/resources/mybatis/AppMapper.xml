@@ -240,4 +240,47 @@
       ]]>
     </select>
 	
+	<select id="AppMapper.queryBloodGlucoseId" parameterType="bloodGlucoseModel" resultType="long">
+      <![CDATA[
+        select case when count(id) > 0 then id else 0 end as id
+        from tab_blood_glucose a
+        where a.userId=#{userId} and a.takeTime=#{takeDate}
+      ]]>	
+	</select>
+	
+	<insert id="AppMapper.insertBloodGlucose" useGeneratedKeys="true" keyProperty="id">
+	  <![CDATA[
+	    INSERT INTO tab_blood_glucose(userId, bloodGlucose1, bloodGlucose2, takeTime1, takeTime2, takeTime) 
+	    VALUES (#{userId}, #{bloodGlucose1}, #{bloodGlucose2}, #{takeTime1}, #{takeTime2}, #{takeDate})
+	  ]]>
+	</insert>
+
+	<update id="AppMapper.updateBloodGlucose" parameterType="bloodGlucoseModel">
+	  UPDATE tab_blood_glucose SET
+	  <if test="bloodGlucose1 > 0">
+		bloodGlucose1 = #{bloodGlucose1},
+		takeTime1 = #{takeTime1} ,
+	  </if>
+	  <if test="bloodGlucose2 > 0">
+		bloodGlucose2 = #{bloodGlucose2},
+		takeTime2 = #{takeTime2} ,
+	  </if>
+	  userId=#{userId}	  	
+	  WHERE id = #{id} 
+	</update>		
+	
+	<select id="AppMapper.queryEarTemperatureId" parameterType="earTemperatureModel" resultType="long">
+      <![CDATA[
+        select count(1)
+        from tab_ear_thermometer a
+        where a.userId=#{userId} and a.takeTime=#{takeTime} and a.temperature=#{temperature}
+      ]]>	
+	</select>
+	
+	<insert id="AppMapper.insertEarTemperature" useGeneratedKeys="true" keyProperty="id">
+	  <![CDATA[
+	    INSERT INTO tab_ear_thermometer(userId, temperature, takeTime) 
+	    VALUES (#{userId}, #{temperature}, #{takeTime})
+	  ]]>
+	</insert>	
 </mapper>

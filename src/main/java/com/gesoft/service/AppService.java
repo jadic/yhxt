@@ -19,8 +19,10 @@ import com.gesoft.common.EntityService;
 import com.gesoft.dao.AppDAO;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.BloodGlucoseModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
+import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
@@ -149,5 +151,27 @@ public class AppService extends EntityService<BaseModel, Long> {
     public String queryActivityDetail(QueryModel model) {
         return appDAO.queryActivityDetail(model);
     }    
+    
+    @Transactional(readOnly = true)
+    public long queryEarTemperatureId(EarTemperatureModel model) {
+        return appDAO.queryEarTemperatureId(model);
+    }
+   
+    public int insertEarTemperature(EarTemperatureModel model) {
+        return appDAO.insertEarTemperature(model);
+    }
+
+    @Transactional(readOnly = true)
+    public long queryBloodGlucoseId(BloodGlucoseModel model) {
+        return appDAO.queryBloodGlucoseId(model);
+    }
+    
+    public int insertBloodGlucose(BloodGlucoseModel model) {
+        return appDAO.insertBloodGlucose(model);
+    }
+    
+    public int updateBloodGlucose(BloodGlucoseModel model) {
+        return appDAO.updateBloodGlucose(model);
+    }
     
 }

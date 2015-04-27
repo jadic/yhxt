@@ -14,8 +14,10 @@ import org.springframework.stereotype.Repository;
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.BloodGlucoseModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
+import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
@@ -119,5 +121,25 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long>
     public String queryActivityDetail(QueryModel model)
     {
         return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryActivityDetail", model);
+    }
+    
+    public long queryEarTemperatureId(EarTemperatureModel model) {
+        return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryEarTemperatureId", model);
+    }
+   
+    public int insertEarTemperature(EarTemperatureModel model) {
+        return getSqlSession().insert(getMybatisSqlMapNamespace() + ".insertEarTemperature", model);
+    }
+
+    public long queryBloodGlucoseId(BloodGlucoseModel model) {
+        return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryBloodGlucoseId", model);
+    }
+    
+    public int insertBloodGlucose(BloodGlucoseModel model) {
+        return getSqlSession().insert(getMybatisSqlMapNamespace() + ".insertBloodGlucose", model);
+    }
+    
+    public int updateBloodGlucose(BloodGlucoseModel model) {
+        return getSqlSession().update(getMybatisSqlMapNamespace() + ".updateBloodGlucose", model);
     }
 }

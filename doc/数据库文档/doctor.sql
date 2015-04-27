@@ -235,6 +235,29 @@ INSERT INTO tab_dict_education VALUES ('7', '硕士');
 INSERT INTO tab_dict_education VALUES ('8', '博士');
 INSERT INTO tab_dict_education VALUES ('9', '其它');
 
+
+-- ----------------------------
+-- Table structure for `tab_dict_food`
+-- ----------------------------
+DROP TABLE IF EXISTS `tab_dict_food`;
+CREATE TABLE `tab_dict_food` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `foodName` varchar(50) DEFAULT NULL COMMENT '食品名称',
+  `caloriePerHundredGram` smallint(6) DEFAULT NULL COMMENT '每百克的卡路里',
+  `foodType` int(11) DEFAULT NULL COMMENT '食品类型',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='饮食食品选项';
+
+-- ----------------------------
+-- Table structure for `tab_dict_food_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `tab_dict_food_type`;
+CREATE TABLE `tab_dict_food_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL COMMENT '食品类型',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='食品类型';
+
 -- ----------------------------
 -- Table structure for `tab_dict_household`
 -- ----------------------------
@@ -317,6 +340,28 @@ CREATE TABLE `tab_dict_salary` (
 INSERT INTO tab_dict_salary VALUES ('1', '2万以下');
 INSERT INTO tab_dict_salary VALUES ('2', '2-5万');
 INSERT INTO tab_dict_salary VALUES ('3', '其它');
+
+-- ----------------------------
+-- Table structure for `tab_dict_sport_item`
+-- ----------------------------
+DROP TABLE IF EXISTS `tab_dict_sport_item`;
+CREATE TABLE `tab_dict_sport_item` (
+  `id` int(11) NOT NULL COMMENT '自增id',
+  `sportName` varchar(20) DEFAULT NULL COMMENT '运动名称',
+  `caloriePerMinute` smallint(6) DEFAULT NULL COMMENT '每分钟消耗的卡路里',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='运动项目字典表';
+
+-- ----------------------------
+-- Table structure for `tab_dict_ver`
+-- ----------------------------
+DROP TABLE IF EXISTS `tab_dict_ver`;
+CREATE TABLE `tab_dict_ver` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `flag` int(11) DEFAULT NULL COMMENT '字典版本  1：运动项目  2：饮食食品项目 ...',
+  `version` datetime DEFAULT NULL COMMENT '版本日期',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='基础数据版本标识';
 
 -- ----------------------------
 -- Table structure for `tab_dict_workingage`
@@ -469,6 +514,20 @@ INSERT INTO tab_feedback VALUES ('4', '1', 'dfsdfsdfsdfs', '2', '2015-04-07 18:1
 INSERT INTO tab_feedback VALUES ('5', '1', 'dfdfsdfsdfsdf', '1', '2015-04-07 19:07:14');
 
 -- ----------------------------
+-- Table structure for `tab_food_record`
+-- ----------------------------
+DROP TABLE IF EXISTS `tab_food_record`;
+CREATE TABLE `tab_food_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) DEFAULT NULL COMMENT '用户编号',
+  `foodItem` int(11) DEFAULT NULL COMMENT '食品项目',
+  `amount` smallint(6) DEFAULT NULL COMMENT '食量',
+  `mealFlag` tinyint(4) DEFAULT NULL COMMENT '餐别  1：早餐  2：中餐  3：晚餐  4：加餐',
+  `mealTime` datetime DEFAULT NULL COMMENT '用餐时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='饮食记录';
+
+-- ----------------------------
 -- Table structure for `tab_genetic_disease`
 -- ----------------------------
 DROP TABLE IF EXISTS `tab_genetic_disease`;
@@ -567,6 +626,18 @@ CREATE TABLE `tab_log4j` (
 -- ----------------------------
 -- Records of tab_log4j
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `tab_mental_record`
+-- ----------------------------
+DROP TABLE IF EXISTS `tab_mental_record`;
+CREATE TABLE `tab_mental_record` (
+  `id` int(11) NOT NULL,
+  `userId` int(11) DEFAULT NULL COMMENT '用户编号',
+  `mentalStatus` tinyint(4) DEFAULT NULL COMMENT '心理状态  1：开心 2：平静 3：沮丧  4：烦躁',
+  `recordTime` datetime DEFAULT NULL COMMENT '记录时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户心理状态记录';
 
 -- ----------------------------
 -- Table structure for `tab_msg`
@@ -748,6 +819,19 @@ INSERT INTO tab_service_doctor_relation VALUES ('8', '6', '2');
 INSERT INTO tab_service_doctor_relation VALUES ('9', '7', '2');
 INSERT INTO tab_service_doctor_relation VALUES ('10', '8', '1');
 INSERT INTO tab_service_doctor_relation VALUES ('11', '8', '2');
+
+-- ----------------------------
+-- Table structure for `tab_sport_record`
+-- ----------------------------
+DROP TABLE IF EXISTS `tab_sport_record`;
+CREATE TABLE `tab_sport_record` (
+  `id` int(11) NOT NULL,
+  `userId` int(11) DEFAULT NULL COMMENT '用户编号',
+  `sportItemId` int(11) DEFAULT NULL COMMENT '运动项目',
+  `sportDuration` smallint(6) DEFAULT NULL COMMENT '运动时长',
+  `sportTime` datetime DEFAULT NULL COMMENT '运动时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='运动记录';
 
 -- ----------------------------
 -- Table structure for `tab_user`

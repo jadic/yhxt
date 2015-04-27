@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.ActivityModel;
+import com.gesoft.model.BloodGlucoseModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
+import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
@@ -231,5 +233,55 @@ public class AppController extends BaseController
         ModelAndView mv = new ModelAndView("app/detail");
         mv.getModel().put("content", appService.queryActivityDetail(model));
         return mv;
+    }
+
+    /**
+     * 上传耳温
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="/uploadEarTemperature.do")
+    public @ResponseBody MsgModel uploadEarTemperature(EarTemperatureModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            if (appService.queryEarTemperatureId(model) <= 0) {//
+                msgModel.setSuccess(appService.insertEarTemperature(model) > 0);
+            } else {
+                msgModel.setSuccess(true);
+            }
+        } catch (Exception e) {
+            logger.error("AppController uploadEarTemperature error：", e);
+        }
+        return msgModel;
+    }
+    
+    /**
+     * 上传血糖
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="/uploadBloodGlucose.do")
+    public @ResponseBody MsgModel uploadBloodGlucose(BloodGlucoseModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            model.setTakeDate(model.getTakeTime().substring(0, 10));
+            if (model.getBloodGlucose1() > 0) {
+                model.setTakeTime1(model.getTakeTime());
+            }
+            if (model.getBloodGlucose2() > 0) {
+                model.setTakeTime2(model.getTakeTime());
+            }
+            long bloodGlucoseId = appService.queryBloodGlucoseId(model);
+            if (bloodGlucoseId <= 0) {
+                msgModel.setSuccess(appService.insertBloodGlucose(model) > 0);
+            } else {
+                model.setId(bloodGlucoseId);
+                appService.updateBloodGlucose(model);
+            }
+            msgModel.setSuccess(true);
+        } catch (Exception e) {
+            logger.error("AppController uploadEarTemperature error：", e);
+        }
+        return msgModel;
     }
 }
