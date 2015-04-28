@@ -31,6 +31,8 @@
 		<typeAlias alias="bloodModel" type="com.gesoft.model.BloodModel" />
 		<typeAlias alias="earTemperatureModel" type="com.gesoft.model.EarTemperatureModel" />
 		<typeAlias alias="bloodGlucoseModel" type="com.gesoft.model.BloodGlucoseModel" />
+		<typeAlias alias="sportItemModel" type="com.gesoft.model.SportItemModel" />
+		<typeAlias alias="foodItemModel" type="com.gesoft.model.FoodItemModel" />
 	</typeAliases>
 	<mappers></mappers>
 </configuration>

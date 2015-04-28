@@ -23,9 +23,11 @@ import com.gesoft.model.BloodGlucoseModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.EarTemperatureModel;
+import com.gesoft.model.FoodItemModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
+import com.gesoft.model.SportItemModel;
 import com.gesoft.model.UserModel;
 
 /**
@@ -174,4 +176,33 @@ public class AppService extends EntityService<BaseModel, Long> {
         return appDAO.updateBloodGlucose(model);
     }
     
+    @Transactional(readOnly = true)
+    public String getSportItemVersion(QueryModel model) {
+        return appDAO.getSportItemVersion(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public String getFoodItemVersion(QueryModel model) {
+        return appDAO.getFoodItemVersion(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public int getSportItemsCnt(QueryModel model) {
+        return appDAO.getSportItemsCnt(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<SportItemModel> getSportItems(QueryModel model) {
+        return appDAO.getSportItems(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public int getFoodItemsCnt(QueryModel model) {
+        return appDAO.getFoodItemsCnt(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<FoodItemModel> getFoodItems(QueryModel model) {
+        return appDAO.getFoodItems(model);
+    }
 }

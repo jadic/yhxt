@@ -71,7 +71,21 @@
       <result property="adviceTime"        column="adviceTime"/>
       <result property="adviceContent"            column="adviceContent"/>
     </resultMap>
-	
+    
+    <resultMap id="mSportItemMap"      		type="sportItemModel">
+      <result property="id"               	column="id"/>
+      <result property="sportName"        	column="sportName"/>
+      <result property="caloriePerMinute" 	column="caloriePerMinute"/>
+    </resultMap>
+    
+    <resultMap id="mFoodItemMap"      			type="foodItemModel">
+      <result property="id"               		column="id"/>
+      <result property="foodName"        		column="foodName"/>
+      <result property="caloriePerHundredGram" 	column="caloriePerHundredGram"/>
+      <result property="foodType"        		column="foodType"/>
+      <result property="foodTypeName" 			column="foodTypeName"/>
+    </resultMap>
+
 	<!-- 查询亲情号码总数 -->
 	<select id="AppMapper.queryRelativePhoneInfoCnt" 	parameterType="queryModel"	resultType="long">
 		<![CDATA[
@@ -283,4 +297,54 @@
 	    VALUES (#{userId}, #{temperature}, #{takeTime})
 	  ]]>
 	</insert>	
+	
+    <select id="AppMapper.getSportItemVersion"   parameterType="queryModel"  resultType="string">
+      <![CDATA[
+        select date_format(a.version, '%Y-%m-%d %H:%i:%S')
+        from tab_dict_ver a
+        where a.flag = 1
+      ]]>
+    </select>	
+	
+    <select id="AppMapper.getFoodItemVersion"   parameterType="queryModel"  resultType="string">
+      <![CDATA[
+        select date_format(a.version, '%Y-%m-%d %H:%i:%S')
+        from tab_dict_ver a
+        where a.flag = 2
+      ]]>
+    </select>	
+
+    <select id="AppMapper.getSportItemsCnt"  parameterType="queryModel"  resultType="int">
+      <![CDATA[
+        select count(1) as cnt
+        from tab_dict_sport_item a
+      ]]>
+    </select>
+    
+    <select id="AppMapper.getSportItems"   parameterType="queryModel"  resultMap="mSportItemMap">
+      <![CDATA[
+        select a.id, a.sportName, a.caloriePerMinute
+        from tab_dict_sport_item a
+        order by a.id
+        limit #{startNum}, #{rows}
+      ]]>
+    </select>    
+
+    <select id="AppMapper.getFoodItemsCnt"  parameterType="queryModel"  resultType="int">
+      <![CDATA[
+        select count(1) as cnt
+        from tab_dict_food a
+		left join tab_dict_food_type b on b.id=a.foodType
+      ]]>
+    </select>
+        
+    <select id="AppMapper.getFoodItems"   parameterType="queryModel"  resultMap="mFoodItemMap">
+      <![CDATA[
+        select a.id, a.foodName, a.caloriePerHundredGram, a.foodType, b.`name` as foodTypeName 
+        from tab_dict_food a
+		left join tab_dict_food_type b on b.id=a.foodType
+        order by a.id
+        limit #{startNum}, #{rows}
+      ]]>
+    </select>    
 </mapper>

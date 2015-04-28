@@ -7,6 +7,7 @@
  **/
 package com.gesoft.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -23,11 +24,14 @@ import com.gesoft.model.BloodGlucoseModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.EarTemperatureModel;
+import com.gesoft.model.FoodItemModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
+import com.gesoft.model.SportItemModel;
 import com.gesoft.model.UserModel;
+import com.gesoft.model.VersionModel;
 import com.gesoft.service.AppService;
 
 
@@ -281,6 +285,72 @@ public class AppController extends BaseController
             msgModel.setSuccess(true);
         } catch (Exception e) {
             logger.error("AppController uploadEarTemperature error：", e);
+        }
+        return msgModel;
+    }
+
+    @RequestMapping(value="/getSportItemVersion.do")
+    public @ResponseBody MsgModel getSportItemVersion(QueryModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            List<VersionModel> list = new ArrayList<VersionModel>();
+            VersionModel versionModel = new VersionModel();
+            versionModel.setVersion(appService.getSportItemVersion(model));
+            list.add(versionModel);
+            msgModel.setTotal(1);
+            msgModel.setRows(list);
+            msgModel.setSuccess(true);
+        } catch (Exception e) {
+            logger.error("AppController getSportItemVersion error：", e);
+        }
+        return msgModel;
+    }
+    
+    @RequestMapping(value="/getFoodItemVersion.do")
+    public @ResponseBody MsgModel getFoodItemVersion(QueryModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            List<VersionModel> list = new ArrayList<VersionModel>();
+            VersionModel versionModel = new VersionModel();
+            versionModel.setVersion(appService.getFoodItemVersion(model));
+            list.add(versionModel);
+            msgModel.setTotal(1);
+            msgModel.setRows(list);
+            msgModel.setSuccess(true);
+        } catch (Exception e) {
+            logger.error("AppController getFoodItemVersion error：", e);
+        }
+        return msgModel;
+    }
+    
+    @RequestMapping(value="/getSportItems.do")
+    public @ResponseBody MsgModel getSportItems(QueryModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            int cnt = appService.getSportItemsCnt(model);
+            if (cnt > 0) {
+                setPageModel(cnt, model);
+                List<SportItemModel> list = appService.getSportItems(model);
+                msgModel.setRows(list);
+            }
+        } catch (Exception e) {
+            logger.error("AppController getSportItems error：", e);
+        }
+        return msgModel;
+    }
+    
+    @RequestMapping(value="/getFoodItems.do")
+    public @ResponseBody MsgModel getFoodItems(QueryModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            int cnt = appService.getFoodItemsCnt(model);
+            if (cnt > 0) {
+                setPageModel(cnt, model);
+                List<FoodItemModel> list = appService.getFoodItems(model);
+                msgModel.setRows(list);
+            }
+        } catch (Exception e) {
+            logger.error("AppController getFoodItems error：", e);
         }
         return msgModel;
     }
