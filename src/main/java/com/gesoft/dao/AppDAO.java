@@ -19,10 +19,13 @@ import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.FoodItemModel;
+import com.gesoft.model.MealResultModel;
+import com.gesoft.model.MentalStatusModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.model.SportItemModel;
+import com.gesoft.model.SportResultModel;
 import com.gesoft.model.UserModel;
 
 /**
@@ -153,5 +156,17 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
 
     public List<FoodItemModel> getFoodItems(QueryModel model) {
         return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".getFoodItems", model);
+    }
+    
+    public int insertSportResult(SportResultModel model) {
+        return getSqlSession().insert(getMybatisSqlMapNamespace() + ".insertSportResult", model);
+    }
+    
+    public int insertMealResult(MealResultModel model) {
+        return getSqlSession().insert(getMybatisSqlMapNamespace() + ".insertMealResult", model);
+    }
+    
+    public int insertMentalStatus(MentalStatusModel model) {
+        return getSqlSession().insert(getMybatisSqlMapNamespace() + ".insertMentalStatus", model);
     }
 }

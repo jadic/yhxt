@@ -41,6 +41,8 @@ public class BaseModel implements Serializable
 	private long pageCnt = 1; //总页数
 	private long startNum; // 开始记录数
 	private long endNum; // 结束记录数
+	
+	private int srcFlag;//接口调用来源标识
 
 	
 	public long getNurseId()
@@ -153,7 +155,13 @@ public class BaseModel implements Serializable
 		this.endNum = endNum;
 	}
 	
-	public String toString()
+	public int getSrcFlag() {
+        return srcFlag;
+    }
+    public void setSrcFlag(int srcFlag) {
+        this.srcFlag = srcFlag;
+    }
+    public String toString()
 	{
 		return ToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
 	}

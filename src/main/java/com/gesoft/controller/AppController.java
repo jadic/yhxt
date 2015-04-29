@@ -25,11 +25,14 @@ import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.FoodItemModel;
+import com.gesoft.model.MealResultModel;
+import com.gesoft.model.MentalStatusModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.model.SportItemModel;
+import com.gesoft.model.SportResultModel;
 import com.gesoft.model.UserModel;
 import com.gesoft.model.VersionModel;
 import com.gesoft.service.AppService;
@@ -351,6 +354,69 @@ public class AppController extends BaseController
             }
         } catch (Exception e) {
             logger.error("AppController getFoodItems error：", e);
+        }
+        return msgModel;
+    }
+    
+    /**
+     * 上传运动结果
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="/uploadSportResult.do")
+    public @ResponseBody MsgModel uploadSportResult(SportResultModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            if (model.getUserId() > 0 && model.getSportItemId() > 0 && model.getSportDuration() > 0 
+                    && model.getSportTime() != null && model.getSportTime().length() > 0) {
+                msgModel.setSuccess(appService.insertSportResult(model) > 0);
+            } else {
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+            }
+        } catch (Exception e) {
+            logger.error("AppController uploadSportResult error：", e);
+        }
+        return msgModel;
+    }
+    
+    /**
+     * 上传饮食结果
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="/uploadMealResult.do")
+    public @ResponseBody MsgModel uploadMealResult(MealResultModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            if (model.getUserId() > 0 && model.getFoodItemId() > 0 && model.getFoodAmount() > 0 
+                    && model.getMealFlag() > 0 && model.getMealTime() != null && model.getMealTime().length() > 0) {
+                msgModel.setSuccess(appService.insertMealResult(model) > 0);
+            } else {
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+            }
+        } catch (Exception e) {
+            logger.error("AppController uploadMealResult error：", e);
+        }
+        return msgModel;
+    }
+    
+    /**
+     * 上传心理状态
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="/uploadMentalStatus.do")
+    public @ResponseBody MsgModel uploadMentalStatus(MentalStatusModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            if (model.getUserId() > 0 && model.getMentalStatus() > 0 
+                    && model.getRecordTime() != null && model.getRecordTime().length() > 0) {
+                msgModel.setSuccess(appService.insertMentalStatus(model) > 0);
+            } else {
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+            }
+        } catch (Exception e) {
+            logger.error("AppController uploadMentalStatus error：", e);
         }
         return msgModel;
     }

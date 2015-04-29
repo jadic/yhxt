@@ -346,7 +346,7 @@ INSERT INTO tab_dict_salary VALUES ('3', '其它');
 -- ----------------------------
 DROP TABLE IF EXISTS `tab_dict_sport_item`;
 CREATE TABLE `tab_dict_sport_item` (
-  `id` int(11) NOT NULL COMMENT '自增id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `sportName` varchar(20) DEFAULT NULL COMMENT '运动名称',
   `caloriePerMinute` smallint(6) DEFAULT NULL COMMENT '每分钟消耗的卡路里',
   PRIMARY KEY (`id`)
@@ -632,7 +632,7 @@ CREATE TABLE `tab_log4j` (
 -- ----------------------------
 DROP TABLE IF EXISTS `tab_mental_record`;
 CREATE TABLE `tab_mental_record` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) DEFAULT NULL COMMENT '用户编号',
   `mentalStatus` tinyint(4) DEFAULT NULL COMMENT '心理状态  1：开心 2：平静 3：沮丧  4：烦躁',
   `recordTime` datetime DEFAULT NULL COMMENT '记录时间',
@@ -825,7 +825,7 @@ INSERT INTO tab_service_doctor_relation VALUES ('11', '8', '2');
 -- ----------------------------
 DROP TABLE IF EXISTS `tab_sport_record`;
 CREATE TABLE `tab_sport_record` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) DEFAULT NULL COMMENT '用户编号',
   `sportItemId` int(11) DEFAULT NULL COMMENT '运动项目',
   `sportDuration` smallint(6) DEFAULT NULL COMMENT '运动时长',

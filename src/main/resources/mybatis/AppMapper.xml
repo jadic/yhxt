@@ -347,4 +347,25 @@
         limit #{startNum}, #{rows}
       ]]>
     </select>    
+	
+	<insert id="AppMapper.insertSportResult" useGeneratedKeys="true" keyProperty="id">
+	  <![CDATA[
+	    insert into tab_sport_record(userId, sportItemId, sportDuration, sportTime)
+		values(#{userId},#{sportItemId},#{sportDuration},#{sportTime})
+	  ]]>
+	</insert>  
+	  
+	<insert id="AppMapper.insertMealResult" useGeneratedKeys="true" keyProperty="id">
+	  <![CDATA[
+		insert into tab_food_record(userId, foodItem, amount, mealFlag, mealTime)
+		values(#{userId},#{foodItemId},#{foodAmount},#{mealFlag},#{mealTime})
+	  ]]>
+	</insert>    
+
+	<insert id="AppMapper.insertMentalStatus" useGeneratedKeys="true" keyProperty="id">
+	  <![CDATA[
+		insert into tab_mental_record(userId, mentalStatus, recordTime)
+		values (#{userId}, #{mentalStatus}, #{recordTime})
+	  ]]>
+	</insert>    
 </mapper>
