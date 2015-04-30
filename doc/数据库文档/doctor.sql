@@ -480,7 +480,7 @@ INSERT INTO tab_doctor_advice_performace VALUES ('4', '1', '33333333333333333333
 -- ----------------------------
 DROP TABLE IF EXISTS `tab_ear_thermometer`;
 CREATE TABLE `tab_ear_thermometer` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) default NULL COMMENT '用户编号',
   `temperature` smallint(11) default NULL COMMENT '耳温  实际值*10， 378表示37.8°',
   `takeTime` datetime default NULL COMMENT '测温时间',
@@ -575,6 +575,29 @@ CREATE TABLE `tab_habbit` (
 -- ----------------------------
 INSERT INTO tab_habbit VALUES ('2', '1', '2', '2', '2', '2', '2', '2', '2', '2', '2', '3', '6', '4');
 INSERT INTO tab_habbit VALUES ('3', '3', '1', '-1', '-1', '-1', '-1', '-1', '-1', '-1', '-1', '-1', '-1', '-1');
+
+-- ----------------------------
+-- Table structure for `tab_health_report_evaluation`
+-- ----------------------------
+DROP TABLE IF EXISTS `tab_health_report_evaluation`;
+CREATE TABLE `tab_health_report_evaluation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `reportFlag` tinyint(4) DEFAULT NULL COMMENT '报告类型  1：日报 2：周报  3：月报',
+  `sportLevel` varchar(100) DEFAULT NULL COMMENT '运动是否适量  该字段存储多个运动项目是否适量时，以逗号分割  ，其中适量标准中有如下定义  1：较少  2：适中  3：过量',
+  `sportAdvice` varchar(500) DEFAULT NULL COMMENT '运动综合分析',
+  `dietLevel` varchar(100) DEFAULT NULL COMMENT '饮食是否适量  该字段存储多个饮食项目是否适量时，以逗号分割  ，其中适量标准中有如下定义  1：较少  2：适中  3：过量',
+  `dietAdvice` varchar(500) DEFAULT NULL COMMENT '饮食综合分析',
+  `mentalAdvice` varchar(500) DEFAULT NULL COMMENT '心理综合分析',
+  `bloodPressureAdvice` varchar(500) DEFAULT NULL COMMENT '血压综合分析',
+  `bloodGlucoseAdvice` varchar(500) DEFAULT NULL COMMENT '血糖综合分析',
+  `heartRateAdvice` varchar(500) DEFAULT NULL COMMENT '心率综合分析',
+  `temperatureAdvice` varchar(500) DEFAULT NULL COMMENT '体温综合分析',
+  `medicationAdvice` varchar(500) DEFAULT NULL COMMENT '用药综合分析',
+  `reportTime` varchar(50) DEFAULT NULL COMMENT '该报告对应的日期  格式示例   日报：2015-04-30  周报：2015-05-04_2015-05-10  月报：2015-04',
+  `Accessment` tinyint(4) DEFAULT NULL COMMENT '1：90-100   2：80-90   3：70-80   4：70以下   对应的健康状况：90-100对应“健康”；80-90对应“良好”；70-80对应“一般”；70以下对应“欠佳”',
+  `recordTime` datetime DEFAULT NULL COMMENT '记录该条记录的操作时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='健康报告评议';
 
 -- ----------------------------
 -- Table structure for `tab_hospital`
@@ -1002,3 +1025,39 @@ INSERT INTO tab_user_service VALUES ('5', '1', '10', '2015-04-03 14:20:46');
 INSERT INTO tab_user_service VALUES ('6', '1', '8', '2015-04-03 14:57:13');
 INSERT INTO tab_user_service VALUES ('7', '1', '9', '2015-04-03 16:04:42');
 INSERT INTO tab_user_service VALUES ('8', '1', '7', '2015-04-03 17:10:46');
+DELIMITER ;;
+CREATE TRIGGER `trigger_after_insert_food` AFTER INSERT ON `tab_dict_food` FOR EACH ROW update tab_dict_ver
+set version=SYSDATE()
+where flag = 2
+;;
+DELIMITER ;
+DELIMITER ;;
+CREATE TRIGGER `trigger_after_update_food` AFTER UPDATE ON `tab_dict_food` FOR EACH ROW update tab_dict_ver
+set version=SYSDATE()
+where flag = 2
+;;
+DELIMITER ;
+DELIMITER ;;
+CREATE TRIGGER `trigger_after_delete_food` AFTER DELETE ON `tab_dict_food` FOR EACH ROW update tab_dict_ver
+set version=SYSDATE()
+where flag = 2
+;;
+DELIMITER ;
+DELIMITER ;;
+CREATE TRIGGER `trigger_after_insert_sport` AFTER INSERT ON `tab_dict_sport_item` FOR EACH ROW update tab_dict_ver
+set version=SYSDATE()
+where flag = 1
+;;
+DELIMITER ;
+DELIMITER ;;
+CREATE TRIGGER `trigger_after_update_sport` AFTER UPDATE ON `tab_dict_sport_item` FOR EACH ROW update tab_dict_ver
+set version=SYSDATE()
+where flag = 1
+;;
+DELIMITER ;
+DELIMITER ;;
+CREATE TRIGGER `trigger_after_delete_sport` AFTER DELETE ON `tab_dict_sport_item` FOR EACH ROW update tab_dict_ver
+set version=SYSDATE()
+where flag = 1
+;;
+DELIMITER ;
