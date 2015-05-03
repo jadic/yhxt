@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FoodItemMapper">
+	
+	<resultMap id="mRetFoodItemMap" 		       type="foodItemModel">
+		<result property="id"  			           column="id"/>
+		<result property="foodName"  		       column="foodName"/>
+		<result property="caloriePerHundredGram"   column="caloriePerHundredGram"/>
+		<result property="foodType"                column="foodType"/>
+		<result property="foodTypeName"            column="foodTypeName"/>
+	</resultMap>
+	
+	<!-- 插入用户-->
+	<insert id="FoodItemMapper.insert" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_dict_food (foodName, caloriePerHundredGram, foodType) 
+	        VALUES (#{foodName}, #{caloriePerHundredGram}, #{foodType})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 查询总记录数-->
+	<select id="FoodItemMapper.count" parameterType="foodItemModel" resultType="long">
+		<![CDATA[
+			SELECT COUNT(1) AS CNT
+			FROM tab_dict_food 
+		]]>
+      <where>
+        <if test="foodName != null and foodName != ''">
+          foodName LIKE CONCAT('%', #{foodName}, '%')
+        </if>
+      </where>
+	</select>
+	
+	<!-- 查询分页查询-->
+	<select id="FoodItemMapper.list" parameterType="foodItemModel" resultMap="mRetFoodItemMap">
+		<![CDATA[
+			SELECT a.*, b.name as foodTypeName
+			FROM tab_dict_food a
+            left join tab_dict_food_type b on b.id=a.foodType
+		]]>
+        <where>
+          <if test="foodName != null and foodName != ''">
+            foodName LIKE CONCAT('%', #{foodName}, '%')
+          </if>
+        </where>   
+        <![CDATA[
+          LIMIT #{startNum}, #{rows}
+        ]]>         
+	</select>
+
+
+	<!-- 修改-->
+	<update id="FoodItemMapper.update" parameterType="foodItemModel">
+		<![CDATA[
+			UPDATE tab_dict_food  SET  
+			foodName = #{foodName},
+            caloriePerHundredGram = #{caloriePerHundredGram}, 
+            foodType = #{foodType}
+			WHERE id = #{id} 
+		]]>
+	</update>
+	
+	<!-- 删除-->
+	<delete id="FoodItemMapper.delete">
+		<![CDATA[
+			DELETE FROM tab_dict_food 
+			WHERE id = #{id} 
+		]]>
+	</delete>
+	
+</mapper>

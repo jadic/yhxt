@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SportItemMapper">
+	
+	<resultMap id="mRetSportItemMap" 		  type="sportItemModel">
+		<result property="id"  			      column="id"/>
+		<result property="sportName"  		  column="sportName"/>
+		<result property="caloriePerMinute"   column="caloriePerMinute"/>
+	</resultMap>
+	
+	<!-- 插入用户-->
+	<insert id="SportItemMapper.insert" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_dict_sport_item (sportName, caloriePerMinute) 
+	        VALUES (#{sportName}, #{caloriePerMinute})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 查询总记录数-->
+	<select id="SportItemMapper.count" parameterType="sportItemModel" resultType="long">
+		<![CDATA[
+			SELECT COUNT(1) AS CNT
+			FROM tab_dict_sport_item 
+		]]>
+      <where>
+        <if test="sportName != null and sportName != ''">
+          sportName LIKE CONCAT('%', #{sportName}, '%')
+        </if>
+      </where>
+	</select>
+	
+	<!-- 查询分页查询-->
+	<select id="SportItemMapper.list" parameterType="sportItemModel" resultMap="mRetSportItemMap">
+		<![CDATA[
+			SELECT *
+			FROM tab_dict_sport_item
+		]]>
+        <where>
+          <if test="sportName != null and sportName != ''">
+            sportName LIKE CONCAT('%', #{sportName}, '%')
+          </if>
+        </where>   
+        <![CDATA[
+          LIMIT #{startNum}, #{rows}
+        ]]>         
+	</select>
+
+
+	<!-- 修改-->
+	<update id="SportItemMapper.update" parameterType="sportItemModel">
+		<![CDATA[
+			UPDATE tab_dict_sport_item  SET  
+			sportName = #{sportName},
+            caloriePerMinute = #{caloriePerMinute}
+			WHERE id = #{id} 
+		]]>
+	</update>
+	
+	<!-- 删除-->
+	<delete id="SportItemMapper.delete">
+		<![CDATA[
+			DELETE FROM tab_dict_sport_item 
+			WHERE id = #{id} 
+		]]>
+	</delete>
+	
+</mapper>

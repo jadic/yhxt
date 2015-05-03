@@ -33,6 +33,7 @@
 		<typeAlias alias="bloodGlucoseModel" type="com.gesoft.model.BloodGlucoseModel" />
 		<typeAlias alias="sportItemModel" type="com.gesoft.model.SportItemModel" />
 		<typeAlias alias="foodItemModel" type="com.gesoft.model.FoodItemModel" />
+		<typeAlias alias="foodTypeModel" type="com.gesoft.model.FoodTypeModel" />
 	</typeAliases>
 	<mappers></mappers>
 </configuration>

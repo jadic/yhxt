@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FoodTypeMapper">
+	
+	<resultMap id="mRetFoodTypeMap"       type="foodTypeModel">
+		<result property="id"  			  column="id"/>
+		<result property="name"  		  column="name"/>
+	</resultMap>
+	
+	<!-- 插入用户-->
+	<insert id="FoodTypeMapper.insert" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_dict_food_type (name) 
+	        VALUES (#{name})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 查询总记录数-->
+	<select id="FoodTypeMapper.count" parameterType="foodTypeModel" resultType="long">
+		<![CDATA[
+			SELECT COUNT(1) AS CNT
+			FROM tab_dict_food_type 
+		]]>
+      <where>
+        <if test="name != null and name != ''">
+          name LIKE CONCAT('%', #{name}, '%')
+        </if>
+      </where>
+	</select>
+	
+	<!-- 查询分页查询-->
+	<select id="FoodTypeMapper.list" parameterType="foodTypeModel" resultMap="mRetFoodTypeMap">
+		<![CDATA[
+			SELECT *
+			FROM tab_dict_food_type
+		]]>
+        <where>
+          <if test="name != null and name != ''">
+            name LIKE CONCAT('%', #{name}, '%')
+          </if>
+        </where>   
+        <![CDATA[
+          LIMIT #{startNum}, #{rows}
+        ]]>         
+	</select>
+
+
+	<!-- 修改-->
+	<update id="FoodTypeMapper.update" parameterType="foodTypeModel">
+		<![CDATA[
+			UPDATE tab_dict_food_type  SET  
+			name = #{name}
+			WHERE id = #{id} 
+		]]>
+	</update>
+	
+	<!-- 删除-->
+	<delete id="FoodTypeMapper.delete">
+		<![CDATA[
+			DELETE FROM tab_dict_food_type 
+			WHERE id = #{id} 
+		]]>
+	</delete>
+	
+</mapper>

@@ -14,7 +14,8 @@ package com.gesoft.model;
  */
 public class BloodModel extends BaseModel
 {
-	private int value;
+    private static final long serialVersionUID = -3979197277723109965L;
+    private int value;
 	private String stime;
 	private int type;
 	public int getValue()

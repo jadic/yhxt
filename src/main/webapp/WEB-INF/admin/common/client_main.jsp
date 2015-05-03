@@ -44,6 +44,12 @@
 						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/hospital.do','字典管理>> 医院信息管理');  $('#430000').click()">医院信息管理</div>
 						<div class="menu-sep"></div>
 						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/hospitalDept.do','字典管理>> 医院科室管理');  $('#430000').click()">医院科室管理</div>
+						<div class="menu-sep"></div>
+						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/foodType.do','字典管理>> 食品类型管理');  $('#430000').click()">食品类型管理</div>
+						<div class="menu-sep"></div>
+						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/foodItem.do','字典管理>> 食品管理');  $('#430000').click()">食品管理</div>
+						<div class="menu-sep"></div>
+						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/sportItem.do','字典管理>> 运动项目管理');  $('#430000').click()"> 运动项目管理</div>
 					</div>
 				</div>
 				

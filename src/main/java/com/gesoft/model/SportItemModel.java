@@ -5,8 +5,9 @@ package com.gesoft.model;
  * @author Jadic
  * @created 2015年4月28日
  */
-public class SportItemModel {
+public class SportItemModel extends BaseModel {
 
+    private static final long serialVersionUID = 1875871656290776623L;
     private int id;
     private String sportName;
     private int caloriePerMinute;

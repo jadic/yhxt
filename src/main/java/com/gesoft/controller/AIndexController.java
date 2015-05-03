@@ -195,4 +195,25 @@ public class AIndexController extends BaseController
 	    System.out.println("doctor.do");
 	    return "/admin/baseinfo/manage_doctor_info";
 	}
+
+	@RequestMapping(value="/foodType.do")
+	public String toFoodType()
+	{
+	    System.out.println("toFoodType.do");
+	    return "/admin/dictinfo/manage_foodType_info";
+	}
+	
+	@RequestMapping(value="/foodItem.do")
+	public String toFoodItem()
+	{
+	    System.out.println("toFoodItem.do");
+	    return "/admin/dictinfo/manage_foodItem_info";
+	}
+	
+	@RequestMapping(value="/sportItem.do")
+	public String toSportItem()
+	{
+	    System.out.println("toSportItem.do");
+	    return "/admin/dictinfo/manage_sportItem_info";
+	}
 }

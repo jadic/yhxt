@@ -336,6 +336,7 @@ public class AppController extends BaseController
                 List<SportItemModel> list = appService.getSportItems(model);
                 msgModel.setRows(list);
             }
+            msgModel.setSuccess(true);
         } catch (Exception e) {
             logger.error("AppController getSportItems error：", e);
         }
@@ -352,6 +353,7 @@ public class AppController extends BaseController
                 List<FoodItemModel> list = appService.getFoodItems(model);
                 msgModel.setRows(list);
             }
+            msgModel.setSuccess(true);
         } catch (Exception e) {
             logger.error("AppController getFoodItems error：", e);
         }

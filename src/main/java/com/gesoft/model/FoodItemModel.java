@@ -5,8 +5,10 @@ package com.gesoft.model;
  * @author Jadic
  * @created 2015年4月28日
  */
-public class FoodItemModel {
+public class FoodItemModel extends BaseModel {
 
+    private static final long serialVersionUID = -1401776083240459482L;
+    
     private int id;
     private String foodName;
     private int caloriePerHundredGram;
