@@ -13,6 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/nurse/common/top-include.jsp"%>
+	<link rel="stylesheet" href="<c:url value='/nurse/themes/health_records.css'/>" type="text/css"/>
 	<script type="text/JavaScript">
 		$(function() {
 			var $div_li = $("div.tab_menu ul li");
@@ -47,9 +48,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <div class="tab_menu">
       <ul>
         <li class="selected" style="width: 132px;"><a style="width:130px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/n/search/userJkzt.do'/>?userId=${query.userId}" target="indexFrame" title="健康状态" >健康状态</a></li>
+        <li style="width: 133px;"><a style="width:133px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/n/search/healthBg.do'/>?userId=${query.userId}" target="indexFrame" title="健康报告">健康报告</a></li>
         <li style="width: 133px;"><a style="width:133px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/n/search/jkda.do'/>?userId=${query.userId}" target="indexFrame" title="健康档案">健康档案</a></li>
-        <li style="width: 132px;"><a style="width:133px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/n/search/advice.do'/>?userId=${query.userId}" target="indexFrame" title="医嘱">医嘱</a></li>
-        <li style="width: 132px;"><a style="width:133px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/n/search/userMsgList.do'/>?userId=${query.userId}&senderId=${query.userId}" target="indexFrame" title="留言">留言</a></li>
+        <li style="width: 131px;"><a style="width:131px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/n/search/advice.do'/>?userId=${query.userId}" target="indexFrame" title="医嘱">医嘱</a></li>
+        <li style="width: 131px;"><a style="width:131px; height: 48px; display:block;text-decoration:none;color:#fff; " href="<c:url value='/n/search/userMsgList.do'/>?userId=${query.userId}&senderId=${query.userId}" target="indexFrame" title="留言">留言</a></li>
       </ul>
    </div>
    <div class="tab_box" >

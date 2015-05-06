@@ -10,6 +10,7 @@ package com.gesoft.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
@@ -22,6 +23,7 @@ import com.gesoft.model.DoctorModel;
 import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
+import com.gesoft.model.HealthReportModel;
 import com.gesoft.model.MessageModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.OutModel;
@@ -845,4 +847,340 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryRecentlyHomeEarInfo", model);
 	}
 	
+	
+	/**
+	 * 描述信息：加载近期血压
+	 * 创建时间：2015年5月1日 下午2:09:02
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public OutModel queryRecentlyHomePressureInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryRecentlyHomePressureInfo", model);
+	}
+	
+	/**
+	 * 描述信息：统计血压
+	 * 创建时间：2015年5月1日 下午3:02:53
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryStatBloodPressureInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryStatBloodPressureInfo", model);
+	}
+	
+
+	/**
+	 * 描述信息：加载最新的一条建议
+	 * 创建时间：2015年5月2日 上午10:39:22
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public OutModel queryHomeDoctorAdviceInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHomeDoctorAdviceInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息： 加载15天内的医
+	 * 创建时间：2015年5月2日 下午1:59:28
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHomeDoctorAdvice15Info(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHomeDoctorAdvice15Info", model);
+	}
+	
+	/**
+	 * 描述信息：加载用户信息
+	 * 创建时间：2015年5月4日 下午10:20:33
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public UserModel queryHealthUserInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHealthUserInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：加载运动记录
+	 * 创建时间：2015年5月4日 下午10:21:49
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthSportInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthSportInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：加载饮食记录
+	 * 创建时间：2015年5月4日 下午10:21:49
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthFoodInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthFoodInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：饮食合计
+	 * 创建时间：2015年5月5日 上午10:26:48
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public OutModel queryHealthFoodSumInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHealthFoodSumInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：加载饮食合计
+	 * 创建时间：2015年5月5日 上午10:29:20
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthFoodItemSumInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthFoodItemSumInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：加载饮食项
+	 * 创建时间：2015年5月5日 上午9:44:11
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthFoodItemInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthFoodItemInfo", model);
+	}
+	
+
+	
+	/**
+	 * 描述信息：加载收理状态
+	 * 创建时间：2015年5月4日 下午10:21:49
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthMentalInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthMentalInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：测量血压
+	 * 创建时间：2015年5月4日 下午10:26:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthPressureInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthPressureInfo", model);
+	}
+	
+
+	/**
+	 * 描述信息：测量心率
+	 * 创建时间：2015年5月4日 下午10:26:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthPulseInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthPulseInfo", model);
+	}
+
+	/**
+	 * 描述信息：测量血糖
+	 * 创建时间：2015年5月4日 下午10:26:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthGlucoseInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthGlucoseInfo", model);
+	}
+	
+
+
+	/**
+	 * 描述信息：测量体温
+	 * 创建时间：2015年5月4日 下午10:26:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthThermometerInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthThermometerInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：删除健康报告
+	 * 创建时间：2015年5月5日 下午1:32:38
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 */
+	public int delHealthRepeatInfo(HealthReportModel model)
+	{
+		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delHealthRepeatInfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：插入健康报告
+	 * 创建时间：2015年5月5日 下午1:32:56
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 */
+	public int addHealthRepeatInfo(HealthReportModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addHealthRepeatInfo", model);
+	}
+	
+	/**
+	 * 描述信息：加载健康报告记录信息
+	 * 创建时间：2015年5月5日 下午2:14:24
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public HealthReportModel queryHealthReportInfo(HealthReportModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHealthReportInfo", model);
+	}
+	
+	
+
+	/**
+	 * 描述信息：
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthSportMonthInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthSportMonthInfo", model);
+	}
+
+
+	/**
+	 * 描述信息：按月 运动合计与日均
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public OutModel queryHealthSportMonthFxInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHealthSportMonthFxInfo", model);
+	}
+	
+	
+
+	/**
+	 * 描述信息：
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthFoodMonthInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthFoodMonthInfo", model);
+	}
+
+	
+	
+	/**
+	 * 描述信息：
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthMentalMonthInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthMentalMonthInfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthPressureMonthInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthPressureMonthInfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthPulseMonthInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthPulseMonthInfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthGlucoseMonthInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthGlucoseMonthInfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthThermometerMonthInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthThermometerMonthInfo", model);
+	}
 }

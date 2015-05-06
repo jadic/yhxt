@@ -48,8 +48,8 @@
 					dataType : 'json',
 					data : 
 					{
-						"startTime"	: $("#stime").val() + " 00:00:00",
-						"endTime"	: $("#etime").val() + " 23:59:59"
+						"startTime"	: ($("#stime").val()==''?'':$("#stime").val() + " 00:00:00"),
+						"endTime"	: ($("#etime").val()==''?'':$("#etime").val() + " 23:59:59")
 					},
 					error:function(data)
 					{
@@ -64,11 +64,11 @@
 			showChart : function(data)
 			{
 				var myParamObj = {
-					mLabelFormat: '{%YValue}{numDecimals:2}',
-					mYtitle		: '升缩压/舒张压(mmHg)',
+					mTopFlag    : false,	
+					mLabelFormat: '{%Name}\n{%SeriesName}: {%YValue}{numDecimals:2}(mmol/L)',
+					mYtitle		: '空腹/饭后(mmHg)',
 					mChartType  : 'Spline', 
-					mFormateTip : '{%YValue}{numDecimals:2}',
-					mFormateXTip: '{%Value}{numDecimals:2}',
+					mFormateYTip: '{%Value}{numDecimals:2}',
 					mViewData 	: ''
 				};
 				var mViewData1 = '<series name="空腹">';

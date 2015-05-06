@@ -16,9 +16,7 @@
             <format enabled="false"></format>
           </label_settings>
           <tooltip_settings enabled="true">
-            <format>
-                {%Name}
-{%SeriesName}: {%YValue}{numDecimals:2}(mmol/L)</format>
+            <format>mLabelFormat</format>
             <background>
               <border type="Solid" color="DarkColor(%Color)" />
             </background>
@@ -35,8 +33,8 @@
 	       	<border enabled="True" thickness="1" type="Gradient"></border>
 	        <inside_margin  all="0" />
 	    </chart_background>
-				<title enabled="false">
-					<text></text>
+				<title enabled="mTopFlag">
+					<text>mTopTitle</text>
 				</title>
 				<legend enabled="True" position="bottom" align="Center" elements_align="Center">
 		          <title enabled="false" />
@@ -51,13 +49,13 @@
 		            </title>
 		          </x_axis>	
 		          <y_axis>
-		            <title enabled="false">
+		            <title enabled="mYFlag">
 		              <text>mYtitle</text>
 		              <font color="#135D8C" />
 		            </title>
 		            <labels align="Inside">
 		              <font color="#135D8C" />
-		              <format>{%Value}{numDecimals:1}</format>
+		              <format>mFormateYTip</format>
 		            </labels>
 		          </y_axis>
 		        </axes>

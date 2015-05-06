@@ -36,7 +36,17 @@ public class QueryModel extends BaseModel
 	private String command;
 	private long senderId;
 	private String title;
+	private int statType = 1;
 	
+	
+	public int getStatType()
+	{
+		return statType;
+	}
+	public void setStatType(int statType)
+	{
+		this.statType = statType;
+	}
 	public String getTitle()
 	{
 		return title;

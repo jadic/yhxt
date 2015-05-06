@@ -66,7 +66,17 @@ public class UserModel extends BaseModel
 	private String spouseName;  // 配偶姓名
 	private String spousePhone; // 配偶手机
 	private String achievement; // 工作成就
+	private String bmi;//weight/(height*height)
 	
+	
+	public String getBmi()
+	{
+		return bmi;
+	}
+	public void setBmi(String bmi)
+	{
+		this.bmi = bmi;
+	}
 	public int getUserSysId()
 	{
 		return userSysId;

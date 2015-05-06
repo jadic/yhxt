@@ -207,7 +207,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<li id="tree-jjhj-li">
 								<div class="tree-item-label">
 									<span class="tree-item-text" title="健康报告">
-										<a style="display:block;text-decoration:none; color:#000;" href="<c:url value='/p/query/advice.do?adviceType=1'/>" target="mainFrame">健康报告</a>
+										<a style="display:block;text-decoration:none; color:#000;" href="<c:url value='/p/query/healthBg.do'/>" target="mainFrame">健康报告</a>
 									</span>
 								</div>
 							</li>

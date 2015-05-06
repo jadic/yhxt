@@ -119,6 +119,7 @@
 	</resultMap>
 	
 	
+	
 	<!-- 查询生活习惯 -->
 	<resultMap id="mRetHabbitMap" 					type="habbitModel">
 		<result property="id"  						column="id"/>
@@ -276,7 +277,14 @@
 		<result property="stime"  	 	 		column="takeTime"/>
 	</resultMap>
     
-    
+    <!-- 统计血压 -->
+    <resultMap id="mRetStatBooldPressureMap" 	type="outModel">
+        <result property="a"  	  				column="takeTime"/>
+		<result property="a1"  	  				column="highBloodPressure"/>
+		<result property="a2"  	  				column="lowBloodPressure"/>
+		<result property="a3"  	 	 			column="pulse"/>
+	</resultMap>
+	
     <!-- 加载近期血糖 -->
     <resultMap id="mRetRecentlyHomeBloodMap" 	type="outModel">
 		<result property="a"  	  				column="takeTime1"/>
@@ -294,6 +302,13 @@
 	</resultMap>
 	
     
+    
+    <!-- 加载近期血压-->
+    <resultMap id="mRetRecentlyHomePressureMap" type="outModel">
+		<result property="g"  	  				column="takeTime"/>
+		<result property="h"  	  				column="BloodPressure"/>
+	</resultMap>
+    
     <!-- 首页加载医嘱  -->
     <resultMap id="mRetHomeDoctorAdviceMap" 	type="outModel">
 		<result property="a"  	  				column="a"/>
@@ -303,6 +318,152 @@
 	</resultMap>
 	
     
+    <!-- 加载用户信息 -->
+	<resultMap id="mRetHealthUserMap" 				type="userModel">
+		<result property="userId"  					column="userId"/>
+		<result property="name"  					column="name"/>
+		<result property="gender"  					column="gender"/>
+		<result property="birthdate"  				column="birthdate"/>
+		<result property="height"  					column="height"/>
+		<result property="weight"  					column="weight"/>
+		<result property="bmi"  					column="bmi"/>
+	</resultMap>
+	
+	<!-- 加载运动记录 -->
+	<resultMap id="mRetHealthSportMap" 				type="outModel">
+		<result property="a"  						column="sportName"/>
+		<result property="b"  						column="sportTime"/>
+		<result property="c"  						column="sportDuration"/>
+		<result property="d"  						column="caloriePerMinute"/>
+	</resultMap>
+    
+	<resultMap id="mRetHealthSportMonthFxMap" 		type="outModel">
+		<result property="a"  						column="a"/>
+		<result property="b"  						column="b"/>
+		<result property="c"  						column="c"/>
+		<result property="d"  						column="d"/>
+	</resultMap>
+	
+	
+	<!-- 加载饮食记录 -->
+	<resultMap id="mRetHealthFootMap" 				type="outModel">
+		<result property="a"  						column="mealFlag"/>
+		<result property="b"  						column="mealTime"/>
+		<result property="c"  						column="amount"/>
+	</resultMap>
+	
+	
+	<!-- 加载饮食记录 -->
+	<resultMap id="mRetHealthFootMonthMap" 			type="outModel">
+		<result property="a"  						column="name"/>
+		<result property="b"  						column="amount"/>
+		<result property="c"  						column="caloriePerHundredGram"/>
+		<result property="d"  						column="avgAmount"/>
+		<result property="e"  						column="avgCaloriePerHundredGram"/>
+	</resultMap>
+	
+	
+	<!-- 加载饮食记录 -->
+	<resultMap id="mRetHealthFootItemMap" 			type="outModel">
+		<result property="a1"  						column="id"/>
+		<result property="a"  						column="name"/>
+		<result property="b"  						column="amount"/>
+	</resultMap>
+	
+	
+	<!-- 加载饮食记录 -->
+	<resultMap id="mRetHealthMentalMap" 				type="outModel">
+		<result property="a"  							column="mentalStatus"/>
+		<result property="b"  							column="recordTime"/>
+	</resultMap>
+	
+	
+	<!-- 加载饮食记录 -->
+	<resultMap id="mRetHealthMentalMonthMap" 			type="outModel">
+		<result property="a1"  							column="mentalStatus"/>
+		<result property="a2"  							column="cnt"/>
+	</resultMap>
+	
+	
+	
+	<!-- 加载血压 -->
+	<resultMap id="mRetHealthPressureMap" 				type="outModel">
+		<result property="a"  							column="takeTime"/>
+		<result property="b"  							column="highBloodPressure"/>
+		<result property="c"  							column="lowBloodPressure"/>
+		<result property="d"  							column="pulse"/>
+	</resultMap>
+	
+	<!-- 加载血压 按月-->
+	<resultMap id="mRetHealthPressureMonthMap" 			type="outModel">
+		<result property="a1"  							column="a1"/>
+		<result property="a2"  							column="a2"/>
+		<result property="a3"  							column="a3"/>
+		<result property="a4"  							column="a4"/>
+		<result property="a5"  							column="a5"/>
+		<result property="a6"  							column="a6"/>
+	</resultMap>
+	
+	
+	
+	<!-- 加载血压 -->
+	<resultMap id="mRetHealthPulseMap" 					type="outModel">
+		<result property="a"  							column="takeTime"/>
+		<result property="b"  							column="pulse"/>
+	</resultMap>
+	
+	
+	<!-- 加载血压 按月-->
+	<resultMap id="mRetHealthPulseMonthMap" 			type="outModel">
+		<result property="a1"  							column="a1"/>
+		<result property="a2"  							column="a2"/>
+		<result property="a3"  							column="a3"/>
+		<result property="a4"  							column="a4"/>
+	</resultMap>
+	
+	
+	<!-- 加载血糖 -->
+	<resultMap id="mRetHealthGlucoseMap" 				type="outModel">
+		<result property="a"  							column="takeTime1"/>
+		<result property="b"  							column="bloodGlucose1"/>
+		<result property="c"  							column="takeTime2"/>
+		<result property="d"  							column="bloodGlucose2"/>
+	</resultMap>
+	
+	<!-- 加载血糖 按月-->
+	<resultMap id="mRetHealthGlucoseMonthMap" 			type="outModel">
+		<result property="a1"  							column="a1"/>
+		<result property="a2"  							column="a2"/>
+		<result property="a3"  							column="a3"/>
+	</resultMap>
+	
+	
+	<!-- 加载体温 -->
+	<resultMap id="mRetHealthThermometerMap" 				type="outModel">
+		<result property="a"  								column="takeTime"/>
+		<result property="b"  								column="temperature"/>
+	</resultMap>
+	
+	
+	<resultMap id="mRetHealthReportMap" 					type="healthReportModel">
+		<result property="id"  								column="id"/>
+		<result property="reportFlag"  						column="reportFlag"/>
+		<result property="sportLevel"  						column="sportLevel"/>
+		<result property="sportAdvice"  					column="sportAdvice"/>
+		<result property="dietLevel"  						column="dietLevel"/>
+		<result property="dietAdvice"  						column="dietAdvice"/>
+		<result property="mentalAdvice"  					column="mentalAdvice"/>
+		<result property="bloodPressureAdvice"  			column="bloodPressureAdvice"/>
+		<result property="bloodGlucoseAdvice"  				column="bloodGlucoseAdvice"/>
+		<result property="heartRateAdvice"  				column="heartRateAdvice"/>
+		<result property="temperatureAdvice"  				column="temperatureAdvice"/>
+		<result property="medicationAdvice"  				column="medicationAdvice"/>
+		<result property="reportTime"  						column="reportTime"/>
+		<result property="accessment"  						column="Accessment"/>
+		<result property="recordTime"  						column="recordTime"/>
+	</resultMap>
+	
+	
 	<!-- 用户登录 -->
 	<select id="QueryMapper.queryLoginInfo" 	parameterType="userModel"	resultMap="mRetLoginMap">
 		<![CDATA[
@@ -1083,6 +1244,23 @@
 	</select>
 	
 	
+	<!-- 血压统计 -->
+	<select id="QueryMapper.queryStatBloodPressureInfo" 	parameterType="queryModel"	resultMap="mRetStatBooldPressureMap">
+		<![CDATA[
+			select a.highBloodPressure, a.lowBloodPressure, a.pulse, a.takeTime 
+			from tab_blood_pressure a
+			where a.userId = #{userId}
+		]]>
+		<if test="startTime != null and startTime != ''">
+		    AND a.takeTime >=   STR_TO_DATE(#{startTime},'%Y-%m-%d %H:%i:%s')
+		</if>
+		<if test="endTime != null and  endTime != ''">
+			<![CDATA[ 
+				AND a.takeTime <=   STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')
+			]]>
+		</if>
+	</select>
+	
 	<!-- 加载最近的血糖 -->
 	<select id="QueryMapper.queryRecentlyHomeBloodInfo" 	parameterType="queryModel"	resultMap="mRetRecentlyHomeBloodMap">
 		<![CDATA[
@@ -1094,6 +1272,18 @@
 		]]>
 	</select>
 	
+	
+	
+	<!-- 加载最近的血压 -->
+	<select id="QueryMapper.queryRecentlyHomePressureInfo" 	parameterType="queryModel"	resultMap="mRetRecentlyHomePressureMap">
+		<![CDATA[
+			select CONCAT(a.highBloodPressure , '/', a.lowBloodPressure) as BloodPressure, a.takeTime
+			from tab_blood_pressure a
+			where a.userId = #{userId}
+			order by a.takeTime DESC
+			LIMIT 0, 1
+		]]>
+	</select>
 	
 	<!-- 加载最近的体温 -->
 	<select id="QueryMapper.queryRecentlyHomeEarInfo" 	parameterType="queryModel"	resultMap="mRetRecentlyHomeEarMap">
@@ -1111,10 +1301,394 @@
 		<![CDATA[
 			select a.adviceTime as a, a.adviceContent as b, b.doctorAdvicePerformace as c, b.recordTime as d
 			from tab_doctor_advice a
-			inner join tab_doctor_advice_performace b on a.id=b.doctorAdviceId
+			left join tab_doctor_advice_performace b on a.id=b.doctorAdviceId
 			where a.userId = #{userId}
 			and a.adviceTypId = #{adviceType}
+			and a.adviceTime >= SUBDATE(now(),interval 30 day)
 			order by a.adviceTime DESC
+			LIMIT 0, 1
+		]]>
+	</select>
+	
+	
+	<!-- 加载用户信息 -->
+	<select id="QueryMapper.queryHealthUserInfo" 	parameterType="queryModel"	resultMap="mRetHealthUserMap">
+		<![CDATA[
+			SELECT a.userId, a.name, a.gender, TIMESTAMPDIFF(YEAR,a.birthdate, NOW())  as birthdate, a.height, a.weight, FORMAT(a.weight / (a.height/100 * a.height/100), 2) as bmi
+			FROM tab_user a
+			where a.userId = #{userId}
+		]]>
+	</select>
+	
+	
+	<!-- 加载运动记录 -->
+	<select id="QueryMapper.queryHealthSportInfo" 	parameterType="queryModel"	resultMap="mRetHealthSportMap">
+		<![CDATA[
+			SELECT b.sportName, a.sportTime, a.sportDuration, b.caloriePerMinute * a.sportDuration as caloriePerMinute
+			FROM tab_sport_record a
+			LEFT JOIN tab_dict_sport_item b on a.sportItemId=b.id
+			where a.userId = #{userId}
+			and date_format(a.sportTime, '%Y-%m-%d') = #{startTime}
+			order by a.sportTime
+		]]>
+	</select>
+	
+	
+	<!-- 加载运动记录 按月 -->
+	<select id="QueryMapper.queryHealthSportMonthInfo" 	parameterType="queryModel"	resultMap="mRetHealthSportMap">
+		<![CDATA[
+			SELECT b.sportName, '' as sportTime, SUM(a.sportDuration) as sportDuration, SUM(b.caloriePerMinute * a.sportDuration) as caloriePerMinute
+			FROM tab_sport_record a
+			LEFT JOIN tab_dict_sport_item b on a.sportItemId=b.id
+			where a.userId = #{userId}
+		]]>
+		<if test="statType != null and statType == 2">
+		    <![CDATA[
+			and date_format(a.sportTime, '%Y-%m-%d') >= #{startTime}
+			and date_format(a.sportTime, '%Y-%m-%d') <= #{endTime}
+			]]>
+        </if>
+        <if test="statType != null and statType == 3">
+			and date_format(a.sportTime, '%Y-%m') = #{startTime}
+        </if>
+        <![CDATA[
+			group by b.sportName
+			order by b.sportName
+		]]>
+	</select>
+	
+	
+	<!-- 加载运动记录 分析 按月 -->
+	<select id="QueryMapper.queryHealthSportMonthFxInfo" 	parameterType="queryModel"	resultMap="mRetHealthSportMonthFxMap">
+		<![CDATA[
+			SELECT SUM(a.sportDuration) as a, SUM(b.caloriePerMinute * a.sportDuration) as b,
+				FORMAT(SUM(a.sportDuration)/COUNT(DISTINCT date_format(a.sportTime, '%Y-%m')), 2) as c,
+				FORMAT(SUM(b.caloriePerMinute * a.sportDuration)/COUNT(DISTINCT date_format(a.sportTime, '%Y-%m')), 2) as d
+			FROM tab_sport_record a 
+			LEFT JOIN tab_dict_sport_item b on a.sportItemId=b.id
+			where a.userId = #{userId}
+		]]>
+		<if test="statType != null and statType == 2">
+		    <![CDATA[
+			and date_format(a.sportTime, '%Y-%m-%d') >= #{startTime}
+			and date_format(a.sportTime, '%Y-%m-%d') <= #{endTime}
+			]]>
+        </if>
+        <if test="statType != null and statType == 3">
+			and date_format(a.sportTime, '%Y-%m') = #{startTime}
+        </if>
+	</select>
+	
+	
+	
+	
+	<!-- 加载饮食记录 -->
+	<select id="QueryMapper.queryHealthFoodInfo" 	parameterType="queryModel"	resultMap="mRetHealthFootMap">
+		<![CDATA[
+			SELECT a.mealFlag, MAX(a.mealTime) as mealTime, FORMAT(SUM(a.amount * b.caloriePerHundredGram / 100), 2) as amount
+			FROM tab_food_record a
+			LEFT JOIN tab_dict_food b on a.foodItem=b.id
+			LEFT JOIN tab_dict_food_type c on c.id=b.foodType
+			where a.userId = #{userId}
+			and date_format(a.mealTime, '%Y-%m-%d') = #{startTime}
+			group by a.mealFlag
+			order by a.mealFlag
+		]]>
+	</select>
+	
+	
+	<!-- 加载饮食记录 按月-->
+	<select id="QueryMapper.queryHealthFoodMonthInfo" 	parameterType="queryModel"	resultMap="mRetHealthFootMonthMap">
+		<![CDATA[
+			SELECT c.name, SUM(a.amount) as amount,  
+			FORMAT(SUM(a.amount * b.caloriePerHundredGram / 100), 2) as caloriePerHundredGram, 
+			FORMAT(SUM(a.amount)/COUNT(DISTINCT date_format(a.mealTime, '%Y-%m')), 2) as avgAmount,
+			FORMAT(SUM(a.amount * b.caloriePerHundredGram / 100)/COUNT(DISTINCT date_format(a.mealTime, '%Y-%m')), 2) as avgCaloriePerHundredGram
+			FROM tab_food_record a
+			LEFT JOIN tab_dict_food b on a.foodItem=b.id
+			LEFT JOIN tab_dict_food_type c on c.id=b.foodType
+			where a.userId = #{userId}
+		]]>
+		<if test="statType != null and statType == 2">
+		    <![CDATA[
+			and date_format(a.mealTime, '%Y-%m-%d') >= #{startTime}
+			and date_format(a.mealTime, '%Y-%m-%d') <= #{endTime}
+			]]>
+        </if>
+        <if test="statType != null and statType == 3">
+			and date_format(a.mealTime, '%Y-%m') = #{startTime}
+        </if>
+        <![CDATA[
+			group by c.name
+			order by c.name
+		]]>
+	</select>
+	
+	
+	<!-- 加载饮食记录 -->
+	<select id="QueryMapper.queryHealthFoodSumInfo" 	parameterType="queryModel"	resultMap="mRetHealthFootMap">
+		<![CDATA[
+			SELECT '' as mealFlag, date_format(MAX(a.mealTime), '%Y-%m-%d') as mealTime, FORMAT(SUM(a.amount * b.caloriePerHundredGram / 100), 2) as amount
+			FROM tab_food_record a
+			LEFT JOIN tab_dict_food b on a.foodItem=b.id
+			LEFT JOIN tab_dict_food_type c on c.id=b.foodType
+			where a.userId = #{userId}
+			and date_format(a.mealTime, '%Y-%m-%d') = #{startTime}
+		]]>
+	</select>
+	
+	
+	<!-- 加载饮食类细项 -->
+	<select id="QueryMapper.queryHealthFoodItemSumInfo" 	parameterType="queryModel"	resultMap="mRetHealthFootItemMap">
+		<![CDATA[
+			SELECT  c.id, c.name, SUM(a.amount) as amount
+			FROM tab_food_record a
+			LEFT JOIN tab_dict_food b on a.foodItem=b.id
+			LEFT JOIN tab_dict_food_type c on c.id=b.foodType
+			where a.userId = #{userId}
+			and date_format(a.mealTime, '%Y-%m-%d') = #{startTime}
+			group by c.id
+			order by c.id
+		]]>
+	</select>
+	
+	
+	
+	<!-- 加载饮食类细项 -->
+	<select id="QueryMapper.queryHealthFoodItemInfo" 	parameterType="queryModel"	resultMap="mRetHealthFootItemMap">
+		<![CDATA[
+			SELECT  c.id, c.name, SUM(a.amount) as amount
+			FROM tab_food_record a
+			LEFT JOIN tab_dict_food b on a.foodItem=b.id
+			LEFT JOIN tab_dict_food_type c on c.id=b.foodType
+			where a.mealFlag = #{type}
+			and a.userId = #{userId}
+			and date_format(a.mealTime, '%Y-%m-%d') = #{startTime}
+			group by c.id
+			order by c.id
+		]]>
+	</select>
+	
+
+
+	
+	<!-- 加载心理状态 -->
+	<select id="QueryMapper.queryHealthMentalInfo" 	parameterType="queryModel"	resultMap="mRetHealthMentalMap">
+		<![CDATA[
+			SELECT a.mentalStatus, a.recordTime
+			FROM tab_mental_record a
+			where a.userId = #{userId}
+			and date_format(a.recordTime, '%Y-%m-%d') = #{startTime}
+			order by a.recordTime
+		]]>
+	</select>
+	
+	
+	
+	<!-- 加载心理状态 按月-->
+	<select id="QueryMapper.queryHealthMentalMonthInfo" 	parameterType="queryModel"	resultMap="mRetHealthMentalMonthMap">
+		<![CDATA[
+			SELECT a.mentalStatus, COUNT(1) as cnt
+			from tab_mental_record a
+			where a.userId = #{userId}
+		]]>
+		<if test="statType != null and statType == 2">
+		    <![CDATA[
+			and date_format(a.recordTime, '%Y-%m-%d') >= #{startTime}
+			and date_format(a.recordTime, '%Y-%m-%d') <= #{endTime}
+			]]>
+        </if>
+        <if test="statType != null and statType == 3">
+			and date_format(a.recordTime, '%Y-%m') = #{startTime}
+        </if>
+        <![CDATA[
+			group by a.mentalStatus
+			order by a.mentalStatus
+		]]>
+	</select>
+	
+	
+	
+	<!-- 加载血压 -->
+	<select id="QueryMapper.queryHealthPressureInfo" 	parameterType="queryModel"	resultMap="mRetHealthPressureMap">
+		<![CDATA[
+			SELECT a.highBloodPressure, a.lowBloodPressure, a.pulse, a.takeTime
+			FROM tab_blood_pressure a
+			where a.userId = #{userId}
+			and date_format(a.takeTime, '%Y-%m-%d') = #{startTime}
+			order by a.takeTime
+		]]>
+	</select>
+	
+	
+	
+	<!-- 加载血压  按月-->
+	<select id="QueryMapper.queryHealthPressureMonthInfo" 	parameterType="queryModel"	resultMap="mRetHealthPressureMonthMap">
+		<![CDATA[
+			SELECT COUNT(1) as a1, 
+			  	SUM(CASE WHEN a.highBloodPressure >=90 and a.highBloodPressure <= 130 
+				and a.lowBloodPressure >=60 and a.lowBloodPressure<=80 THEN 1 ELSE 0 END) as a2,
+				SUM(CASE WHEN a.highBloodPressure >130 THEN 1 ELSE 0 END) as a3,
+				SUM(CASE WHEN a.highBloodPressure <90 THEN 1 ELSE 0 END) as a4,
+				SUM(CASE WHEN a.lowBloodPressure >80 THEN 1 ELSE 0 END) as a5,
+				SUM(CASE WHEN a.lowBloodPressure <60 THEN 1 ELSE 0 END) as a6
+			FROM tab_blood_pressure a
+			where a.userId = #{userId}
+		]]>
+		<if test="statType != null and statType == 2">
+		    <![CDATA[
+			and date_format(a.takeTime, '%Y-%m-%d') >= #{startTime}
+			and date_format(a.takeTime, '%Y-%m-%d') <= #{endTime}
+			]]>
+        </if>
+        <if test="statType != null and statType == 3">
+			and date_format(a.takeTime, '%Y-%m') = #{startTime}
+        </if>
+	</select>
+	
+	
+
+
+	<!-- 加载心率 -->
+	<select id="QueryMapper.queryHealthPulseInfo" 	parameterType="queryModel"	resultMap="mRetHealthPulseMap">
+		<![CDATA[
+			SELECT a.pulse, a.takeTime
+			FROM tab_blood_pressure a
+			where a.userId = #{userId}
+			and date_format(a.takeTime, '%Y-%m-%d') = #{startTime}
+			and a.pulse > 0			
+			order by a.takeTime
+		]]>
+	</select>
+	
+	
+	<!-- 加载心率 按月-->
+	<select id="QueryMapper.queryHealthPulseMonthInfo" 	parameterType="queryModel"	resultMap="mRetHealthPulseMonthMap">
+		<![CDATA[
+			SELECT COUNT(1) as a1,
+				SUM(CASE WHEN a.pulse>=60 AND a.pulse<=100 THEN 1 ELSE 0 END) a2,
+				SUM(CASE WHEN a.pulse >100 THEN 1 ELSE 0 END) a3,
+				SUM(CASE WHEN a.pulse<60 THEN 1 ELSE 0 END) a4
+			FROM tab_blood_pressure a
+			where a.userId = #{userId}
+		]]>
+		<if test="statType != null and statType == 2">
+		    <![CDATA[
+			and date_format(a.takeTime, '%Y-%m-%d') >= #{startTime}
+			and date_format(a.takeTime, '%Y-%m-%d') <= #{endTime}
+			]]>
+        </if>
+        <if test="statType != null and statType == 3">
+			and date_format(a.takeTime, '%Y-%m') = #{startTime}
+        </if>
+        <![CDATA[
+			and a.pulse > 0			
+			order by a.takeTime
+		]]>
+	</select>
+	
+	
+	
+	<!-- 加载血糖 -->
+	<select id="QueryMapper.queryHealthGlucoseInfo" 	parameterType="queryModel"	resultMap="mRetHealthGlucoseMap">
+		<![CDATA[
+			SELECT a.takeTime1, FORMAT(a.bloodGlucose1/10, 1) as bloodGlucose1, a.takeTime2, FORMAT(a.bloodGlucose2/10, 1) as bloodGlucose2
+			FROM tab_blood_glucose a
+			where a.userId = #{userId}
+			and date_format(a.takeTime, '%Y-%m-%d') = #{startTime}
+			order by a.takeTime
+		]]>
+	</select>
+	
+	
+	
+	<!-- 加载血糖 按月-->
+	<select id="QueryMapper.queryHealthGlucoseMonthInfo" 	parameterType="queryModel"	resultMap="mRetHealthGlucoseMonthMap">
+		<![CDATA[
+			SELECT 
+				SUM(CASE WHEN a.bloodGlucose1>=36 AND a.bloodGlucose1<=61 THEN 1 ELSE 0 END) + 
+				SUM(CASE WHEN a.bloodGlucose2>=36 AND a.bloodGlucose2<=77 THEN 1 ELSE 0 END) a1,
+				SUM(CASE WHEN a.bloodGlucose1 >61 THEN 1 ELSE 0 END) + 
+				SUM(CASE WHEN a.bloodGlucose2 >77 THEN 1 ELSE 0 END) a2,
+				SUM(CASE WHEN a.bloodGlucose1 >0 AND a.bloodGlucose1<36 THEN 1 ELSE 0 END) + 
+				SUM(CASE WHEN a.bloodGlucose2 >0 AND a.bloodGlucose2<36 THEN 1 ELSE 0 END) a3
+			FROM tab_blood_glucose a
+			where a.userId = #{userId}
+		]]>
+		<if test="statType != null and statType == 2">
+		    <![CDATA[
+			and date_format(a.takeTime, '%Y-%m-%d') >= #{startTime}
+			and date_format(a.takeTime, '%Y-%m-%d') <= #{endTime}
+			]]>
+        </if>
+        <if test="statType != null and statType == 3">
+			and date_format(a.takeTime, '%Y-%m') = #{startTime}
+        </if>
+	</select>
+	
+	
+	
+	<!-- 加载体温 -->
+	<select id="QueryMapper.queryHealthThermometerInfo" 	parameterType="queryModel"	resultMap="mRetHealthThermometerMap">
+		<![CDATA[
+			SELECT a.takeTime, FORMAT(a.temperature/10, 1) as temperature
+			FROM tab_ear_thermometer a
+			where a.userId = #{userId}
+			and date_format(a.takeTime, '%Y-%m-%d') = #{startTime}
+			order by a.takeTime
+		]]>
+	</select>
+	
+	
+	<!-- 加载体温 按月-->
+	<select id="QueryMapper.queryHealthThermometerMonthInfo" 	parameterType="queryModel"	resultMap="mRetHealthGlucoseMonthMap">
+		<![CDATA[
+			SELECT COUNT(1) as a1,
+				SUM(CASE WHEN a.temperature>=360 AND a.temperature <=372 THEN 1 ELSE 0 END) as a2,
+				SUM(CASE WHEN a.temperature < 360 OR a.temperature > 372 THEN 1 ELSE 0 END) AS a3
+			FROM tab_ear_thermometer a
+			where a.userId = #{userId}
+		]]>
+		<if test="statType != null and statType == 2">
+		    <![CDATA[
+			and date_format(a.takeTime, '%Y-%m-%d') >= #{startTime}
+			and date_format(a.takeTime, '%Y-%m-%d') <= #{endTime}
+			]]>
+        </if>
+        <if test="statType != null and statType == 3">
+			and date_format(a.takeTime, '%Y-%m') = #{startTime}
+        </if>
+	</select>
+	
+	
+
+	<!-- 删除健康报告-->
+	<delete id="QueryMapper.delHealthRepeatInfo">
+		<![CDATA[
+			DELETE FROM tab_health_report_evaluation 
+			WHERE userId = #{userId} 
+			and reportFlag = #{reportFlag}
+			and reportTime = #{reportTime}
+		]]>
+	</delete>
+	
+	<!-- 插入健康报告 -->
+	<insert id="QueryMapper.addHealthRepeatInfo"  parameterType="healthReportModel"  useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_health_report_evaluation (reportFlag, sportLevel, sportAdvice, dietLevel, dietAdvice, mentalAdvice, bloodPressureAdvice, bloodGlucoseAdvice, heartRateAdvice, temperatureAdvice, medicationAdvice, reportTime, Accessment, recordTime, userId) 
+	        VALUES (#{reportFlag}, #{sportLevel}, #{sportAdvice}, #{dietLevel}, #{dietAdvice}, #{mentalAdvice}, #{bloodPressureAdvice}, #{bloodGlucoseAdvice}, #{heartRateAdvice}, #{temperatureAdvice}, #{medicationAdvice}, #{reportTime}, #{accessment}, #{recordTime}, #{userId})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 加载健康报告信息 -->
+	<select id="QueryMapper.queryHealthReportInfo" 	parameterType="healthReportModel"	resultMap="mRetHealthReportMap">
+		<![CDATA[
+			SELECT *
+			FROM tab_health_report_evaluation a
+			where a.userId = #{userId}
+			and a.reportTime = #{reportTime}
+			and a.reportFlag = #{reportFlag}
 			LIMIT 0, 1
 		]]>
 	</select>

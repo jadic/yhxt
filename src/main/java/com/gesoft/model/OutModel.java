@@ -22,10 +22,65 @@ public class OutModel
 	private String f = "";
 	private String g = "";
 	private String h = "";
+	private String i = "";
 	
 	private int a1;
+	private int a2;
+	private int a3;
+	private int a4;
+	private int a5;
+	private int a6;
 	private long id;
 	
+	
+	public int getA4()
+	{
+		return a4;
+	}
+	public void setA4(int a4)
+	{
+		this.a4 = a4;
+	}
+	public int getA5()
+	{
+		return a5;
+	}
+	public void setA5(int a5)
+	{
+		this.a5 = a5;
+	}
+	public int getA6()
+	{
+		return a6;
+	}
+	public void setA6(int a6)
+	{
+		this.a6 = a6;
+	}
+	public String getI()
+	{
+		return i;
+	}
+	public void setI(String i)
+	{
+		this.i = i;
+	}
+	public int getA2()
+	{
+		return a2;
+	}
+	public void setA2(int a2)
+	{
+		this.a2 = a2;
+	}
+	public int getA3()
+	{
+		return a3;
+	}
+	public void setA3(int a3)
+	{
+		this.a3 = a3;
+	}
 	public long getId()
 	{
 		return id;

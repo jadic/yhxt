@@ -278,7 +278,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				出生日期：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-inputWdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="birthdate" name="birthdate"  value="${userModel.birthdate }">
+	    				<input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="birthdate" name="birthdate"  value="${userModel.birthdate }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>

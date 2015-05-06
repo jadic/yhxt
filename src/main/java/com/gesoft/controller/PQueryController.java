@@ -32,6 +32,7 @@ import com.gesoft.model.DoctorModel;
 import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
+import com.gesoft.model.HealthReportModel;
 import com.gesoft.model.MessageModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.NurseRequestModel;
@@ -1556,7 +1557,36 @@ public class PQueryController extends BaseController
 	}
 	
 	
-
+	/**
+	 * 描述信息：统计血压
+	 * 创建时间：2015年5月1日 下午3:01:43
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/statPressure.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toStatPressure(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			List<OutModel> argFlys = pQueryService.queryStatBloodPressureInfo(model);
+			if (argFlys != null && argFlys.size() > 0)
+			{
+				msgModel.setTotal(argFlys.size());
+				msgModel.setRows(argFlys);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toStatPressure error：", e);
+		}
+		return msgModel;
+	}
+	
 	
 	/**
 	 * 描述信息：加载耳温
@@ -1588,19 +1618,337 @@ public class PQueryController extends BaseController
 		return msgModel;
 	}
 	
-	@RequestMapping(value="/homeBase.do", method=RequestMethod.POST)
-	public @ResponseBody OutModel toHomeBase(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	
+	/**
+	 * 描述信息：首页中加载最新的一条建议
+	 * 创建时间：2015年5月2日 上午10:38:34
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/homeAdvice.do", method=RequestMethod.POST)
+	public @ResponseBody OutModel toHomeAdvice(QueryModel model, HttpServletRequest request, HttpServletResponse response)
 	{
 		OutModel mOutModel = new OutModel();
 		try
 		{
 			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
-			mOutModel = pQueryService.queryRecentlyHomeInfo(model);
+			mOutModel = pQueryService.queryHomeDoctorAdviceInfo(model);
 		}
 		catch (Exception e)
 		{
-			logger.error("PQueryController toStatEar error：", e);
+			logger.error("PQueryController toHomeAdvice error：", e);
 		}
 		return mOutModel;
+	}
+	
+	/**
+	 * 描述信息：
+	 * 创建时间：2015年5月2日 下午2:02:48
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/homeAdvice15.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toHomeAdvice15(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			List<OutModel> argArgs = pQueryService.queryHomeDoctorAdvice15Info(model);
+			if (argArgs != null && argArgs.size() > 0)
+			{
+				msgModel.setTotal(argArgs.size());
+				msgModel.setRows(argArgs);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toHomeAdvice15 error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：报告分析路转
+	 * 创建时间：2015年5月6日 上午9:57:19
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/goHealthBg.do")
+	public ModelAndView toGoHealthBg(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/healthanalysis/manage_health_bg_info");	
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if (model.getStatType() == 1)
+			{
+				result = new ModelAndView("/patient/healthanalysis/manage_health_bg_info");
+			}
+			else if(model.getStatType() == 2)
+			{
+				result = new ModelAndView("/patient/healthanalysis/manage_health_week_bg_info");
+			}
+			else if(model.getStatType() == 3)
+			{
+				result = new ModelAndView("/patient/healthanalysis/manage_health_month_bg_info");
+			}
+			result.addObject("query", model);
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toGoHealthBg error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：健康报告
+	 * 创建时间：2015年5月4日 下午3:32:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/healthBg.do")
+	public ModelAndView toHealthBg(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/healthanalysis/manage_health_bg_info");	
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if (model.getStatType() == 1)
+			{
+				result = new ModelAndView("/patient/healthanalysis/manage_health_bg_info");
+				toHealthRepeatDay(model, result);
+			}
+			else if(model.getStatType() == 2)
+			{
+				result = new ModelAndView("/patient/healthanalysis/manage_health_week_bg_info");
+				toHealthRepeatMonth(model, result);
+			}
+			else if(model.getStatType() == 3)
+			{
+				result = new ModelAndView("/patient/healthanalysis/manage_health_month_bg_info");
+				toHealthRepeatMonth(model, result);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toHealthBg error：", e);
+		}
+		return result;
+	}
+	
+
+	/**
+	 * 描述信息：日健康报告
+	 * 创建时间：2015年5月5日 下午3:46:43
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param result
+	 */
+	private void toHealthRepeatDay(QueryModel model, ModelAndView result)
+	{
+		if (model.getStartTime() == null || model.getStartTime().trim().length() == 0)
+		{
+			model.setStartTime(SystemUtils.getCurrentSystemTime("yyyy-MM-dd"));
+		}
+		result.addObject("query", model);
+		
+		
+		// 加载用户信息
+		UserModel mUserModel = pQueryService.queryHealthUserInfo(model);
+		if (mUserModel != null)
+		{
+			result.addObject("healthUser", mUserModel);
+		}
+		
+		
+		// 加载运动
+		List<OutModel> sportFlys = pQueryService.queryHealthSportInfo(model);
+		if (sportFlys != null && sportFlys.size() > 0)
+		{
+			result.addObject("sportFlys", sportFlys);
+		}
+		
+
+		// 加载饮食
+		List<OutModel> foodFlys = pQueryService.queryHealthFoodInfo(model);
+		if (foodFlys != null && foodFlys.size() > 0)
+		{
+			result.addObject("foodFlys", foodFlys);
+		}
+
+		// 加载饮食
+		OutModel foodModel = pQueryService.queryHealthFoodSumInfo(model);
+		if (foodModel != null)
+		{
+			result.addObject("foodModel", foodModel);
+		}
+		
+
+		// 加载心理状态
+		List<OutModel> mentalFlys = pQueryService.queryHealthMentalInfo(model);
+		if (mentalFlys != null && mentalFlys.size() > 0)
+		{
+			result.addObject("mentalFlys", mentalFlys);
+		}
+
+
+		// 加载血压
+		List<OutModel> pressureFlys = pQueryService.queryHealthPressureInfo(model);
+		if (pressureFlys != null && pressureFlys.size() > 0)
+		{
+			result.addObject("pressureFlys", pressureFlys);
+		}
+		
+
+		// 加载心率
+		List<OutModel> pulseFlys = pQueryService.queryHealthPulseInfo(model);
+		if (pulseFlys != null && pulseFlys.size() > 0)
+		{
+			result.addObject("pulseFlys", pulseFlys);
+		}
+		
+		
+		// 加载血糖
+		List<OutModel> glucoseFlys = pQueryService.queryHealthGlucoseInfo(model);
+		if (glucoseFlys != null && glucoseFlys.size() > 0)
+		{
+			result.addObject("glucoseFlys", glucoseFlys);
+		}
+
+
+		// 加载体温
+		List<OutModel> thermometerFlys = pQueryService.queryHealthThermometerInfo(model);
+		if (thermometerFlys != null && thermometerFlys.size() > 0)
+		{
+			result.addObject("thermometerFlys", thermometerFlys);
+		}
+	}
+	
+	
+	/**
+	 * 描述信息：月健康报告
+	 * 创建时间：2015年5月5日 下午3:48:32
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param result
+	 */
+	private void toHealthRepeatMonth(QueryModel model, ModelAndView result)
+	{
+		if (model.getStartTime() == null || model.getStartTime().trim().length() == 0)
+		{
+			model.setStartTime(SystemUtils.getCurrentSystemTime("yyyy-MM"));
+		}
+		result.addObject("query", model);
+		
+		
+		// 加载用户信息
+		UserModel mUserModel = pQueryService.queryHealthUserInfo(model);
+		if (mUserModel != null)
+		{
+			result.addObject("healthUser", mUserModel);
+		}
+		
+		
+		// 加载运动
+		List<OutModel> sportFlys = pQueryService.queryHealthSportMonthInfo(model);
+		if (sportFlys != null && sportFlys.size() > 0)
+		{
+			result.addObject("sportFlys", sportFlys);
+		}
+		
+		OutModel sportObj = pQueryService.queryHealthSportMonthFxInfo(model);
+		if (sportObj != null)
+		{
+			result.addObject("sportObj", sportObj);
+		}
+		
+		// 加载饮食
+		List<OutModel> foodFlys = pQueryService.queryHealthFoodMonthInfo(model);
+		if (foodFlys != null && foodFlys.size() > 0)
+		{
+			result.addObject("foodFlys", foodFlys);
+		}
+	
+		
+		
+		// 加载心理状态
+		OutModel mentalObj = pQueryService.queryHealthMentalMonthInfo(model);
+		if (mentalObj != null)
+		{
+			result.addObject("mentalObj", mentalObj);
+		}
+		
+		
+		// 加载血压
+		List<OutModel> pressureFlys = pQueryService.queryHealthPressureMonthInfo(model);
+		if (pressureFlys != null && pressureFlys.size() > 0)
+		{
+			result.addObject("pressureFlys", pressureFlys);
+		}
+		
+		
+		// 加载心率
+		List<OutModel> pulseFlys = pQueryService.queryHealthPulseMonthInfo(model);
+		if (pulseFlys != null && pulseFlys.size() > 0)
+		{
+			result.addObject("pulseFlys", pulseFlys);
+		}
+		
+		
+		// 加载血糖
+		List<OutModel> glucoseFlys = pQueryService.queryHealthGlucoseMonthInfo(model);
+		if (glucoseFlys != null && glucoseFlys.size() > 0)
+		{
+			result.addObject("glucoseFlys", glucoseFlys);
+		}
+		
+		
+		// 加载体温
+		List<OutModel> thermometerFlys = pQueryService.queryHealthThermometerMonthInfo(model);
+		if (thermometerFlys != null && thermometerFlys.size() > 0)
+		{
+			result.addObject("thermometerFlys", thermometerFlys);
+		}
+	}
+	
+	/**
+	 * 描述信息：加载健康报告
+	 * 创建时间：2015年5月5日 下午1:34:41
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/healthReport.do", method=RequestMethod.POST)
+	public @ResponseBody HealthReportModel toHealthReport(HealthReportModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		HealthReportModel mHealthReportModel = null;
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			mHealthReportModel = pQueryService.queryHealthReportInfo(model);
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toHealthReport error：", e);
+		}
+		return mHealthReportModel;
 	}
 }

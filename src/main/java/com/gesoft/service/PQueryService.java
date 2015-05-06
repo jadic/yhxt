@@ -7,6 +7,7 @@
  **/
 package com.gesoft.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -27,6 +28,7 @@ import com.gesoft.model.DoctorModel;
 import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
+import com.gesoft.model.HealthReportModel;
 import com.gesoft.model.MessageModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.OutModel;
@@ -897,7 +899,459 @@ public class PQueryService extends EntityService<BaseModel, Long>
 			mRetModel.setE(mEarModel.getE());
 			mRetModel.setF(mEarModel.getF());
 		}
+		
+		//加载近期血压
+		OutModel mPressureModel = pQueryDAO.queryRecentlyHomePressureInfo(model);
+		if (mRetModel == null)
+		{
+			mRetModel = mPressureModel;
+		}
+		else 
+		{
+			mRetModel.setG(mPressureModel.getG());
+			mRetModel.setH(mPressureModel.getH());
+		}
 		return mRetModel;
 	}
+
 	
+	/**
+	 * 描述信息：统计血压
+	 * 创建时间：2015年5月1日 下午3:02:53
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryStatBloodPressureInfo(QueryModel model)
+	{
+		return pQueryDAO.queryStatBloodPressureInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：加载最新的一条建议
+	 * 创建时间：2015年5月2日 上午10:39:22
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public OutModel queryHomeDoctorAdviceInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHomeDoctorAdviceInfo(model);
+	}
+	
+	
+	/**
+	 * 描述信息： 加载15天内的医
+	 * 创建时间：2015年5月2日 下午1:59:28
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHomeDoctorAdvice15Info(QueryModel model)
+	{
+		return pQueryDAO.queryHomeDoctorAdvice15Info(model);
+	}
+	
+	
+	/**
+	 * 描述信息：加载用户信息
+	 * 创建时间：2015年5月4日 下午10:20:33
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public UserModel queryHealthUserInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthUserInfo(model);
+	}
+	
+	
+	/**
+	 * 描述信息：加载运动记录
+	 * 创建时间：2015年5月4日 下午10:21:49
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthSportInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthSportInfo(model);
+	}
+	
+	
+	/**
+	 * 描述信息：饮食记录合计
+	 * 创建时间：2015年5月5日 上午10:25:59
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public OutModel queryHealthFoodSumInfo(QueryModel model)
+	{
+		OutModel mOutModel = pQueryDAO.queryHealthFoodSumInfo(model);
+		if (mOutModel != null)
+		{
+			List<OutModel> argFlys = pQueryDAO.queryHealthFoodItemSumInfo(model);  
+			if (argFlys != null && argFlys.size() > 0)
+			{
+				for (OutModel outModel : argFlys)
+				{
+					switch (outModel.getA1())
+					{
+					case 4:
+						mOutModel.setD(outModel.getB());
+						break;
+					case 5:
+						mOutModel.setE(outModel.getB());
+						break;
+					case 6:
+						mOutModel.setF(outModel.getB());
+						break;
+					case 7:
+						mOutModel.setG(outModel.getB());
+						break;
+					case 8:
+						mOutModel.setH(outModel.getB());
+						break;
+					case 9:
+						mOutModel.setI(outModel.getB());
+						break;	
+					default:
+						break;
+					}
+				}
+			}
+		}
+		return mOutModel;
+	}
+	
+	
+	
+	/**
+	 * 描述信息：加载饮食记录
+	 * 创建时间：2015年5月4日 下午10:21:49
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthFoodInfo(QueryModel model)
+	{
+		List<OutModel> argArgs = pQueryDAO.queryHealthFoodInfo(model);
+		if (argArgs != null && argArgs.size() > 0)
+		{
+			for (int nItem = 0; nItem < argArgs.size(); nItem++)
+			{
+				model.setType(Integer.parseInt(argArgs.get(nItem).getA()));
+				List<OutModel> argFlys = pQueryDAO.queryHealthFoodItemInfo(model);  
+				if (argFlys != null && argFlys.size() > 0)
+				{
+					for (OutModel outModel : argFlys)
+					{
+						switch (outModel.getA1())
+						{
+						case 4:
+							argArgs.get(nItem).setD(outModel.getB());
+							break;
+						case 5:
+							argArgs.get(nItem).setE(outModel.getB());
+							break;
+						case 6:
+							argArgs.get(nItem).setF(outModel.getB());
+							break;
+						case 7:
+							argArgs.get(nItem).setG(outModel.getB());
+							break;
+						case 8:
+							argArgs.get(nItem).setH(outModel.getB());
+							break;
+						case 9:
+							argArgs.get(nItem).setI(outModel.getB());
+							break;	
+						default:
+							break;
+						}
+					}
+				}
+			}
+		}
+		return argArgs;
+	}
+	
+
+	
+	/**
+	 * 描述信息：加载收理状态
+	 * 创建时间：2015年5月4日 下午10:21:49
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthMentalInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthMentalInfo(model);
+	}
+	
+	
+	/**
+	 * 描述信息：测量血压
+	 * 创建时间：2015年5月4日 下午10:26:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthPressureInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthPressureInfo(model);
+	}
+	
+
+	/**
+	 * 描述信息：测量心率
+	 * 创建时间：2015年5月4日 下午10:26:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthPulseInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthPulseInfo(model);
+	}
+	
+	/**
+	 * 描述信息：测量血糖
+	 * 创建时间：2015年5月4日 下午10:26:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthGlucoseInfo(QueryModel model)
+	{
+		List<OutModel> argArgs = null;
+		List<OutModel> argFlys = pQueryDAO.queryHealthGlucoseInfo(model);
+		if (argFlys != null && argFlys.size() > 0)
+		{
+			argArgs = new ArrayList<OutModel>();
+			for (OutModel outModel : argFlys)
+			{
+				if (outModel.getA() != null && outModel.getA().trim().length() > 0)
+				{
+					OutModel mOutModel = new OutModel();
+					mOutModel.setA(outModel.getA());
+					mOutModel.setB(outModel.getB());
+					argArgs.add(mOutModel);
+				}
+				
+				if (outModel.getC() != null && outModel.getC().trim().length() > 0)
+				{
+					OutModel mOutModel = new OutModel();
+					mOutModel.setA(outModel.getC());
+					mOutModel.setB(outModel.getD());
+					argArgs.add(mOutModel);
+				}
+			}
+		}
+		return argArgs;
+	}
+	
+
+
+	/**
+	 * 描述信息：测量体温
+	 * 创建时间：2015年5月4日 下午10:26:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthThermometerInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthThermometerInfo(model);
+	}
+	
+	/**
+	 * 描述信息：处理健康报告
+	 * 创建时间：2015年5月5日 下午1:30:47
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyHealthRepeatInfo(HealthReportModel model)
+	{
+		// 删除健康报告
+		pQueryDAO.delHealthRepeatInfo(model);
+		
+		// 插入健康报告
+		return pQueryDAO.addHealthRepeatInfo(model);
+	}
+	
+	
+	/**
+	 * 描述信息：加载健康报告记录信息
+	 * 创建时间：2015年5月5日 下午2:14:24
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public HealthReportModel queryHealthReportInfo(HealthReportModel model)
+	{
+		return pQueryDAO.queryHealthReportInfo(model);
+	}
+
+	
+	
+	/**
+	 * 描述信息：按月 运动
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthSportMonthInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthSportMonthInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：按月 运动合计与日均
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public OutModel queryHealthSportMonthFxInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthSportMonthFxInfo(model);
+	}
+
+	/**
+	 * 描述信息：按月饮食
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthFoodMonthInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthFoodMonthInfo(model);
+	}
+
+	
+	
+	/**
+	 * 描述信息：按月  心理状态
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public OutModel queryHealthMentalMonthInfo(QueryModel model)
+	{
+		OutModel mOutModel = null;
+		List<OutModel> argFlys = pQueryDAO.queryHealthMentalMonthInfo(model);
+		if (argFlys != null && argFlys.size() >0)
+		{
+			mOutModel = new OutModel();
+			for (OutModel outModel : argFlys)
+			{
+				mOutModel.setA5(mOutModel.getA5() + outModel.getA2());
+				//心理状态  1：开心 2：平静 3：沮丧  4：烦躁
+				switch (outModel.getA1())
+				{
+					case 1:
+						mOutModel.setA2(outModel.getA2());
+					break;
+					
+					case 2:
+						mOutModel.setA3(outModel.getA2());
+					break;
+					
+					case 3:
+						mOutModel.setA4(outModel.getA2());
+					break;
+					
+					case 4:
+						mOutModel.setA1(outModel.getA2());
+					break;
+
+				default:
+					break;
+				}
+			}
+		}
+		return mOutModel;
+	}
+
+	
+	/**
+	 * 描述信息：按月 血压
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthPressureMonthInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthPressureMonthInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthPulseMonthInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthPulseMonthInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthGlucoseMonthInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthGlucoseMonthInfo(model);
+	}
+
+	
+	/**
+	 * 描述信息：
+	 * 创建时间：2015年5月5日 下午5:48:10
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthThermometerMonthInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthThermometerMonthInfo(model);
+	}
 }

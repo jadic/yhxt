@@ -18,7 +18,7 @@
 .health_date li{float:left; text-align:left}
 .tgreen_healthDate{font-size:30px; font-weight:500; color:#0ca7a1; height:40px; line-height:40px; width:670px;}
 .tgrey_healthDate{color:#5a5a5a}
-.bloodPressure_date{background:url(images/blood_pressure.png) left center no-repeat; height:48px; width:255px; padding-left:60px; margin-left:20px; margin-top:40px;}
+.bloodPressure_date{background:url(images/blood_pressure.png) left no-repeat; height:48px; width:255px; padding-left:60px; margin-left:20px; margin-top:40px;}
 .tblack_date{font:30px/30px Georgia; width:255px; height:32px; color:#5a5a5a;}
 .tgrey_time{font:13px/18px "微软雅黑"; width:255px; color:#aeaeae; height:16px;} 
 .tblack_datemin{font-size:14px;}
@@ -35,7 +35,7 @@
 .tgreen_results{font-size:18px; color:#0ca7a1; font-weight:500; height:30px; line-height:40px;}
 .tblack_results{font-size:14px; line-height:24px; color:#5a5a5a; margin-left:10px;}/*-height:24px; margin-bottom:30px;-*/
 .tblack_results a{color:#0ca7a1;}
-.bpDiagnosis_results_trendChart{width:310px; height:228px; float:left}
+.bpDiagnosis_results_trendChart{width:310px; height:288px; float:left}
 
 /*----------------hrDiagnosis_results---------------*/
 .hrDiagnosis_results{width:630px; float:left; padding:20px; margin-top:20px;font-family:"微软雅黑"; border-bottom:1px solid #aeaeae; margin-bottom:30px;}
