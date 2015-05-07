@@ -24,6 +24,7 @@ import com.gesoft.model.BloodGlucoseModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.EarTemperatureModel;
+import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.FoodItemModel;
 import com.gesoft.model.MealResultModel;
 import com.gesoft.model.MentalStatusModel;
@@ -36,6 +37,8 @@ import com.gesoft.model.SportResultModel;
 import com.gesoft.model.UserModel;
 import com.gesoft.model.VersionModel;
 import com.gesoft.service.AppService;
+import com.gesoft.service.PQueryService;
+import com.gesoft.util.SystemUtils;
 
 
 /**
@@ -53,6 +56,8 @@ public class AppController extends BaseController
 	@Resource
 	private AppService appService;
 	
+	@Resource
+	private PQueryService pQueryService;
 	
 	
 	/**
@@ -422,4 +427,23 @@ public class AppController extends BaseController
         }
         return msgModel;
     }
+
+    @RequestMapping(value="/addFeedback.do")
+    public @ResponseBody MsgModel addFeedback(FeedBackModel model) {
+        MsgModel msgModel = new MsgModel();
+        try
+        {
+            model.setStime(SystemUtils.getCurrentSystemTime());
+            if (pQueryService.addFeedBackInfo(model) > 0)
+            {
+                msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("PQueryController toAddFeedBack error：", e);
+        }
+        return msgModel;
+    }
+    
 }
