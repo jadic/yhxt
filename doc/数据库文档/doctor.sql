@@ -85,6 +85,21 @@ INSERT INTO tab_blood_glucose VALUES ('3', '1', '21', '45', '2015-04-19', '2015-
 INSERT INTO tab_blood_glucose VALUES ('4', '1', '24', '34', '2015-04-18', '2015-04-18 11:58:38', '2015-04-18 11:58:41');
 
 -- ----------------------------
+-- Table structure for `tab_blood_pressure`
+-- ----------------------------
+DROP TABLE IF EXISTS `tab_blood_pressure`;
+CREATE TABLE `tab_blood_pressure` (
+  `id` int(11) NOT NULL COMMENT '自增ID',
+  `userId` int(11) DEFAULT NULL COMMENT '用户ID',
+  `highBloodPressure` smallint(6) DEFAULT NULL COMMENT '高压值',
+  `lowBloodPressure` smallint(6) DEFAULT NULL COMMENT '低压值',
+  `pulse` smallint(6) DEFAULT NULL COMMENT '脉搏',
+  `heartRate` smallint(255) DEFAULT NULL COMMENT '心率',
+  `takeTime` datetime DEFAULT NULL COMMENT '测量时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='血压测量记录';
+
+-- ----------------------------
 -- Table structure for `tab_comment`
 -- ----------------------------
 DROP TABLE IF EXISTS `tab_comment`;
@@ -649,6 +664,19 @@ CREATE TABLE `tab_log4j` (
 -- ----------------------------
 -- Records of tab_log4j
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `tab_medicine_record`
+-- ----------------------------
+DROP TABLE IF EXISTS `tab_medicine_record`;
+CREATE TABLE `tab_medicine_record` (
+  `id` int(11) DEFAULT NULL COMMENT '自增ID',
+  `user` int(11) DEFAULT NULL COMMENT '用户编号',
+  `medicineName` varchar(100) DEFAULT NULL COMMENT '药品名称',
+  `medicineAmount` tinyint(4) DEFAULT NULL COMMENT '用药剂量',
+  `medicineUnit` varchar(50) DEFAULT NULL COMMENT '用药单位',
+  `medicineTime` datetime DEFAULT NULL COMMENT '用药时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用药记录表';
 
 -- ----------------------------
 -- Table structure for `tab_mental_record`
