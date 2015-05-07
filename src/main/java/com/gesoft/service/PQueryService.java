@@ -1150,6 +1150,7 @@ public class PQueryService extends EntityService<BaseModel, Long>
 					OutModel mOutModel = new OutModel();
 					mOutModel.setA(outModel.getA());
 					mOutModel.setB(outModel.getB());
+					mOutModel.setA1(0);
 					argArgs.add(mOutModel);
 				}
 				
@@ -1158,6 +1159,7 @@ public class PQueryService extends EntityService<BaseModel, Long>
 					OutModel mOutModel = new OutModel();
 					mOutModel.setA(outModel.getC());
 					mOutModel.setB(outModel.getD());
+					mOutModel.setA1(1);
 					argArgs.add(mOutModel);
 				}
 			}

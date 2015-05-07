@@ -496,8 +496,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        		<tr>
 		        			<td class="tableTd" align="center">${index.count }</td>
 		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${pressureItem.a }</td>
-		        			<td class="tableTd" align="center">&nbsp;${pressureItem.c }</td>
-		        			<td class="tableTd" align="center">&nbsp;${pressureItem.b }</td>
+		        			<td class="tableTd" align="center">&nbsp;
+		        				<c:choose>
+		        					<c:when test="${ pressureItem.c < 60}"><span style="color:#0be2c7;">${pressureItem.c }</span></c:when>
+		        					<c:when test="${ pressureItem.c > 85}"><span style="color:#c94314;">${pressureItem.c }</span></c:when>
+		        					<c:otherwise>${pressureItem.c }</c:otherwise>
+		        				</c:choose>
+		        			</td>
+		        			<td class="tableTd" align="center">&nbsp;
+		        				<c:choose>
+		        					<c:when test="${ pressureItem.b < 90}"><span style="color:#0be2c7;">${pressureItem.b }</span></c:when>
+		        					<c:when test="${ pressureItem.b > 130}"><span style="color:#c94314;">${pressureItem.b }</span></c:when>
+		        					<c:otherwise>${pressureItem.b }</c:otherwise>
+		        				</c:choose>
+		        			</td>
 		        		</tr>
 	        			</c:forEach>
 	        		</c:if>
@@ -528,7 +540,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        		<tr>
 		        			<td class="tableTd" align="center">${index.count }</td>
 		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${pulseItem.a }</td>
-		        			<td class="tableTd" align="center">&nbsp;${pulseItem.b }</td>
+		        			<td class="tableTd" align="center">&nbsp;
+		        				<c:choose>
+		        					<c:when test="${ pulseItem.b < 60}"><span style="color:#0be2c7;">${pulseItem.b }</span></c:when>
+		        					<c:when test="${ pulseItem.b > 100}"><span style="color:#c94314;">${pulseItem.b }</span></c:when>
+		        					<c:otherwise>${pulseItem.b }</c:otherwise>
+		        				</c:choose>
+		        			</td>
 		        		</tr>
 	        			</c:forEach>
 	        		</c:if>
@@ -557,7 +575,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        		<tr>
 		        			<td class="tableTd" align="center">${index.count }</td>
 		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${glucoseItem.a }</td>
-		        			<td class="tableTd" align="center">&nbsp;${glucoseItem.b }</td>
+		        			<td class="tableTd" align="center">&nbsp;
+			        			<c:if test="${glucoseItem.a1 ==0 }">
+			        				<c:choose>
+			        					<c:when test="${ glucoseItem.b < 3.6}"><span style="color:#0be2c7;">${glucoseItem.b }</span></c:when>
+			        					<c:when test="${ glucoseItem.b > 6.1}"><span style="color:#c94314;">${glucoseItem.b }</span></c:when>
+			        					<c:otherwise>${glucoseItem.b }</c:otherwise>
+			        				</c:choose>
+			        			</c:if>
+			        			<c:if test="${glucoseItem.a1 ==1 }">
+			        				<c:choose>
+			        					<c:when test="${ glucoseItem.b < 3.6}"><span style="color:#0be2c7;">${glucoseItem.b }</span></c:when>
+			        					<c:when test="${ glucoseItem.b > 7.7}"><span style="color:#c94314;">${glucoseItem.b }</span></c:when>
+			        					<c:otherwise>${glucoseItem.b }</c:otherwise>
+			        				</c:choose>
+			        			</c:if>
+		        			</td>
 		        		</tr>
 	        			</c:forEach>
 	        		</c:if>
@@ -587,7 +620,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        		<tr>
 		        			<td class="tableTd" align="center">${index.count }</td>
 		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${thermometerItem.a }</td>
-		        			<td class="tableTd" align="center">&nbsp;${thermometerItem.b }</td>
+		        			<td class="tableTd" align="center">&nbsp;
+		        				<c:choose>
+		        					<c:when test="${ thermometerItem.b<'36'}"><span style="color:#0be2c7;">${thermometerItem.b }</span></c:when>
+		        					<c:when test="${ thermometerItem.b>'37.2'}"><span style="color:#c94314;">${thermometerItem.b }</span></c:when>
+		        					<c:otherwise>${thermometerItem.b }</c:otherwise>
+		        				</c:choose>
+		        			</td>
 		        		</tr>
 	        			</c:forEach>
 	        		</c:if>

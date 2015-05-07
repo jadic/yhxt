@@ -1310,6 +1310,19 @@
 		]]>
 	</select>
 	
+	<!-- 加载最近 -->
+	<select id="QueryMapper.queryHomeDoctorAdvice15Info" 	parameterType="queryModel"	resultMap="mRetHomeDoctorAdviceMap">
+		<![CDATA[
+			select a.adviceTime as a, a.adviceContent as b, b.doctorAdvicePerformace as c, b.recordTime as d
+			from tab_doctor_advice a
+			left join tab_doctor_advice_performace b on a.id=b.doctorAdviceId
+			where a.userId = #{userId}
+			and a.adviceTypId = #{adviceType}
+			and a.adviceTime >= SUBDATE(now(),interval 15 day)
+			order by a.adviceTime DESC
+			LIMIT 0, 4
+		]]>
+	</select>
 	
 	<!-- 加载用户信息 -->
 	<select id="QueryMapper.queryHealthUserInfo" 	parameterType="queryModel"	resultMap="mRetHealthUserMap">
