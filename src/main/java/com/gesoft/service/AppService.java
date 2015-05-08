@@ -20,6 +20,7 @@ import com.gesoft.dao.AppDAO;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.BloodGlucoseModel;
+import com.gesoft.model.DeleteRecordModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.EarTemperatureModel;
@@ -219,5 +220,9 @@ public class AppService extends EntityService<BaseModel, Long> {
     
     public int insertMentalStatus(MentalStatusModel model) {
         return appDAO.insertMentalStatus(model);
+    }
+    
+    public int deleteRecords(DeleteRecordModel model) {
+        return appDAO.deleteRecords(model);
     }
 }
