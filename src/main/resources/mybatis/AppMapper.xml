@@ -161,7 +161,7 @@
         from tab_service a
         where (a.serviceType=2 and a.serviceCreatorId=#{creatorId}) 
            or (a.serviceTYpe<>2)
-        order by a.serviceCreateTime
+        order by a.serviceCreateTime desc
         limit #{startNum}, #{rows}
       ]]>
     </select>
@@ -185,7 +185,7 @@
         from tab_activity a
         where (a.activityType=2 and a.activityCreatorId=#{creatorId}) 
            or (a.activityType<>2)
-        order by a.activityCreateTime
+        order by a.activityCreateTime desc
         limit #{startNum}, #{rows}
       ]]>
     </select>
