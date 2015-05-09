@@ -15,6 +15,7 @@ import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.BloodGlucoseModel;
+import com.gesoft.model.DeleteRecordModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.EarTemperatureModel;
@@ -168,5 +169,19 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
     
     public int insertMentalStatus(MentalStatusModel model) {
         return getSqlSession().insert(getMybatisSqlMapNamespace() + ".insertMentalStatus", model);
+    }
+    
+    public int deleteRecords(DeleteRecordModel model) {
+        switch (model.getFlag()) {
+        case 1:
+            return getSqlSession().delete(getMybatisSqlMapNamespace() + ".deleteSportResult", model);
+        case 2:
+            return getSqlSession().delete(getMybatisSqlMapNamespace() + ".deleteMealResult", model);
+        case 3:
+            return getSqlSession().delete(getMybatisSqlMapNamespace() + ".deleteMentalStatus", model);
+        default:
+            break;
+        }
+        return -1;
     }
 }

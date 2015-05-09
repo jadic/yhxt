@@ -161,7 +161,7 @@
         from tab_service a
         where (a.serviceType=2 and a.serviceCreatorId=#{creatorId}) 
            or (a.serviceTYpe<>2)
-        order by a.serviceCreateTime
+        order by a.serviceCreateTime desc
         limit #{startNum}, #{rows}
       ]]>
     </select>
@@ -185,7 +185,7 @@
         from tab_activity a
         where (a.activityType=2 and a.activityCreatorId=#{creatorId}) 
            or (a.activityType<>2)
-        order by a.activityCreateTime
+        order by a.activityCreateTime desc
         limit #{startNum}, #{rows}
       ]]>
     </select>
@@ -354,13 +354,27 @@
 		values(#{userId},#{sportItemId},#{sportDuration},#{sportTime})
 	  ]]>
 	</insert>  
-	  
+  
+    <delete id="AppMapper.deleteSportResult">
+      <![CDATA[
+        DELETE FROM tab_sport_record 
+        WHERE id = #{id} 
+      ]]>
+    </delete>	  
+    
 	<insert id="AppMapper.insertMealResult" useGeneratedKeys="true" keyProperty="id">
 	  <![CDATA[
 		insert into tab_food_record(userId, foodItem, amount, mealFlag, mealTime)
 		values(#{userId},#{foodItemId},#{foodAmount},#{mealFlag},#{mealTime})
 	  ]]>
 	</insert>    
+  
+    <delete id="AppMapper.deleteMealResult">
+      <![CDATA[
+        DELETE FROM tab_food_record 
+        WHERE id = #{id} 
+      ]]>
+    </delete>  
 
 	<insert id="AppMapper.insertMentalStatus" useGeneratedKeys="true" keyProperty="id">
 	  <![CDATA[
@@ -368,4 +382,11 @@
 		values (#{userId}, #{mentalStatus}, #{recordTime})
 	  ]]>
 	</insert>    
+  
+    <delete id="AppMapper.deleteMentalStatus">
+      <![CDATA[
+        DELETE FROM tab_mental_record 
+        WHERE id = #{id} 
+      ]]>
+    </delete>  
 </mapper>
