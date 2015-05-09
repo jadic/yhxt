@@ -1935,6 +1935,13 @@ public class NSearchController extends BaseController
 		{
 			result.addObject("thermometerFlys", thermometerFlys);
 		}
+		
+		// 用药记录
+		List<OutModel> medicineFlys = pQueryService.queryHealthMedicineInfo(model);
+		if (medicineFlys != null && medicineFlys.size() > 0)
+		{
+			result.addObject("medicineFlys", medicineFlys);
+		}
 	}
 	
 	
@@ -2021,6 +2028,13 @@ public class NSearchController extends BaseController
 		if (thermometerFlys != null && thermometerFlys.size() > 0)
 		{
 			result.addObject("thermometerFlys", thermometerFlys);
+		}
+		
+		// 用药记录
+		List<OutModel> medicineFlys = pQueryService.queryHealthMedicineMonthInfo(model);
+		if (medicineFlys != null && medicineFlys.size() > 0)
+		{
+			result.addObject("medicineFlys", medicineFlys);
 		}
 	}
 	

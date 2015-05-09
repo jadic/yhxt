@@ -10,6 +10,7 @@ package com.gesoft.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
@@ -23,6 +24,7 @@ import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
 import com.gesoft.model.HealthReportModel;
+import com.gesoft.model.MedicineModel;
 import com.gesoft.model.MessageModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.OutModel;
@@ -1182,4 +1184,113 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthThermometerMonthInfo", model);
 	}
+	
+
+	
+	/**
+	 * 描述信息：用药记录
+	 * 创建时间：2015年5月8日 上午5:57:14
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthMedicineInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthMedicineInfo", model);
+	}
+	
+	
+	
+	/**
+	 * 描述信息：用药记录 按月
+	 * 创建时间：2015年5月8日 上午5:57:14
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<OutModel> queryHealthMedicineMonthInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthMedicineMonthInfo", model);
+	}
+	
+
+
+	/**
+	 * 描述信息：分页加载 用药记录总记录数
+	 * 创建时间：2015年5月9日 上午6:04:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public long queryMedicineInfoCnt(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryMedicineInfoCnt", model);
+	}
+	
+	
+	/**
+	 * 描述信息：分页加载 用药记录
+	 * 创建时间：2015年5月9日 上午6:04:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public List<MedicineModel> queryMedicineInfo(QueryModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryMedicineInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：用户药管理
+	 * 创建时间：2015年5月9日 上午6:35:45
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public MedicineModel queryMedicineInfoById(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryMedicineInfoById", model);
+	}
+	
+	
+	
+	/**
+	 * 描述信息：增加用药记录
+	 * 创建时间：2015年5月9日 上午6:06:01
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addMedicineInfo(MedicineModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addMedicineInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：修改用药记录
+	 * 创建时间：2015年5月9日 上午6:06:01
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyMedicineInfo(MedicineModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyMedicineInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：删除用药记录
+	 * 创建时间：2015年5月9日 上午6:06:01
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int delMedicineInfo(MedicineModel model)
+	{
+		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delMedicineInfo", model);
+	}
+	
 }

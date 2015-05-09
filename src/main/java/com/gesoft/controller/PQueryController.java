@@ -28,11 +28,13 @@ import com.gesoft.model.BloodModel;
 import com.gesoft.model.CommentModel;
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
+import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorModel;
 import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
 import com.gesoft.model.HealthReportModel;
+import com.gesoft.model.MedicineModel;
 import com.gesoft.model.MessageModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.NurseRequestModel;
@@ -1838,6 +1840,13 @@ public class PQueryController extends BaseController
 		{
 			result.addObject("thermometerFlys", thermometerFlys);
 		}
+		
+		// 用药记录
+		List<OutModel> medicineFlys = pQueryService.queryHealthMedicineInfo(model);
+		if (medicineFlys != null && medicineFlys.size() > 0)
+		{
+			result.addObject("medicineFlys", medicineFlys);
+		}
 	}
 	
 	
@@ -1925,7 +1934,15 @@ public class PQueryController extends BaseController
 		{
 			result.addObject("thermometerFlys", thermometerFlys);
 		}
+		
+		// 用药记录
+		List<OutModel> medicineFlys = pQueryService.queryHealthMedicineMonthInfo(model);
+		if (medicineFlys != null && medicineFlys.size() > 0)
+		{
+			result.addObject("medicineFlys", medicineFlys);
+		}
 	}
+	
 	
 	/**
 	 * 描述信息：加载健康报告
@@ -1950,5 +1967,160 @@ public class PQueryController extends BaseController
 			logger.error("PQueryController toHealthReport error：", e);
 		}
 		return mHealthReportModel;
+	}
+	
+	
+	
+	/**
+	 * 描述信息：分页加载
+	 * 创建时间：2015年5月9日 上午6:33:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/medicine.do")
+	public ModelAndView toMedicine(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/chartinfo/manage_medicine_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+			
+			//分页加载建议执行结果
+			long recordCount = pQueryService.queryMedicineInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query);
+				List<MedicineModel> argArgs = pQueryService.queryMedicineInfo(query);
+				result.addObject("medicineFlys", argArgs);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toMedicine error：", e);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 描述信息：进入用药管理
+	 * 创建时间：2015年5月9日 上午6:34:00
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/mergeMedicine.do")
+	public ModelAndView toMergeMedicine(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/chartinfo/add_medicine_info");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+			if (query.getId() > 0)
+			{
+				MedicineModel model  = pQueryService.queryMedicineInfoById(query);
+				result.addObject("medicine", model);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toMergeMedicine error：", e);
+		}
+		return result;
+	}
+	
+	
+	
+	/**
+	 * 描述信息：增加用药记录
+	 * 创建时间：2015年5月9日 上午6:39:14
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/addMedicine.do")
+	public @ResponseBody MsgModel toAddMedicine(MedicineModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if(pQueryService.addMedicineInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toAddMedicine error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：修改用药记录
+	 * 创建时间：2015年5月9日 上午6:40:06
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/modifyMedicine.do")
+	public @ResponseBody MsgModel toModifyMedicine(MedicineModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if(pQueryService.modifyMedicineInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toModifyMedicine error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：删除用药记录
+	 * 创建时间：2015年5月9日 上午6:40:06
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/delMedicine.do")
+	public @ResponseBody MsgModel toDelMedicine(MedicineModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			if(pQueryService.delMedicineInfo(model) > 0)
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toDelMedicine error：", e);
+		}
+		return msgModel;
 	}
 }

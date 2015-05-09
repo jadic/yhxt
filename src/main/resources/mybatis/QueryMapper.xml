@@ -409,7 +409,7 @@
 	<!-- 加载血压 -->
 	<resultMap id="mRetHealthPulseMap" 					type="outModel">
 		<result property="a"  							column="takeTime"/>
-		<result property="b"  							column="pulse"/>
+		<result property="b"  							column="heartRate"/>
 	</resultMap>
 	
 	
@@ -442,6 +442,36 @@
 	<resultMap id="mRetHealthThermometerMap" 				type="outModel">
 		<result property="a"  								column="takeTime"/>
 		<result property="b"  								column="temperature"/>
+	</resultMap>
+	
+	
+	<!-- 用药记录 -->
+	<resultMap id="mRetHealthMedicineMap" 					type="outModel">
+		<result property="a"  								column="medicineName"/>
+		<result property="b"  								column="medicineTime"/>
+		<result property="c"  								column="medicineAmount"/>
+		<result property="d"  								column="medicineUnit"/>
+	</resultMap>
+	
+	
+	<!-- 用药记录 按月-->
+	<resultMap id="mRetHealthMedicineMonthMap" 				type="outModel">
+		<result property="a"  								column="a"/>
+		<result property="b"  								column="b"/>
+		<result property="c"  								column="c"/>
+		<result property="d"  								column="d"/>
+		<result property="e"  								column="e"/>
+	</resultMap>
+	
+	
+	<!-- 用药记录 管理-->
+	<resultMap id="mRetMedicineMap" 						type="medicineModel">
+		<result property="id"  								column="id"/>
+		<result property="userId"  							column="userId"/>
+		<result property="medicineName" 					column="medicineName"/>
+		<result property="medicineAmount"  					column="medicineAmount"/>
+		<result property="medicineUnit"  					column="medicineUnit"/>
+		<result property="medicineTime"  					column="medicineTime"/>
 	</resultMap>
 	
 	
@@ -1565,7 +1595,7 @@
 	<!-- 加载心率 -->
 	<select id="QueryMapper.queryHealthPulseInfo" 	parameterType="queryModel"	resultMap="mRetHealthPulseMap">
 		<![CDATA[
-			SELECT a.pulse, a.takeTime
+			SELECT a.heartRate, a.takeTime
 			FROM tab_blood_pressure a
 			where a.userId = #{userId}
 			and date_format(a.takeTime, '%Y-%m-%d') = #{startTime}
@@ -1579,9 +1609,9 @@
 	<select id="QueryMapper.queryHealthPulseMonthInfo" 	parameterType="queryModel"	resultMap="mRetHealthPulseMonthMap">
 		<![CDATA[
 			SELECT COUNT(1) as a1,
-				SUM(CASE WHEN a.pulse>=60 AND a.pulse<=100 THEN 1 ELSE 0 END) a2,
-				SUM(CASE WHEN a.pulse >100 THEN 1 ELSE 0 END) a3,
-				SUM(CASE WHEN a.pulse<60 THEN 1 ELSE 0 END) a4
+				SUM(CASE WHEN a.heartRate>=60 AND a.heartRate<=100 THEN 1 ELSE 0 END) a2,
+				SUM(CASE WHEN a.heartRate >100 THEN 1 ELSE 0 END) a3,
+				SUM(CASE WHEN a.heartRate<60 THEN 1 ELSE 0 END) a4
 			FROM tab_blood_pressure a
 			where a.userId = #{userId}
 		]]>
@@ -1706,4 +1736,130 @@
 		]]>
 	</select>
 	
+	
+	
+	<!-- 用药记录 -->
+	<select id="QueryMapper.queryHealthMedicineInfo" 	parameterType="queryModel"	resultMap="mRetHealthMedicineMap">
+		<![CDATA[
+			SELECT a.medicineName, a.medicineAmount, a.medicineUnit, a.medicineTime
+			FROM tab_medicine_record a
+			where a.userId = #{userId}
+			and date_format(a.medicineTime, '%Y-%m-%d') = #{startTime}
+			ORDER BY a.medicineTime
+		]]>
+	</select>
+	
+	
+	
+	<!-- 用药记录 按月-->
+	<select id="QueryMapper.queryHealthMedicineMonthInfo" 	parameterType="queryModel"	resultMap="mRetHealthMedicineMonthMap">
+		<![CDATA[
+			SELECT a.medicineName as a, COUNT(1) as b, FORMAT(AVG(a.medicineAmount),1) as c, SUM(a.medicineAmount) as d, MAX(a.medicineUnit) as e
+			FROM tab_medicine_record a
+			where a.userId = #{userId}
+		]]>
+		<if test="statType != null and statType == 2">
+		    <![CDATA[
+			and date_format(a.medicineTime, '%Y-%m-%d') >= #{startTime}
+			and date_format(a.medicineTime, '%Y-%m-%d') <= #{endTime}
+			]]>
+        </if>
+        <if test="statType != null and statType == 3">
+			and date_format(a.medicineTime, '%Y-%m') = #{startTime}
+        </if>
+        <![CDATA[
+			GROUP BY a.medicineName
+			ORDER BY a.medicineName
+		]]>
+	</select>
+	
+	
+	<!-- 用药记录总数 -->
+	<select id="QueryMapper.queryMedicineInfoCnt" parameterType="queryModel" resultType="long">
+		<![CDATA[
+			SELECT count(1) as cnt
+			FROM tab_medicine_record a
+			where a.userId = #{userId}
+		]]>
+		<if test="name != null and name != ''">
+			AND a.medicineName LIKE CONCAT('%', #{name}, '%') 
+        </if>
+		<if test="startTime != null and startTime != ''">
+			and a.medicineTime >= #{startTime}
+        </if>
+		<if test="endTime != null and endTime != ''">
+		    <![CDATA[
+			and a.medicineTime <= #{endTime}
+			]]>
+        </if>
+        <![CDATA[
+			ORDER BY a.medicineTime
+		]]>
+	</select>
+	
+	
+	<!-- 用药记录 分页 -->
+	<select id="QueryMapper.queryMedicineInfo" parameterType="queryModel" resultMap="mRetMedicineMap">
+		<![CDATA[
+			SELECT a.*
+			FROM tab_medicine_record a
+			where a.userId = #{userId}
+		]]>
+		<if test="name != null and name != ''">
+			AND a.medicineName LIKE CONCAT('%', #{name}, '%') 
+        </if>
+		<if test="startTime != null and startTime != ''">
+			and a.medicineTime >= #{startTime}
+        </if>
+		<if test="endTime != null and endTime != ''">
+		    <![CDATA[
+			and a.medicineTime <= #{endTime}
+			]]>
+        </if>
+        <![CDATA[
+			ORDER BY a.medicineTime
+			LIMIT #{startNum}, #{rows}
+		]]>
+	</select>
+	
+	
+	<!-- 用药记录 分页 -->
+	<select id="QueryMapper.queryMedicineInfoById" parameterType="queryModel" resultMap="mRetMedicineMap">
+		<![CDATA[
+			SELECT a.*
+			FROM tab_medicine_record a
+			WHERE id = #{id} 
+		]]>
+	</select>
+	
+	
+	<!-- 插入用药记录-->
+	<insert id="QueryMapper.addMedicineInfo" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_medicine_record (userId, medicineName, medicineAmount, medicineUnit, medicineTime) 
+	        VALUES (#{userId}, #{medicineName}, #{medicineAmount}, #{medicineUnit}, #{medicineTime})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 删除用药记录-->
+	<delete id="QueryMapper.delMedicineInfo">
+		<![CDATA[
+			DELETE FROM tab_medicine_record 
+			WHERE id = #{id} 
+		]]>
+	</delete>
+	
+	<!-- 修改用药记录-->
+	<update id="QueryMapper.modifyMedicineInfo" parameterType="medicineModel">
+		<![CDATA[
+			UPDATE tab_medicine_record  SET  
+			userId = #{userId},
+			medicineName = #{medicineName}, 
+			medicineAmount = #{medicineAmount}, 
+			medicineUnit = #{medicineUnit}, 
+			medicineTime = #{medicineTime}
+			WHERE id = #{id} 
+		]]>
+	</update>
 </mapper>

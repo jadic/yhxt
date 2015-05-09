@@ -622,11 +622,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        			<td class="tableTd" align="center">用药时间</td>
 	        			<td class="tableTd" align="center">用药剂量</td>
 	        		</tr>
-	        		<tr>
-	        			<td class="tableTd" align="center">1</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        		</tr>
+	        		<c:if test="${not empty medicineFlys }">
+	        			<c:forEach items="${medicineFlys }" var="medicineItem" varStatus="index">
+		        		<tr>
+		        			<td class="tableTd" align="center">&nbsp;${medicineItem.a }</td>
+		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${medicineItem.b }</td>
+		        			<td class="tableTd" align="center">&nbsp;${medicineItem.c }(${medicineItem.d })</td>
+		        		</tr>
+	        			</c:forEach>
+	        		</c:if>
+	        		<c:if test="${empty medicineFlys }">
+		        		<tr>
+		        			<td class="tableTd" align="center">&nbsp;</td>
+		        			<td class="tableTd" align="center">&nbsp;</td>
+		        			<td class="tableTd" align="center">&nbsp;</td>
+		        		</tr>
+	        		</c:if>
 	        	</table>
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
 	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="medicationAdvice" name="medicationAdvice"></textarea>
