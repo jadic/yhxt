@@ -27,53 +27,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
 	<script type="text/JavaScript">
 		$(function(){
-			
-	
-		    
 		    PageFx.initChart();
 		});
-		
-		function queryStart()
-		{
-			$("#inputform").submit();
-		}
-		
-		function buyinfo(obj, id)
-		{
-			PageMain.funOpenProgress();
-			$.ajax({
-				url : _ctx_ + "/p/query/buyService.do?a="+ Math.random(),
-				type : 'post',
-				dataType : 'json',
-				data : 
-				{
-					"id": id
-				},
-				error:function(data)
-				{
-					/**关闭进度条**/
-					PageMain.funCloseProgress();
-					$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
-				},
-				success:function(data)
-				{
-					
-					/**关闭进度条**/
-					PageMain.funCloseProgress();
-					
-					/**数据处理**/
-					if(data.success)
-					{
-						$(obj).parent().html('<span style="color: #2998df; font-weight: bold;">已购买</span>');
-						$.messager.alert('信息提示', data.msg, 'info');
-					}
-					else
-					{
-						$.messager.alert('信息提示', data.msg, 'error');
-					}
-				}
-			});
-		}
 		
 		var PageFx = {
 				Chart1:null,

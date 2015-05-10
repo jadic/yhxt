@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.ActivityModel;
+import com.gesoft.model.BloodModel;
 import com.gesoft.model.DiseaseHisModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorModel;
@@ -1546,7 +1547,7 @@ public class NSearchController extends BaseController
 		}
 		catch (Exception e)
 		{
-			logger.error("PQueryController toSendMessage error：", e);
+			logger.error("NSearchController toSendMessage error：", e);
 		}
 		return msgModel;
 	}
@@ -1576,7 +1577,7 @@ public class NSearchController extends BaseController
 		}
 		catch (Exception e)
 		{
-			logger.error("PQueryController toSendMessageList error：", e);
+			logger.error("NSearchController toSendMessageList error：", e);
 		}
 		return msgModel;
 	}
@@ -1635,6 +1636,9 @@ public class NSearchController extends BaseController
 		ModelAndView result = new ModelAndView("/nurse/userinfo/manage_jkzt_info");
 		try
 		{
+			OutModel mOutModel = pQueryService.queryRecentlyHomeInfo(query);
+			result.addObject("homeBase", mOutModel);
+			
 			result.addObject("query", query);
 		}
 		catch (Exception e)
@@ -1773,7 +1777,7 @@ public class NSearchController extends BaseController
 		}
 		catch (Exception e)
 		{
-			logger.error("PQueryController toAddFeedBack error：", e);
+			logger.error("NSearchController toAddFeedBack error：", e);
 		}
 		return msgModel;
 	}
@@ -1801,7 +1805,7 @@ public class NSearchController extends BaseController
 		}
 		catch (Exception e)
 		{
-			logger.error("PQueryController toGoHealthBg error：", e);
+			logger.error("NSearchController toGoHealthBg error：", e);
 		}
 		return result;
 	}
@@ -1840,7 +1844,7 @@ public class NSearchController extends BaseController
 		}
 		catch (Exception e)
 		{
-			logger.error("PQueryController toHealthBg error：", e);
+			logger.error("NSearchController toHealthBg error：", e);
 		}
 		return result;
 	}
@@ -1931,6 +1935,13 @@ public class NSearchController extends BaseController
 		{
 			result.addObject("thermometerFlys", thermometerFlys);
 		}
+		
+		// 用药记录
+		List<OutModel> medicineFlys = pQueryService.queryHealthMedicineInfo(model);
+		if (medicineFlys != null && medicineFlys.size() > 0)
+		{
+			result.addObject("medicineFlys", medicineFlys);
+		}
 	}
 	
 	
@@ -2018,6 +2029,13 @@ public class NSearchController extends BaseController
 		{
 			result.addObject("thermometerFlys", thermometerFlys);
 		}
+		
+		// 用药记录
+		List<OutModel> medicineFlys = pQueryService.queryHealthMedicineMonthInfo(model);
+		if (medicineFlys != null && medicineFlys.size() > 0)
+		{
+			result.addObject("medicineFlys", medicineFlys);
+		}
 	}
 	
 	
@@ -2044,7 +2062,7 @@ public class NSearchController extends BaseController
 		}
 		catch (Exception e)
 		{
-			logger.error("PQueryController toModifyHealthReport error：", e);
+			logger.error("NSearchController toModifyHealthReport error：", e);
 		}
 		return msgModel;
 	}
@@ -2069,8 +2087,153 @@ public class NSearchController extends BaseController
 		}
 		catch (Exception e)
 		{
-			logger.error("PQueryController toHealthReport error：", e);
+			logger.error("NSearchController toHealthReport error：", e);
 		}
 		return mHealthReportModel;
+	}
+	
+	
+
+	/**
+	 * 描述信息：加载血糖统计
+	 * 创建时间：2015年4月21日 上午1:21:55
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/statBlood.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toStatBlood(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			List<BloodModel> argFlys = pQueryService.queryStatBloodInfo(model);
+			if (argFlys != null && argFlys.size() > 0)
+			{
+				msgModel.setTotal(argFlys.size());
+				msgModel.setRows(argFlys);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toStatBlood error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：统计血压
+	 * 创建时间：2015年5月1日 下午3:01:43
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/statPressure.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toStatPressure(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			List<OutModel> argFlys = pQueryService.queryStatBloodPressureInfo(model);
+			if (argFlys != null && argFlys.size() > 0)
+			{
+				msgModel.setTotal(argFlys.size());
+				msgModel.setRows(argFlys);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toStatPressure error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：加载耳温
+	 * 创建时间：2015年4月21日 上午1:21:55
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/statEar.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toStatEar(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			List<BloodModel> argFlys = pQueryService.queryStatEarInfo(model);
+			if (argFlys != null && argFlys.size() > 0)
+			{
+				msgModel.setTotal(argFlys.size());
+				msgModel.setRows(argFlys);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toStatEar error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：首页中加载最新的一条建议
+	 * 创建时间：2015年5月2日 上午10:38:34
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/homeAdvice.do", method=RequestMethod.POST)
+	public @ResponseBody OutModel toHomeAdvice(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		OutModel mOutModel = new OutModel();
+		try
+		{
+			mOutModel = pQueryService.queryHomeDoctorAdviceInfo(model);
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toHomeAdvice error：", e);
+		}
+		return mOutModel;
+	}
+	
+	/**
+	 * 描述信息：
+	 * 创建时间：2015年5月2日 下午2:02:48
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/homeAdvice15.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toHomeAdvice15(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			List<OutModel> argArgs = pQueryService.queryHomeDoctorAdvice15Info(model);
+			if (argArgs != null && argArgs.size() > 0)
+			{
+				msgModel.setTotal(argArgs.size());
+				msgModel.setRows(argArgs);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController toHomeAdvice15 error：", e);
+		}
+		return msgModel;
 	}
 }

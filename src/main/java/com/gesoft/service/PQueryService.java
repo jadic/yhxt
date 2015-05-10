@@ -29,6 +29,7 @@ import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.GeneticDiseaseModel;
 import com.gesoft.model.HabbitModel;
 import com.gesoft.model.HealthReportModel;
+import com.gesoft.model.MedicineModel;
 import com.gesoft.model.MessageModel;
 import com.gesoft.model.NurseRequestModel;
 import com.gesoft.model.OutModel;
@@ -1150,6 +1151,7 @@ public class PQueryService extends EntityService<BaseModel, Long>
 					OutModel mOutModel = new OutModel();
 					mOutModel.setA(outModel.getA());
 					mOutModel.setB(outModel.getB());
+					mOutModel.setA1(0);
 					argArgs.add(mOutModel);
 				}
 				
@@ -1158,6 +1160,7 @@ public class PQueryService extends EntityService<BaseModel, Long>
 					OutModel mOutModel = new OutModel();
 					mOutModel.setA(outModel.getC());
 					mOutModel.setB(outModel.getD());
+					mOutModel.setA1(1);
 					argArgs.add(mOutModel);
 				}
 			}
@@ -1354,4 +1357,117 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	{
 		return pQueryDAO.queryHealthThermometerMonthInfo(model);
 	}
+	
+	
+	
+	/**
+	 * 描述信息：用药记录
+	 * 创建时间：2015年5月8日 上午5:57:14
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthMedicineInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthMedicineInfo(model);
+	}
+	
+	
+	
+	/**
+	 * 描述信息：用药记录 按月
+	 * 创建时间：2015年5月8日 上午5:57:14
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<OutModel> queryHealthMedicineMonthInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthMedicineMonthInfo(model);
+	}
+	
+
+	/**
+	 * 描述信息：分页加载 用药记录总记录数
+	 * 创建时间：2015年5月9日 上午6:04:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public long queryMedicineInfoCnt(QueryModel model)
+	{
+		return pQueryDAO.queryMedicineInfoCnt(model);
+	}
+	
+	
+	/**
+	 * 描述信息：分页加载 用药记录
+	 * 创建时间：2015年5月9日 上午6:04:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public List<MedicineModel> queryMedicineInfo(QueryModel model)
+	{
+		return pQueryDAO.queryMedicineInfo(model);
+	}
+	
+	
+	/**
+	 * 描述信息：用户药管理
+	 * 创建时间：2015年5月9日 上午6:35:45
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public MedicineModel queryMedicineInfoById(QueryModel model)
+	{
+		return pQueryDAO.queryMedicineInfoById(model);
+	}
+	
+	
+	/**
+	 * 描述信息：增加用药记录
+	 * 创建时间：2015年5月9日 上午6:06:01
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addMedicineInfo(MedicineModel model)
+	{
+		return pQueryDAO.addMedicineInfo(model);
+	}
+	
+	
+	/**
+	 * 描述信息：修改用药记录
+	 * 创建时间：2015年5月9日 上午6:06:01
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyMedicineInfo(MedicineModel model)
+	{
+		return pQueryDAO.modifyMedicineInfo(model);
+	}
+	
+	
+	/**
+	 * 描述信息：删除用药记录
+	 * 创建时间：2015年5月9日 上午6:06:01
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int delMedicineInfo(MedicineModel model)
+	{
+		return pQueryDAO.delMedicineInfo(model);
+	}
+	
+	
 }

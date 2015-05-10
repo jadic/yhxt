@@ -35,6 +35,7 @@
 		<typeAlias alias="foodItemModel" type="com.gesoft.model.FoodItemModel" />
 		<typeAlias alias="foodTypeModel" type="com.gesoft.model.FoodTypeModel" />
 		<typeAlias alias="healthReportModel" type="com.gesoft.model.HealthReportModel" />
+		<typeAlias alias="medicineModel" type="com.gesoft.model.MedicineModel" />
 	</typeAliases>
 	<mappers></mappers>
 </configuration>

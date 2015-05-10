@@ -154,6 +154,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</span>
 								</div>	
 							</li>
+							<li id="tree-xtjc-li">
+								<div class="tree-item-label">
+									<span class="tree-item-text" title="用药管理">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/query/medicine.do'/>" target="mainFrame">用药管理</a>
+									</span>
+								</div>	
+							</li>
 						</ul>
 					</li>
 				
