@@ -35,6 +35,19 @@
 					<img src="<c:url value='/admin/themes/self/images/top-10.png'/>"/>
 					<div>设备管理</div>
 				</div>
+				<div class="njty_menu" id="420000">
+					<img src="<c:url value='/admin/themes/self/images/top-9.png'/>"/>
+					<div>信息查询</div>
+					<div id="mm420000" style="width:145px; display: none;">
+						<div data-options="iconCls:'icon-27'" onclick="PageMain.funAddPanel('/a/devtype.do','信息查询>> 运动记录');  $('#420000').click()">运动记录</div>
+						<div class="menu-sep"></div>
+						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/hospital.do','信息查询>> 饮食记录');  $('#420000').click()">饮食记录</div>
+						<div class="menu-sep"></div>
+						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/hospitalDept.do','信息查询>> 心理状态记录');  $('#420000').click()">心理状态记录</div>
+						<div class="menu-sep"></div>
+						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/queryFeedback.do','信息查询>> 用户反馈');  $('#420000').click()">用户反馈</div>
+					</div>
+				</div>
 				<div class="njty_menu" id="430000">
 					<img src="<c:url value='/admin/themes/self/images/top-9.png'/>"/>
 					<div>字典管理</div>
