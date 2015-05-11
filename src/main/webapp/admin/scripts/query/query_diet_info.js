@@ -1,4 +1,4 @@
-var PageFeedback = {
+var PageDiet = {
   mSelDataGrid : null,
   init : function() {
     $("#in01").datebox({
@@ -10,7 +10,7 @@ var PageFeedback = {
         return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
       }
     });
-    $("#in01").datebox("setValue", PageFeedback.getCurrDateStr());
+    $("#in01").datebox("setValue", PageDiet.getCurrDateStr());
     
     $("#in02").datebox({
       editable : false,
@@ -21,7 +21,7 @@ var PageFeedback = {
         return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
       }
     });    
-    $("#in02").datebox("setValue", PageFeedback.getCurrDateStr());
+    $("#in02").datebox("setValue", PageDiet.getCurrDateStr());
 
     this.showGrid();
   },
@@ -31,7 +31,7 @@ var PageFeedback = {
       fit : true,
       nowrap : true,
       stripe : true,
-      url : _ctx_ + "/a/query/queryFeedback.do",
+      url : _ctx_ + "/a/query/queryDietRecord.do",
       pageNumber : 1,
       queryParams : {
         "startTime" : $("#in01").datebox("getValue") + ' 00:00:00',
@@ -39,29 +39,39 @@ var PageFeedback = {
       },
       columns : [ [ {
         field : 'a',
-        title : '运动编号',
+        title : '编号',
         width : 200,
         align : 'center',
         hidden : "true"
       }, {
         field : 'b',
-        title : '类型',
+        title : '用户',
         width : 100,
         align : 'center'
       }, {
         field : 'c',
-        title : '反馈人',
+        title : '餐别',
         width : 100,
         align : 'center'
       }, {
         field : 'd',
-        title : '反馈时间',
-        width : 150,
+        title : '食物',
+        width : 100,
         align : 'center'
       }, {
         field : 'e',
-        title : '反馈内容',
-        width : 400,
+        title : '食量(克)',
+        width : 100,
+        align : 'center'
+      }, {
+        field : 'f',
+        title : '摄入卡路里',
+        width : 150,
+        align : 'center'
+      }, {
+        field : 'g',
+        title : '记录时间',
+        width : 150,
         align : 'center'
       } ] ],
       pagination : true,
@@ -77,7 +87,7 @@ var PageFeedback = {
       return;
     }
     $("#div_grid").datagrid({
-      url : _ctx_ + "/a/query/queryFeedback.do",
+      url : _ctx_ + "/a/query/queryDietRecord.do",
       pageNumber : 1,
       queryParams : {
         "startTime" : stime,
@@ -93,6 +103,6 @@ var PageFeedback = {
 };
 
 $(function() {
-  PageFeedback.init();
+  PageDiet.init();
   PageMain.funCloseProgressInfo();
 });

@@ -216,4 +216,32 @@ public class AIndexController extends BaseController
 	    System.out.println("toSportItem.do");
 	    return "/admin/dictinfo/manage_sportItem_info";
 	}
+	
+	@RequestMapping(value="/queryFeedback.do")
+	public String toQueryFeedback()
+	{
+	    System.out.println("toQueryFeedback.do");
+	    return "/admin/query/query_feedback_info";
+	}
+	
+	@RequestMapping(value="/querySport.do")
+	public String toQuerySport()
+	{
+	    System.out.println("toQuerySport.do");
+	    return "/admin/query/query_sport_info";
+	}
+	
+	@RequestMapping(value="/queryDiet.do")
+	public String toQueryDiet()
+	{
+	    System.out.println("toQueryDiet.do");
+	    return "/admin/query/query_diet_info";
+	}
+	
+	@RequestMapping(value="/queryMentalStatus.do")
+	public String toQueryMentalStatus()
+	{
+	    System.out.println("toQueryDiet.do");
+	    return "/admin/query/query_mentalstatus_info";
+	}
 }

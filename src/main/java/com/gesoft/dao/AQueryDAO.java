@@ -34,7 +34,7 @@ public class AQueryDAO extends EntityDAOImpl<BaseModel, Long> {
     }
     
     public int queryDietRecordCnt(QueryModel model) {
-        return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryDietRecord", model);
+        return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryDietRecordCnt", model);
     }
     
     public List<OutModel> queryDietRecord(QueryModel model) {
