@@ -5,11 +5,11 @@
 		
 		if("${param.param1}" == "modify")
 		{
-			PageMain.funSetWinMaxAttr(1000, 560, "修改产品", "icon-edit");
+			PageMain.funSetWinMaxAttr(1000, 560, "修改服务", "icon-edit");
 		}
 		else
 		{
-			PageMain.funSetWinMaxAttr(1000, 560, "新增产品", "icon-add");		
+			PageMain.funSetWinMaxAttr(1000, 560, "新增服务", "icon-add");		
 		}
 		$('#div_win').window({
 			modal: true,
