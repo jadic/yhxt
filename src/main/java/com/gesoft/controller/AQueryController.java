@@ -1,5 +1,5 @@
 /**
- * 文件名称：AUserController.java
+ * 文件名称：AQueryController.java
  * 版权所有：Copyright gesoft
  * 创建时间：2015年2月2日
  * 创 建 人：WCL (ln_admin@yeah.net)
@@ -51,6 +51,7 @@ public class AQueryController extends BaseController {
                 setPageModel(cnt, model);
                 List<OutModel> list = aQueryService.queryFeedback(model);
                 msgModel.setRows(list);
+                msgModel.setTotal(cnt);
             }
             msgModel.setSuccess(true);
         } catch (Exception e) {
@@ -73,6 +74,7 @@ public class AQueryController extends BaseController {
                 setPageModel(cnt, model);
                 List<OutModel> list = aQueryService.querySportRecord(model);
                 msgModel.setRows(list);
+                msgModel.setTotal(cnt);
             }
             msgModel.setSuccess(true);
         } catch (Exception e) {
@@ -95,6 +97,7 @@ public class AQueryController extends BaseController {
                 setPageModel(cnt, model);
                 List<OutModel> list = aQueryService.queryDietRecord(model);
                 msgModel.setRows(list);
+                msgModel.setTotal(cnt);
             }
             msgModel.setSuccess(true);
         } catch (Exception e) {
@@ -117,6 +120,7 @@ public class AQueryController extends BaseController {
                 setPageModel(cnt, model);
                 List<OutModel> list = aQueryService.queryMentalStatusRecord(model);
                 msgModel.setRows(list);
+                msgModel.setTotal(cnt);
             }
             msgModel.setSuccess(true);
         } catch (Exception e) {

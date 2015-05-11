@@ -2,36 +2,213 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AQueryMapper">
 	
-	<resultMap id="mRetHospitalMap" 		type="hospitalModel">
-		<result property="id"  			column="hospitalId"/>
-		<result property="name"  		column="hospitalName"/>
-		<result property="address"  		column="hospitalAddr"/>
+	<resultMap id="mFeedbackMap" 			type="outModel">
+		<result property="a"        		column="id"/>
+		<result property="b"  				column="feedbackType"/>
+		<result property="c"  				column="userName"/>
+		<result property="d"  				column="feedbackTime"/>
+		<result property="e"  		    	column="feedbackContent"/>
 	</resultMap>
-   
-    <select id="AQueryMapper.queryFeedbackCnt"  parameterType="queryModel"  resultType="long">
+	
+	<resultMap id="mSportRecordMap" 		type="outModel">
+		<result property="a"        		column="id"/>
+		<result property="b"  				column="userName"/>
+		<result property="c"  				column="sportName"/>
+		<result property="d"  				column="sportDuration"/>
+		<result property="e"  		    	column="calorie"/>
+		<result property="f"  		    	column="sportTime"/>
+	</resultMap>
+  
+	<resultMap id="mDietRecordMap" 		    type="outModel">
+		<result property="a"        		column="id"/>
+		<result property="b"  				column="userName"/>
+		<result property="c"  				column="mealFlag"/>
+		<result property="d"  				column="foodName"/>
+		<result property="e"  		    	column="amount"/>
+		<result property="f"  		    	column="calorie"/>
+  		<result property="g"  		    	column="mealTime"/>
+	</resultMap>
+  
+	<resultMap id="mMentalRecordMap" 		type="outModel">
+		<result property="a"        		column="id"/>
+		<result property="b"  				column="userName"/>
+		<result property="c"  				column="mentalStatus"/>
+		<result property="d"  				column="recordTime"/>
+	</resultMap>
+  
+    <select id="AQueryMapper.queryFeedbackCnt"  parameterType="queryModel"  resultType="int">
       <![CDATA[
         select count(1) as cnt
         from tab_feedback a
       ]]>
       <where>
-        <if test="startTime != null">
-          a.feedbackTime >= #{startTime}          
+        1 = 1
+        <if test="startTime != null and startTime != ''">
+          <![CDATA[
+             and a.feedbackTime >= #{startTime}          
+          ]]>
         </if>
-        <if test="startTime != null">
-          a.feedbackTime >= #{startTime}          
+        <if test="endTime != null and endTime != ''">
+          <![CDATA[
+             and a.feedbackTime <= #{endTime}          
+          ]]>
         </if>
       </where>
     </select>
     
-    <!-- 查询医生建议执行情况 -->     
-    <select id="AQueryMapper.queryFeedback"   parameterType="queryModel"  resultMap="mDoctorAdviceMap">
+    <select id="AQueryMapper.queryFeedback"   parameterType="queryModel"  resultMap="mFeedbackMap">
       <![CDATA[
-        select a.id, a.doctorAdviceId, a.doctorAdvicePerformace, a.recordTime
-        from tab_doctor_advice_performace a
-        where a.doctorAdviceId = #{adviceId}
-        order by a.recordTime
-        limit #{startNum}, #{rows}
+        select a.id, case a.feedbackType when 0 then '网站建设反馈' when 1 then '服务反馈' else '未知' end as feedbackType,
+               a.feedbackContent, a.feedbackTime, b.userName
+        from tab_feedback a
+        left join tab_user b on a.feedbackUserId = b.userId
       ]]>
+      <where>
+        1 = 1
+        <if test="startTime != null and startTime != ''">
+          <![CDATA[
+             and a.feedbackTime >= #{startTime}          
+          ]]>
+        </if>
+        <if test="endTime != null and endTime != ''">
+          <![CDATA[
+            and a.feedbackTime <= #{endTime}          
+          ]]>
+        </if>
+      </where>      
     </select>
-	
+  
+    <select id="AQueryMapper.querySportRecordCnt"  parameterType="queryModel"  resultType="int">
+      <![CDATA[
+        select count(1) as cnt
+        from tab_sport_record a
+        inner join tab_user b on a.userId = b.userId
+        inner join tab_dict_sport_item c on c.id=a.sportItemId
+      ]]>
+      <where>
+        1 = 1
+        <if test="startTime != null and startTime != ''">
+          <![CDATA[
+             and a.sportTime >= #{startTime}          
+          ]]>
+        </if>
+        <if test="endTime != null and endTime != ''">
+          <![CDATA[
+             and a.sportTime <= #{endTime}          
+          ]]>
+        </if>
+      </where>
+    </select>
+    
+    <select id="AQueryMapper.querySportRecord"   parameterType="queryModel"  resultMap="mSportRecordMap">
+      <![CDATA[
+        select a.id, b.userName, c.sportName, a.sportDuration, c.caloriePerMinute * a.sportDuration as calorie, a.sportTime
+        from tab_sport_record a
+        inner join tab_user b on a.userId = b.userId
+        inner join tab_dict_sport_item c on c.id=a.sportItemId
+      ]]>
+      <where>
+        1 = 1
+        <if test="startTime != null and startTime != ''">
+          <![CDATA[
+             and a.sportTime >= #{startTime}          
+          ]]>
+        </if>
+        <if test="endTime != null and endTime != ''">
+          <![CDATA[
+            and a.sportTime <= #{endTime}          
+          ]]>
+        </if>
+      </where>      
+    </select>
+  
+    <select id="AQueryMapper.queryDietRecordCnt"  parameterType="queryModel"  resultType="int">
+      <![CDATA[
+        select count(1) as cnt
+        from tab_food_record a 
+        inner join tab_user b on a.userId = b.userId
+        inner join tab_dict_food c on c.id=a.foodItem
+      ]]>
+      <where>
+        1 = 1
+        <if test="startTime != null and startTime != ''">
+          <![CDATA[
+             and a.mealTime >= #{startTime}          
+          ]]>
+        </if>
+        <if test="endTime != null and endTime != ''">
+          <![CDATA[
+             and a.mealTime <= #{endTime}          
+          ]]>
+        </if>
+      </where>
+    </select>
+    
+    <select id="AQueryMapper.queryDietRecord"   parameterType="queryModel"  resultMap="mDietRecordMap">
+      <![CDATA[
+        select a.id, b.userName, case mealFlag when 1 then '早餐' when 2 then '中餐' when 3 then '晚餐'
+        		when 4 then '早加餐' when 5 then '中加餐' when 6 then '晚加餐'end as mealFlag, 
+        		c.foodName, a.amount, round(a.amount * c.caloriePerHundredGram  / 100)  as calorie, a.mealTime
+        from tab_food_record a 
+        inner join tab_user b on a.userId = b.userId
+        inner join tab_dict_food c on c.id=a.foodItem
+      ]]>
+      <where>
+        1 = 1
+        <if test="startTime != null and startTime != ''">
+          <![CDATA[
+             and a.mealTime >= #{startTime}          
+          ]]>
+        </if>
+        <if test="endTime != null and endTime != ''">
+          <![CDATA[
+            and a.mealTime <= #{endTime}          
+          ]]>
+        </if>
+      </where>      
+    </select>
+  
+    <select id="AQueryMapper.queryMentalStatusRecordCnt"  parameterType="queryModel"  resultType="int">
+      <![CDATA[
+        select count(1) as cnt
+        from tab_mental_record a
+        inner join tab_user b on b.userId=a.userId
+      ]]>
+      <where>
+        1 = 1
+        <if test="startTime != null and startTime != ''">
+          <![CDATA[
+             and a.recordTime >= #{startTime}          
+          ]]>
+        </if>
+        <if test="endTime != null and endTime != ''">
+          <![CDATA[
+             and a.recordTime <= #{endTime}          
+          ]]>
+        </if>
+      </where>
+    </select>
+    
+    <select id="AQueryMapper.queryMentalStatusRecord"   parameterType="queryModel"  resultMap="mMentalRecordMap">
+      <![CDATA[
+        select a.id, b.userName, case a.mentalStatus when 1 then '开心' when 2 then '平静' 
+        	when 3 then '沮丧' when 4 then '烦躁' else CONCAT('未知[', a.mentalStatus, ']') end as mentalStatus,
+        	a.recordTime
+        from tab_mental_record a
+        inner join tab_user b on b.userId=a.userId
+      ]]>
+      <where>
+        1 = 1
+        <if test="startTime != null and startTime != ''">
+          <![CDATA[
+             and a.recordTime >= #{startTime}          
+          ]]>
+        </if>
+        <if test="endTime != null and endTime != ''">
+          <![CDATA[
+            and a.recordTime <= #{endTime}          
+          ]]>
+        </if>
+      </where>      
+    </select>
 </mapper>
