@@ -96,6 +96,25 @@ public class BackURLFilter implements Filter, Constants
 			}
 		
 		}
+		else if (request.getRequestURI().indexOf("/a/") > 0)
+		{
+			
+			if (session.getAttribute(SESSION_KEY_ISLOGIN) == null)
+			{
+				if (request.getRequestURI().indexOf("/a/index.do") > 0
+						|| request.getRequestURI().indexOf("/a/img.do") > 0
+						|| request.getRequestURI().indexOf("/a/login.do") > 0
+						|| request.getRequestURI().indexOf("/a/logout.do") > 0
+						){
+					
+				}
+				else 
+				{
+					response.sendRedirect(request.getContextPath() + "/a/index.do");
+				}
+			}
+			
+		}
 		
 		filterChain.doFilter(request, response);
 	}
