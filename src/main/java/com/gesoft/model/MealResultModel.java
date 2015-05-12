@@ -10,10 +10,19 @@ public class MealResultModel extends BaseModel {
 
     private static final long serialVersionUID = -5710644286013783854L;
 
+    private int id;
     private int mealFlag;// 用餐类别
     private int foodItemId;// 食品编号
     private int foodAmount;// 食量（克）
     private String mealTime;// 用餐时间
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getMealFlag() {
         return mealFlag;

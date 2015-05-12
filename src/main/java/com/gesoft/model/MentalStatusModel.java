@@ -9,8 +9,17 @@ public class MentalStatusModel extends BaseModel {
 
     private static final long serialVersionUID = 5623295168728458442L;
 
+    private int id; 
     private int mentalStatus;
     private String recordTime;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getMentalStatus() {
         return mentalStatus;

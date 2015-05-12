@@ -43,7 +43,6 @@ public class BaseModel implements Serializable
 	private long endNum; // 结束记录数
 	
 	private int srcFlag;//接口调用来源标识
-
 	
 	public long getNurseId()
 	{

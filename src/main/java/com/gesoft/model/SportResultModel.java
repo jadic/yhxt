@@ -9,9 +9,18 @@ public class SportResultModel extends BaseModel {
 
     private static final long serialVersionUID = 177709303585647172L;
 
+    private int id;
     private int sportItemId;
     private int sportDuration;
     private String sportTime;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getSportItemId() {
         return sportItemId;

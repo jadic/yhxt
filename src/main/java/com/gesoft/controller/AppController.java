@@ -377,7 +377,8 @@ public class AppController extends BaseController {
         try {
             if (model.getUserId() > 0 && model.getSportItemId() > 0 && model.getSportDuration() > 0 && model.getSportTime() != null
                     && model.getSportTime().length() > 0) {
-                int id = appService.insertSportResult(model);
+                appService.insertSportResult(model);
+                int id = model.getId();
                 msgModel.setTotal(1);
                 List<IdModel> idList = new ArrayList<IdModel>();
                 IdModel idModel = new IdModel();
@@ -406,7 +407,8 @@ public class AppController extends BaseController {
         try {
             if (model.getUserId() > 0 && model.getFoodItemId() > 0 && model.getFoodAmount() > 0 && model.getMealFlag() > 0
                     && model.getMealTime() != null && model.getMealTime().length() > 0) {
-                int id = appService.insertMealResult(model);
+                appService.insertMealResult(model);
+                int id = model.getId();
                 msgModel.setTotal(1);
                 List<IdModel> idList = new ArrayList<IdModel>();
                 IdModel idModel = new IdModel();
@@ -434,7 +436,8 @@ public class AppController extends BaseController {
         MsgModel msgModel = new MsgModel();
         try {
             if (model.getUserId() > 0 && model.getMentalStatus() > 0 && model.getRecordTime() != null && model.getRecordTime().length() > 0) {
-                int id = appService.insertMentalStatus(model);
+                appService.insertMentalStatus(model);
+                int id = model.getId();
                 msgModel.setTotal(1);
                 List<IdModel> idList = new ArrayList<IdModel>();
                 IdModel idModel = new IdModel();
