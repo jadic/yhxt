@@ -53,6 +53,7 @@
 			SELECT A1.*
 			FROM tab_user A1
 			WHERE userName = #{userName}
+			and userSysId = 3
 		]]>
 	</select>
 	
