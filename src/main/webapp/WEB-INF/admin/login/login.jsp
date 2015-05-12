@@ -3,7 +3,7 @@
 <html>
   <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
-    <title>南京艺格儿展示工程有限公司</title>
+    <title>自已人健康服务中心</title>
  	<%@ include file="/WEB-INF/admin/common/top-include.jsp" %>
  	<script>
  		$(function(){
