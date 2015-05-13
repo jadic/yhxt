@@ -52,7 +52,20 @@ var PageMentalStatus = {
         field : 'c',
         title : '心理状态',
         width : 100,
-        align : 'center'
+        align : 'center',
+        formatter: function(value,row,index){
+          if (value == 1){
+            return '开心';
+          } else if (value == 2){
+            return '平静';
+          } else if (value == 3) {
+            return '沮丧';
+          } else if (value == 3) {
+            return '烦躁';
+          }else {
+            return '其他[' + value + ']';
+          }
+        }
       }, {
         field : 'd',
         title : '记录时间',

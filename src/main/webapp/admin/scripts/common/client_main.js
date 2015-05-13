@@ -6,7 +6,7 @@ var PageClientMain =
 		this.initMenuItem();
 		PageMain.funOnLineCnt();
 		PageMain.mOnLineUserInterVal = window.setInterval(function(){PageMain.funOnLineCnt();}, 60000);
-		$(".njty_menu").eq(0).click();
+		//$(".njty_menu").eq(0).click();
 	},
 
 	/**
@@ -53,7 +53,7 @@ var PageClientMain =
 	 */
 	initMenuItem : function()
 	{
-		for(var nItem=2; nItem<=9; nItem++)
+		for(var nItem=1; nItem<=9; nItem++)
 		{
 			var tmp = 400000 + nItem * 10000;
 			$('#'+tmp.toString()).menubutton({  

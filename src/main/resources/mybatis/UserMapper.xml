@@ -60,7 +60,7 @@
 	<!-- 插入用户登录与退出日志-->
 	<insert id="UserMapper.addUserLogsInfo" useGeneratedKeys="true" keyProperty="id">
 	    <![CDATA[
-	        INSERT INTO TAB_USERLOGIN_LOGS (userId, IP, OPER_FLAG, STIME) 
+	        INSERT INTO TAB_USERLOGIN_LOGS (user_id, IP, OPER_FLAG, STIME) 
 	        VALUES (#{userId}, #{ip}, #{operFlag}, #{stime})
 	    ]]>
 	</insert>

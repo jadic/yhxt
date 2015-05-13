@@ -191,9 +191,7 @@
     
     <select id="AQueryMapper.queryMentalStatusRecord"   parameterType="queryModel"  resultMap="mMentalRecordMap">
       <![CDATA[
-        select a.id, b.userName, case a.mentalStatus when 1 then '开心' when 2 then '平静' 
-        	when 3 then '沮丧' when 4 then '烦躁' else CONCAT('未知[', a.mentalStatus, ']') end as mentalStatus,
-        	a.recordTime
+        select a.id, b.userName, a.mentalStatus, a.recordTime
         from tab_mental_record a
         inner join tab_user b on b.userId=a.userId
       ]]>
