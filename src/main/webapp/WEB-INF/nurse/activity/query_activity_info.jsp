@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		</tr>
 		    		<tr>
 		    			<td align="left" class="even">
-		    				服务有限期：${activity.sdate } ~ ${activity.edate }
+		    				活动有限期：${activity.sdate } ~ ${activity.edate }
 		    			</td>
 		    		</tr>
 		    		<tr>

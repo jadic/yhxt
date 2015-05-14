@@ -41,8 +41,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="account">
 		<div class="account_title">
 	      <ul>
-	        <li class="account_titleGreen">我的活动</li>
-	        <li class="account_titleGray">当前位置：查看活动详细信息</li>
+	        <li class="account_titleGreen">我的服务</li>
+	        <li class="account_titleGray">当前位置：查看服务详细信息</li>
 	      </ul>
 	    </div>
 	</div>    
