@@ -3,11 +3,11 @@ package com.gesoft.model;
 /**
  * 
  * @author Jadic
- * @created 2015年5月2日
+ * @created 2015年5月23日
  */
-public class FoodTypeModel extends BaseModel {
+public class SportTypeModel extends BaseModel {
 
-    private static final long serialVersionUID = 1001295226717046609L;
+    private static final long serialVersionUID = 4543494261229344845L;
 
     private int id;
     private String name;

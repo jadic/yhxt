@@ -6,13 +6,16 @@
 		<result property="id"  			      column="id"/>
 		<result property="sportName"  		  column="sportName"/>
 		<result property="caloriePerMinute"   column="caloriePerMinute"/>
+		<result property="sportType"  		  column="sportType"/>
+		<result property="sportTypeName"      column="sportTypeName"/>
+		<result property="sportIcon"  		  column="sportIcon"/>
 	</resultMap>
 	
 	<!-- 插入用户-->
 	<insert id="SportItemMapper.insert" useGeneratedKeys="true" keyProperty="id">
 	    <![CDATA[
-	        INSERT INTO tab_dict_sport_item (sportName, caloriePerMinute) 
-	        VALUES (#{sportName}, #{caloriePerMinute})
+	        INSERT INTO tab_dict_sport_item (sportName, caloriePerMinute, sportType, sportIcon) 
+	        VALUES (#{sportName}, #{caloriePerMinute}, #{sportType}, #{sportIcon})
 	    ]]>
 	</insert>
 	
@@ -21,7 +24,8 @@
 	<select id="SportItemMapper.count" parameterType="sportItemModel" resultType="long">
 		<![CDATA[
 			SELECT COUNT(1) AS CNT
-			FROM tab_dict_sport_item 
+			FROM tab_dict_sport_item a 
+            inner join tab_dict_sport_type b on b.id = a.sportType
 		]]>
       <where>
         <if test="sportName != null and sportName != ''">
@@ -33,8 +37,9 @@
 	<!-- 查询分页查询-->
 	<select id="SportItemMapper.list" parameterType="sportItemModel" resultMap="mRetSportItemMap">
 		<![CDATA[
-			SELECT *
-			FROM tab_dict_sport_item
+			SELECT a.*, b.name as sportTypeName
+			FROM tab_dict_sport_item a
+            inner join tab_dict_sport_type b on b.id = a.sportType
 		]]>
         <where>
           <if test="sportName != null and sportName != ''">
@@ -52,7 +57,9 @@
 		<![CDATA[
 			UPDATE tab_dict_sport_item  SET  
 			sportName = #{sportName},
-            caloriePerMinute = #{caloriePerMinute}
+            caloriePerMinute = #{caloriePerMinute},
+            sportType = #{sportType},
+            sportIcon = #{sportIcon} 
 			WHERE id = #{id} 
 		]]>
 	</update>

@@ -96,8 +96,10 @@ var PageActivity =
 		$("#in03").val(record.edate);
 		$("#in04").val(record.memo);
 		$("#in06").val(record.content);
-		$("#in07").val(record.icon);
-		$("#in08").attr("src", _ctx_+record.icon);
+		if (record.icon != null && record.icon != '') {
+  		$("#in07").val(record.icon);
+  		$("#in08").attr("src", _ctx_+record.icon);
+		}
 		$("#in09").val(record.type);
 		PageMain.funInitXheditor("#in06");
 	},

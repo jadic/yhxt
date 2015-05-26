@@ -180,7 +180,7 @@ public class AIndexController extends BaseController
 	public String toDeptOfHospital()
 	{
 	    System.out.println("hospitalDept.do");
-	    return "/admin/baseinfo/manage_hospital_dept_info";
+	    return "/admin/dictinfo/manage_hospital_dept_info";
 	}
 
 	/**
@@ -208,6 +208,13 @@ public class AIndexController extends BaseController
 	{
 	    System.out.println("toFoodItem.do");
 	    return "/admin/dictinfo/manage_foodItem_info";
+	}
+	
+	@RequestMapping(value="/sportType.do")
+	public String toSportType()
+	{
+	    System.out.println("toFoodType.do");
+	    return "/admin/dictinfo/manage_sportType_info";
 	}
 	
 	@RequestMapping(value="/sportItem.do")

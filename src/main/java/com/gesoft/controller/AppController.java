@@ -38,8 +38,10 @@ import com.gesoft.model.SportItemModel;
 import com.gesoft.model.SportResultModel;
 import com.gesoft.model.UserModel;
 import com.gesoft.model.VersionModel;
+import com.gesoft.service.AUserService;
 import com.gesoft.service.AppService;
 import com.gesoft.service.PQueryService;
+import com.gesoft.util.StringUtil;
 import com.gesoft.util.SystemUtils;
 
 /**
@@ -59,6 +61,9 @@ public class AppController extends BaseController {
 
     @Resource
     private PQueryService pQueryService;
+    
+    @Resource
+    private AUserService userService;
 
     /**
      * 描述信息：我的亲情号码 创建时间：2015年3月8日 上午7:27:29
@@ -463,7 +468,7 @@ public class AppController extends BaseController {
                 msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
             }
         } catch (Exception e) {
-            logger.error("PQueryController toAddFeedBack error：", e);
+            logger.error("AppController toAddFeedBack error：", e);
         }
         return msgModel;
     }
@@ -474,9 +479,47 @@ public class AppController extends BaseController {
         try {
             msgModel.setSuccess(appService.deleteRecords(model) > 0);
         } catch (Exception e) {
-            logger.error("PQueryController toAddFeedBack error：", e);
+            logger.error("AppController toAddFeedBack error：", e);
         }
         return msgModel;
     }
-
+    
+    @RequestMapping(value = "/addNewUser.do")
+    public @ResponseBody MsgModel addNewUser(UserModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            if (StringUtil.isNullOrEmpty(model.getCellphone()) || StringUtil.isNullOrEmpty(model.getUserPass())) {
+                msgModel.setMsg("参数缺失或为空，请确认");
+            } else {
+                //app端注册用户，利用手机作为标识
+                model.setUserName(model.getCellphone());
+                model.setUserPwd(model.getUserPass());
+                
+                if (userService.queryUserCountWithUsrName(model) <= 0) {
+                    userService.save(model);
+                    List<UserModel> list = new ArrayList<UserModel>();
+                    list.add(model);
+                    msgModel.setRows(list);
+                    msgModel.setTotal(1);
+                } else {
+                    msgModel.setMsg("该手机号已存在，请确认");
+                }
+            }
+        } catch (Exception e) {
+            logger.error("AppController addNewUser error：", e);
+        }
+        return msgModel;
+    }
+    
+    @RequestMapping(value = "/updateUserInfo.do")
+    public @ResponseBody MsgModel updateUserInfo(UserModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            msgModel.setSuccess(userService.updateUserInfoForApp(model) > 0);
+        } catch (Exception e) {
+            logger.error("AppController updateUserInfo error：", e);
+        }
+        return msgModel;
+    }
+    
 }

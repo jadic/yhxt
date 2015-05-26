@@ -21,7 +21,8 @@ var PageSportItem =
 				columns:[[
 					{field:'id',			           title:'运动编号',		width:200,	align:'center', hidden: "true"},
 					{field:'sportName',			     title:'运动名称',		width:200,	align:'center'},
-					{field:'caloriePerMinute',	 title:'每分钟消耗卡路里',		width:200,	align:'center'}
+					{field:'caloriePerMinute',	 title:'每分钟消耗卡路里',		width:200,	align:'center'},
+					{field:'sportTypeName',			 title:'运动类型',		width:200,	align:'center'}
 				]],
 				onClickRow: function(index, rec) {
 					
@@ -62,6 +63,11 @@ var PageSportItem =
 			$("#in00").val(record.id);
 			$("#in01").textbox("setValue",record.sportName);
 			$("#in02").textbox("setValue",record.caloriePerMinute);
+	    $("#in03").combobox("setValue", record.sportType);
+	    if (record.sportIcon != null && record.sportIcon != '') {
+	      $("#in04").attr("src", _ctx_+record.sportIcon);
+	      $("#in10").val(record.sportIcon);
+	    }			
 		},
 		funSearchInfo : function()
 		{
@@ -92,7 +98,9 @@ var PageSportItem =
 				{
 					"id": $("#in00").val(),	
 					"sportName": $("#in01").val(),
-					"caloriePerMinute": $("#in02").val()
+					"caloriePerMinute": $("#in02").val(),
+	        "sportType" : $("#in03").combobox("getValue"),
+	        "sportIcon" : $("#in10").val()
 				},
 				error:function(data)
 				{
@@ -168,7 +176,37 @@ var PageSportItem =
 				});
 			}
 		
-		}
+		},
+		funUploadFileInfo : function() {
+	    try {
+	      console.dir("before get upload");
+	      var uploadFile = dwr.util.getValue("in05");
+	      console.dir("after get upload");
+	      var filenames = uploadFile.value.split("\\");
+	      if (filenames.length <= 1) {
+	        filenames = uploadFile.value.split("/");
+	      }
+	      var filename = filenames[filenames.length - 1].toLowerCase();
+	      var fileType = filename.substring(filename.indexOf("."));
+	      if (fileType == ".jpg" || fileType == ".bmp" || fileType == ".png"
+	          || fileType == ".gif") {
+	        loadDwr.uploadFileInfo(uploadFile, filename, {
+	          "callback" : function(data) {
+	            console.dir("data:" + data);
+	            if (data == 1 || data == "1") {
+	              $.messager.alert("提示", "图片上传失败", "error");
+	            } else {
+	              $("#in04").attr("src", _ctx_ + data);
+	              $("#in10").val(data);
+	            }
+	          }
+	        });
+	      } else {
+	        $.messager.alert("提示", "上传的照片类型应当为jpg/bmp/png/gif！", "error");
+	      }
+	    } catch (e) {
+	    }
+	  } 		
 			
 };
 

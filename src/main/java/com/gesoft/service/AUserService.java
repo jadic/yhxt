@@ -50,4 +50,8 @@ public class AUserService extends EntityService<UserModel, Long>
 	    return this.aUserDAO.queryUserCountWithUsrName(model);
 	}
 	
+	public int updateUserInfoForApp(UserModel model) {
+	    return this.aUserDAO.updateUserInfoForApp(model);
+	}
+	
 }

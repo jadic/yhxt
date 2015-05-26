@@ -12,8 +12,10 @@ public class FoodItemModel extends BaseModel {
     private int id;
     private String foodName;
     private int caloriePerHundredGram;
+    private String foodIcon;
     private int foodType;
     private String foodTypeName;
+    private String foodTypeIcon;
 
     public int getId() {
         return id;
@@ -53,6 +55,22 @@ public class FoodItemModel extends BaseModel {
 
     public void setFoodTypeName(String foodTypeName) {
         this.foodTypeName = foodTypeName;
+    }
+
+    public String getFoodIcon() {
+        return foodIcon;
+    }
+
+    public void setFoodIcon(String foodIcon) {
+        this.foodIcon = foodIcon;
+    }
+
+    public String getFoodTypeIcon() {
+        return foodTypeIcon;
+    }
+
+    public void setFoodTypeIcon(String foodTypeIcon) {
+        this.foodTypeIcon = foodTypeIcon;
     }
 
 }

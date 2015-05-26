@@ -167,6 +167,18 @@
 			WHERE userId = #{userId} 
 		]]>
 	</update>
+
+	<update id="UserMapper.updateUserInfoForApp" parameterType="userModel">
+		<![CDATA[
+			UPDATE tab_user  SET  
+            name = #{name},		
+            gender = #{gender},		
+            birthdate = #{birthdate},	
+            height = #{height},		
+            weight = #{weight}		
+			WHERE userId = #{userId} 
+		]]>
+	</update>
 	
 	<!-- 删除-->
 	<delete id="UserMapper.delete">

@@ -72,4 +72,8 @@ public class AUserDAO extends EntityDAOImpl<UserModel, Long>
 	public int queryUserCountWithUsrName(UserModel model) {
 	    return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryUserCountWithUserName", model);
 	}
+	
+	public int updateUserInfoForApp(UserModel model) {
+	    return getSqlSession().update(getMybatisSqlMapNamespace() + ".updateUserInfoForApp", model);
+	}
 }

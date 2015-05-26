@@ -1,4 +1,4 @@
-var PageFoodItem = {
+var PageSportType = {
   mSelDataGrid : null,
   init : function() {
     this.showGrid();
@@ -11,36 +11,20 @@ var PageFoodItem = {
               fit : true,
               nowrap : true,
               stripe : true,
-              url : _ctx_ + "/a/foodItem/query.do",
+              url : _ctx_ + "/a/sportType/query.do",
               pageNumber : 1,
               queryParams : {
                 "name" : $("#out01").val()
               },
               columns : [ [ {
                 field : 'id',
-                title : '食品编号',
+                title : '运动类型编号',
                 width : 200,
                 align : 'center',
                 hidden : "true"
               }, {
-                field : 'foodName',
-                title : '食品名称',
-                width : 200,
-                align : 'center'
-              }, {
-                field : 'caloriePerHundredGram',
-                title : '每百克卡路里',
-                width : 200,
-                align : 'center'
-              }, {
-                field : 'foodType',
-                title : '食品类型编号',
-                width : 200,
-                align : 'center',
-                hidden : "true"
-              }, {
-                field : 'foodTypeName',
-                title : '食品类型',
+                field : 'name',
+                title : '运动类型名称',
                 width : 200,
                 align : 'center'
               } ] ],
@@ -53,7 +37,7 @@ var PageFoodItem = {
                     iconCls : 'icon-add',
                     handler : function() {
                       PageMain.funCreateWinInfo("#div_win",
-                          "dictinfo/add_foodItem_info", {
+                          "dictinfo/add_sportType_info", {
                             param1 : "add"
                           });
                     }
@@ -63,21 +47,21 @@ var PageFoodItem = {
                     text : '修改',
                     iconCls : 'icon-edit',
                     handler : function() {
-                      PageFoodItem.mSelDataGrid = PageMain
+                      PageSportType.mSelDataGrid = PageMain
                           .funSelectEd("#div_grid");
-                      if (PageFoodItem.mSelDataGrid != null) {
+                      if (PageSportType.mSelDataGrid != null) {
                         PageMain.funCreateWinInfo("#div_win",
-                            "dictinfo/add_foodItem_info", {
+                            "dictinfo/add_sportType_info", {
                               param1 : "modify"
                             });
-                        PageFoodItem.funSetDataGrid(PageFoodItem.mSelDataGrid);
+                        PageSportType.funSetDataGrid(PageSportType.mSelDataGrid);
                       }
                     }
                   }, '-', {
                     text : '删除',
                     iconCls : 'icon-cancel',
                     handler : function() {
-                      PageFoodItem.funDelInfo();
+                      PageSportType.funDelInfo();
                     }
                   } ],
               pagination : true,
@@ -86,47 +70,39 @@ var PageFoodItem = {
             });
   },
   funSetDataGrid : function(record) {
-    console.dir(record);
     $("#in00").val(record.id);
-    $("#in01").textbox("setValue", record.foodName);
-    $("#in02").textbox("setValue", record.caloriePerHundredGram);
-    $("#in03").combobox("setValue", record.foodType);
-    if (record.foodIcon != null && record.foodIcon != '') {
-      $("#in04").attr("src", _ctx_+record.foodIcon);
-      $("#in10").val(record.foodIcon);
+    $("#in01").val(record.name);
+    console.dir(record.icon);
+    if (record.icon != null && record.icon != '') {
+      $("#in02").attr("src", _ctx_+record.icon);
+      $("#in04").val(record.icon);
     }
   },
   funSearchInfo : function() {
     $("#div_grid").datagrid({
-      url : _ctx_ + "/a/foodItem/query.do",
+      url : _ctx_ + "/a/sportType/query.do",
       pageNumber : 1,
       queryParams : {
-        "foodName" : $("#out01").val()
+        "name" : $("#out01").val()
       }
     });
   },
   funSaveInfo : function(_param) {
-    if (funIsNull("#in01", "食品名称") || funIsNull("#in02", "每百克卡路里")) {
-      return false;
-    }
 
-    if ($("#in03").combobox("getText") == '') {
-      $.messager.alert('信息提示', '请选择食品类型！', 'error');
+    if (funIsNull("#in01", "运动类型")) {
       return false;
     }
 
     /** 打开进度条* */
     PageMain.funOpenProgress();
     $.ajax({
-      url : _ctx_ + "/a/foodItem/" + _param + ".do?a=" + Math.random(),
+      url : _ctx_ + "/a/sportType/" + _param + ".do?a=" + Math.random(),
       type : 'post',
       dataType : 'json',
       data : {
         "id" : $("#in00").val(),
-        "foodName" : $("#in01").val(),
-        "caloriePerHundredGram" : $("#in02").val(),
-        "foodType" : $("#in03").combobox("getValue"),
-        "foodIcon" : $("#in10").val()
+        "name" : $("#in01").val(),
+        "icon" : $("#in04").val()
       },
       error : function(data) {
         /** 关闭进度条* */
@@ -142,7 +118,7 @@ var PageFoodItem = {
         if (data.success) {
           $("#out01").val($("#in01").val());
           $('#div_win').window('close');
-          PageFoodItem.funSearchInfo();
+          PageSportType.funSearchInfo();
           $.messager.alert('信息提示', data.msg, 'info');
         } else {
           $.messager.alert('信息提示', data.msg, 'error');
@@ -151,22 +127,21 @@ var PageFoodItem = {
     });
   },
   funDelInfo : function() {
-    PageFoodItem.mSelDataGrid = PageMain.funSelectEd("#div_grid");
-    if (PageFoodItem.mSelDataGrid != null) {
+    PageSportType.mSelDataGrid = PageMain.funSelectEd("#div_grid");
+    if (PageSportType.mSelDataGrid != null) {
       $.messager.confirm('确认',
           "您确认要删除选中的：【<span style='color:red; font:bold;'>"
-              + PageFoodItem.mSelDataGrid.foodName + "</span>】这条记录吗？",
-          function(r) {
+              + PageSportType.mSelDataGrid.name + "</span>】这条记录吗？", function(r) {
             if (r) {
               /** 打开进度条* */
               PageMain.funOpenProgress();
 
               $.ajax({
-                url : _ctx_ + "/a/foodItem/del.do?a=" + Math.random(),
+                url : _ctx_ + "/a/sportType/del.do?a=" + Math.random(),
                 type : 'post',
                 dataType : 'json',
                 data : {
-                  "id" : PageFoodItem.mSelDataGrid.id
+                  "id" : PageSportType.mSelDataGrid.id
                 },
                 error : function(data) {
                   /** 关闭进度条* */
@@ -182,7 +157,7 @@ var PageFoodItem = {
                     $('#div_grid').datagrid(
                         'deleteRow',
                         $('#div_grid').datagrid('getRowIndex',
-                            PageFoodItem.mSelDataGrid));
+                            PageSportType.mSelDataGrid));
                     $.messager.alert('信息提示', data.msg, 'info');
                   } else {
                     $.messager.alert('信息提示', data.msg, 'error');
@@ -196,7 +171,7 @@ var PageFoodItem = {
   funUploadFileInfo : function() {
     try {
       console.dir("before get upload");
-      var uploadFile = dwr.util.getValue("in05");
+      var uploadFile = dwr.util.getValue("in03");
       console.dir("after get upload");
       var filenames = uploadFile.value.split("\\");
       if (filenames.length <= 1) {
@@ -212,8 +187,8 @@ var PageFoodItem = {
             if (data == 1 || data == "1") {
               $.messager.alert("提示", "图片上传失败", "error");
             } else {
-              $("#in04").attr("src", _ctx_ + data);
-              $("#in10").val(data);
+              $("#in04").val(data);
+              $("#in02").attr("src", _ctx_ + data);
             }
           }
         });
@@ -222,11 +197,11 @@ var PageFoodItem = {
       }
     } catch (e) {
     }
-  }  
+  }
 
 };
 
 $(function() {
-  PageFoodItem.init();
+  PageSportType.init();
   PageMain.funCloseProgressInfo();
 });

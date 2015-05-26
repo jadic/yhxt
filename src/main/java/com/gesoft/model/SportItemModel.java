@@ -11,6 +11,10 @@ public class SportItemModel extends BaseModel {
     private int id;
     private String sportName;
     private int caloriePerMinute;
+    private String sportIcon;
+    private int sportType;
+    private String sportTypeName;
+    private String sportTypeIcon;
 
     public int getId() {
         return id;
@@ -34,6 +38,38 @@ public class SportItemModel extends BaseModel {
 
     public void setCaloriePerMinute(int caloriePerMinute) {
         this.caloriePerMinute = caloriePerMinute;
+    }
+
+    public int getSportType() {
+        return sportType;
+    }
+
+    public void setSportType(int sportType) {
+        this.sportType = sportType;
+    }
+
+    public String getSportTypeName() {
+        return sportTypeName;
+    }
+
+    public void setSportTypeName(String sportTypeName) {
+        this.sportTypeName = sportTypeName;
+    }
+
+    public String getSportIcon() {
+        return sportIcon;
+    }
+
+    public void setSportIcon(String sportIcon) {
+        this.sportIcon = sportIcon;
+    }
+
+    public String getSportTypeIcon() {
+        return sportTypeIcon;
+    }
+
+    public void setSportTypeIcon(String sportTypeIcon) {
+        this.sportTypeIcon = sportTypeIcon;
     }
 
 }

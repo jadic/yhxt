@@ -318,13 +318,15 @@
       <![CDATA[
         select count(1) as cnt
         from tab_dict_sport_item a
+        inner join tab_dict_sport_type b on b.id=a.sportType
       ]]>
     </select>
     
     <select id="AppMapper.getSportItems"   parameterType="queryModel"  resultMap="mSportItemMap">
       <![CDATA[
-        select a.id, a.sportName, a.caloriePerMinute
+        select a.id, a.sportName, a.caloriePerMinute, a.sportIcon, a.sportType, b.name, b.icon as sportTypeIcon
         from tab_dict_sport_item a
+        inner join tab_dict_sport_type b on b.id=a.sportType
         order by a.id
         limit #{startNum}, #{rows}
       ]]>
@@ -334,15 +336,15 @@
       <![CDATA[
         select count(1) as cnt
         from tab_dict_food a
-		left join tab_dict_food_type b on b.id=a.foodType
+		inner join tab_dict_food_type b on b.id=a.foodType
       ]]>
     </select>
         
     <select id="AppMapper.getFoodItems"   parameterType="queryModel"  resultMap="mFoodItemMap">
       <![CDATA[
-        select a.id, a.foodName, a.caloriePerHundredGram, a.foodType, b.`name` as foodTypeName 
+        select a.id, a.foodName, a.caloriePerHundredGram, a.foodIcon, a.foodType, b.`name` as foodTypeName, b.icon as foodTypeIcon 
         from tab_dict_food a
-		left join tab_dict_food_type b on b.id=a.foodType
+		inner join tab_dict_food_type b on b.id=a.foodType
         order by a.id
         limit #{startNum}, #{rows}
       ]]>
