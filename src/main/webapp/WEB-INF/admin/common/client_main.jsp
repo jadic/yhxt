@@ -40,6 +40,8 @@
 						<div class="menu-sep"></div>
 						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/activity.do','基础数据>> 活动管理');  $('#430000').click()">活动管理</div>
 						<div class="menu-sep"></div>
+						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/news.do','基础数据>> 资讯管理');  $('#430000').click()">资讯管理</div>
+						<div class="menu-sep"></div>
 						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/doctor.do','基础数据>> 医生管理');  $('#430000').click()">医生管理</div>
 						<div class="menu-sep"></div>
 						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/device.do','基础数据>> 用户反馈');  $('#430000').click()">设备管理</div>

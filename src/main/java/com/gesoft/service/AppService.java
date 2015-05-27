@@ -20,13 +20,18 @@ import com.gesoft.dao.AppDAO;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.BloodGlucoseModel;
+import com.gesoft.model.BloodPressureModel;
 import com.gesoft.model.DeleteRecordModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.FoodItemModel;
+import com.gesoft.model.HappyHostModel;
+import com.gesoft.model.HappyHostPostModel;
+import com.gesoft.model.HappyHostReplyModel;
 import com.gesoft.model.MealResultModel;
 import com.gesoft.model.MentalStatusModel;
+import com.gesoft.model.NewsModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
@@ -129,6 +134,16 @@ public class AppService extends EntityService<BaseModel, Long> {
     }
     
     @Transactional(readOnly = true)
+    public long queryNewsCnt(QueryModel model) {
+        return appDAO.queryNewsCnt(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<NewsModel> queryNews(QueryModel model) {
+        return appDAO.queryNews(model);
+    }
+    
+    @Transactional(readOnly = true)
     public long queryDoctorAdviceCnt(QueryModel model) {
         return appDAO.queryDoctorAdviceCnt(model);
     }
@@ -159,6 +174,11 @@ public class AppService extends EntityService<BaseModel, Long> {
     }    
     
     @Transactional(readOnly = true)
+    public String queryNewsDetail(QueryModel model) {
+        return appDAO.queryNewsDetail(model);
+    }    
+    
+    @Transactional(readOnly = true)
     public long queryEarTemperatureId(EarTemperatureModel model) {
         return appDAO.queryEarTemperatureId(model);
     }
@@ -178,6 +198,15 @@ public class AppService extends EntityService<BaseModel, Long> {
     
     public int updateBloodGlucose(BloodGlucoseModel model) {
         return appDAO.updateBloodGlucose(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public long queryBloodPressureId(BloodPressureModel model) {
+        return appDAO.queryBloodPressureId(model);
+    }
+    
+    public int insertBloodPressure(BloodPressureModel model) {
+        return appDAO.insertBloodPressure(model);
     }
     
     @Transactional(readOnly = true)
@@ -225,4 +254,88 @@ public class AppService extends EntityService<BaseModel, Long> {
     public int deleteRecords(DeleteRecordModel model) {
         return appDAO.deleteRecords(model);
     }
+
+    /**
+     * 描述信息：加载快乐驿站圈子总数
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+    @Transactional(readOnly=true)
+	public long queryHappyHostInfoCnt(QueryModel query)
+	{
+		return appDAO.queryHappyHostInfoCnt(query);
+	}
+
+    
+    
+    /**
+     * 描述信息：加载快乐驿站圈子 分页
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+    @Transactional(readOnly=true)
+	public List<HappyHostModel> queryHappyHostInfo(QueryModel query)
+	{
+    	return appDAO.queryHappyHostInfo(query);
+	}
+
+    
+    /**
+     * 描述信息：加载快乐驿站话题总数
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+    @Transactional(readOnly=true)
+	public long queryHappyHostPostInfoCnt(QueryModel query)
+	{
+    	return appDAO.queryHappyHostPostInfoCnt(query);
+	}
+
+    
+    /**
+     * 描述信息：加载快乐驿站话题 分页
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+    @Transactional(readOnly=true)
+	public List<HappyHostPostModel> queryHappyHostPostInfo(QueryModel query)
+	{
+    	return appDAO.queryHappyHostPostInfo(query);
+	}
+
+    
+    /**
+     * 描述信息：加载快乐驿站回复总数
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+    @Transactional(readOnly=true)
+	public long queryHappyHostReplyInfoCnt(QueryModel query)
+	{
+    	return appDAO.queryHappyHostReplyInfoCnt(query);
+	}
+
+    
+    /**
+     * 描述信息：加载快乐驿站回复 分页
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+    @Transactional(readOnly=true)
+	public List<HappyHostReplyModel> queryHappyHostReplyInfo(QueryModel query)
+	{
+    	return appDAO.queryHappyHostReplyInfo(query);
+	}
 }

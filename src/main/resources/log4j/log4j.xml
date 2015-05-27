@@ -51,7 +51,7 @@
 	
 	<root> 
 		<priority value="debug" /> 
-		<appender-ref ref="CONSOLE" /> 
+		<appender-ref ref="DATABASE" /> 
 	</root> 
 	
 	<category name="com.gesoft">

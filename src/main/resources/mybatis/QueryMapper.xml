@@ -1294,7 +1294,7 @@
 	<!-- 加载最近的血糖 -->
 	<select id="QueryMapper.queryRecentlyHomeBloodInfo" 	parameterType="queryModel"	resultMap="mRetRecentlyHomeBloodMap">
 		<![CDATA[
-			select FORMAT(a.bloodGlucose1/10, 2) as bloodGlucose1, a.takeTime1, FORMAT(a.bloodGlucose2/10, 2) as bloodGlucose2, a.takeTime2
+			select FORMAT(a.bloodGlucose1/10, 1) as bloodGlucose1, a.takeTime1, FORMAT(a.bloodGlucose2/10, 1) as bloodGlucose2, a.takeTime2
 			from tab_blood_glucose a
 			where a.userId = #{userId}
 			order by a.takeTime DESC
@@ -1318,7 +1318,7 @@
 	<!-- 加载最近的体温 -->
 	<select id="QueryMapper.queryRecentlyHomeEarInfo" 	parameterType="queryModel"	resultMap="mRetRecentlyHomeEarMap">
 		<![CDATA[
-			select FORMAT(a.temperature/10, 2) as temperature, a.takeTime
+			select FORMAT(a.temperature/10, 1) as temperature, a.takeTime
 			from tab_ear_thermometer a
 			where a.userId = #{userId}
 			order by a.takeTime DESC

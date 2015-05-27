@@ -9,7 +9,7 @@
 	<div region="north" style="height:57px;" border="false">
 		<table cellpadding="0" cellspacing="0"  border="0" style="font-size:12px;width:100%;">
 			<tr>
-				<td colspan="5" class="njty_btitle" align="left">设备管理&nbsp;</td>
+				<td colspan="5" class="njty_btitle" align="left">服务管理&nbsp;</td>
 			</tr>
 			<tr>
 		      	<td class="njty_bg" align="right">服务名称：</td>

@@ -156,6 +156,13 @@ public class AIndexController extends BaseController
 	    System.out.println("activity.do");
 	    return "/admin/baseinfo/manage_activity_info";
 	}
+
+	@RequestMapping(value="/news.do")
+	public String toNews()
+	{
+	    System.out.println("news.do");
+	    return "/admin/baseinfo/manage_news_info";
+	}
 	
 	/**
 	 * 描述信息：医院信息管理

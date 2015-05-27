@@ -15,13 +15,18 @@ import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.BloodGlucoseModel;
+import com.gesoft.model.BloodPressureModel;
 import com.gesoft.model.DeleteRecordModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.FoodItemModel;
+import com.gesoft.model.HappyHostModel;
+import com.gesoft.model.HappyHostPostModel;
+import com.gesoft.model.HappyHostReplyModel;
 import com.gesoft.model.MealResultModel;
 import com.gesoft.model.MentalStatusModel;
+import com.gesoft.model.NewsModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
@@ -91,6 +96,14 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
         return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryActivity", model);
     }
 
+    public long queryNewsCnt(QueryModel model) {
+        return (Long) getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryNewsCnt", model);
+    }
+    
+    public List<NewsModel> queryNews(QueryModel model) {
+        return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryNews", model);
+    }
+    
     public long queryDoctorAdviceCnt(QueryModel model) {
         return (Long) getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryDoctorAdviceCnt", model);
     }
@@ -114,6 +127,10 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
     public String queryActivityDetail(QueryModel model) {
         return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryActivityDetail", model);
     }
+    
+    public String queryNewsDetail(QueryModel model) {
+        return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryNewsDetail", model);
+    }
 
     public long queryEarTemperatureId(EarTemperatureModel model) {
         return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryEarTemperatureId", model);
@@ -133,6 +150,14 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
 
     public int updateBloodGlucose(BloodGlucoseModel model) {
         return getSqlSession().update(getMybatisSqlMapNamespace() + ".updateBloodGlucose", model);
+    }
+    
+    public long queryBloodPressureId(BloodPressureModel model) {
+        return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryBloodPressureId", model);
+    }
+    
+    public int insertBloodPressure(BloodPressureModel model) {
+        return getSqlSession().insert(getMybatisSqlMapNamespace() + ".insertBloodPressure", model);
     }
 
     public String getSportItemVersion(QueryModel model) {
@@ -184,4 +209,82 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
         }
         return -1;
     }
+    
+    /**
+     * 描述信息：加载快乐驿站圈子总数
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+	public long queryHappyHostInfoCnt(QueryModel query)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHappyHostInfoCnt", query);
+	}
+
+    
+    
+    /**
+     * 描述信息：加载快乐驿站圈子 分页
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+	public List<HappyHostModel> queryHappyHostInfo(QueryModel query)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHappyHostInfo", query);
+	}
+
+    
+    /**
+     * 描述信息：加载快乐驿站话题总数
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+	public long queryHappyHostPostInfoCnt(QueryModel query)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHappyHostPostInfoCnt", query);
+	}
+
+    
+    /**
+     * 描述信息：加载快乐驿站话题 分页
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+	public List<HappyHostPostModel> queryHappyHostPostInfo(QueryModel query)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHappyHostPostInfo", query);
+	}
+
+    
+    /**
+     * 描述信息：加载快乐驿站回复总数
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+	public long queryHappyHostReplyInfoCnt(QueryModel query)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHappyHostReplyInfoCnt", query);
+	}
+
+    
+    /**
+     * 描述信息：加载快乐驿站回复 分页
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+	public List<HappyHostReplyModel> queryHappyHostReplyInfo(QueryModel query)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHappyHostReplyInfo", query);
+	}
 }
