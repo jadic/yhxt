@@ -20,6 +20,7 @@ import com.gesoft.dao.AppDAO;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.BloodGlucoseModel;
+import com.gesoft.model.BloodPressureModel;
 import com.gesoft.model.DeleteRecordModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
@@ -27,6 +28,7 @@ import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.FoodItemModel;
 import com.gesoft.model.MealResultModel;
 import com.gesoft.model.MentalStatusModel;
+import com.gesoft.model.NewsModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
@@ -129,6 +131,16 @@ public class AppService extends EntityService<BaseModel, Long> {
     }
     
     @Transactional(readOnly = true)
+    public long queryNewsCnt(QueryModel model) {
+        return appDAO.queryNewsCnt(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<NewsModel> queryNews(QueryModel model) {
+        return appDAO.queryNews(model);
+    }
+    
+    @Transactional(readOnly = true)
     public long queryDoctorAdviceCnt(QueryModel model) {
         return appDAO.queryDoctorAdviceCnt(model);
     }
@@ -159,6 +171,11 @@ public class AppService extends EntityService<BaseModel, Long> {
     }    
     
     @Transactional(readOnly = true)
+    public String queryNewsDetail(QueryModel model) {
+        return appDAO.queryNewsDetail(model);
+    }    
+    
+    @Transactional(readOnly = true)
     public long queryEarTemperatureId(EarTemperatureModel model) {
         return appDAO.queryEarTemperatureId(model);
     }
@@ -178,6 +195,15 @@ public class AppService extends EntityService<BaseModel, Long> {
     
     public int updateBloodGlucose(BloodGlucoseModel model) {
         return appDAO.updateBloodGlucose(model);
+    }
+    
+    @Transactional(readOnly = true)
+    public long queryBloodPressureId(BloodPressureModel model) {
+        return appDAO.queryBloodPressureId(model);
+    }
+    
+    public int insertBloodPressure(BloodPressureModel model) {
+        return appDAO.insertBloodPressure(model);
     }
     
     @Transactional(readOnly = true)

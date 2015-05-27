@@ -31,12 +31,14 @@
 		<typeAlias alias="bloodModel" type="com.gesoft.model.BloodModel" />
 		<typeAlias alias="earTemperatureModel" type="com.gesoft.model.EarTemperatureModel" />
 		<typeAlias alias="bloodGlucoseModel" type="com.gesoft.model.BloodGlucoseModel" />
+		<typeAlias alias="bloodPressureModel" type="com.gesoft.model.BloodPressureModel" />
 		<typeAlias alias="sportItemModel" type="com.gesoft.model.SportItemModel" />
 		<typeAlias alias="foodItemModel" type="com.gesoft.model.FoodItemModel" />
 		<typeAlias alias="foodTypeModel" type="com.gesoft.model.FoodTypeModel" />
 		<typeAlias alias="sportTypeModel" type="com.gesoft.model.SportTypeModel" />
 		<typeAlias alias="healthReportModel" type="com.gesoft.model.HealthReportModel" />
 		<typeAlias alias="medicineModel" type="com.gesoft.model.MedicineModel" />
+		<typeAlias alias="newsModel" type="com.gesoft.model.NewsModel" />
 	</typeAliases>
 	<mappers></mappers>
 </configuration>

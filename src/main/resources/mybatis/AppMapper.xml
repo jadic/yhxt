@@ -62,7 +62,14 @@
       <result property="memo"             column="activityMemo"/>
       <result property="icon"             column="activityIcon"/>
     </resultMap>
-            
+    
+    <resultMap id="mNewsMap"           type="newsModel">
+      <result property="id"            column="id"/>
+      <result property="title"         column="newsTitle"/>
+      <result property="createTime"    column="newsCreateTime"/>
+      <result property="icon"          column="newsIcon"/>
+    </resultMap>
+    
     <resultMap id="mDoctorAdviceMap"      type="doctorAdviceModel">
       <result property="id"               column="id"/>
       <result property="userId"             column="userId"/>
@@ -190,6 +197,25 @@
       ]]>
     </select>
     
+	 <!-- 查询新闻资讯总数 -->
+    <select id="AppMapper.queryNewsCnt"  parameterType="queryModel"  resultType="long">
+      <![CDATA[
+        select count(1) as cnt 
+        from tab_news t
+      ]]>
+    </select>
+    
+    
+    <!-- 分页查询新闻资讯 -->     
+    <select id="AppMapper.queryNews"   parameterType="queryModel"  resultMap="mNewsMap">
+      <![CDATA[
+        select a.id, a.newsTitle, a.newsCreateTime, newsIcon
+        from tab_news a
+        order by a.newsCreateTime desc
+        limit #{startNum}, #{rows}
+      ]]>
+    </select>
+    
 	 <!-- 查询医生建议总数 -->
     <select id="AppMapper.queryDoctorAdviceCnt"  parameterType="queryModel"  resultType="long">
       <![CDATA[
@@ -253,6 +279,15 @@
         where a.activityId = #{id}
       ]]>
     </select>
+
+    <!-- 查询新闻详细情况-->     
+    <select id="AppMapper.queryNewsDetail"   parameterType="queryModel"  resultType="string">
+      <![CDATA[
+        select a.newsContent
+        from tab_news a
+        where a.id = #{id}
+      ]]>
+    </select>
 	
 	<select id="AppMapper.queryBloodGlucoseId" parameterType="bloodGlucoseModel" resultType="long">
       <![CDATA[
@@ -295,6 +330,21 @@
 	  <![CDATA[
 	    INSERT INTO tab_ear_thermometer(userId, temperature, takeTime) 
 	    VALUES (#{userId}, #{temperature}, #{takeTime})
+	  ]]>
+	</insert>	
+
+	<select id="AppMapper.queryBloodPressureId" parameterType="bloodPressureModel" resultType="long">
+      <![CDATA[
+        select count(1)
+        from tab_blood_pressure a
+        where a.userId=#{userId} and a.takeTime=#{takeTime}
+      ]]>	
+	</select>
+	
+	<insert id="AppMapper.insertBloodPressure" useGeneratedKeys="true" keyProperty="id">
+	  <![CDATA[
+	    INSERT INTO tab_blood_pressure(userId, highBloodPressure, lowBloodPressure, pulse, takeTime) 
+	    VALUES (#{userId}, #{dbp}, #{sbp}, #{pulse}, #{takeTime})
 	  ]]>
 	</insert>	
 	

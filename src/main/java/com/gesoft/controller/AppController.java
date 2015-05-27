@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BloodGlucoseModel;
+import com.gesoft.model.BloodPressureModel;
 import com.gesoft.model.DeleteRecordModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
@@ -31,6 +32,7 @@ import com.gesoft.model.IdModel;
 import com.gesoft.model.MealResultModel;
 import com.gesoft.model.MentalStatusModel;
 import com.gesoft.model.MsgModel;
+import com.gesoft.model.NewsModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
@@ -198,6 +200,25 @@ public class AppController extends BaseController {
         return msgModel;
     }
 
+    @RequestMapping(value = "/queryNews.do")
+    public @ResponseBody MsgModel queryNews(QueryModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            long recordCount = appService.queryNewsCnt(model);
+            if (recordCount > 0) {
+                setPageModel(recordCount, model);
+                List<NewsModel> rows = appService.queryNews(model);
+                if (rows != null && rows.size() > 0) {
+                    msgModel.setTotal(recordCount);
+                    msgModel.setRows(rows);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("AppController queryActivity error：", e);
+        }
+        return msgModel;
+    }
+
     @RequestMapping(value = "/queryDoctorAdvice.do")
     public @ResponseBody MsgModel queryDoctorAdvice(QueryModel model) {
         MsgModel msgModel = new MsgModel();
@@ -250,6 +271,13 @@ public class AppController extends BaseController {
         return mv;
     }
 
+    @RequestMapping(value = "/queryNewsDetail.do")
+    public @ResponseBody ModelAndView queryNewsDetail(QueryModel model) {
+        ModelAndView mv = new ModelAndView("app/detail");
+        mv.getModel().put("content", appService.queryNewsDetail(model));
+        return mv;
+    }
+
     /**
      * 上传耳温
      * 
@@ -298,6 +326,26 @@ public class AppController extends BaseController {
             msgModel.setSuccess(true);
         } catch (Exception e) {
             logger.error("AppController uploadEarTemperature error：", e);
+        }
+        return msgModel;
+    }
+    
+    @RequestMapping(value = "/uploadBloodPressure.do")
+    public @ResponseBody MsgModel uploadBloodPressure(BloodPressureModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            if (model.getUserId() <= 0 || model.getDbp() <= 0 || model.getSbp() <= 0
+             || model.getPulse() <= 0 || StringUtil.isNullOrEmpty(model.getTakeTime())) {
+                msgModel.setMsg("参数缺失或为空，请确认");
+            } else {
+                if (appService.queryBloodPressureId(model) <= 0) {//
+                    msgModel.setSuccess(appService.insertBloodPressure(model) > 0);
+                } else {
+                    msgModel.setSuccess(true);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("AppController uploadBloodPressure error：", e);
         }
         return msgModel;
     }

@@ -15,6 +15,7 @@ import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.BloodGlucoseModel;
+import com.gesoft.model.BloodPressureModel;
 import com.gesoft.model.DeleteRecordModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
@@ -22,6 +23,7 @@ import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.FoodItemModel;
 import com.gesoft.model.MealResultModel;
 import com.gesoft.model.MentalStatusModel;
+import com.gesoft.model.NewsModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
@@ -91,6 +93,14 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
         return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryActivity", model);
     }
 
+    public long queryNewsCnt(QueryModel model) {
+        return (Long) getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryNewsCnt", model);
+    }
+    
+    public List<NewsModel> queryNews(QueryModel model) {
+        return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryNews", model);
+    }
+    
     public long queryDoctorAdviceCnt(QueryModel model) {
         return (Long) getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryDoctorAdviceCnt", model);
     }
@@ -114,6 +124,10 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
     public String queryActivityDetail(QueryModel model) {
         return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryActivityDetail", model);
     }
+    
+    public String queryNewsDetail(QueryModel model) {
+        return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryNewsDetail", model);
+    }
 
     public long queryEarTemperatureId(EarTemperatureModel model) {
         return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryEarTemperatureId", model);
@@ -133,6 +147,14 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
 
     public int updateBloodGlucose(BloodGlucoseModel model) {
         return getSqlSession().update(getMybatisSqlMapNamespace() + ".updateBloodGlucose", model);
+    }
+    
+    public long queryBloodPressureId(BloodPressureModel model) {
+        return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryBloodPressureId", model);
+    }
+    
+    public int insertBloodPressure(BloodPressureModel model) {
+        return getSqlSession().insert(getMybatisSqlMapNamespace() + ".insertBloodPressure", model);
     }
 
     public String getSportItemVersion(QueryModel model) {
