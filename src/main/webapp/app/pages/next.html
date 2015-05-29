@@ -44,6 +44,26 @@
 				alert(e);
 			}
 		}
+		
+		function funSearch()
+		{
+			$.ajax({
+		      url : "/yhxt/app/happyHost.do?a=" + Math.random(),
+		      type : 'post',
+		      dataType : 'json',
+		      data : {
+		        "page" : 1,
+		        "row" : 10
+		      },
+		      error : function(data) {
+		      },
+		      success : function(data) 
+		      {
+		    	  PageData = data;
+		    	  funDealShow();
+		      }
+		  });
+		}
 	</script>
 </head>
 <body style="overflow: hidden; background-color: #fff;">

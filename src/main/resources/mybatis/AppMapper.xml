@@ -441,4 +441,186 @@
         WHERE id = #{id} 
       ]]>
     </delete>  
+    
+    <!-- 加载快乐驿站 圈子 -->
+    <resultMap id="mHappyHostRet"      			type="happyHostModel">
+      <result property="id"               		column="id"/>
+      <result property="title"        			column="title"/>
+      <result property="content" 				column="content"/>
+      <result property="url"        			column="url"/>
+      <result property="cnt" 					column="cnt"/>
+    </resultMap>
+    
+    <!-- 加载快乐驿站 话题 -->
+    <resultMap id="mHappyHostPostRet"      		type="happyHostPostModel">
+      <result property="id"               		column="id"/>
+      <result property="happyHostId"        	column="happyHostId"/>
+      <result property="title"        			column="title"/>
+      <result property="content" 				column="content"/>
+      <result property="stime"        			column="stime1"/>
+      <result property="laudCnt" 				column="laudCnt"/>
+      <result property="replyCnt" 				column="replyCnt"/>
+      <result property="reportFlag" 			column="reportFlag"/>
+      <result property="photo" 					column="photo"/>
+      <result property="laud" 					column="laud"/>
+    </resultMap>
+    
+     
+    <!-- 加载快乐驿站 回复 -->
+    <resultMap id="mHappyHostReplyRet"      	type="happyHostReplyModel">
+      <result property="id"               		column="id"/>
+      <result property="postId"        			column="postId"/>
+      <result property="content" 				column="content"/>
+      <result property="stime"        			column="stime1"/>
+      <result property="reportFlag" 			column="reportFlag"/>
+      <result property="photo" 					column="photo"/>
+    </resultMap>
+    
+    <!-- 加载快乐驿站 圈子总数 -->
+    <select id="AppMapper.queryHappyHostInfoCnt"   parameterType="queryModel" resultType="long">
+      <![CDATA[
+        SELECT count(1) as cnt 
+        FROM tab_dict_happy_host a
+      ]]>
+    </select> 
+    
+    <!-- 加载快乐驿站 圈子分页 -->
+    <select id="AppMapper.queryHappyHostInfo"   parameterType="queryModel"  resultMap="mHappyHostRet">
+      <![CDATA[
+        SELECT * 
+        FROM tab_dict_happy_host a
+		order by a.id
+        limit #{startNum}, #{rows}
+      ]]>
+    </select> 
+    
+    
+    <!-- 加载快乐驿站 话题总数 -->
+    <select id="AppMapper.queryHappyHostPostInfoCnt"   parameterType="queryModel" resultType="long">
+      <![CDATA[
+        SELECT count(1) as cnt 
+		FROM tab_happy_host_post a
+		LEFT JOIN tab_user b on a.userId=b.userId
+		WHERE a.happyHostId = #{happyHostId}
+      ]]>
+    </select> 
+     
+    <!-- 加载快乐驿站 圈子分页 -->
+    <select id="AppMapper.queryHappyHostPostInfo"   parameterType="queryModel"  resultMap="mHappyHostPostRet">
+      <![CDATA[
+        SELECT a.*, date_format(a.stime, '%m-%d %H:%i') as stime1, b.userName, b.photo, 0 as laud
+		FROM tab_happy_host_post a
+		LEFT JOIN tab_user b on a.userId=b.userId
+		WHERE a.happyHostId = #{happyHostId}
+		order by a.stime desc
+        limit #{startNum}, #{rows}
+      ]]>
+    </select> 
+    
+     
+    <!-- 加载快乐驿站 圈子分页 -->
+    <select id="AppMapper.queryHappyHostZrPostInfo"   parameterType="queryModel"  resultMap="mHappyHostPostRet">
+      <![CDATA[
+        SELECT a.*, date_format(a.stime, '%m-%d %H:%i') as stime1, b.userName, b.photo, 0 as laud
+		FROM tab_happy_host_post a
+		LEFT JOIN tab_user b on a.userId=b.userId
+		WHERE a.happyHostId = #{happyHostId}
+		order by a.replyCnt desc
+        limit #{startNum}, #{rows}
+      ]]>
+    </select> 
+    
+    <!-- 根据ID来查询明细 -->
+     <select id="AppMapper.queryHappyHostPostInfoById"   parameterType="queryModel"  resultMap="mHappyHostPostRet">
+      <![CDATA[
+        SELECT a.*, date_format(a.stime, '%m-%d %H:%i') as stime1, b.userName, b.photo, IFNULL(c.id, -1) as laud
+		FROM tab_happy_host_post a
+		LEFT JOIN tab_user b on a.userId=b.userId
+		LEFT JOIN (SELECT * FROM tab_happy_host_laud WHERE postId=#{postId} AND userId = #{userId}) c on a.id=c.postId
+		WHERE a.id = #{postId}
+      ]]>
+    </select> 
+    
+     <!-- 根据ID来查回复列表 -->
+     <select id="AppMapper.queryHappyHostReplyInfo"   parameterType="queryModel"  resultMap="mHappyHostReplyRet">
+      <![CDATA[
+        SELECT a.*, date_format(a.stime, '%m-%d %H:%i') as stime1, b.userName, b.photo
+		FROM tab_happy_host_reply a
+		LEFT JOIN tab_user b on a.userId=b.userId
+		WHERE a.postId = #{postId}
+		order by a.stime desc
+      ]]>
+    </select> 
+    
+     <select id="AppMapper.queryHappyHostReplyInfoById"   parameterType="happyHostReplyModel"  resultMap="mHappyHostReplyRet">
+      <![CDATA[
+        SELECT a.*, date_format(a.stime, '%m-%d %H:%i') as stime1, b.userName, b.photo
+		FROM tab_happy_host_reply a
+		LEFT JOIN tab_user b on a.userId=b.userId
+		WHERE a.id = #{id}
+      ]]>
+    </select> 
+     
+     
+    <!-- 修改圈子的话题数-->
+	<update id="AppMapper.modifyHappyHost">
+		<![CDATA[
+			UPDATE tab_dict_happy_host  SET  
+			cnt = cnt + 1
+			WHERE id = #{happyHostId} 
+		]]>
+	</update>
+    
+	<!-- 插入话题 -->
+    <insert id="AppMapper.addHappyHostPostInfo" useGeneratedKeys="true" keyProperty="id">
+	  <![CDATA[
+		insert into tab_happy_host_post(happyHostId, title, content, stime, userId)
+		values (#{happyHostId}, #{title}, #{content}, #{stime}, #{userId})
+	  ]]>
+	</insert>  
+	
+    <!-- 修改话题的点赞数-->
+	<update id="AppMapper.modifyHappyHostPostLaudInfo">
+		<![CDATA[
+			UPDATE tab_happy_host_post  SET  
+			laudCnt = laudCnt + #{flag}
+			WHERE id = #{postId} 
+		]]>
+	</update>
+	
+	 <!-- 修改话题的点赞数-->
+	<update id="AppMapper.modifyHappyHostPostReplyInfo">
+		<![CDATA[
+			UPDATE tab_happy_host_post  SET  
+			replyCnt = replyCnt +1
+			WHERE id = #{postId} 
+		]]>
+	</update>
+	
+	
+	<!-- 增加点赞记录 -->
+    <insert id="AppMapper.addHappyHostLaudIinfo" useGeneratedKeys="true" keyProperty="id">
+	  <![CDATA[
+		insert into tab_happy_host_laud(postId, stime, userId)
+		values (#{postId}, #{stime}, #{userId})
+	  ]]>
+	</insert>
+	
+    <!-- 删除点赞记录 -->
+    <delete id="AppMapper.delHappyHostLaudIinfo">
+      <![CDATA[
+        DELETE FROM tab_happy_host_laud 
+        WHERE postId = #{postId} 
+        and userId = #{userId} 
+      ]]>
+    </delete> 
+    
+    <!-- 增加回复记录 -->
+    <insert id="AppMapper.addHappyHostReplyInfo" useGeneratedKeys="true" keyProperty="id">
+	  <![CDATA[
+		insert into tab_happy_host_reply(postId, content, stime, userId)
+		values (#{postId}, #{content}, #{stime}, #{userId})
+	  ]]>
+	</insert>
+    
 </mapper>

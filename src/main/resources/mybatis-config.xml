@@ -42,6 +42,7 @@
 		<typeAlias alias="happyHostModel" type="com.gesoft.model.HappyHostModel" />
 		<typeAlias alias="happyHostPostModel" type="com.gesoft.model.HappyHostPostModel" />
 		<typeAlias alias="happyHostReplyModel" type="com.gesoft.model.HappyHostReplyModel" />
+		<typeAlias alias="happyHostLaudModel" type="com.gesoft.model.HappyHostLaudModel" />
 	</typeAliases>
 	<mappers></mappers>
 </configuration>

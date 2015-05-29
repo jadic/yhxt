@@ -24,6 +24,30 @@ public class HappyHostPostModel extends BaseModel
 	private int laudCnt;
 	private int replyCnt;
 	private int reportFlag;
+	private String photo;
+	private int laud = 0;
+	
+	
+	public int getLaud()
+	{
+		return laud;
+	}
+	public void setLaud(int laud)
+	{
+		this.laud = laud;
+	}
+	public String getPhoto()
+	{
+		if (photo == null || photo.trim().length() <= 5)
+		{
+			this.photo = "/app/self/images/setting_load_pic.png";
+		}
+		return photo;
+	}
+	public void setPhoto(String photo)
+	{
+		this.photo = photo;
+	}
 	public int getId()
 	{
 		return id;

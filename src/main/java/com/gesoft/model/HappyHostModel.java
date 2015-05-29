@@ -19,6 +19,16 @@ public class HappyHostModel extends BaseModel
 	private String title;
 	private String content;
 	private String url;
+	private int cnt;
+	
+	public int getCnt()
+	{
+		return cnt;
+	}
+	public void setCnt(int cnt)
+	{
+		this.cnt = cnt;
+	}
 	public int getId()
 	{
 		return id;

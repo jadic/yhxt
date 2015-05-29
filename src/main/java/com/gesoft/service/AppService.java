@@ -26,6 +26,7 @@ import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.FoodItemModel;
+import com.gesoft.model.HappyHostLaudModel;
 import com.gesoft.model.HappyHostModel;
 import com.gesoft.model.HappyHostPostModel;
 import com.gesoft.model.HappyHostReplyModel;
@@ -313,6 +314,19 @@ public class AppService extends EntityService<BaseModel, Long> {
 
     
     /**
+     * 描述信息：加载快乐驿站话题 分页
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+    @Transactional(readOnly=true)
+	public List<HappyHostPostModel> queryHappyHostZrPostInfo(QueryModel query)
+	{
+    	return appDAO.queryHappyHostZrPostInfo(query);
+	}
+    
+    /**
      * 描述信息：加载快乐驿站回复总数
      * 创建时间：2015年5月27日 上午6:48:22
      * @author WCL (ln_admin@yeah.net)
@@ -320,9 +334,9 @@ public class AppService extends EntityService<BaseModel, Long> {
      * @return
      */
     @Transactional(readOnly=true)
-	public long queryHappyHostReplyInfoCnt(QueryModel query)
+	public List<HappyHostPostModel> queryHappyHostPostInfoById(QueryModel query)
 	{
-    	return appDAO.queryHappyHostReplyInfoCnt(query);
+    	return appDAO.queryHappyHostPostInfoById(query);
 	}
 
     
@@ -337,5 +351,76 @@ public class AppService extends EntityService<BaseModel, Long> {
 	public List<HappyHostReplyModel> queryHappyHostReplyInfo(QueryModel query)
 	{
     	return appDAO.queryHappyHostReplyInfo(query);
+	}
+    
+    /**
+     * 描述信息：增中话题
+     * 创建时间：2015年5月28日 上午11:57:50
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @return
+     */
+    public int addHappyHostPostInfo(HappyHostPostModel model)
+	{
+		// 修改圈子发帖数
+    	appDAO.modifyHappyHost(model);
+    	
+    	// 增加话题
+    	return appDAO.addHappyHostPostInfo(model);
+	}
+    
+    /**
+     * 描述信息：处理点赞操作
+     * 创建时间：2015年5月28日 下午2:22:25
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @return
+     */
+    public int addHappyHostLaudIinfo(HappyHostLaudModel model)
+	{
+    	int nRet = 0;
+		// 修改话题表点赞数
+    	appDAO.modifyHappyHostPostLaudInfo(model);
+    	
+    	// 删除点赞记录
+    	nRet = appDAO.delHappyHostLaudIinfo(model);
+    	
+    	// 增加点赞记录
+    	if (model.getFlag() == 1)
+		{
+    		appDAO.delHappyHostLaudIinfo(model);
+    		nRet = appDAO.addHappyHostLaudIinfo(model);
+		}
+    	return nRet;
+	}
+    
+    
+    /**
+     * 描述信息：增加回复记录
+     * 创建时间：2015年5月28日 下午2:36:39
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @return
+     */
+    public int addHappyHostReplyInfo(HappyHostReplyModel model)
+	{
+    	// 修改回复数
+    	appDAO.modifyHappyHostPostReplyInfo(model);
+    	
+		return appDAO.addHappyHostReplyInfo(model);
+	}
+
+    
+    /**
+     * 描述信息：加载增加记录
+     * 创建时间：2015年5月28日 下午5:36:50
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @return
+     */
+    @Transactional(readOnly=true)
+	public List<HappyHostReplyModel> queryHappyHostReplyInfoById(HappyHostReplyModel model)
+	{
+    	return appDAO.queryHappyHostReplyInfoById(model);
 	}
 }

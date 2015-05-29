@@ -28,6 +28,7 @@ import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.FoodItemModel;
+import com.gesoft.model.HappyHostLaudModel;
 import com.gesoft.model.HappyHostModel;
 import com.gesoft.model.HappyHostPostModel;
 import com.gesoft.model.HappyHostReplyModel;
@@ -641,6 +642,39 @@ public class AppController extends BaseController {
     
     
     /**
+     * 描述信息：最热
+     * 创建时间：2015年5月28日 上午9:58:19
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+    @RequestMapping(value = "/happyHostZrPost.do")
+   	public @ResponseBody MsgModel toHappyHostZrPost(QueryModel query)
+   	{
+   		MsgModel msgModel = new MsgModel();
+   		try
+   		{
+   			long recordCount = appService.queryHappyHostPostInfoCnt(query);
+   			if(recordCount>0)
+   			{
+   				setPageModel(recordCount, query);
+   				List<HappyHostPostModel> argArgs = appService.queryHappyHostZrPostInfo(query);
+   				if (argArgs != null)
+   				{
+   					msgModel.setTotal(recordCount);
+   					msgModel.setRows(argArgs);
+   				}
+   			}
+   		}
+   		catch (Exception e)
+   		{
+   			logger.error("AppController toHappyHostZrPost error：", e);
+   		}
+   		return msgModel;
+   	}
+    
+    
+    /**
      * 描述信息：分页加载快乐驿站回复
      * 创建时间：2015年5月27日 上午6:46:24
      * @author WCL (ln_admin@yeah.net)
@@ -653,21 +687,111 @@ public class AppController extends BaseController {
    		MsgModel msgModel = new MsgModel();
    		try
    		{
-   			long recordCount = appService.queryHappyHostReplyInfoCnt(query);
-   			if(recordCount>0)
-   			{
-   				setPageModel(recordCount, query);
-   				List<HappyHostReplyModel> argArgs = appService.queryHappyHostReplyInfo(query);
-   				if (argArgs != null)
-   				{
-   					msgModel.setTotal(recordCount);
-   					msgModel.setRows(argArgs);
-   				}
-   			}
+   			List<HappyHostPostModel> argFlys = appService.queryHappyHostPostInfoById(query);
+   			if (argFlys != null)
+			{
+				msgModel.setTotal(argFlys.size());
+				msgModel.setRows(argFlys);
+				
+				List<HappyHostReplyModel> argArgs = appService.queryHappyHostReplyInfo(query);
+	   			if (argArgs != null)
+	   			{
+	   				msgModel.setFooter(argArgs);
+	   			}
+			}
    		}
    		catch (Exception e)
    		{
    			logger.error("AppController toHappyHostReply error：", e);
+   		}
+   		return msgModel;
+   	}
+    
+    
+    /**
+     * 描述信息：点赞操作
+     * 创建时间：2015年5月28日 下午2:21:20
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/addHappyHostLaud.do")
+   	public @ResponseBody MsgModel addHappyHostLaud(HappyHostLaudModel model)
+   	{
+   		MsgModel msgModel = new MsgModel();
+   		try
+   		{
+   			model.setStime(SystemUtils.getCurrentSystemTime());
+   			long nRet = appService.addHappyHostLaudIinfo(model);
+   			if(nRet>0)
+   			{
+   				msgModel.setSuccess(true);
+   			}
+   		}
+   		catch (Exception e)
+   		{
+   			logger.error("AppController addHappyHostLaud error：", e);
+   		}
+   		return msgModel;
+   	}
+    
+    /**
+     * 描述信息：发布话题
+     * 创建时间：2015年5月28日 上午11:56:16
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+    @RequestMapping(value = "/addHappyHostPost.do")
+   	public @ResponseBody MsgModel addHappyHostPost(HappyHostPostModel model)
+   	{
+   		MsgModel msgModel = new MsgModel();
+   		try
+   		{
+   			model.setStime(SystemUtils.getCurrentSystemTime());
+   			long nRet = appService.addHappyHostPostInfo(model);
+   			if(nRet>0)
+   			{	
+   				msgModel.setSuccess(true);
+   			}
+   		}
+   		catch (Exception e)
+   		{
+   			logger.error("AppController addHappyHostPost error：", e);
+   		}
+   		return msgModel;
+   	}
+    
+    
+    /**
+     * 描述信息：增加回复记录
+     * 创建时间：2015年5月28日 下午2:35:23
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/addHappyHostReply.do")
+   	public @ResponseBody MsgModel addHappyHostReply(HappyHostReplyModel model)
+   	{
+   		MsgModel msgModel = new MsgModel();
+   		try
+   		{
+   			model.setStime(SystemUtils.getCurrentSystemTime());
+   			long nRet = appService.addHappyHostReplyInfo(model);
+   			if(nRet>0)
+   			{
+   				List<HappyHostReplyModel> argArgs = appService.queryHappyHostReplyInfoById(model);
+   				if (argArgs != null && argArgs.size() > 0)
+				{
+					msgModel.setTotal(argArgs.size());
+					msgModel.setRows(argArgs);
+				}
+   				msgModel.setSuccess(true);
+   			}
+   		}
+   		catch (Exception e)
+   		{
+   			logger.error("AppController addHappyHostReply error：", e);
    		}
    		return msgModel;
    	}

@@ -10,6 +10,7 @@ package com.gesoft.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
@@ -21,6 +22,7 @@ import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.FoodItemModel;
+import com.gesoft.model.HappyHostLaudModel;
 import com.gesoft.model.HappyHostModel;
 import com.gesoft.model.HappyHostPostModel;
 import com.gesoft.model.HappyHostReplyModel;
@@ -261,7 +263,17 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHappyHostPostInfo", query);
 	}
-
+	 /**
+     * 描述信息：加载快乐驿站话题 分页
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+	public List<HappyHostPostModel> queryHappyHostZrPostInfo(QueryModel query)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHappyHostZrPostInfo", query);
+	}
     
     /**
      * 描述信息：加载快乐驿站回复总数
@@ -270,9 +282,9 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
      * @param query
      * @return
      */
-	public long queryHappyHostReplyInfoCnt(QueryModel query)
+	public List<HappyHostPostModel> queryHappyHostPostInfoById(QueryModel query)
 	{
-		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHappyHostReplyInfoCnt", query);
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHappyHostPostInfoById", query);
 	}
 
     
@@ -286,5 +298,102 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
 	public List<HappyHostReplyModel> queryHappyHostReplyInfo(QueryModel query)
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHappyHostReplyInfo", query);
+	}
+
+	/**
+	 * 描述信息：修改圈子 里的话题数
+	 * 创建时间：2015年5月28日 上午11:59:51
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 */
+	public void modifyHappyHost(HappyHostPostModel model)
+	{
+		getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyHappyHost", model);
+	}
+
+	
+	/**
+	 * 描述信息：增加话题
+	 * 创建时间：2015年5月28日 下午12:00:43
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addHappyHostPostInfo(HappyHostPostModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addHappyHostPostInfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：修改话题表中的点赞
+	 * 创建时间：2015年5月28日 下午2:26:01
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 */
+	public int modifyHappyHostPostLaudInfo(HappyHostLaudModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyHappyHostPostLaudInfo", model);
+	}
+
+	/**
+	 * 描述信息：增加点赞记录
+	 * 创建时间：2015年5月28日 下午2:26:19
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addHappyHostLaudIinfo(HappyHostLaudModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addHappyHostLaudIinfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：删除点赞记录
+	 * 创建时间：2015年5月28日 下午2:26:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int delHappyHostLaudIinfo(HappyHostLaudModel model)
+	{
+		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delHappyHostLaudIinfo", model);
+	}
+	
+	/**
+     * 描述信息：增加回复记录
+     * 创建时间：2015年5月28日 下午2:36:39
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @return
+     */
+    public int addHappyHostReplyInfo(HappyHostReplyModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addHappyHostReplyInfo", model);
+	}
+    
+    /**
+     * 描述信息：加载增加记录
+     * 创建时间：2015年5月28日 下午5:36:50
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @return
+     */
+	public List<HappyHostReplyModel> queryHappyHostReplyInfoById(HappyHostReplyModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHappyHostReplyInfoById", model);
+	}
+
+	
+	/**
+	 * 描述信息：增加回复数
+	 * 创建时间：2015年5月28日 下午6:09:32
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 */
+	public int modifyHappyHostPostReplyInfo(HappyHostReplyModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyHappyHostPostReplyInfo", model);
 	}
 }

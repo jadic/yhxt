@@ -21,6 +21,20 @@ public class HappyHostReplyModel extends BaseModel
 	private String content;
 	private String stime;
 	private int reportFlag;
+	private String photo;
+	
+	public String getPhoto()
+	{
+		if (photo == null || photo.trim().length() <= 5)
+		{
+			this.photo = "/app/self/images/setting_load_pic.png";
+		}
+		return photo;
+	}
+	public void setPhoto(String photo)
+	{
+		this.photo = photo;
+	}
 	public int getId()
 	{
 		return id;

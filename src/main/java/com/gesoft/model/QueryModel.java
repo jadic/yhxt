@@ -37,8 +37,25 @@ public class QueryModel extends BaseModel
 	private long senderId;
 	private String title;
 	private int statType = 1;
+	private int happyHostId;
+	private int postId;
 	
-	
+	public int getPostId()
+	{
+		return postId;
+	}
+	public void setPostId(int postId)
+	{
+		this.postId = postId;
+	}
+	public int getHappyHostId()
+	{
+		return happyHostId;
+	}
+	public void setHappyHostId(int happyHostId)
+	{
+		this.happyHostId = happyHostId;
+	}
 	public int getStatType()
 	{
 		return statType;
