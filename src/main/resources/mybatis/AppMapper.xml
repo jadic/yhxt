@@ -347,6 +347,21 @@
 	    VALUES (#{userId}, #{dbp}, #{sbp}, #{pulse}, #{takeTime})
 	  ]]>
 	</insert>	
+
+	<select id="AppMapper.queryBloodPressureId" parameterType="bloodPressureModel" resultType="long">
+      <![CDATA[
+        select count(1)
+        from tab_blood_pressure a
+        where a.userId=#{userId} and a.takeTime=#{takeTime}
+      ]]>	
+	</select>
+	
+	<insert id="AppMapper.insertBloodPressure" useGeneratedKeys="true" keyProperty="id">
+	  <![CDATA[
+	    INSERT INTO tab_blood_pressure(userId, highBloodPressure, lowBloodPressure, pulse, takeTime) 
+	    VALUES (#{userId}, #{dbp}, #{sbp}, #{pulse}, #{takeTime})
+	  ]]>
+	</insert>	
 	
     <select id="AppMapper.getSportItemVersion"   parameterType="queryModel"  resultType="string">
       <![CDATA[

@@ -10,7 +10,6 @@ package com.gesoft.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
@@ -161,7 +160,7 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
     public int insertBloodPressure(BloodPressureModel model) {
         return getSqlSession().insert(getMybatisSqlMapNamespace() + ".insertBloodPressure", model);
     }
-
+    
     public String getSportItemVersion(QueryModel model) {
         return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".getSportItemVersion", model);
     }
