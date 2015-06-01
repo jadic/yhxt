@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CircleModuleMapper">
+	
+	<resultMap id="mRetCircleModuleMap"       type="circleModuleModel">
+		<result property="id"  			  column="id"/>
+		<result property="name"  		  column="name"/>
+		<result property="content"        column="content"/>
+		<result property="icon"  		  column="icon"/>
+	</resultMap>
+	
+	<!-- 插入用户-->
+	<insert id="CircleModuleMapper.insert" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	        INSERT INTO tab_dict_circle_module (name, content, icon) 
+	        VALUES (#{name}, #{content}, #{icon})
+	    ]]>
+	</insert>
+	
+	
+	<!-- 查询总记录数-->
+	<select id="CircleModuleMapper.count" parameterType="circleModuleModel" resultType="long">
+		<![CDATA[
+			SELECT COUNT(1) AS CNT
+			FROM tab_dict_circle_module 
+		]]>
+      <where>
+        <if test="name != null and name != ''">
+          name LIKE CONCAT('%', #{name}, '%')
+        </if>
+      </where>
+	</select>
+	
+	<!-- 查询分页查询-->
+	<select id="CircleModuleMapper.list" parameterType="circleModuleModel" resultMap="mRetCircleModuleMap">
+		<![CDATA[
+			SELECT *
+			FROM tab_dict_circle_module
+		]]>
+        <where>
+          <if test="name != null and name != ''">
+            name LIKE CONCAT('%', #{name}, '%')
+          </if>
+        </where>   
+        <![CDATA[
+          LIMIT #{startNum}, #{rows}
+        ]]>         
+	</select>
+
+
+	<!-- 修改-->
+	<update id="CircleModuleMapper.update" parameterType="circleModuleModel">
+		<![CDATA[
+			UPDATE tab_dict_circle_module  SET  
+			name = #{name},
+            content = #{content}, 
+            icon = #{icon}
+			WHERE id = #{id} 
+		]]>
+	</update>
+	
+	<!-- 删除-->
+	<delete id="CircleModuleMapper.delete">
+		<![CDATA[
+			DELETE FROM tab_dict_circle_module 
+			WHERE id = #{id} 
+		]]>
+	</delete>
+	
+</mapper>

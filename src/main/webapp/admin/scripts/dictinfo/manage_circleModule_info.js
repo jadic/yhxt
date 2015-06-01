@@ -1,0 +1,212 @@
+var PageCircleModule = {
+  mSelDataGrid : null,
+  init : function() {
+    this.showGrid();
+  },
+
+  showGrid : function() {
+    $("#div_grid")
+        .datagrid(
+            {
+              fit : true,
+              nowrap : true,
+              stripe : true,
+              url : _ctx_ + "/a/circleModule/query.do",
+              pageNumber : 1,
+              queryParams : {
+                "name" : $("#out01").val()
+              },
+              columns : [ [ {
+                field : 'id',
+                title : '编号',
+                width : 200,
+                align : 'center',
+                hidden : "true"
+              }, {
+                field : 'name',
+                title : '名称',
+                width : 200,
+                align : 'center'
+              }, {
+                field : 'content',
+                title : '简介',
+                width : 200,
+                align : 'center',
+                hidden : "true"
+              } ] ],
+              onClickRow : function(index, rec) {
+
+              },
+              toolbar : [
+                  {
+                    text : '新增',
+                    iconCls : 'icon-add',
+                    handler : function() {
+                      PageMain.funCreateWinInfo("#div_win",
+                          "dictinfo/add_circleModule_info", {
+                            param1 : "add"
+                          });
+                    }
+                  },
+                  '-',
+                  {
+                    text : '修改',
+                    iconCls : 'icon-edit',
+                    handler : function() {
+                      PageCircleModule.mSelDataGrid = PageMain
+                          .funSelectEd("#div_grid");
+                      if (PageCircleModule.mSelDataGrid != null) {
+                        PageMain.funCreateWinInfo("#div_win",
+                            "dictinfo/add_circleModule_info", {
+                              param1 : "modify"
+                            });
+                        PageCircleModule.funSetDataGrid(PageCircleModule.mSelDataGrid);
+                      }
+                    }
+                  }, '-', {
+                    text : '删除',
+                    iconCls : 'icon-cancel',
+                    handler : function() {
+                      PageCircleModule.funDelInfo();
+                    }
+                  } ],
+              pagination : true,
+              singleSelect : true,
+              rownumbers : true
+            });
+  },
+  funSetDataGrid : function(record) {
+    $("#in00").val(record.id);
+    $("#in01").val(record.name);
+    $("#in03").val(record.content);
+    if (record.icon != null && record.icon != '') {
+      $("#in02").attr("src", _ctx_+record.icon);
+      $("#in10").val(record.icon);
+    }
+  },
+  funSearchInfo : function() {
+    $("#div_grid").datagrid({
+      url : _ctx_ + "/a/circleModule/query.do",
+      pageNumber : 1,
+      queryParams : {
+        "name" : $("#out01").val()
+      }
+    });
+  },
+  funSaveInfo : function(_param) {
+
+    if (funIsNull("#in01", "版块名称")) {
+      return false;
+    }
+
+    /** 打开进度条* */
+    PageMain.funOpenProgress();
+    $.ajax({
+      url : _ctx_ + "/a/circleModule/" + _param + ".do?a=" + Math.random(),
+      type : 'post',
+      dataType : 'json',
+      data : {
+        "id" : $("#in00").val(),
+        "name" : $("#in01").val(),
+        "content" : $("#in03").val(),
+        "icon" : $("#in10").val()
+      },
+      error : function(data) {
+        /** 关闭进度条* */
+        PageMain.funCloseProgress();
+        $.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
+      },
+      success : function(data) {
+
+        /** 关闭进度条* */
+        PageMain.funCloseProgress();
+
+        /** 数据处理* */
+        if (data.success) {
+          $("#out01").val($("#in01").val());
+          $('#div_win').window('close');
+          PageCircleModule.funSearchInfo();
+          $.messager.alert('信息提示', data.msg, 'info');
+        } else {
+          $.messager.alert('信息提示', data.msg, 'error');
+        }
+      }
+    });
+  },
+  funDelInfo : function() {
+    PageCircleModule.mSelDataGrid = PageMain.funSelectEd("#div_grid");
+    if (PageCircleModule.mSelDataGrid != null) {
+      $.messager.confirm('确认',
+          "您确认要删除选中的：【<span style='color:red; font:bold;'>"
+              + PageCircleModule.mSelDataGrid.name + "</span>】这条记录吗？", function(r) {
+            if (r) {
+              /** 打开进度条* */
+              PageMain.funOpenProgress();
+
+              $.ajax({
+                url : _ctx_ + "/a/circleModule/del.do?a=" + Math.random(),
+                type : 'post',
+                dataType : 'json',
+                data : {
+                  "id" : PageCircleModule.mSelDataGrid.id
+                },
+                error : function(data) {
+                  /** 关闭进度条* */
+                  PageMain.funCloseProgress();
+                  $.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
+                },
+                success : function(data) {
+                  /** 关闭进度条* */
+                  PageMain.funCloseProgress();
+
+                  /** 数据处理* */
+                  if (data.success) {
+                    $('#div_grid').datagrid(
+                        'deleteRow',
+                        $('#div_grid').datagrid('getRowIndex',
+                            PageCircleModule.mSelDataGrid));
+                    $.messager.alert('信息提示', data.msg, 'info');
+                  } else {
+                    $.messager.alert('信息提示', data.msg, 'error');
+                  }
+                }
+              });
+            }
+          });
+    }
+  },
+  funUploadFileInfo : function() {
+    try {
+      var uploadFile = dwr.util.getValue("in04");
+      var filenames = uploadFile.value.split("\\");
+      if (filenames.length <= 1) {
+        filenames = uploadFile.value.split("/");
+      }
+      var filename = filenames[filenames.length - 1].toLowerCase();
+      var fileType = filename.substring(filename.indexOf("."));
+      if (fileType == ".jpg" || fileType == ".bmp" || fileType == ".png"
+          || fileType == ".gif") {
+        loadDwr.uploadFileInfo(uploadFile, filename, {
+          "callback" : function(data) {
+            console.dir("data:" + data);
+            if (data == 1 || data == "1") {
+              $.messager.alert("提示", "图片上传失败", "error");
+            } else {
+              $("#in10").val(data);
+              $("#in02").attr("src", _ctx_ + data);
+            }
+          }
+        });
+      } else {
+        $.messager.alert("提示", "上传的照片类型应当为jpg/bmp/png/gif！", "error");
+      }
+    } catch (e) {
+    }
+  }
+
+};
+
+$(function() {
+  PageCircleModule.init();
+  PageMain.funCloseProgressInfo();
+});

@@ -231,6 +231,13 @@ public class AIndexController extends BaseController
 	    return "/admin/dictinfo/manage_sportItem_info";
 	}
 	
+	@RequestMapping(value="/circleModule.do")
+	public String toCircleModule()
+	{
+	    System.out.println("toCircleModule.do");
+	    return "/admin/dictinfo/manage_circleModule_info";
+	}
+	
 	@RequestMapping(value="/queryFeedback.do")
 	public String toQueryFeedback()
 	{

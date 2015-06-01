@@ -65,6 +65,8 @@
 						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/sportType.do','字典管理>> 运动类型管理');  $('#420000').click()">运动类型管理</div>
 						<div class="menu-sep"></div>
 						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/sportItem.do','字典管理>> 运动项目管理');  $('#420000').click()"> 运动项目管理</div>
+						<div class="menu-sep"></div>
+						<div data-options="iconCls:'icon-26'" onclick="PageMain.funAddPanel('/a/circleModule.do','字典管理>> 快乐驿站版块管理');  $('#420000').click()"> 快乐驿站版块管理</div>
 					</div>
 				</div>
 				

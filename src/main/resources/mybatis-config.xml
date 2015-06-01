@@ -39,6 +39,7 @@
 		<typeAlias alias="healthReportModel" type="com.gesoft.model.HealthReportModel" />
 		<typeAlias alias="medicineModel" type="com.gesoft.model.MedicineModel" />
 		<typeAlias alias="newsModel" type="com.gesoft.model.NewsModel" />
+		<typeAlias alias="circleModuleModel" type="com.gesoft.model.CircleModuleModel" />
 	</typeAliases>
 	<mappers></mappers>
 </configuration>
