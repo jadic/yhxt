@@ -19,6 +19,16 @@ public class Test
 	{
 		SystemUtils.SOUT(SystemUtils.getCurrentSystemTime("yyyyMMddHHmmssSSS"));
 
+		try
+		{
+			String bString = "sd";
+			int b = Integer.parseInt(bString);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			System.out.println(e.getStackTrace());
+		}
 	}
 
 }

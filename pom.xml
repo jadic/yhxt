@@ -3,7 +3,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.gesoft</groupId>
   <artifactId>yhxt</artifactId>
-  <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
   <name>yhxt Maven Webapp</name>
   <url>http://maven.apache.org</url>
@@ -216,4 +215,5 @@
   <build>
     <finalName>yhxt</finalName>
   </build>
+  <packaging>war</packaging>
 </project>

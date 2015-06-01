@@ -101,7 +101,7 @@ public class ManageDaoInterceptor implements Constants
 					model.setOperParam(model.getOperParam() + ", "+ object.toString());
 				}
 			}
-			saveUserOperLogsInfo(model);
+			//saveUserOperLogsInfo(model);
 		}
 		catch (Exception e)
 		{

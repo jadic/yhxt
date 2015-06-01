@@ -21,6 +21,10 @@ import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
 import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.FoodItemModel;
+import com.gesoft.model.HappyHostLaudModel;
+import com.gesoft.model.HappyHostModel;
+import com.gesoft.model.HappyHostPostModel;
+import com.gesoft.model.HappyHostReplyModel;
 import com.gesoft.model.MealResultModel;
 import com.gesoft.model.MentalStatusModel;
 import com.gesoft.model.NewsModel;
@@ -156,7 +160,7 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
     public int insertBloodPressure(BloodPressureModel model) {
         return getSqlSession().insert(getMybatisSqlMapNamespace() + ".insertBloodPressure", model);
     }
-
+    
     public String getSportItemVersion(QueryModel model) {
         return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".getSportItemVersion", model);
     }
@@ -206,4 +210,189 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
         }
         return -1;
     }
+    
+    /**
+     * 描述信息：加载快乐驿站圈子总数
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+	public long queryHappyHostInfoCnt(QueryModel query)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHappyHostInfoCnt", query);
+	}
+
+    
+    
+    /**
+     * 描述信息：加载快乐驿站圈子 分页
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+	public List<HappyHostModel> queryHappyHostInfo(QueryModel query)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHappyHostInfo", query);
+	}
+
+    
+    /**
+     * 描述信息：加载快乐驿站话题总数
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+	public long queryHappyHostPostInfoCnt(QueryModel query)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHappyHostPostInfoCnt", query);
+	}
+
+    
+    /**
+     * 描述信息：加载快乐驿站话题 分页
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+	public List<HappyHostPostModel> queryHappyHostPostInfo(QueryModel query)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHappyHostPostInfo", query);
+	}
+	 /**
+     * 描述信息：加载快乐驿站话题 分页
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+	public List<HappyHostPostModel> queryHappyHostZrPostInfo(QueryModel query)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHappyHostZrPostInfo", query);
+	}
+    
+    /**
+     * 描述信息：加载快乐驿站回复总数
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+	public List<HappyHostPostModel> queryHappyHostPostInfoById(QueryModel query)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHappyHostPostInfoById", query);
+	}
+
+    
+    /**
+     * 描述信息：加载快乐驿站回复 分页
+     * 创建时间：2015年5月27日 上午6:48:22
+     * @author WCL (ln_admin@yeah.net)
+     * @param query
+     * @return
+     */
+	public List<HappyHostReplyModel> queryHappyHostReplyInfo(QueryModel query)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHappyHostReplyInfo", query);
+	}
+
+	/**
+	 * 描述信息：修改圈子 里的话题数
+	 * 创建时间：2015年5月28日 上午11:59:51
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 */
+	public void modifyHappyHost(HappyHostPostModel model)
+	{
+		getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyHappyHost", model);
+	}
+
+	
+	/**
+	 * 描述信息：增加话题
+	 * 创建时间：2015年5月28日 下午12:00:43
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addHappyHostPostInfo(HappyHostPostModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addHappyHostPostInfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：修改话题表中的点赞
+	 * 创建时间：2015年5月28日 下午2:26:01
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 */
+	public int modifyHappyHostPostLaudInfo(HappyHostLaudModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyHappyHostPostLaudInfo", model);
+	}
+
+	/**
+	 * 描述信息：增加点赞记录
+	 * 创建时间：2015年5月28日 下午2:26:19
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addHappyHostLaudIinfo(HappyHostLaudModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addHappyHostLaudIinfo", model);
+	}
+
+	
+	/**
+	 * 描述信息：删除点赞记录
+	 * 创建时间：2015年5月28日 下午2:26:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int delHappyHostLaudIinfo(HappyHostLaudModel model)
+	{
+		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delHappyHostLaudIinfo", model);
+	}
+	
+	/**
+     * 描述信息：增加回复记录
+     * 创建时间：2015年5月28日 下午2:36:39
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @return
+     */
+    public int addHappyHostReplyInfo(HappyHostReplyModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addHappyHostReplyInfo", model);
+	}
+    
+    /**
+     * 描述信息：加载增加记录
+     * 创建时间：2015年5月28日 下午5:36:50
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @return
+     */
+	public List<HappyHostReplyModel> queryHappyHostReplyInfoById(HappyHostReplyModel model)
+	{
+		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHappyHostReplyInfoById", model);
+	}
+
+	
+	/**
+	 * 描述信息：增加回复数
+	 * 创建时间：2015年5月28日 下午6:09:32
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 */
+	public int modifyHappyHostPostReplyInfo(HappyHostReplyModel model)
+	{
+		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyHappyHostPostReplyInfo", model);
+	}
 }

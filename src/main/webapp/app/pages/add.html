@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Listview - jQuery Mobile Demos</title>
+	<link rel="stylesheet" href="/yhxt/app/jquerymobile/jquery.mobile-1.4.5.min.css">
+	<script src="/yhxt/app/jquerymobile/jquery.min.js"></script>
+	<script src="/yhxt/app/jquerymobile/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			
+			$("#textarea").css("height", 150);
+		});
+	</script>
+</head>
+<body>
+
+<div data-role="page" class="jqm-demos" data-add-back-btn="true">
+	<div data-role="header" style="border-bottom-width:1px; background: #fff;">
+		<a style="float: left;" data-ajax="false" href="javascript:history.back(-1)" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all"></a>
+		<h1 style="font-weight: normal; font-size: 16px;">发表话题</h1>
+		<a style="float: right; background: #fff; color: #7fdf53">提交</a>
+	</div>
+	<div role="main"  class="ui-content jqm-content" style="overflow: auto; background: #f9f9f9;" >
+		<input type="text" name="text-basic" id="text-basic" value="">
+				
+		<textarea name="textarea" id="textarea"></textarea>		
+	</div>		
+</div>
+
+</body>
+</html>
