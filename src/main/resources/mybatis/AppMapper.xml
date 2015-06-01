@@ -347,21 +347,6 @@
 	    VALUES (#{userId}, #{dbp}, #{sbp}, #{pulse}, #{takeTime})
 	  ]]>
 	</insert>	
-
-	<select id="AppMapper.queryBloodPressureId" parameterType="bloodPressureModel" resultType="long">
-      <![CDATA[
-        select count(1)
-        from tab_blood_pressure a
-        where a.userId=#{userId} and a.takeTime=#{takeTime}
-      ]]>	
-	</select>
-	
-	<insert id="AppMapper.insertBloodPressure" useGeneratedKeys="true" keyProperty="id">
-	  <![CDATA[
-	    INSERT INTO tab_blood_pressure(userId, highBloodPressure, lowBloodPressure, pulse, takeTime) 
-	    VALUES (#{userId}, #{dbp}, #{sbp}, #{pulse}, #{takeTime})
-	  ]]>
-	</insert>	
 	
     <select id="AppMapper.getSportItemVersion"   parameterType="queryModel"  resultType="string">
       <![CDATA[
@@ -389,7 +374,7 @@
     
     <select id="AppMapper.getSportItems"   parameterType="queryModel"  resultMap="mSportItemMap">
       <![CDATA[
-        select a.id, a.sportName, a.caloriePerMinute, a.sportIcon, a.sportType, b.name, b.icon as sportTypeIcon
+        select a.id, a.sportName, a.caloriePerMinute, a.sportIcon, a.sportType, b.name as sportTypeName, b.icon as sportTypeIcon
         from tab_dict_sport_item a
         inner join tab_dict_sport_type b on b.id=a.sportType
         order by a.id

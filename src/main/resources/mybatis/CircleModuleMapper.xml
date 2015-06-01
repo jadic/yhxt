@@ -4,15 +4,15 @@
 	
 	<resultMap id="mRetCircleModuleMap"       type="circleModuleModel">
 		<result property="id"  			  column="id"/>
-		<result property="name"  		  column="name"/>
+		<result property="name"  		  column="title"/>
 		<result property="content"        column="content"/>
-		<result property="icon"  		  column="icon"/>
+		<result property="icon"  		  column="url"/>
 	</resultMap>
 	
 	<!-- 插入用户-->
 	<insert id="CircleModuleMapper.insert" useGeneratedKeys="true" keyProperty="id">
 	    <![CDATA[
-	        INSERT INTO tab_dict_circle_module (name, content, icon) 
+	        INSERT INTO tab_dict_happy_host (title, content, url) 
 	        VALUES (#{name}, #{content}, #{icon})
 	    ]]>
 	</insert>
@@ -22,7 +22,7 @@
 	<select id="CircleModuleMapper.count" parameterType="circleModuleModel" resultType="long">
 		<![CDATA[
 			SELECT COUNT(1) AS CNT
-			FROM tab_dict_circle_module 
+			FROM tab_dict_happy_host 
 		]]>
       <where>
         <if test="name != null and name != ''">
@@ -35,7 +35,7 @@
 	<select id="CircleModuleMapper.list" parameterType="circleModuleModel" resultMap="mRetCircleModuleMap">
 		<![CDATA[
 			SELECT *
-			FROM tab_dict_circle_module
+			FROM tab_dict_happy_host
 		]]>
         <where>
           <if test="name != null and name != ''">
@@ -51,10 +51,10 @@
 	<!-- 修改-->
 	<update id="CircleModuleMapper.update" parameterType="circleModuleModel">
 		<![CDATA[
-			UPDATE tab_dict_circle_module  SET  
-			name = #{name},
+			UPDATE tab_dict_happy_host  SET  
+			title = #{name},
             content = #{content}, 
-            icon = #{icon}
+            url = #{icon}
 			WHERE id = #{id} 
 		]]>
 	</update>
@@ -62,7 +62,7 @@
 	<!-- 删除-->
 	<delete id="CircleModuleMapper.delete">
 		<![CDATA[
-			DELETE FROM tab_dict_circle_module 
+			DELETE FROM tab_dict_happy_host 
 			WHERE id = #{id} 
 		]]>
 	</delete>
