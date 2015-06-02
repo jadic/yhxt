@@ -10,18 +10,166 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>快乐驿站 </title>
-    <link rel="stylesheet" href="<c:url value='/app/jquerymobile/jquery.mobile-1.4.5.min.css'/>">
+    	<style type="text/css" media="all">
+	
+	/*需要修改的jquery mobile样式  */
+	.ui-table-columntoggle-btn {display:none;}
+	
+	#list{
+	}
+	
+	/**
+	 *
+	 * 下拉样式 Pull down styles
+	 *
+	 */
+	#pullDown, #pullUp {
+		background:#fff;
+		height:40px;
+		line-height:40px;
+		padding:35px 10px;
+		border-bottom:1px solid #ccc;
+		font-weight:bold;
+		font-size:14px;
+		color:#888;
+	}
+	#pullDown .pullDownIcon, #pullUp .pullUpIcon  {
+		display:block;
+		width:40px; height:40px;
+		background:url(pull-icon@2x.png) 0 0 no-repeat;
+		-webkit-background-size:40px 80px; background-size:40px 80px;
+		-webkit-transition-property:-webkit-transform;
+		-webkit-transition-duration:250ms;	
+	}
+	.pullDownIcon, .pullUpIcon  {
+		display:block; float: left;
+	}
+	#pullDown .pullDownIcon {
+		-webkit-transform:rotate(0deg) translateZ(0);
+	}
+	#pullUp .pullUpIcon  {
+		-webkit-transform:rotate(-180deg) translateZ(0);
+	}
+	
+	#pullDown.flip .pullDownIcon {
+		-webkit-transform:rotate(-180deg) translateZ(0);
+	}
+	
+	#pullUp.flip .pullUpIcon {
+		-webkit-transform:rotate(0deg) translateZ(0);
+	}
+	
+	#pullDown.loading .pullDownIcon, #pullUp.loading .pullUpIcon {
+		background-position:0 100%;
+		-webkit-transform:rotate(0deg) translateZ(0);
+		-webkit-transition-duration:0ms;
+	
+		-webkit-animation-name:loading;
+		-webkit-animation-duration:2s;
+		-webkit-animation-iteration-count:infinite;
+		-webkit-animation-timing-function:linear;
+	}
+	
+	@-webkit-keyframes loading {
+		from { -webkit-transform:rotate(0deg) translateZ(0); }
+		to { -webkit-transform:rotate(360deg) translateZ(0); }
+	}
+	#popupMenu {
+    min-width: 200px;
+    opacity: 0.8;
+}
+#open-popupMenu {
+    position: relative;
+    left: 50%;
+    width: 6em;
+    margin-left: -3em;
+    background-color: #ffa0a0;
+    border-color: black;
+}
+	</style>
+	<link rel="stylesheet" href="<c:url value='/app/jquerymobile/jquery.mobile-1.4.5.min.css'/>">
 	<script src="<c:url value='/app/jquerymobile/jquery.min.js'/>"></script>
+	<script src="<c:url value='/app/jquerymobile/iscroll.js'/>"></script>
 	<script src="<c:url value='/app/jquerymobile/jquery.mobile-1.4.5.min.js'/>"></script>
-		<script type="text/javascript">
+	<script type="text/javascript">
+		var myScroll,
+		pullDownEl, pullDownOffset,
+		pullUpEl, pullUpOffset,
+		generatedCount = 0;
+		var offY= 0;
+
+	function pullDownAction () {
+		setTimeout(function () {
+			funLoadInfo();
+		}, 1000);
+	}
+
+
+	/**
+	 * 初始化iScroll控件
+	 */
+	$(function(){
+		pullDownEl = document.getElementById('pullDown');
+		pullUpEl = document.getElementById('pullUp');
+		pullDownOffset = pullDownEl.offsetHeight;
+		pullUpOffset = pullUpEl.offsetHeight;
+		
+		var id='list';
+		var yLen=60;
+		var flag = true;
+		var mY = 0;
+		var hei=document.getElementById(id).maxScrollY;
+		myScroll = new iScroll(id, {
+			useTransition: false,
+			topOffset: pullDownOffset,
+			onRefresh: function () {
+				if (pullDownEl.className.match('loading')) {
+					pullDownEl.className = '';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+				} else if (pullUpEl.className.match('loading')) {
+					pullUpEl.className = '';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+				}
+			},
+			onScrollMove: function () {
+				if(flag)
+				{
+					flag = false;
+					mY = this.y;
+				}	
+				
+				offY = this.y - mY;
+				if (offY >= yLen && !pullDownEl.className.match('flip')) {
+					pullDownEl.className = 'flip';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '松手开始更新...';
+					this.minScrollY = 0;
+				}
+				
+			},
+			onScrollEnd: function () {
+				flag = true;
+				if (pullDownEl.className.match('flip')) {
+					pullDownEl.className = 'loading';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';				
+					pullDownAction();	// Execute custom function (ajax call?)
+				}
+			}
+		});
+		setTimeout(function () { document.getElementById(id).style.left = '0'; }, 800);
+	});
+		
+	
+	var PageData = null;
+	var currentPage = 1;
+	var sumPage = 1;
+	
 		$(function(){
-			
 			$("li a").bind("click", function(){
 				$("li a").css("background", "#fff");
 				$(this).css("background", "#f7fbc5");
 			});
-			$("#main1").css("height", $(window).height() - 190);
-			$("#main1, #head").bind("click", function(){
+			$("#list").css("height", $(window).height() - 190);
+			$("#list, #head").bind("click", function(){
 				funShow(false);
 			})
 			
@@ -43,6 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			      success : function(data) 
 			      {
 			    	  funDealData(data);
+			    	  myScroll.refresh();	
 			    	  //PageShow.funDealZjShow(data, paramId);
 			      }
 			  });
@@ -56,6 +205,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			{
 				var postRow = data.rows[0];
 				funSetLaud(postRow.laud);
+				JBHtId = postRow.id;
 				$("#laudCnt").html(postRow.laudCnt);
 				$("#replyCnt").html(postRow.replyCnt);
 				$("#stime").html(postRow.stime);
@@ -65,6 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$("#postName").html(postRow.userName);
 				$("#postImg").attr("src", "<c:url value='/"+postRow.photo+"'/>");
 				
+				$("#bb").html("");
 				if(data.footer != null && data.footer.length > 0)
 				{
 					funShowReplyInfo(data.footer, true);
@@ -88,7 +239,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								'</td>' +
 								'<td align="left">' +
 									'<span style="float: left; color: #95b200; font-size: 14px;">'+row.userName+'</span>' +
-									'<img src="<c:url value="/app/self/images/diandiandian.png"/>" style="width: 50px; height: 25px; float: right; cursor: pointer;"></td>' +
+									'<img src="<c:url value="/app/self/images/diandiandian.png"/>" onclick="funpopup(2, '+row.id+')" style="width: 50px; height: 25px; float: right; cursor: pointer;"></td>' +
 								'</td>' +
 							'</tr>' +
 							'<tr>' +
@@ -221,6 +372,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$.mobile.loading( "hide" );
 				}
 			}
+		
+		
+		var JBOperType = 1;
+		var JBOperId = 1;
+		var JBHtId = 1;
+		function funpopup(type, id)
+		{
+			JBOperType = type;
+			JBOperId = id;
+			if(type == 1)
+			{
+				JBOperId = JBHtId;
+			}	
+			JBType = 1;
+			$("#jb2").css("color","#000");
+			$("#jb1").css("color","#95b200");
+			$("#popupMenu").popup("open");
+		}
+		
+		function funSaveJbInfo()
+		{
+			$.ajax({
+			      url : "<c:url value='/app/addHappyHostReport.do'/>?a=" + Math.random(),
+			      type : 'post',
+			      dataType : 'json',
+			      data : {
+			    	  tableId : JBOperId,
+			    	  tableType : JBOperType,
+			    	  userId : "${param.userId}",
+			    	  reportFlag : JBType
+			      },
+			      error : function(data) {
+			      },
+			      success : function(data) 
+			      {
+			    	  PageLoad.funAlert(data.msg)
+			    	  if(data.success)
+			    	  {
+			    		  $("#popupMenu").popup("close");
+			    	  }
+			      }
+			  });
+			
+		}
+		
+		var JBType = 1;
+		function funClickJb(type, obj)
+		{
+			$("#jb1, #jb2").css("color","#000");
+			$(obj).css("color","#95b200");
+			JBType = type;
+		}
 	</script>
 </head>
 <body style="overflow: hidden; background-color: #fff;">
@@ -240,9 +443,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	</div>
 	
-	
-	<div id="main1" role="main"  class="ui-content jqm-content" style="overflow: auto; margin-top: 1px; background: #fff;" >
-			<ul data-role="listview" id="aa">
+	<div  id="list" role="main"  class="ui-content jqm-content" style="overflow: auto; margin-top: 1px; background: #fff;" >
+		<div id="shishi" name="shishi">
+			<div id="pullDown"><span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span></div>
+				<ul data-role="listview" id="aa">
 				<li>
 					<table style="width: 100%;" cellspacing="0" cellpadding="0" >
 						<tr>
@@ -251,7 +455,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</td>
 							<td align="left">
 								<span style="float: left; color: #95b200; font-size: 16px;" id="postName"></span>
-								<img src="<c:url value="/app/self/images/diandiandian.png"/>" style="width: 50px; height: 25px; float: right; cursor: pointer;"></td>
+								<img src="<c:url value="/app/self/images/diandiandian.png"/>" onclick="funpopup(1, 0)"style="width: 50px; height: 25px; float: right; cursor: pointer;"></td>
 							</td>
 						</tr>
 						<tr>
@@ -278,9 +482,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<ul data-role="listview" id="bb">
 				
 			</ul>
+		   <div id="pullUp" style="display: none;"><span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span></div>
+		   
+			<div data-role="popup" id="popupMenu" data-theme="a">
+				<div style="background: #95b200;   text-shadow:0 0 0 #fff; line-height: 40px; display:block; font-size: 14px; width: 300px; text-align: center; color:#fff; cursor: pointer; border-bottom: 1px #e5e5e5 solid;">
+					举报理由
+				</div>
+				<div id="jb1" onclick="funClickJb(1, this)" style="background: #fff; line-height: 40px; display:block; font-size: 14px; width: 300px; text-align: center; color:#95b200; cursor: pointer; border-bottom: 1px #e5e5e5 solid;">
+					违法等不良信息
+				</div>
+				<div id="jb2" onclick="funClickJb(2, this)" style="background: #fff; line-height: 40px; font-size: 14px; width: 300px; text-align: center; color: #000; cursor: pointer;  border-bottom: 1px #e5e5e5 solid;">
+					垃圾广告等内容
+				</div>
+				<div style="background: #fff; line-height: 40px; font-size: 14px; width: 300px; text-align: center; color: #000; cursor: pointer;  border-bottom: 1px #e5e5e5 solid;">
+					<table  style="width: 100%;" cellspacing="0" cellpadding="0">
+						<tr>
+							<td style="border-right: 1px #e5e5e5 solid; cursor: pointer;" align="center" onclick="$('#popupMenu').popup('close');">取消</td>
+							<td style="cursor: pointer;" align="center" onclick="funSaveJbInfo()">确定</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>  	
 	</div>	
 	
-	<div data-role="footer" style="height: 100px; background: #f9f9f9; padding-left: 10px; ">
+	<div data-role="footer" style="height: 100px; background: #f9f9f9; padding-left: 10px;">
 		<table style="width: 100%; height: 100%;" id="btnbar" cellspacing="0" cellpadding="0">
 			<tr>
 				<td style="width: 30px;"></td>
@@ -320,7 +546,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>	
 </div>
-
 </body>
 </html>
 

@@ -10,25 +10,225 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>快乐驿站 </title>
-    <link rel="stylesheet" href="<c:url value='/app/jquerymobile/jquery.mobile-1.4.5.min.css'/>">
+    <style type="text/css" media="all">
+	
+	/*需要修改的jquery mobile样式  */
+	.ui-table-columntoggle-btn {display:none;}
+	
+	#list{
+		position:absolute;
+		top:108px;
+		bottom:1px;
+		width:100%;
+	}
+	
+	/**
+	 *
+	 * 下拉样式 Pull down styles
+	 *
+	 */
+	#pullDown, #pullUp {
+		background:#fff;
+		height:40px;
+		line-height:40px;
+		padding:5px 10px;
+		border-bottom:1px solid #ccc;
+		font-weight:bold;
+		font-size:14px;
+		color:#888;
+	}
+	#pullDown .pullDownIcon, #pullUp .pullUpIcon  {
+		display:block; float:left;
+		width:40px; height:40px;
+		background:url(pull-icon@2x.png) 0 0 no-repeat;
+		-webkit-background-size:40px 80px; background-size:40px 80px;
+		-webkit-transition-property:-webkit-transform;
+		-webkit-transition-duration:250ms;	
+	}
+	#pullDown .pullDownIcon {
+		-webkit-transform:rotate(0deg) translateZ(0);
+	}
+	#pullUp .pullUpIcon  {
+		-webkit-transform:rotate(-180deg) translateZ(0);
+	}
+	
+	#pullDown.flip .pullDownIcon {
+		-webkit-transform:rotate(-180deg) translateZ(0);
+	}
+	
+	#pullUp.flip .pullUpIcon {
+		-webkit-transform:rotate(0deg) translateZ(0);
+	}
+	
+	#pullDown.loading .pullDownIcon, #pullUp.loading .pullUpIcon {
+		background-position:0 100%;
+		-webkit-transform:rotate(0deg) translateZ(0);
+		-webkit-transition-duration:0ms;
+	
+		-webkit-animation-name:loading;
+		-webkit-animation-duration:2s;
+		-webkit-animation-iteration-count:infinite;
+		-webkit-animation-timing-function:linear;
+	}
+	
+	@-webkit-keyframes loading {
+		from { -webkit-transform:rotate(0deg) translateZ(0); }
+		to { -webkit-transform:rotate(360deg) translateZ(0); }
+	}
+	
+	</style>
+	<link rel="stylesheet" href="<c:url value='/app/jquerymobile/jquery.mobile-1.4.5.min.css'/>">
 	<script src="<c:url value='/app/jquerymobile/jquery.min.js'/>"></script>
+	<script src="<c:url value='/app/jquerymobile/iscroll.js'/>"></script>
 	<script src="<c:url value='/app/jquerymobile/jquery.mobile-1.4.5.min.js'/>"></script>
-		<script type="text/javascript">
+	<script type="text/javascript">
+	
+	var myScroll,
+	pullDownEl, pullDownOffset,
+	pullUpEl, pullUpOffset,
+	generatedCount = 0;
+	var offY= 0;
+
+	/**
+	 * 下拉刷新 （自定义实现此方法）
+	 * myScroll.refresh();		// 数据加载完成后，调用界面更新方法
+	 */
+	function pullDownAction () {
+		setTimeout(function () {
+			console.log("下拉刷新...");
+			if(isLeft)
+			{
+				PageShow.funSearch("<c:url value='/app/happyHostPost.do'/>", {
+			    	"happyHostId" : "${param.id}",  
+			        "page" : 1,
+			        "rows" : 10
+			      }, "#aa");
+			}
+			else
+			{
+				PageShow.funSearch("<c:url value='/app/happyHostZrPost.do'/>", {
+			    	"happyHostId" : "${param.id}",  
+			        "page" : 1,
+			        "rows" : 10
+			      }, "#bb");
+			}	
+		}, 1000);
+	}
+
+	/**
+	 * 滚动翻页 （自定义实现此方法）
+	 * myScroll.refresh();		// 数据加载完成后，调用界面更新方法
+	 */
+	function pullUpAction () {
+		setTimeout(function () {	
+			console.log("上拉加载...");
+			$("#pullUp").hide();
+			if(isLeft)
+			{
+				PageShow.funSearch("<c:url value='/app/happyHostPost.do'/>", {
+			    	"happyHostId" : "${param.id}",  
+			        "page" : leftPage + 1,
+			        "rows" : 10
+			      }, "#aa");
+			}
+			else
+			{
+				PageShow.funSearch("<c:url value='/app/happyHostZrPost.do'/>", {
+			    	"happyHostId" : "${param.id}",  
+			        "page" : rightPage + 1,
+			        "rows" : 10
+			      }, "#bb");
+			}	
+		}, 1000);	//
+	}
+
+	/**
+	 * 初始化iScroll控件
+	 */
+	$(function(){
+		pullDownEl = document.getElementById('pullDown');
+		pullUpEl = document.getElementById('pullUp');
+		pullDownOffset = pullDownEl.offsetHeight;
+		pullUpOffset = pullUpEl.offsetHeight;
+		
+		var id='list';
+		var yLen=60;
+		var flag = true;
+		var mY = 0;
+		var hei=document.getElementById(id).maxScrollY;
+		myScroll = new iScroll(id, {
+			useTransition: false,
+			topOffset: pullDownOffset,
+			onRefresh: function () {
+				if (pullDownEl.className.match('loading')) {
+					pullDownEl.className = '';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+				} else if (pullUpEl.className.match('loading')) {
+					pullUpEl.className = '';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+				}
+			},
+			onScrollMove: function () {
+				if(flag)
+				{
+					flag = false;
+					mY = this.y;
+				}	
+				
+				offY = this.y - mY;
+				if (offY >= yLen && !pullDownEl.className.match('flip')) {
+					pullDownEl.className = 'flip';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '松手开始更新...';
+					this.minScrollY = 0;
+				}
+				else if ( offY < (0-yLen) && !pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'flip';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
+					this.maxScrollY = this.maxScrollY;
+				}else if(offY < 0)
+				{
+					$("#pullUp").show();
+				}	
+			},
+			onScrollEnd: function () {
+				flag = true;
+				if (pullDownEl.className.match('flip')) {
+					pullDownEl.className = 'loading';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';				
+					pullDownAction();	// Execute custom function (ajax call?)
+				}
+				 else if (pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'loading';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';	
+					pullUpAction();	// Execute custom function (ajax call?)
+				}
+				
+			}
+		});
+		
+		setTimeout(function () { document.getElementById(id).style.left = '0'; }, 800);
+	});
+
 		var PageZjData = null;
+		var isLeft = true;
+		var leftPage = 1;
+		var leftSumPage = 1;
+		var rightPage = 1;
+		var rightSumPage = 1;
 		$(function(){
 			//$("#aa, #bb").css("width", $("#cc").width())
 			$("li a").bind("click", function(){
 				$("li a").css("background", "#fff");
 				$(this).css("background", "#f7fbc5");
 			});
-			$("#main1").css("height", $(window).height() - 120);
+			$("#list").css("height", $(window).height() - 120);
 			$("body").on("swipeleft",function(){
-				
 				$("#aa").animate({"left":-$("#aa").width() - 5}, function(){
 					$("#show1").css({"border-bottom":"3px solid #e7e7e7", "color":"#000"});
 					$("#show2").css({"border-bottom":"3px solid #95b200", "color":"#95b200"});
 				});
 				$("#bb").animate({"left":0});
+				isLeft = false;
 			});
 			$("body").on("swiperight",function(){
 				$("#aa").animate({"left":0}, function(){
@@ -36,18 +236,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$("#show1").css({"border-bottom":"3px solid #95b200", "color":"#95b200"});
 				});
 				$("#bb").animate({"left":$("#aa").width() + 5});
+				isLeft = true;
 			});
 			
 			PageShow.funSearch("<c:url value='/app/happyHostPost.do'/>", {
 		    	"happyHostId" : "${param.id}",  
 		        "page" : 1,
-		        "row" : 10
+		        "rows" : 10
 		      }, "#aa");
 			
 			PageShow.funSearch("<c:url value='/app/happyHostZrPost.do'/>", {
 		    	"happyHostId" : "${param.id}",  
 		        "page" : 1,
-		        "row" : 10
+		        "rows" : 10
 		      }, "#bb");
 			PageShow.funSwipeDiv();
 		})
@@ -57,6 +258,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		{
 			funSearch : function(paramUrl, paramObj, paramId)
 			{
+				if(paramId == "#aa" && paramId.page > leftSumPage)
+				{
+					myScroll.refresh();	
+					return;
+				}	
+				else if(paramId == "#bb" && paramId.page > rightSumPage)
+				{
+					myScroll.refresh();	
+					return;
+				}	
+				
 				$.ajax({
 				      url : paramUrl + "?a=" + Math.random(),
 				      type : 'post',
@@ -66,15 +278,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				      },
 				      success : function(data) 
 				      {
-				    	  PageShow.funDealZjShow(data, paramId);
+				    	  if(paramId == "#aa")
+				    	  {
+				    		  leftPage = paramObj.page;
+				    		  leftSumPage = parseInt((data.total-1)/paramObj.row) + 1;
+				    	  }	 
+				    	  else if (paramId == "#bb") {
+				    		  rightPage = paramObj.page;
+				    		  rightSumPage = parseInt((data.total-1)%paramObj.row) + 1;
+						  }
+				    	  PageShow.funDealZjShow(data, paramId, paramObj.page);
+				    	  myScroll.refresh();	
 				      }
 				  });
 			},
-			funDealZjShow : function(data, paramId)
+			funDealZjShow : function(data, paramId, page)
 			{
 				if(data != null && data.total > 0)
 				{
-					for(var nItem=0; nItem<data.total; nItem++)
+					if(page == 1)
+			    	{
+						$(paramId).html("");
+			    	}
+						
+					for(var nItem=0; nItem<data.rows.length; nItem++)
 					{
 						var row = data.rows[nItem];
 						var tmp = '<li>' +
@@ -94,6 +321,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									'</a>' +
 								'</li>';
 						$(paramId).append(tmp)
+
 					}	
 					$(paramId).listview('refresh');
 				}	
@@ -104,8 +332,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			{
 				try
 				{
-					$("#aa").css({"left":0, "position":"relative", "top":1});
-					$("#bb").css({"left":$("#aa").width(), "position":"relative", "top":17-$("#aa").height()});
+					if(isLeft)
+					{
+						$("#aa").css({"left":0, "position":"relative", "top":1});
+						$("#bb").css({"left":$("#aa").width(), "position":"relative", "top":1-$("#aa").height()});
+					}
 				}
 				catch(e)
 				{
@@ -132,14 +363,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="show1" style="width:50%; background: #f6f6f6; border-bottom:3px solid #95b200; line-height:40px; float: left; text-align: center; font-size: 14px; font-weight: normal; color: #95b200; ">最新</div>
 		<div id="show2" style="width:50%; background: #f6f6f6; border-bottom:3px solid #e7e7e7; line-height:40px; float: left; text-align: center; font-size: 14px; font-weight: normal;">最热</div>
 	</div>
-	<div id="main1" role="main"  class="ui-content jqm-content" style="overflow: auto; background: #fff;" >
-		<ul id="aa" data-role="listview" style="position: relative;">
-			
-		</ul>	
-	
-		<ul id="bb" data-role="listview">
-			
-		</ul>	
+	<div id="list" role="main" class="listDiv"  class="ui-content jqm-content" style="overflow: auto; background: #fff;" >
+		
+		<div id="shishi" name="shishi"  class="listDiv"  >
+			<div id="pullDown"><span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span></div>
+				<ul data-role="listview" id="aa">
+				
+				</ul>
+				<ul id="bb" data-role="listview">
+					
+				</ul>	
+		    <div id="pullUp" style="display: none;"><span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span></div>
+		</div>    	
 	</div>		
 </div>
 </body>

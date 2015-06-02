@@ -30,6 +30,7 @@ import com.gesoft.model.HappyHostLaudModel;
 import com.gesoft.model.HappyHostModel;
 import com.gesoft.model.HappyHostPostModel;
 import com.gesoft.model.HappyHostReplyModel;
+import com.gesoft.model.HappyHostReportModel;
 import com.gesoft.model.MealResultModel;
 import com.gesoft.model.MentalStatusModel;
 import com.gesoft.model.NewsModel;
@@ -422,5 +423,18 @@ public class AppService extends EntityService<BaseModel, Long> {
 	public List<HappyHostReplyModel> queryHappyHostReplyInfoById(HappyHostReplyModel model)
 	{
     	return appDAO.queryHappyHostReplyInfoById(model);
+	}
+
+    
+    /**
+     * 描述信息：增加举报
+     * 创建时间：2015年6月2日 下午3:29:14
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @return
+     */
+	public long addHappyHostReportInfo(HappyHostReportModel model)
+	{
+		return appDAO.addHappyHostReportInfo(model);
 	}
 }

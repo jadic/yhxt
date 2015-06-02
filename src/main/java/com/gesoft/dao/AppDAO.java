@@ -25,6 +25,7 @@ import com.gesoft.model.HappyHostLaudModel;
 import com.gesoft.model.HappyHostModel;
 import com.gesoft.model.HappyHostPostModel;
 import com.gesoft.model.HappyHostReplyModel;
+import com.gesoft.model.HappyHostReportModel;
 import com.gesoft.model.MealResultModel;
 import com.gesoft.model.MentalStatusModel;
 import com.gesoft.model.NewsModel;
@@ -394,5 +395,17 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
 	public int modifyHappyHostPostReplyInfo(HappyHostReplyModel model)
 	{
 		return getSqlSession().update(getMybatisSqlMapNamespace() + ".modifyHappyHostPostReplyInfo", model);
+	}
+
+	/**
+	 * 描述信息：举报
+	 * 创建时间：2015年6月2日 下午3:29:52
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public long addHappyHostReportInfo(HappyHostReportModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addHappyHostReportInfo", model);
 	}
 }

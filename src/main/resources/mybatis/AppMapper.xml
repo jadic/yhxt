@@ -623,4 +623,12 @@
 	  ]]>
 	</insert>
     
+     <!-- 增加举报 -->
+    <insert id="AppMapper.addHappyHostReportInfo" useGeneratedKeys="true" keyProperty="id">
+	  <![CDATA[
+		insert into tab_happy_host_report(tableType, reportFlag, stime, userId, tableId)
+		values (#{tableType}, #{reportFlag}, #{stime}, #{userId}, #{tableId})
+	  ]]>
+	</insert>
+    
 </mapper>

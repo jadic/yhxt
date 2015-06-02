@@ -32,6 +32,7 @@ import com.gesoft.model.HappyHostLaudModel;
 import com.gesoft.model.HappyHostModel;
 import com.gesoft.model.HappyHostPostModel;
 import com.gesoft.model.HappyHostReplyModel;
+import com.gesoft.model.HappyHostReportModel;
 import com.gesoft.model.IdModel;
 import com.gesoft.model.MealResultModel;
 import com.gesoft.model.MentalStatusModel;
@@ -792,6 +793,35 @@ public class AppController extends BaseController {
    		catch (Exception e)
    		{
    			logger.error("AppController addHappyHostReply error：", e);
+   		}
+   		return msgModel;
+   	}
+    
+ 
+    
+    /**
+     * 描述信息：增加举报
+     * 创建时间：2015年5月28日 下午2:35:23
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/addHappyHostReport.do")
+   	public @ResponseBody MsgModel addHappyHostReport(HappyHostReportModel model)
+   	{
+   		MsgModel msgModel = new MsgModel();
+   		try
+   		{
+   			model.setStime(SystemUtils.getCurrentSystemTime());
+   			long nRet = appService.addHappyHostReportInfo(model);
+   			if(nRet>0)
+   			{
+   				msgModel.setSuccess(true);
+   			}
+   		}
+   		catch (Exception e)
+   		{
+   			logger.error("AppController addHappyHostReport error：", e);
    		}
    		return msgModel;
    	}
