@@ -114,7 +114,7 @@ public class AppController extends BaseController {
                 msgModel.setRows(list);
             }
         } catch (Exception e) {
-            logger.error("AppController getUserInfo error:", e);
+            logger.error("AppController queryUserInfoWithUserNamePass error:", e);
         }
         return msgModel;
     }
@@ -219,7 +219,7 @@ public class AppController extends BaseController {
                 }
             }
         } catch (Exception e) {
-            logger.error("AppController queryActivity error：", e);
+            logger.error("AppController queryNews error：", e);
         }
         return msgModel;
     }
@@ -238,7 +238,7 @@ public class AppController extends BaseController {
                 }
             }
         } catch (Exception e) {
-            logger.error("AppController queryActivity error：", e);
+            logger.error("AppController queryDoctorAdvice error：", e);
         }
         return msgModel;
     }
@@ -257,7 +257,7 @@ public class AppController extends BaseController {
                 }
             }
         } catch (Exception e) {
-            logger.error("AppController queryActivity error：", e);
+            logger.error("AppController queryDoctorAdvicePerformance error：", e);
         }
         return msgModel;
     }
@@ -321,16 +321,9 @@ public class AppController extends BaseController {
             if (model.getBloodGlucose2() > 0) {
                 model.setTakeTime2(model.getTakeTime());
             }
-            long bloodGlucoseId = appService.queryBloodGlucoseId(model);
-            if (bloodGlucoseId <= 0) {
-                msgModel.setSuccess(appService.insertBloodGlucose(model) > 0);
-            } else {
-                model.setId(bloodGlucoseId);
-                appService.updateBloodGlucose(model);
-            }
-            msgModel.setSuccess(true);
+            msgModel.setSuccess(appService.insertBloodGlucose(model) > 0);
         } catch (Exception e) {
-            logger.error("AppController uploadEarTemperature error：", e);
+            logger.error("AppController uploadBloodGlucose error：", e);
         }
         return msgModel;
     }
