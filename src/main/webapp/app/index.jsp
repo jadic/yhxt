@@ -258,7 +258,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	<div data-role="page" class="jqm-demos" data-quicklinks="true">
 	<div data-role="header" id="head" style="border-bottom-color: #95b200; border-bottom-width:3px; background: #f6f6f6; height: 64px;">
-		<div style="height: 20px; float: left;" id="ddd"></div>
+		<div style="height: 20px; "></div>
 		<h1 style="color: #929292; font-size: 16px; font-weight: normal;">圈子</h1>
 	</div>
 	<div id="list" role="main" class="listDiv"  class="ui-content jqm-content" style="overflow: auto; margin-top: 1px; background: #fff;" >

@@ -11,11 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,11 +36,13 @@ import com.gesoft.model.HappyHostModel;
 import com.gesoft.model.HappyHostPostModel;
 import com.gesoft.model.HappyHostReplyModel;
 import com.gesoft.model.HappyHostReportModel;
+import com.gesoft.model.HealthReportModel;
 import com.gesoft.model.IdModel;
 import com.gesoft.model.MealResultModel;
 import com.gesoft.model.MentalStatusModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.NewsModel;
+import com.gesoft.model.OutModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
 import com.gesoft.model.ServiceModel;
@@ -818,4 +823,272 @@ public class AppController extends BaseController {
    		}
    		return msgModel;
    	}
+    
+    
+
+	/**
+	 * 描述信息：健康报告
+	 * 创建时间：2015年5月4日 下午3:32:37
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/healthBg.do")
+	public ModelAndView toHealthBg(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/app/manage_health_bg_info");	
+		try
+		{
+			if (model.getStatType() == 1)
+			{
+				result = new ModelAndView("/app/manage_health_bg_info");
+				toHealthRepeatDay(model, result);
+			}
+			else if(model.getStatType() == 2)
+			{
+				result = new ModelAndView("/app/manage_health_week_bg_info");
+				toHealthRepeatMonth(model, result);
+			}
+			else if(model.getStatType() == 3)
+			{
+				result = new ModelAndView("/app/manage_health_month_bg_info");
+				toHealthRepeatMonth(model, result);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toHealthBg error：", e);
+		}
+		return result;
+	}
+	
+
+	/**
+	 * 描述信息：日健康报告
+	 * 创建时间：2015年5月5日 下午3:46:43
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param result
+	 */
+	private void toHealthRepeatDay(QueryModel model, ModelAndView result)
+	{
+		if (model.getStartTime() == null || model.getStartTime().trim().length() == 0)
+		{
+			model.setStartTime(SystemUtils.getCurrentSystemTime("yyyy-MM-dd"));
+		}
+		result.addObject("query", model);
+		
+		
+		// 加载用户信息
+		UserModel mUserModel = pQueryService.queryHealthUserInfo(model);
+		if (mUserModel != null)
+		{
+			result.addObject("healthUser", mUserModel);
+		}
+		
+		
+		// 加载运动
+		List<OutModel> sportFlys = pQueryService.queryHealthSportInfo(model);
+		if (sportFlys != null && sportFlys.size() > 0)
+		{
+			result.addObject("sportFlys", sportFlys);
+		}
+		
+
+		// 加载饮食
+		List<OutModel> foodFlys = pQueryService.queryHealthFoodInfo(model);
+		if (foodFlys != null && foodFlys.size() > 0)
+		{
+			result.addObject("foodFlys", foodFlys);
+		}
+
+		// 加载饮食
+		OutModel foodModel = pQueryService.queryHealthFoodSumInfo(model);
+		if (foodModel != null)
+		{
+			result.addObject("foodModel", foodModel);
+		}
+		
+
+		// 加载心理状态
+		List<OutModel> mentalFlys = pQueryService.queryHealthMentalInfo(model);
+		if (mentalFlys != null && mentalFlys.size() > 0)
+		{
+			result.addObject("mentalFlys", mentalFlys);
+		}
+
+
+		// 加载血压
+		List<OutModel> pressureFlys = pQueryService.queryHealthPressureInfo(model);
+		if (pressureFlys != null && pressureFlys.size() > 0)
+		{
+			result.addObject("pressureFlys", pressureFlys);
+		}
+		
+		OutModel xyModel = pQueryService.queryHealthPressureOfOneInfo(model);
+		if (xyModel != null)
+		{
+			result.addObject("xyModel", xyModel);
+		}
+		
+
+		// 加载心率
+		List<OutModel> pulseFlys = pQueryService.queryHealthPulseInfo(model);
+		if (pulseFlys != null && pulseFlys.size() > 0)
+		{
+			result.addObject("pulseFlys", pulseFlys);
+		}
+		
+		
+		// 加载血糖
+		List<OutModel> glucoseFlys = pQueryService.queryHealthGlucoseInfo(model);
+		if (glucoseFlys != null && glucoseFlys.size() > 0)
+		{
+			result.addObject("glucoseFlys", glucoseFlys);
+			result.addObject("xtModel", glucoseFlys.get(glucoseFlys.size() - 1));
+		}
+
+
+		// 加载体温
+		List<OutModel> thermometerFlys = pQueryService.queryHealthThermometerInfo(model);
+		if (thermometerFlys != null && thermometerFlys.size() > 0)
+		{
+			result.addObject("thermometerFlys", thermometerFlys);
+		}
+		
+		//加载一条体温
+		OutModel mTwModel = pQueryService.queryHealthThermometerOfOneInfo(model);
+		if (mTwModel != null)
+		{
+			result.addObject("twmodel", mTwModel);
+		}
+		
+		// 用药记录
+		List<OutModel> medicineFlys = pQueryService.queryHealthMedicineInfo(model);
+		if (medicineFlys != null && medicineFlys.size() > 0)
+		{
+			result.addObject("medicineFlys", medicineFlys);
+		}
+	}
+	
+	
+	/**
+	 * 描述信息：月健康报告
+	 * 创建时间：2015年5月5日 下午3:48:32
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param result
+	 */
+	private void toHealthRepeatMonth(QueryModel model, ModelAndView result)
+	{
+		if (model.getStartTime() == null || model.getStartTime().trim().length() == 0)
+		{
+			model.setStartTime(SystemUtils.getCurrentSystemTime("yyyy-MM"));
+		}
+		result.addObject("query", model);
+		
+		
+		// 加载用户信息
+		UserModel mUserModel = pQueryService.queryHealthUserInfo(model);
+		if (mUserModel != null)
+		{
+			result.addObject("healthUser", mUserModel);
+		}
+		
+		
+		// 加载运动
+		List<OutModel> sportFlys = pQueryService.queryHealthSportMonthInfo(model);
+		if (sportFlys != null && sportFlys.size() > 0)
+		{
+			result.addObject("sportFlys", sportFlys);
+		}
+		
+		OutModel sportObj = pQueryService.queryHealthSportMonthFxInfo(model);
+		if (sportObj != null)
+		{
+			result.addObject("sportObj", sportObj);
+		}
+		
+		// 加载饮食
+		List<OutModel> foodFlys = pQueryService.queryHealthFoodMonthInfo(model);
+		if (foodFlys != null && foodFlys.size() > 0)
+		{
+			result.addObject("foodFlys", foodFlys);
+		}
+	
+		
+		
+		// 加载心理状态
+		OutModel mentalObj = pQueryService.queryHealthMentalMonthInfo(model);
+		if (mentalObj != null)
+		{
+			result.addObject("mentalObj", mentalObj);
+		}
+		
+		
+		// 加载血压
+		List<OutModel> pressureFlys = pQueryService.queryHealthPressureMonthInfo(model);
+		if (pressureFlys != null && pressureFlys.size() > 0)
+		{
+			result.addObject("pressureFlys", pressureFlys);
+		}
+		
+		
+		// 加载心率
+		List<OutModel> pulseFlys = pQueryService.queryHealthPulseMonthInfo(model);
+		if (pulseFlys != null && pulseFlys.size() > 0)
+		{
+			result.addObject("pulseFlys", pulseFlys);
+		}
+		
+		
+		// 加载血糖
+		List<OutModel> glucoseFlys = pQueryService.queryHealthGlucoseMonthInfo(model);
+		if (glucoseFlys != null && glucoseFlys.size() > 0)
+		{
+			result.addObject("glucoseFlys", glucoseFlys);
+		}
+		
+		
+		// 加载体温
+		List<OutModel> thermometerFlys = pQueryService.queryHealthThermometerMonthInfo(model);
+		if (thermometerFlys != null && thermometerFlys.size() > 0)
+		{
+			result.addObject("thermometerFlys", thermometerFlys);
+		}
+		
+		// 用药记录
+		List<OutModel> medicineFlys = pQueryService.queryHealthMedicineMonthInfo(model);
+		if (medicineFlys != null && medicineFlys.size() > 0)
+		{
+			result.addObject("medicineFlys", medicineFlys);
+		}
+	}
+	
+	/**
+	 * 描述信息：加载健康报告
+	 * 创建时间：2015年5月5日 下午1:34:41
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/healthReport.do", method=RequestMethod.POST)
+	public @ResponseBody HealthReportModel toHealthReport(HealthReportModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		HealthReportModel mHealthReportModel = null;
+		try
+		{
+			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			mHealthReportModel = pQueryService.queryHealthReportInfo(model);
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toHealthReport error：", e);
+		}
+		return mHealthReportModel;
+	}
 }

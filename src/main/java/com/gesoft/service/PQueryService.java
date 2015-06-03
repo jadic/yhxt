@@ -8,6 +8,8 @@
 package com.gesoft.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -1115,6 +1117,19 @@ public class PQueryService extends EntityService<BaseModel, Long>
 		return pQueryDAO.queryHealthPressureInfo(model);
 	}
 	
+	/**
+	 * 描述信息：测量血压 单条
+	 * 创建时间：2015年5月4日 下午10:26:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public OutModel queryHealthPressureOfOneInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthPressureOfOneInfo(model);
+	}
+	
 
 	/**
 	 * 描述信息：测量心率
@@ -1164,7 +1179,14 @@ public class PQueryService extends EntityService<BaseModel, Long>
 					argArgs.add(mOutModel);
 				}
 			}
+			
+			Collections.sort(argArgs, new Comparator<OutModel>() {
+	            public int compare(OutModel arg0, OutModel arg1) {
+	                return arg0.getA().compareTo(arg1.getA());
+	            }
+	        });
 		}
+		
 		return argArgs;
 	}
 	
@@ -1181,6 +1203,12 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	public List<OutModel> queryHealthThermometerInfo(QueryModel model)
 	{
 		return pQueryDAO.queryHealthThermometerInfo(model);
+	}
+	
+	@Transactional(readOnly=true)
+	public OutModel queryHealthThermometerOfOneInfo(QueryModel model)
+	{
+		return pQueryDAO.queryHealthThermometerOfOneInfo(model);
 	}
 	
 	/**

@@ -28,7 +28,6 @@ import com.gesoft.model.BloodModel;
 import com.gesoft.model.CommentModel;
 import com.gesoft.model.DeviceModel;
 import com.gesoft.model.DiseaseHisModel;
-import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorModel;
 import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.GeneticDiseaseModel;
@@ -1817,6 +1816,12 @@ public class PQueryController extends BaseController
 			result.addObject("pressureFlys", pressureFlys);
 		}
 		
+		OutModel xyModel = pQueryService.queryHealthPressureOfOneInfo(model);
+		if (xyModel != null)
+		{
+			result.addObject("xyModel", xyModel);
+		}
+		
 
 		// 加载心率
 		List<OutModel> pulseFlys = pQueryService.queryHealthPulseInfo(model);
@@ -1831,6 +1836,7 @@ public class PQueryController extends BaseController
 		if (glucoseFlys != null && glucoseFlys.size() > 0)
 		{
 			result.addObject("glucoseFlys", glucoseFlys);
+			result.addObject("xtModel", glucoseFlys.get(glucoseFlys.size() - 1));
 		}
 
 
@@ -1839,6 +1845,13 @@ public class PQueryController extends BaseController
 		if (thermometerFlys != null && thermometerFlys.size() > 0)
 		{
 			result.addObject("thermometerFlys", thermometerFlys);
+		}
+		
+		//加载一条体温
+		OutModel mTwModel = pQueryService.queryHealthThermometerOfOneInfo(model);
+		if (mTwModel != null)
+		{
+			result.addObject("twmodel", mTwModel);
 		}
 		
 		// 用药记录

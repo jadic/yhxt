@@ -1,28 +1,25 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/patient/common/taglibs-include.jsp" %>
+<%@ include file="/WEB-INF/app/taglibs-include.jsp" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <base href="<%=basePath%>">
-    <title>自已人健康服务中心 </title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0"> 
-	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
-	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>健康日报</title>
 	<style>
-		.tableTd{border: solid #000; border-width: 0px 1px 1px 0px; width: 120px; font-size: 14px; line-height: 30px; height: 30px;}
-		.input_informationModify{width:150px; height:25px; border:1px solid #aeaeae; padding-left:10px; font:13px/26px "微软雅黑"; color:#5a5a5a; }
-		.selectMax_informationModify{width:150px; height:25px; border:1px solid #aeaeae; font:13px/26px "微软雅黑"; color:#5a5a5a; }
+		.tableTd{border: solid #000; border-width: 0px 1px 1px 0px; width: 100px; font-size: 14px; line-height: 30px; height: 30px;}
 		.selectMax_Level{width:60px; height:25px; border:0px solid #aeaeae; font:13px/26px "微软雅黑"; color:#5a5a5a; }
 	</style>
-	
+	<link rel="stylesheet" href="<c:url value='/app/jquerymobile/jquery.mobile-1.4.5.min.css'/>">
+	<script src="<c:url value='/app/jquerymobile/jquery.min.js'/>"></script>
+	<script src="<c:url value='/app/jquerymobile/jquery.mobile-1.4.5.min.js'/>"></script>
 	<script type="text/JavaScript">
 		$(function(){
+			
 			$(".selectMax_Level, textarea").attr("disabled", "disabled");
 			
 			$(".selectMax_Level").bind("change", function(){
@@ -40,22 +37,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$(this).parent().parent().css("background", "#ffffff");
 				}	
 			});
-			
-			$("#statType").bind("change", function(){
-				window.location.href = "<c:url value='/p/query/goHealthBg.do?userId=${query.userId}'/>&statType="+$(this).val();
-			});
-			
-			$("#btnsearch").bind("click", function(){
-				if($("#startTime").val() == "")
-				{
-					alert("时间不能为空")
-				}	
-				else
-				{
-					$("#inputform").submit();
-				}
-			});
 			funLoadHealthRepeatInfo();
+			
+			$("#list").css("height", $(window).height() - 80);
 		});
 		
 		function funAccessment(type)
@@ -92,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function funLoadHealthRepeatInfo()
 		{
 			$.ajax({
-				url : "<c:url value='/p/query/healthReport.do?userId=${query.userId}'/>",
+				url : "<c:url value='/app/healthReport.do?userId=${query.userId}'/>",
 				type : 'post',
 				dataType : 'json',
 				data : 
@@ -102,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				},
 				error:function(data)
 				{
-					PageMain.funCloseProgress();
+					
 				},
 				success:function(data)
 				{
@@ -204,79 +188,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
 <body>
-<div class="account" style="background: #ffffff;">
-	<div class="account_title" style="background: #ffffff;">
-      <ul>
-        <li class="account_titleGreen">健康报告</li>
-        <li class="account_titleGray">
-        	当前位置：日报告
-        </li>
-      </ul>
-    </div>
-</div> 
-  <div class="information_modify">
-	    <div class="information_modify_main">
-	    	<div class="search">
-		    	<form id="inputform" name="inputform" action="<c:url value='/p/query/healthBg.do'/>" method="post">
-				    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
-				    	<tr>
-				    		<td style="padding: 5px 0px 5px 0px; height: 30px; color: #aeaeae; font-size: 13px;" align="left">
-				    			报告类型：
-				    			<select class="selectMax_informationModify" id="statType" name="statType">
-					               <option value="1" selected="selected">日报</option>
-					               <option value="2">周报</option>
-					               <option value="3">月报</option>
-				               </select>
-				    		</td>
-				    		<td>
-				    		</td>
-				    	</tr>
-				    	<tr>
-				    		<td style="padding: 5px 0px 5px 0px; height: 30px; color: #aeaeae; font-size: 13px;" align="left">
-				    			报告时间：
-				    			<input class="input_informationModify Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="startTime" name="startTime" value="${query.startTime }">
-				    		</td>
-				    		<td>
-					    		<ul>
-					    			<input type="hidden" name="userId" id="userId" value="${query.userId }"></input>
-					    			<li class="btn_search"><a href="javascript:void(0)" id="btnsearch">查询</a></li>
-					    		</ul>
-				    		</td>
-				    	</tr>
-				    </table>
-				</form>    
-			</div>
-	        <div class="index_table" style="border:0px solid #ccc; padding-top: 20px; padding-bottom: 20px;">
-	        	<div style="width: 99%; font-size: 24px; text-align: center; font-weight: bold; height: 60px; line-height: 60px;">日健康报告</div>
+<div data-role="page" class="jqm-demos" data-quicklinks="true">
+	<div data-role="header" id="head" style="border-bottom-color: #95b200; border-bottom-width:3px; background: #f6f6f6; height: 64px;">
+		<div style="height: 20px; "></div>
+		<h1 style="color: #929292; font-size: 16px; font-weight: normal;">日健康报告</h1>
+	</div>
+	<div id="list" role="main" class="listDiv"  class="ui-content jqm-content" style="overflow: auto; margin-top: 1px; background: #fff;" >
 	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
 	        		<tr>
-	        			<td style="width: 120px; font-size: 14px; line-height: 35px; height: 35px;">综合评估：</td>
+	        			<td style="width: 80px; font-size: 14px; line-height: 35px; height: 35px;">综合评估：</td>
 	        			<td align="left" id="accessment">
 	        				
 	        			</td>
 	        		</tr>
 	        		<tr>
-	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">健康状况：</td>
+	        			<td style="width: 80px; font-size: 14px; line-height: 30px; height: 30px;">健康状况：</td>
 	        			<td style="font-size: 14px; line-height: 30px; height: 30px;" align="left" id="jkzk"></td>
 	        		</tr>
 	        		<tr>
-	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">日<span style="padding:0 16px;"></span>期：</td>
+	        			<td style="width: 80px; font-size: 14px; line-height: 30px; height: 30px;">日<span style="padding:0 16px;"></span>期：</td>
 	        			<td style="font-size: 14px; line-height: 30px; height: 30px;" align="left">${query.startTime }</td>
 	        		</tr>
 	        		<tr>
-	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">最近血糖：</td>
+	        			<td style="width: 80px; font-size: 14px; line-height: 30px; height: 30px;">最近血糖：</td>
 	        			<td style="font-size: 14px; line-height: 30px; height: 30px;" align="left">
 					    	<c:if test="${not empty xtModel }">
 					    	<span style="color:red; font-weight: bold;">${xtModel.a }</span> 时检测的 
 					    	<span style="color:red; font-weight: bold;"><c:choose><c:when test="${xtModel.a1 == 0 }">空腹</c:when><c:otherwise>饭后</c:otherwise> </c:choose>血糖</span> 为【<span style="color:red; font-weight: bold;">${xyModel.b }(mmol/L)</span>】
 	        				</c:if>
+	        				
 					    	<c:if test="${empty xtModel }">
 	        					-
 	        				</c:if>
 	        			</td>
 	        		</tr>
 	        		<tr>
-	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">最近血压：</td>
+	        			<td style="width: 80px; font-size: 14px; line-height: 30px; height: 30px;">最近血压：</td>
 	        			<td style="font-size: 14px; line-height: 30px; height: 30px;" align="left">
 	        				<c:if test="${not empty xyModel }">
 					    	<span style="color:red; font-weight: bold;">${xyModel.a }</span> 时检测的 
@@ -288,7 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        			</td>
 	        		</tr>
 	        		<tr>
-	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">最近体温：</td>
+	        			<td style="width: 80px; font-size: 14px; line-height: 30px; height: 30px;">最近体温：</td>
 	        			<td style="font-size: 14px; line-height: 30px; height: 30px;" align="left">
 					    	<c:if test="${not empty twmodel }">
 					    	<span style="color:red; font-weight: bold;">${twmodel.a }</span> 时检测的 <span style="color:red; font-weight: bold;">体温</span> 为【<span style="color:red; font-weight: bold;">${twmodel.b }（℃）</span>】
@@ -301,11 +248,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	</table>
 	        	
 	        	<div style="width: 99%; font-size: 18px; padding: 40px 0px 15px 0px; text-align: left;">一.基本信息</div>
-	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
+	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="font-size: 15px;">
 	        		<tr>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">姓名：${healthUser.name }</td>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">性别：${healthUser.genderStr}</td>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">年龄：${healthUser.birthdate}</td>
+	        		</tr>
+	        		<tr>	
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">身高：${healthUser.height}</td>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">体重：${healthUser.weight}</td>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">BMI：${healthUser.bmi}</td>
@@ -314,7 +263,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	
 	        	<div style="width: 99%; font-size: 18px; padding: 40px 0px 15px 0px; text-align: left;">二.数据记录</div>
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">1.运动（过量标红，少量标绿）</div>
-	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
 	        		<tr>
 	        			<td class="tableTd" align="center" style="width: 60px;">序号</td>
 	        			<td class="tableTd" align="center">运动类型</td>
@@ -354,7 +303,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="sportAdvice" name="sportAdvice"></textarea>
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">2.饮食（过量标红，少量标）</div>
-	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
 	        		<tr>
 	        			<td class="tableTd" align="center">餐别</td>
 	        			<td class="tableTd" align="center">时间</td>
@@ -456,7 +405,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">3.心理评估</div>
-	        	<table border="0" cellspacing="0" cellpadding="0" style=" font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style=" font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
 	        		<tr>
 	        			<td class="tableTd" align="center">序号</td>
 	        			<td class="tableTd" align="center" style="width: 180px;">测量时间</td>
@@ -491,7 +440,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">4.血压（高于正常值标红，低于正常值标绿）</div>
-	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+	        	<table width="99%"  border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
 	        		<tr>
 	        			<td class="tableTd" align="center">序号</td>
 	        			<td class="tableTd" align="center" style="width: 180px;">测量时间</td>
@@ -536,7 +485,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">5.心率（高于正常值标红，低于正常值标绿）</div>
-	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+	        	<table width="99%"  border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
 	        		<tr>
 	        			<td class="tableTd" align="center">序号</td>
 	        			<td class="tableTd" align="center">测量时间</td>
@@ -571,7 +520,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        		
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">6.血糖（高于正常值标红，低于正常值标绿）</div>
-	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+	        	<table width="99%"  border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
 	        		<tr>
 	        			<td class="tableTd" align="center">序号</td>
 	        			<td class="tableTd" align="center">测量时间</td>
@@ -612,11 +561,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
 	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="bloodGlucoseAdvice" name="bloodGlucoseAdvice"></textarea>	
 	        	
-	        	
-	        	
-	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">7.体温（异常数据标红色）</div>
-	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+	        	<table width="99%"  border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
 	        		<tr>
 	        			<td class="tableTd" align="center">序号</td>
 	        			<td class="tableTd" align="center">测量时间</td>
@@ -651,7 +597,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">8.用药记录</div>
-	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+	        	<table width="99%"  border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
 	        		<tr>
 	        			<td class="tableTd" align="center">药品名称</td>
 	        			<td class="tableTd" align="center">用药时间</td>

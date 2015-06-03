@@ -1563,6 +1563,18 @@
 		]]>
 	</select>
 	
+	<!-- 加载血压 单条-->
+	<select id="QueryMapper.queryHealthPressureOfOneInfo" 	parameterType="queryModel"	resultMap="mRetHealthPressureMap">
+		<![CDATA[
+			SELECT a.highBloodPressure, a.lowBloodPressure, a.pulse, a.takeTime
+			FROM tab_blood_pressure a
+			where a.userId = #{userId}
+			and date_format(a.takeTime, '%Y-%m-%d') = #{startTime}
+			order by a.takeTime desc
+			LIMIT 0, 1
+		]]>
+	</select>
+	
 	
 	
 	<!-- 加载血压  按月-->
@@ -1679,6 +1691,18 @@
 			where a.userId = #{userId}
 			and date_format(a.takeTime, '%Y-%m-%d') = #{startTime}
 			order by a.takeTime
+		]]>
+	</select>
+	
+	<!-- 加载体温 -->
+	<select id="QueryMapper.queryHealthThermometerOfOneInfo" 	parameterType="queryModel"	resultMap="mRetHealthThermometerMap">
+		<![CDATA[
+			SELECT a.takeTime, FORMAT(a.temperature/10, 1) as temperature
+			FROM tab_ear_thermometer a
+			where a.userId = #{userId}
+			and date_format(a.takeTime, '%Y-%m-%d') = #{startTime}
+			order by a.takeTime desc
+			LIMIT 0, 1
 		]]>
 	</select>
 	

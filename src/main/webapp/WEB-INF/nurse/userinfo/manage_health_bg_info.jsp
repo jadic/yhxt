@@ -263,7 +263,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
 	        		<tr>
 	        			<td style="width: 120px; font-size: 14px; line-height: 35px; height: 35px;">综合评估：</td>
-	        			<td>
+	        			<td align="left">
 	        				<select class="selectMax_informationModify" id="accessment" name="accessment">
 			                   <option value="-1">请选择</option>
 				               <option value="1">90-100</option>
@@ -275,11 +275,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        		</tr>
 	        		<tr>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">健康状况：</td>
-	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;" align="left" id="jkzk"></td>
+	        			<td style="font-size: 14px; line-height: 30px; height: 30px;" align="left" id="jkzk"></td>
 	        		</tr>
 	        		<tr>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">日<span style="padding:0 16px;"></span>期：</td>
-	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;" align="left">${query.startTime }</td>
+	        			<td style="font-size: 14px; line-height: 30px; height: 30px;" align="left">${query.startTime }</td>
+	        		</tr>
+	        		<tr>
+	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">最近血糖：</td>
+	        			<td style="font-size: 14px; line-height: 30px; height: 30px;" align="left">
+					    	<c:if test="${not empty xtModel }">
+					    	<span style="color:red; font-weight: bold;">${xtModel.a }</span> 时检测的 
+					    	<span style="color:red; font-weight: bold;"><c:choose><c:when test="${xtModel.a1 == 0 }">空腹</c:when><c:otherwise>饭后</c:otherwise> </c:choose>血糖</span> 为【<span style="color:red; font-weight: bold;">${xyModel.b }(mmol/L)</span>】
+	        				</c:if>
+					    	<c:if test="${empty xtModel }">
+	        					-
+	        				</c:if>
+	        			</td>
+	        		</tr>
+	        		<tr>
+	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">最近血压：</td>
+	        			<td style="font-size: 14px; line-height: 30px; height: 30px;" align="left">
+	        				<c:if test="${not empty xyModel }">
+					    	<span style="color:red; font-weight: bold;">${xyModel.a }</span> 时检测的 
+					    	<span style="color:red; font-weight: bold;">血压</span> 为【<span style="color:red; font-weight: bold;">${xyModel.c } ~ ${xyModel.b }(mm/Hg)</span>】
+	        				</c:if>
+	        				<c:if test="${empty xyModel }">
+	        					-
+	        				</c:if>
+	        			</td>
+	        		</tr>
+	        		<tr>
+	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">最近体温：</td>
+	        			<td style="font-size: 14px; line-height: 30px; height: 30px;" align="left">
+					    	<c:if test="${not empty twmodel }">
+					    	<span style="color:red; font-weight: bold;">${twmodel.a }</span> 时检测的 <span style="color:red; font-weight: bold;">体温</span> 为【<span style="color:red; font-weight: bold;">${twmodel.b }（℃）</span>】
+	        				</c:if>
+	        				<c:if test="${empty twmodel }">
+	        					-
+	        				</c:if>
+	        			</td>
 	        		</tr>
 	        	</table>
 	        	

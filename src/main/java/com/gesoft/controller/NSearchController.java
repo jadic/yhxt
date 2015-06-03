@@ -1912,6 +1912,11 @@ public class NSearchController extends BaseController
 			result.addObject("pressureFlys", pressureFlys);
 		}
 		
+		OutModel xyModel = pQueryService.queryHealthPressureOfOneInfo(model);
+		if (xyModel != null)
+		{
+			result.addObject("xyModel", xyModel);
+		}
 
 		// 加载心率
 		List<OutModel> pulseFlys = pQueryService.queryHealthPulseInfo(model);
@@ -1926,6 +1931,7 @@ public class NSearchController extends BaseController
 		if (glucoseFlys != null && glucoseFlys.size() > 0)
 		{
 			result.addObject("glucoseFlys", glucoseFlys);
+			result.addObject("xtModel", glucoseFlys.get(glucoseFlys.size() - 1));
 		}
 
 
@@ -1936,6 +1942,13 @@ public class NSearchController extends BaseController
 			result.addObject("thermometerFlys", thermometerFlys);
 		}
 		
+		//加载一条体温
+		OutModel mTwModel = pQueryService.queryHealthThermometerOfOneInfo(model);
+		if (mTwModel != null)
+		{
+			result.addObject("twmodel", mTwModel);
+		}
+				
 		// 用药记录
 		List<OutModel> medicineFlys = pQueryService.queryHealthMedicineInfo(model);
 		if (medicineFlys != null && medicineFlys.size() > 0)

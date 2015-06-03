@@ -1003,6 +1003,19 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthPressureInfo", model);
 	}
 	
+	
+	/**
+	 * 描述信息：测量血压 单条
+	 * 创建时间：2015年5月4日 下午10:26:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public OutModel queryHealthPressureOfOneInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHealthPressureOfOneInfo", model);
+	}
+	
 
 	/**
 	 * 描述信息：测量心率
@@ -1040,6 +1053,18 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	public List<OutModel> queryHealthThermometerInfo(QueryModel model)
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthThermometerInfo", model);
+	}
+	
+	/**
+	 * 描述信息：测量体温
+	 * 创建时间：2015年5月4日 下午10:26:36
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public OutModel queryHealthThermometerOfOneInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHealthThermometerOfOneInfo", model);
 	}
 
 
