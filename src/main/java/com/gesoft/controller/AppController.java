@@ -825,7 +825,71 @@ public class AppController extends BaseController {
    	}
     
     
+    /**
+     * 描述信息：健康报告概要信息
+     * 创建时间：2015年6月4日 下午12:44:53
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value="/healthBgGyxx.do")
+	public ModelAndView toHealthBgGyxx(QueryModel model, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/app/manage_health_bg_gyxx_info");	
+		try
+		{
+			if (model.getStatType() == 1)
+			{
+				toHealthRepeatDayGyxx(model, result);
+			}
+			result.addObject("query", model);
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toHealthBgGyxx error：", e);
+		}
+		return result;
+	}
+    
+    
+    /**
+     * 描述信息：天的概要信息
+     * 创建时间：2015年6月4日 下午12:50:43
+     * @author WCL (ln_admin@yeah.net)
+     * @param model
+     * @param result
+     */
+    private void toHealthRepeatDayGyxx(QueryModel model, ModelAndView result)
+	{
+		if (model.getStartTime() == null || model.getStartTime().trim().length() == 0)
+		{
+			model.setStartTime(SystemUtils.getCurrentSystemTime("yyyy-MM-dd"));
+		}
+		
+		OutModel xyModel = pQueryService.queryHealthPressureOfOneInfo(model);
+		if (xyModel != null)
+		{
+			result.addObject("xyModel", xyModel);
+		}
 
+		// 加载血糖
+		List<OutModel> glucoseFlys = pQueryService.queryHealthGlucoseInfo(model);
+		if (glucoseFlys != null && glucoseFlys.size() > 0)
+		{
+			result.addObject("xtModel", glucoseFlys.get(glucoseFlys.size() - 1));
+		}
+		
+		//加载一条体温
+		OutModel mTwModel = pQueryService.queryHealthThermometerOfOneInfo(model);
+		if (mTwModel != null)
+		{
+			result.addObject("twmodel", mTwModel);
+		}
+	}
+    
+    
 	/**
 	 * 描述信息：健康报告
 	 * 创建时间：2015年5月4日 下午3:32:37
