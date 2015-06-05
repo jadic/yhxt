@@ -5,11 +5,11 @@
 		
 		if("${param.param1}" == "modify")
 		{
-			PageMain.funSetWinMaxAttr(600, 500, "修改资讯", "icon-edit");
+			PageMain.funSetWinMaxAttr(600, 550, "修改资讯", "icon-edit");
 		}
 		else
 		{
-			PageMain.funSetWinMaxAttr(600, 500, "新增资讯", "icon-add");		
+			PageMain.funSetWinMaxAttr(600, 550, "新增资讯", "icon-add");		
 		}
 		$('#div_win').window({
 			modal: true,
@@ -34,12 +34,12 @@
 		<div region="center" border="false" align="left" style="background:#fff; padding: 1px;">
 	  		<table border="0" cellspacing="0" cellpadding="0" bordercolordark="999999" bordercolorlight="cbe6a1" class="njty_table">
 				<tr>
-					<td class="njty_bg" align="right" style="width: 110px;">资讯名称：</td>
+					<td class="njty_bg" align="right" style="width: 80px;">资讯名称：</td>
 					<td class="njty_bl">
-						<input id="in01" class="njty_input" style="width: 95%" onblur="$(this).val($.trim($(this).val()))" maxlength="50"/>
+						<input id="in01" class="njty_input" style="width: 96%" onblur="$(this).val($.trim($(this).val()))" maxlength="50"/>
 						<span style="color:red;">*</span>
 					</td>
-					<td rowspan="2" class="njty_bl" style="width: 120px; padding: 1px;">
+					<td rowspan="2" class="njty_bl" style="width: 100px; padding: 1px;">
 						<img id="in02" src="" style="width: 120px; height: 120px;">
 					</td>
 				</tr>
@@ -54,7 +54,7 @@
 				<tr>
 					<td class="njty_bg" align="right">内<span style="padding: 0 12px;"></span>容：</td>
 					<td class="njty_bl" colspan="2">
-						<textarea id="in04" class="njty_textarea" style="width: 98%; height:300px;" onblur="$(this).val($.trim($(this).val()))"></textarea>
+						<textarea id="in04" class="njty_textarea" style="width: 100%; height:330px;" onblur="$(this).val($.trim($(this).val()))"></textarea>
 					</td>
 				</tr>
 			</table>
