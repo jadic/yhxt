@@ -35,7 +35,7 @@
 	<!-- 查询分页查询-->
 	<select id="NewsMapper.list" parameterType="newsModel"	resultMap="mNewsMap">
 		<![CDATA[
-			SELECT *
+			SELECT a.id, newsTitle, a.newsContent, a.newsIcon, date_format(a.newsCreateTime, '%Y-%m-%d %H:%i:%S') as newsCreateTime
 			FROM tab_news a
 		]]>
         <where>
