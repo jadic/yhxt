@@ -541,10 +541,13 @@ public class AppController extends BaseController {
         try {
             if (StringUtil.isNullOrEmpty(model.getCellphone()) || StringUtil.isNullOrEmpty(model.getUserPass())) {
                 msgModel.setMsg("参数缺失或为空，请确认");
+            } else if (!model.getCellphone().matches("1\\d{10}")) {
+                msgModel.setMsg("手机号输入不合法，请确认");
             } else {
                 //app端注册用户，利用手机作为标识
                 model.setUserName(model.getCellphone());
                 model.setUserPwd(model.getUserPass());
+                model.setSysId(1);
                 
                 if (userService.queryUserCountWithUsrName(model) <= 0) {
                     userService.save(model);
@@ -558,6 +561,7 @@ public class AppController extends BaseController {
             }
         } catch (Exception e) {
             logger.error("AppController addNewUser error：", e);
+            msgModel.setMsg("用户注册失败");
         }
         return msgModel;
     }
