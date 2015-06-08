@@ -188,7 +188,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("li a").css("background", "#fff");
 			$(this).css("background", "#f7fbc5");
 		});
-		$("#list").css("height", $(window).height() - 105);
+		$("#list").css("height", $(window).height() - 66);
 		
 		funSearch(1, 10);
 	});
@@ -255,8 +255,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	</script>
   </head>
-<body>
-	<div data-role="page" class="jqm-demos" data-quicklinks="true">
+<body style="overflow: hidden;">
+	<div data-role="page" class="jqm-demos" data-quicklinks="true"  style="overflow: hidden;">
 	<div data-role="header" id="head" style="border-bottom-color: #95b200; border-bottom-width:3px; background: #f6f6f6; height: 64px;">
 		<div style="height: 20px; "></div>
 		<h1 style="color: #929292; font-size: 16px; font-weight: normal;">圈子</h1>

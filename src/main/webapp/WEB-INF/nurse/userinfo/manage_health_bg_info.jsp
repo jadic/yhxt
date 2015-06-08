@@ -282,23 +282,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        			<td style="font-size: 14px; line-height: 30px; height: 30px;" align="left">${query.startTime }</td>
 	        		</tr>
 	        		<tr>
-	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">最近血糖：</td>
-	        			<td style="font-size: 14px; line-height: 30px; height: 30px;" align="left">
+	        			<td style="width: 80px; font-size: 14px; line-height: 30px; height: 30px;">最近血糖：</td>
+	        			<td style="font-size: 14px; line-height: 22px; height: 30px; padding: 5px 0px;" align="left">
 					    	<c:if test="${not empty xtModel }">
-					    	<span style="color:red; font-weight: bold;">${xtModel.a }</span> 时检测的 
-					    	<span style="color:red; font-weight: bold;"><c:choose><c:when test="${xtModel.a1 == 0 }">空腹</c:when><c:otherwise>饭后</c:otherwise> </c:choose>血糖</span> 为【<span style="color:red; font-weight: bold;">${xyModel.b }(mmol/L)</span>】
+					    	${xtModel.b}mmol/L（空腹）<br/>
+                			${xtModel.d}mmol/L（饭后）
 	        				</c:if>
+	        				
 					    	<c:if test="${empty xtModel }">
 	        					-
 	        				</c:if>
 	        			</td>
 	        		</tr>
 	        		<tr>
-	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">最近血压：</td>
-	        			<td style="font-size: 14px; line-height: 30px; height: 30px;" align="left">
+	        			<td style="width: 80px; font-size: 14px; line-height: 30px; height: 30px;">最近血压：</td>
+	        			<td style="font-size: 14px; line-height: 22px; height: 30px; padding: 5px 0px;" align="left">
 	        				<c:if test="${not empty xyModel }">
-					    	<span style="color:red; font-weight: bold;">${xyModel.a }</span> 时检测的 
-					    	<span style="color:red; font-weight: bold;">血压</span> 为【<span style="color:red; font-weight: bold;">${xyModel.c } ~ ${xyModel.b }(mm/Hg)</span>】
+	        				${xyModel.b }mmHg(高压）<br/>
+	        				${xyModel.c }mmHg(低压）<br/>
+	        				${xyModel.d }次（脉搏）<br/>
 	        				</c:if>
 	        				<c:if test="${empty xyModel }">
 	        					-
@@ -306,10 +308,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        			</td>
 	        		</tr>
 	        		<tr>
-	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">最近体温：</td>
+	        			<td style="width: 80px; font-size: 14px; line-height: 30px; height: 30px;">最近体温：</td>
 	        			<td style="font-size: 14px; line-height: 30px; height: 30px;" align="left">
 					    	<c:if test="${not empty twmodel }">
-					    	<span style="color:red; font-weight: bold;">${twmodel.a }</span> 时检测的 <span style="color:red; font-weight: bold;">体温</span> 为【<span style="color:red; font-weight: bold;">${twmodel.b }（℃）</span>】
+					    	${twmodel.b }（℃）
 	        				</c:if>
 	        				<c:if test="${empty twmodel }">
 	        					-

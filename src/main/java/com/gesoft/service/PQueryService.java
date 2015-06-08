@@ -22,6 +22,7 @@ import com.gesoft.common.EntityService;
 import com.gesoft.dao.PQueryDAO;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.BloodGlucoseModel;
 import com.gesoft.model.BloodModel;
 import com.gesoft.model.CommentModel;
 import com.gesoft.model.DeviceModel;
@@ -859,7 +860,7 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	 * @return
 	 */
 	@Transactional(readOnly=true)
-	public List<BloodModel> queryStatBloodInfo(QueryModel model)
+	public List<BloodGlucoseModel> queryStatBloodInfo(QueryModel model)
 	{
 		return pQueryDAO.queryStatBloodInfo(model);
 	}
@@ -890,6 +891,19 @@ public class PQueryService extends EntityService<BaseModel, Long>
 		OutModel mRetModel = null;
 		// 加载最近血糖
 		mRetModel = pQueryDAO.queryRecentlyHomeBloodInfo(model);
+		if (mRetModel == null)
+		{
+			mRetModel = pQueryDAO.queryRecentlyHomeBloodTwoInfo(model);
+		}
+		else 
+		{
+			OutModel model2 = pQueryDAO.queryRecentlyHomeBloodTwoInfo(model);
+			if (model2 != null)
+			{
+				mRetModel.setC(model2.getC());
+				mRetModel.setD(model2.getD());
+			}
+		}
 		
 		// 加载最近体温
 		OutModel mEarModel = pQueryDAO.queryRecentlyHomeEarInfo(model);
@@ -1167,7 +1181,10 @@ public class PQueryService extends EntityService<BaseModel, Long>
 					mOutModel.setA(outModel.getA());
 					mOutModel.setB(outModel.getB());
 					mOutModel.setA1(0);
-					argArgs.add(mOutModel);
+					if (outModel.getA() != null && outModel.getA().trim().length() > 0)
+					{
+						argArgs.add(mOutModel);
+					}
 				}
 				
 				if (outModel.getC() != null && outModel.getC().trim().length() > 0)
@@ -1176,7 +1193,10 @@ public class PQueryService extends EntityService<BaseModel, Long>
 					mOutModel.setA(outModel.getC());
 					mOutModel.setB(outModel.getD());
 					mOutModel.setA1(1);
-					argArgs.add(mOutModel);
+					if (outModel.getC() !=null && outModel.getC().trim().length() > 0)
+					{
+						argArgs.add(mOutModel);
+					}
 				}
 			}
 			
@@ -1186,12 +1206,39 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	            }
 	        });
 		}
-		
 		return argArgs;
 	}
 	
 
-
+	/**
+	 * 描述信息：加载单条血糖记录
+	 * 创建时间：2015年6月6日 上午10:16:49
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public OutModel queryHealthGlucoseOfOneInfo(QueryModel model)
+	{
+		OutModel outModel = pQueryDAO.queryHealthGlucoseOfOneInfo(model);
+		if (outModel == null)
+		{
+			outModel = pQueryDAO.queryHealthGlucoseOfTwoInfo(model);
+		}
+		else 
+		{
+			OutModel model2 = pQueryDAO.queryHealthGlucoseOfTwoInfo(model);
+			if (model2 != null)
+			{
+				outModel.setC(model2.getC());
+				outModel.setD(model2.getD());
+			}
+		}
+		
+		return outModel;
+	}
+	
+	
 	/**
 	 * 描述信息：测量体温
 	 * 创建时间：2015年5月4日 下午10:26:36
@@ -1205,6 +1252,13 @@ public class PQueryService extends EntityService<BaseModel, Long>
 		return pQueryDAO.queryHealthThermometerInfo(model);
 	}
 	
+	/**
+	 * 描述信息：加载最近一条体温
+	 * 创建时间：2015年6月6日 上午10:17:19
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
 	@Transactional(readOnly=true)
 	public OutModel queryHealthThermometerOfOneInfo(QueryModel model)
 	{

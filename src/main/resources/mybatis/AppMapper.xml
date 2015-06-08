@@ -209,7 +209,7 @@
     <!-- 分页查询新闻资讯 -->     
     <select id="AppMapper.queryNews"   parameterType="queryModel"  resultMap="mNewsMap">
       <![CDATA[
-        select a.id, a.newsTitle, a.newsCreateTime, newsIcon
+        select a.id, a.newsTitle, date_format(a.newsCreateTime, '%Y-%m-%d %H:%i:%S') as newsCreateTime, newsIcon
         from tab_news a
         order by a.newsCreateTime desc
         limit #{startNum}, #{rows}

@@ -15,6 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
 	<link rel="stylesheet" href="<c:url value='/patient/themes/index_right.css'/>" type="text/css"/>
 	<script type="text/javascript" src="<c:url value='/common/anychart/AnyChart.js'/>" ></script>
+  	<script type="text/javascript" src="<c:url value='/common/scripts/highcharts.js'/>"></script>
 	<script type="text/javascript">
 		var _chart_ = "<c:url value='/common/anychart/AnyChart.swf'/>";
 	</script>   
@@ -185,6 +186,71 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				},
 				showBloodChart : function(data)
 				{
+					$('#container1').highcharts({
+				        chart: {
+				            type: 'spline'
+				        },
+				        title: {
+				            text: '血糖等级分析图',
+				            style:{ "color": "#000000", "fontSize": "12px" }
+				        },
+				        xAxis: {
+				            type: 'datetime',
+				            labels: { 
+				            	formatter: function() { 
+				            	var vDate=new Date(this.value); 
+				            	return  vDate.getFullYear()+"-"+(vDate.getMonth()+1)+"-"+vDate.getDate() + " " +vDate.getHours() + ":" + vDate.getMinutes();
+				            	},
+				            	rotation:-15//日期倾斜角度  vDate.getFullYear()+"-"+
+				            	}
+				            
+				        },
+				        yAxis: {
+				            title: {
+				                text: '空腹/饭后(mmol/L)'
+				            },
+				            min: 0
+				        },
+				        tooltip: {
+				            formatter: function() {
+				                    return '<b>'+ this.series.name +'</b><br/>'+
+				                         Highcharts.dateFormat('%Y-%m-%d %H:%M',this.x) +': '+ this.y +' (mmol/L)';
+				            }
+				        },
+				        
+				        series: [{
+				            name: '空腹',
+				            data: function(){
+				            	var dataFlys = []
+				            	for(var nItem=0; nItem<data.total; nItem++)
+								{
+									if(data.rows[nItem].takeTime1 != "" && data.rows[nItem].takeTime1 != "null" && data.rows[nItem].takeTime1 != null)
+									{
+										var tmpFly = data.rows[nItem].takeTime1.split("-").join(":").split(" ").join(":").split(":")
+										dataFlys.push([Date.UTC(parseInt(tmpFly[0]),  parseInt(tmpFly[1]) - 1, parseInt(tmpFly[2]), parseInt(tmpFly[3]), parseInt(tmpFly[4])), parseFloat((parseFloat(data.rows[nItem].bloodGlucose1)/10).toFixed(1))])
+									}	
+								}	
+				            	return dataFlys;
+				            }()
+				        }, {
+				            name: '饭后',
+				            data: function(){
+				            	var dataFlys = []
+				            	for(var nItem=0; nItem<data.total; nItem++)
+								{
+									if(data.rows[nItem].takeTime2 != "" && data.rows[nItem].takeTime2 != "null" && data.rows[nItem].takeTime2 != null)
+									{
+										var tmpFly = data.rows[nItem].takeTime2.split("-").join(":").split(" ").join(":").split(":")
+										dataFlys.push([Date.UTC(parseInt(tmpFly[0]),  parseInt(tmpFly[1]) - 1, parseInt(tmpFly[2]), parseInt(tmpFly[3]), parseInt(tmpFly[4])), parseFloat((parseFloat(data.rows[nItem].bloodGlucose2)/10).toFixed(1))])
+									}	
+								}	
+				            	return dataFlys;
+				            }()
+				        }]
+				    });
+				},
+				showBloodChart2 : function(data)
+				{
 					var myParamObj = {
 						mTopFlag	: true,
 						mTopTitle	: '血糖等级分析图',
@@ -201,15 +267,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					{
 						for(var nItem=0; nItem<data.total; nItem++)
 						{
-							mViewData1 += '<point name="'+data.rows[nItem].stime+'" y="'+(parseFloat(data.rows[nItem].value)/10).toFixed(2)+'"/>';
-							mViewData2 += '<point name="'+data.rows[nItem].stime+'" y="'+(parseFloat(data.rows[nItem].type)/10).toFixed(2)+'"/>';
+							if(data.rows[nItem].takeTime1 != "" && data.rows[nItem].takeTime1 != "null" && data.rows[nItem].takeTime1 != null)
+							{
+								mViewData1 += '<point name="'+data.rows[nItem].takeTime1+'" y="'+(parseFloat(data.rows[nItem].bloodGlucose1)/10).toFixed(2)+'"/>';
+							}	
+							if(data.rows[nItem].takeTime2 != "" && data.rows[nItem].takeTime2 != "null" && data.rows[nItem].takeTime2 != null)
+							{
+								mViewData2 += '<point name="'+data.rows[nItem].takeTime2+'" y="'+(parseFloat(data.rows[nItem].bloodGlucose2)/10).toFixed(2)+'"/>';
+							}
 						}	
 					}
 					mViewData1 += '</series>';
 					mViewData2 += '</series>';
 					myParamObj.mViewData = mViewData1 + mViewData2;
 					try{
-					PageFx.funChart(PageFx.Chart1, "container1", "/patient/pages/chart2", myParamObj);
+					PageFx.funChart(PageFx.Chart1, "container4", "/patient/pages/chart2", myParamObj);
 					}catch(e){}
 				},
 				showEarChart : function(data)

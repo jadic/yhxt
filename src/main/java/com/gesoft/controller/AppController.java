@@ -89,6 +89,7 @@ public class AppController extends BaseController {
         MsgModel msgModel = new MsgModel();
         try {
             long recordCount = appService.queryRelativePhoneInfoCnt(model);
+            msgModel.setSuccess(true);
             if (recordCount > 0) {
                 setPageModel(recordCount, model);
                 List<RelativePhoneModel> argArgs = appService.queryRelativePhoneInfo(model);
@@ -99,6 +100,7 @@ public class AppController extends BaseController {
             }
         } catch (Exception e) {
             logger.error("AppController relativePhone error：", e);
+            msgModel.setSuccess(false);
         }
         return msgModel;
     }
@@ -114,12 +116,14 @@ public class AppController extends BaseController {
         MsgModel msgModel = new MsgModel();
         try {
             List<UserModel> list = appService.queryUserInfoWithUserNamePass(model);
+            msgModel.setSuccess(true);
             if (list != null && list.size() > 0) {
                 msgModel.setTotal(list.size());
                 msgModel.setRows(list);
             }
         } catch (Exception e) {
             logger.error("AppController queryUserInfoWithUserNamePass error:", e);
+            msgModel.setSuccess(false);
         }
         return msgModel;
     }
@@ -135,12 +139,14 @@ public class AppController extends BaseController {
         MsgModel msgModel = new MsgModel();
         try {
             List<UserModel> list = appService.queryUserInfoWithUserId(model);
+            msgModel.setSuccess(true);
             if (list != null && list.size() > 0) {
                 msgModel.setTotal(list.size());
                 msgModel.setRows(list);
             }
         } catch (Exception e) {
             logger.error("AppController queryUserInfoWithUserId error:", e);
+            msgModel.setSuccess(false);
         }
         return msgModel;
     }
@@ -156,12 +162,14 @@ public class AppController extends BaseController {
         MsgModel msgModel = new MsgModel();
         try {
             List<UserModel> list = appService.queryMyNurserWithUserId(model);
+            msgModel.setSuccess(true);
             if (list != null && list.size() > 0) {
                 msgModel.setTotal(list.size());
                 msgModel.setRows(list);
             }
         } catch (Exception e) {
             logger.error("AppController queryMyNurserWithUserId error:", e);
+            msgModel.setSuccess(false);
         }
         return msgModel;
     }
@@ -177,6 +185,7 @@ public class AppController extends BaseController {
         MsgModel msgModel = new MsgModel();
         try {
             long recordCount = appService.queryServiceCnt(model);
+            msgModel.setSuccess(true);
             if (recordCount > 0) {
                 setPageModel(recordCount, model);
                 List<ServiceModel> rows = appService.queryService(model);
@@ -187,6 +196,7 @@ public class AppController extends BaseController {
             }
         } catch (Exception e) {
             logger.error("AppController queryService error：", e);
+            msgModel.setSuccess(false);
         }
         return msgModel;
     }
@@ -196,6 +206,7 @@ public class AppController extends BaseController {
         MsgModel msgModel = new MsgModel();
         try {
             long recordCount = appService.queryActivityCnt(model);
+            msgModel.setSuccess(true);
             if (recordCount > 0) {
                 setPageModel(recordCount, model);
                 List<ActivityModel> rows = appService.queryActivity(model);
@@ -206,6 +217,7 @@ public class AppController extends BaseController {
             }
         } catch (Exception e) {
             logger.error("AppController queryActivity error：", e);
+            msgModel.setSuccess(false);
         }
         return msgModel;
     }
@@ -215,6 +227,7 @@ public class AppController extends BaseController {
         MsgModel msgModel = new MsgModel();
         try {
             long recordCount = appService.queryNewsCnt(model);
+            msgModel.setSuccess(true);
             if (recordCount > 0) {
                 setPageModel(recordCount, model);
                 List<NewsModel> rows = appService.queryNews(model);
@@ -225,6 +238,7 @@ public class AppController extends BaseController {
             }
         } catch (Exception e) {
             logger.error("AppController queryNews error：", e);
+            msgModel.setSuccess(false);
         }
         return msgModel;
     }
@@ -234,6 +248,7 @@ public class AppController extends BaseController {
         MsgModel msgModel = new MsgModel();
         try {
             long recordCount = appService.queryActivityCnt(model);
+            msgModel.setSuccess(true);
             if (recordCount > 0) {
                 setPageModel(recordCount, model);
                 List<DoctorAdviceModel> rows = appService.queryDoctorAdvice(model);
@@ -244,6 +259,7 @@ public class AppController extends BaseController {
             }
         } catch (Exception e) {
             logger.error("AppController queryDoctorAdvice error：", e);
+            msgModel.setSuccess(false);
         }
         return msgModel;
     }
@@ -253,6 +269,7 @@ public class AppController extends BaseController {
         MsgModel msgModel = new MsgModel();
         try {
             long recordCount = appService.queryDoctorAdvicePerformanceCnt(model);
+            msgModel.setSuccess(true);
             if (recordCount > 0) {
                 setPageModel(recordCount, model);
                 List<DoctorAdvicePerformanceModel> rows = appService.queryDoctorAdvicePerformance(model);
@@ -263,6 +280,7 @@ public class AppController extends BaseController {
             }
         } catch (Exception e) {
             logger.error("AppController queryDoctorAdvicePerformance error：", e);
+            msgModel.setSuccess(false);
         }
         return msgModel;
     }
@@ -329,6 +347,7 @@ public class AppController extends BaseController {
             msgModel.setSuccess(appService.insertBloodGlucose(model) > 0);
         } catch (Exception e) {
             logger.error("AppController uploadBloodGlucose error：", e);
+            msgModel.setSuccess(false);
         }
         return msgModel;
     }
@@ -349,6 +368,7 @@ public class AppController extends BaseController {
             }
         } catch (Exception e) {
             logger.error("AppController uploadBloodPressure error：", e);
+            msgModel.setSuccess(false);
         }
         return msgModel;
     }
@@ -541,10 +561,13 @@ public class AppController extends BaseController {
         try {
             if (StringUtil.isNullOrEmpty(model.getCellphone()) || StringUtil.isNullOrEmpty(model.getUserPass())) {
                 msgModel.setMsg("参数缺失或为空，请确认");
+            } else if (!model.getCellphone().matches("1\\d{10}")) {
+                msgModel.setMsg("手机号输入不合法，请确认");
             } else {
                 //app端注册用户，利用手机作为标识
                 model.setUserName(model.getCellphone());
                 model.setUserPwd(model.getUserPass());
+                model.setSysId(1);
                 
                 if (userService.queryUserCountWithUsrName(model) <= 0) {
                     userService.save(model);
@@ -558,6 +581,7 @@ public class AppController extends BaseController {
             }
         } catch (Exception e) {
             logger.error("AppController addNewUser error：", e);
+            msgModel.setMsg("用户注册失败");
         }
         return msgModel;
     }
@@ -874,11 +898,11 @@ public class AppController extends BaseController {
 			result.addObject("xyModel", xyModel);
 		}
 
-		// 加载血糖
-		List<OutModel> glucoseFlys = pQueryService.queryHealthGlucoseInfo(model);
-		if (glucoseFlys != null && glucoseFlys.size() > 0)
+		//加载一条血糖记录
+		OutModel mXtModel = pQueryService.queryHealthGlucoseOfOneInfo(model);
+		if (mXtModel != null)
 		{
-			result.addObject("xtModel", glucoseFlys.get(glucoseFlys.size() - 1));
+			result.addObject("xtModel", mXtModel);
 		}
 		
 		//加载一条体温
@@ -1011,10 +1035,15 @@ public class AppController extends BaseController {
 		if (glucoseFlys != null && glucoseFlys.size() > 0)
 		{
 			result.addObject("glucoseFlys", glucoseFlys);
-			result.addObject("xtModel", glucoseFlys.get(glucoseFlys.size() - 1));
 		}
 
-
+		//加载一条血糖记录
+		OutModel mXtModel = pQueryService.queryHealthGlucoseOfOneInfo(model);
+		if (mXtModel != null)
+		{
+			result.addObject("xtModel", mXtModel);
+		}
+		
 		// 加载体温
 		List<OutModel> thermometerFlys = pQueryService.queryHealthThermometerInfo(model);
 		if (thermometerFlys != null && thermometerFlys.size() > 0)

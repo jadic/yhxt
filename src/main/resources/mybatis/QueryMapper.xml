@@ -276,6 +276,14 @@
 		<result property="type"  	  			column="flag"/>
 		<result property="stime"  	 	 		column="takeTime"/>
 	</resultMap>
+	
+    <!-- 统计 -->
+    <resultMap id="mRetStatBooldMap2" 		    	type="bloodGlucoseModel">
+		<result property="bloodGlucose1"  	  		column="bloodGlucose1"/>
+		<result property="bloodGlucose2"  	  		column="bloodGlucose2"/>
+		<result property="takeTime1"  	 	 		column="takeTime1"/>
+		<result property="takeTime2"  	 	 		column="takeTime2"/>
+	</resultMap>
     
     <!-- 统计血压 -->
     <resultMap id="mRetStatBooldPressureMap" 	type="outModel">
@@ -1240,9 +1248,9 @@
 	</insert>
 	
 	<!-- 血糖统计 -->
-	<select id="QueryMapper.queryStatBloodInfo" 	parameterType="queryModel"	resultMap="mRetStatBooldMap">
+	<select id="QueryMapper.queryStatBloodInfo" 	parameterType="queryModel"	resultMap="mRetStatBooldMap2">
 		<![CDATA[
-			select a.bloodGlucose1 as value, a.bloodGlucose2 as flag, STR_TO_DATE(a.takeTime,'%Y-%m-%d')  as takeTime 
+			select a.bloodGlucose1, a.bloodGlucose2, STR_TO_DATE(a.takeTime1,'%Y-%m-%d %H:%i')  as takeTime1, STR_TO_DATE(a.takeTime2,'%Y-%m-%d %H:%i')  as takeTime2
 			from tab_blood_glucose a
 			where a.userId = #{userId}
 		]]>
@@ -1297,6 +1305,18 @@
 			select FORMAT(a.bloodGlucose1/10, 1) as bloodGlucose1, a.takeTime1, FORMAT(a.bloodGlucose2/10, 1) as bloodGlucose2, a.takeTime2
 			from tab_blood_glucose a
 			where a.userId = #{userId}
+			and a.takeTime1 is not null
+			order by a.takeTime DESC
+			LIMIT 0, 1
+		]]>
+	</select>
+	
+	<select id="QueryMapper.queryRecentlyHomeBloodTwoInfo" 	parameterType="queryModel"	resultMap="mRetRecentlyHomeBloodMap">
+		<![CDATA[
+			select FORMAT(a.bloodGlucose1/10, 1) as bloodGlucose1, a.takeTime1, FORMAT(a.bloodGlucose2/10, 1) as bloodGlucose2, a.takeTime2
+			from tab_blood_glucose a
+			where a.userId = #{userId}
+			and a.takeTime2 is not null
 			order by a.takeTime DESC
 			LIMIT 0, 1
 		]]>
@@ -1652,6 +1672,33 @@
 			where a.userId = #{userId}
 			and date_format(a.takeTime, '%Y-%m-%d') = #{startTime}
 			order by a.takeTime
+		]]>
+	</select>
+	
+	
+	<!-- 加载血糖 -->
+	<select id="QueryMapper.queryHealthGlucoseOfOneInfo" 	parameterType="queryModel"	resultMap="mRetHealthGlucoseMap">
+		<![CDATA[
+			SELECT a.takeTime1, FORMAT(a.bloodGlucose1/10, 1) as bloodGlucose1, a.takeTime2, FORMAT(a.bloodGlucose2/10, 1) as bloodGlucose2
+			FROM tab_blood_glucose a
+			where a.userId = #{userId}
+			and date_format(a.takeTime, '%Y-%m-%d') = #{startTime}
+			and a.takeTime1 is not null
+			order by a.takeTime desc
+			LIMIT 0, 1
+		]]>
+	</select>
+	
+	<!-- 加载血糖 -->
+	<select id="QueryMapper.queryHealthGlucoseOfTwoInfo" 	parameterType="queryModel"	resultMap="mRetHealthGlucoseMap">
+		<![CDATA[
+			SELECT a.takeTime1, FORMAT(a.bloodGlucose1/10, 1) as bloodGlucose1, a.takeTime2, FORMAT(a.bloodGlucose2/10, 1) as bloodGlucose2
+			FROM tab_blood_glucose a
+			where a.userId = #{userId}
+			and date_format(a.takeTime, '%Y-%m-%d') = #{startTime}
+			and a.takeTime2 is not null
+			order by a.takeTime desc
+			LIMIT 0, 1
 		]]>
 	</select>
 	

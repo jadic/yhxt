@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.ActivityModel;
+import com.gesoft.model.BloodGlucoseModel;
 import com.gesoft.model.BloodModel;
 import com.gesoft.model.CommentModel;
 import com.gesoft.model.DeviceModel;
@@ -1543,7 +1544,7 @@ public class PQueryController extends BaseController
 		try
 		{
 			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
-			List<BloodModel> argFlys = pQueryService.queryStatBloodInfo(model);
+			List<BloodGlucoseModel> argFlys = pQueryService.queryStatBloodInfo(model);
 			if (argFlys != null && argFlys.size() > 0)
 			{
 				msgModel.setTotal(argFlys.size());
@@ -1836,10 +1837,15 @@ public class PQueryController extends BaseController
 		if (glucoseFlys != null && glucoseFlys.size() > 0)
 		{
 			result.addObject("glucoseFlys", glucoseFlys);
-			result.addObject("xtModel", glucoseFlys.get(glucoseFlys.size() - 1));
 		}
 
-
+		//加载一条血糖记录
+		OutModel mXtModel = pQueryService.queryHealthGlucoseOfOneInfo(model);
+		if (mXtModel != null)
+		{
+			result.addObject("xtModel", mXtModel);
+		}
+				
 		// 加载体温
 		List<OutModel> thermometerFlys = pQueryService.queryHealthThermometerInfo(model);
 		if (thermometerFlys != null && thermometerFlys.size() > 0)

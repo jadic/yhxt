@@ -38,7 +38,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}	
 			});
 			funLoadHealthRepeatInfo();
-			$("#list").css("height", $(window).height() - 80);
 		});
 		
 		function funAccessment(type)
@@ -201,19 +200,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body>
 <div data-role="page" class="jqm-demos" data-quicklinks="true">
-	<div data-role="header" id="head" style="border-bottom-color: #95b200; border-bottom-width:3px; background: #f6f6f6; height: 64px;">
-		<div style="height: 20px; width: 100%;"></div>
-		<table cellspacing="0" cellpadding="0" style="width: 100%; height: 44px;">
-			<tr>
-				<td style="width: 45px;" align="center">
-					<img onclick="window.location.href='<c:url value='/app/healthBgGyxx.do'/>?userId=${query.userId}&startTime=${query.startTime}&endTime=${query.endTime}&statType=${query.statType}'" src="<c:url value='/app/self/images/back.png'/>" style="height: 35px; height: 35px; cursor: pointer;">
-				</td>
-				<td style="color: #929292; font-size: 16px; font-weight: normal; " align="center">周健康报告</td>
-				<td style="width: 45px;" align="center">&nbsp;</td>
-			</tr>
-		</table>
-	</div>
-	<div id="list" role="main" class="listDiv"  class="ui-content jqm-content" style="overflow: auto; margin-top: 1px; background: #fff;" >
+	<div id="list" role="main" class="listDiv"  class="ui-content jqm-content" style="overflow: auto;  padding-left: 8px; margin-top: 1px; background: #fff;" >
 	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
 	        		<tr>
 	        			<td style="width: 80px; font-size: 14px; line-height: 35px; height: 35px;">综合评估：</td>

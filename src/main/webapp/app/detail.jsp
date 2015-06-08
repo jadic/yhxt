@@ -172,7 +172,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#list, #head").bind("click", function(){
 				funShow(false);
 			})
-			
+			window.setInterval(function(){
+				$("#shishi").next().css({"top":64, "bottom":120})
+			}, 100);
 			funLoadInfo();
 		})
 	
@@ -324,6 +326,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    		  {
 			    		  	funShowReplyInfo(data.rows, false);
 			    		  } 
+			    		  myScroll.refresh();
 			    	  }
 			      }
 			  });

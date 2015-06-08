@@ -10,11 +10,11 @@ package com.gesoft.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.BloodGlucoseModel;
 import com.gesoft.model.BloodModel;
 import com.gesoft.model.CommentModel;
 import com.gesoft.model.DeviceModel;
@@ -805,7 +805,7 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	 * @param model
 	 * @return
 	 */
-	public List<BloodModel> queryStatBloodInfo(QueryModel model)
+	public List<BloodGlucoseModel> queryStatBloodInfo(QueryModel model)
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryStatBloodInfo", model);
 	}
@@ -835,6 +835,17 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryRecentlyHomeBloodInfo", model);
 	}
 
+	/**
+	 * 描述信息：加载最近的血糖
+	 * 创建时间：2015年4月21日 上午11:45:12
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public OutModel queryRecentlyHomeBloodTwoInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryRecentlyHomeBloodTwoInfo", model);
+	}
 
 	/**
 	 * 描述信息：加载最近的体温
@@ -1041,7 +1052,31 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthGlucoseInfo", model);
 	}
 	
-
+	/**
+	 * 描述信息：加载单条血糖记录
+	 * 创建时间：2015年6月6日 上午10:16:49
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public OutModel queryHealthGlucoseOfOneInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHealthGlucoseOfOneInfo", model);
+	}
+	
+	
+	/**
+	 * 描述信息：加载单条血糖记录
+	 * 创建时间：2015年6月6日 上午10:16:49
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public OutModel queryHealthGlucoseOfTwoInfo(QueryModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryHealthGlucoseOfTwoInfo", model);
+	}
+	
 
 	/**
 	 * 描述信息：测量体温

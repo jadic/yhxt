@@ -174,7 +174,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					flag = false;
 					mY = this.y;
 				}	
-				
 				offY = this.y - mY;
 				if (offY >= yLen && !pullDownEl.className.match('flip')) {
 					pullDownEl.className = 'flip';
@@ -223,20 +222,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 			$("#list").css("height", $(window).height() - 120);
 			$("body").on("swipeleft",function(){
+				$("#shishi").css("height", $("#aa").css("height"))
 				$("#aa").animate({"left":-$("#aa").width() - 5}, function(){
 					$("#show1").css({"border-bottom":"3px solid #e7e7e7", "color":"#000"});
 					$("#show2").css({"border-bottom":"3px solid #95b200", "color":"#95b200"});
 				});
 				$("#bb").animate({"left":0});
 				isLeft = false;
+				myScroll.refresh();
 			});
 			$("body").on("swiperight",function(){
+				$("#shishi").css("height", $("#aa").css("height"))
 				$("#aa").animate({"left":0}, function(){
 					$("#show2").css({"border-bottom":"3px solid #e7e7e7", "color":"#000"});
 					$("#show1").css({"border-bottom":"3px solid #95b200", "color":"#95b200"});
 				});
 				$("#bb").animate({"left":$("#aa").width() + 5});
 				isLeft = true;
+				myScroll.refresh();
 			});
 			
 			PageShow.funSearch("<c:url value='/app/happyHostPost.do'/>", {
@@ -337,6 +340,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						$("#aa").css({"left":0, "position":"relative", "top":1});
 						$("#bb").css({"left":$("#aa").width(), "position":"relative", "top":1-$("#aa").height()});
 					}
+					myScroll.refresh();
 				}
 				catch(e)
 				{
@@ -367,12 +371,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<div id="shishi" name="shishi"  class="listDiv"  >
 			<div id="pullDown"><span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span></div>
-				<ul data-role="listview" id="aa">
+					<ul data-role="listview" id="aa">
 				
-				</ul>
-				<ul id="bb" data-role="listview">
-					
-				</ul>	
+					</ul>
+					<ul id="bb" data-role="listview">
+						
+					</ul>	
 		    <div id="pullUp" style="display: none;"><span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span></div>
 		</div>    	
 	</div>		
