@@ -154,7 +154,7 @@
       <![CDATA[
         select count(1) as cnt 
         from tab_service t
-        where (t.serviceType=2 and t.serviceCreatorId=#{creatorId})
+        where (t.serviceType=2 and t.serviceCreatorId in (select nurseId from tab_user_nurse_relation b where b.userId=#{creatorId}))
            or (t.serviceTYpe<>2)
       ]]>
     </select>
@@ -166,7 +166,7 @@
         select a.id, a.serviceType, a.serviceName, a.serviceCreatorId, a.serviceCreateTime, 
                a.serviceStartDate, a.serviceDuration, a.serviceMemo, a.serviceIcon
         from tab_service a
-        where (a.serviceType=2 and a.serviceCreatorId=#{creatorId}) 
+        where (a.serviceType=2 and a.serviceCreatorId in (select nurseId from tab_user_nurse_relation b where b.userId=#{creatorId})) 
            or (a.serviceTYpe<>2)
         order by a.serviceCreateTime desc
         limit #{startNum}, #{rows}
@@ -178,7 +178,7 @@
       <![CDATA[
         select count(1) as cnt 
         from tab_activity t
-        where (t.activityType=2 and t.activityCreatorId=#{creatorId})
+        where (t.activityType=2 and t.activityCreatorId in (select nurseId from tab_user_nurse_relation b where b.userId=#{creatorId}))
            or (t.activityType<>2)
       ]]>
     </select>
@@ -190,7 +190,7 @@
         select a.activityId, a.activityType, a.activityName, a.activityCreatorId, a.activityCreateTime, 
                a.activityStartDate, a.activityDuration, a.activityMemo, a.activityIcon
         from tab_activity a
-        where (a.activityType=2 and a.activityCreatorId=#{creatorId}) 
+        where (a.activityType=2 and a.activityCreatorId in (select nurseId from tab_user_nurse_relation b where b.userId=#{creatorId})) 
            or (a.activityType<>2)
         order by a.activityCreateTime desc
         limit #{startNum}, #{rows}
