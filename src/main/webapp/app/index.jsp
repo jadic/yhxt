@@ -184,6 +184,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	var currentPage = 1;
 	var sumPage = 1;
 	$(function(){
+		
+		window.setInterval(function(){
+			if (pullDownEl.className.match('flip')) {
+				flag = true;
+				$("#pullUp").hide();
+				pullDownEl.className = 'loading';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';				
+				pullDownAction();	// Execute custom function (ajax call?)
+			}
+			 else if (pullUpEl.className.match('flip')) {
+				flag = true;
+				pullUpEl.className = 'loading';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';	
+				pullUpAction();	// Execute custom function (ajax call?)
+			}
+		}, 3000);
 		$("li a").bind("click", function(){
 			$("li a").css("background", "#fff");
 			$(this).css("background", "#f7fbc5");

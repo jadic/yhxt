@@ -220,6 +220,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$("li a").css("background", "#fff");
 				$(this).css("background", "#f7fbc5");
 			});
+			
+			$("#show1").bind("click", function(){
+				$("#shishi").css("height", $("#aa").css("height"))
+				$("#aa").animate({"left":0}, function(){
+					$("#show2").css({"border-bottom":"3px solid #e7e7e7", "color":"#000"});
+					$("#show1").css({"border-bottom":"3px solid #95b200", "color":"#95b200"});
+				});
+				$("#bb").animate({"left":$("#aa").width() + 5});
+				isLeft = true;
+				myScroll.refresh();
+			})
+			$("#show2").bind("click", function(){
+				$("#shishi").css("height", $("#aa").css("height"))
+				$("#aa").animate({"left":-$("#aa").width() - 5}, function(){
+					$("#show1").css({"border-bottom":"3px solid #e7e7e7", "color":"#000"});
+					$("#show2").css({"border-bottom":"3px solid #95b200", "color":"#95b200"});
+				});
+				$("#bb").animate({"left":0});
+				isLeft = false;
+				myScroll.refresh();
+			})
 			$("#list").css("height", $(window).height() - 120);
 			$("body").on("swipeleft",function(){
 				$("#shishi").css("height", $("#aa").css("height"))
@@ -254,6 +275,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        "rows" : 10
 		      }, "#bb");
 			PageShow.funSwipeDiv();
+			
+			window.setInterval(function(){
+				if (pullDownEl.className.match('flip')) {
+					flag = true;
+					$("#pullUp").hide();
+					pullDownEl.className = 'loading';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';				
+					pullDownAction();	// Execute custom function (ajax call?)
+				}
+				 else if (pullUpEl.className.match('flip')) {
+					flag = true;
+					pullUpEl.className = 'loading';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';	
+					pullUpAction();	// Execute custom function (ajax call?)
+				}
+			}, 3000);
 		})
 		
 		

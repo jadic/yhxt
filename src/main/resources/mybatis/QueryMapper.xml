@@ -1306,7 +1306,7 @@
 			from tab_blood_glucose a
 			where a.userId = #{userId}
 			and a.takeTime1 is not null
-			order by a.takeTime DESC
+			order by a.takeTime1 DESC
 			LIMIT 0, 1
 		]]>
 	</select>
@@ -1317,7 +1317,7 @@
 			from tab_blood_glucose a
 			where a.userId = #{userId}
 			and a.takeTime2 is not null
-			order by a.takeTime DESC
+			order by a.takeTime2 DESC
 			LIMIT 0, 1
 		]]>
 	</select>
@@ -1684,7 +1684,7 @@
 			where a.userId = #{userId}
 			and date_format(a.takeTime, '%Y-%m-%d') = #{startTime}
 			and a.takeTime1 is not null
-			order by a.takeTime desc
+			order by a.takeTime2 desc
 			LIMIT 0, 1
 		]]>
 	</select>
@@ -1697,7 +1697,7 @@
 			where a.userId = #{userId}
 			and date_format(a.takeTime, '%Y-%m-%d') = #{startTime}
 			and a.takeTime2 is not null
-			order by a.takeTime desc
+			order by a.takeTime2 desc
 			LIMIT 0, 1
 		]]>
 	</select>

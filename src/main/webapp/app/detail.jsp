@@ -156,6 +156,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		});
 		setTimeout(function () { document.getElementById(id).style.left = '0'; }, 800);
+		
+		window.setInterval(function(){
+			if (pullDownEl.className.match('flip')) {
+				flag = true;
+				$("#pullUp").hide();
+				pullDownEl.className = 'loading';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';				
+				pullDownAction();	// Execute custom function (ajax call?)
+			}
+		}, 3000);
 	});
 		
 	
