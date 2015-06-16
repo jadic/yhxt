@@ -255,7 +255,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				var row = PageData.rows[nItem];
 				var tmp = '<li>' +
 							'<a data-ajax="false" href="./next.jsp?id='+row.id+'&name='+row.title+'&userId=${param.userId}"  style="background: #fff;">' +
-								'<img src="<c:url value='/app/jquerymobile/img/app_01.png'/>">' +
+								'<img src="<c:url value='/'/>'+row.url+'">' +
 								'<h2>' +
 									'<div style="float: left; font-size: 16px;">'+row.title+'</div>' +
 									'<div style="float: right; width: 60px; color: #acc241; font-size: 12px; font-weight: normal;">'+row.cnt+'话题</div>' +
