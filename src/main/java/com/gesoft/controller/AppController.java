@@ -39,6 +39,7 @@ import com.gesoft.model.HappyHostReportModel;
 import com.gesoft.model.HealthReportModel;
 import com.gesoft.model.IdModel;
 import com.gesoft.model.MealResultModel;
+import com.gesoft.model.MedicineModel;
 import com.gesoft.model.MentalStatusModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.NewsModel;
@@ -1184,4 +1185,43 @@ public class AppController extends BaseController {
 		}
 		return mHealthReportModel;
 	}
+	
+    @RequestMapping(value = "/addMedicineRecord.do")
+    public @ResponseBody MsgModel addMedicineRecord(MedicineModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            if (model.getUserId() > 0 && !StringUtil.isNullOrEmpty(model.getMedicineName())
+                    && !StringUtil.isNullOrEmpty(model.getMedicineAmount())
+                    && !StringUtil.isNullOrEmpty(model.getMedicineUnit())
+                    && !StringUtil.isNullOrEmpty(model.getMedicineTime())) {
+                pQueryService.addMedicineInfo(model);
+                int id = model.getId();
+                msgModel.setTotal(1);
+                List<IdModel> idList = new ArrayList<IdModel>();
+                IdModel idModel = new IdModel();
+                idModel.setId(id);
+                idList.add(idModel);
+                msgModel.setSuccess(id > 0);
+                msgModel.setRows(idList);
+            } else {
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+            }
+        } catch (Exception e) {
+            logger.error("AppController uploadMentalStatus error：", e);
+        }
+        return msgModel;
+    }
+    
+    @RequestMapping(value = "/queryMedicineRecord.do")
+    public @ResponseBody MsgModel queryMedicineRecord(QueryModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            
+        } catch (Exception e) {
+            logger.error("AppController uploadMentalStatus error：", e);
+        }
+        return msgModel;
+    }
+    
+    
 }
