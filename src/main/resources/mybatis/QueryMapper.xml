@@ -480,6 +480,8 @@
 		<result property="medicineAmount"  					column="medicineAmount"/>
 		<result property="medicineUnit"  					column="medicineUnit"/>
 		<result property="medicineTime"  					column="medicineTime"/>
+		<result property="medicineTiming"  					column="medicineTiming"/>
+		<result property="medicineInterval"  				column="medicineInterval"/>
 	</resultMap>
 	
 	
@@ -1872,7 +1874,8 @@
 	<!-- 用药记录 分页 -->
 	<select id="QueryMapper.queryMedicineInfo" parameterType="queryModel" resultMap="mRetMedicineMap">
 		<![CDATA[
-			SELECT a.*
+			SELECT a.id, a.userId, a.medicineName, a.medicineAmount, a.medicineUnit, a.medicineTiming, a.medicineInterval,
+                   date_format(a.medicineTime, '%Y-%m-%d %H:%i:%S') as medicineTime
 			FROM tab_medicine_record a
 			where a.userId = #{userId}
 		]]>
@@ -1907,8 +1910,8 @@
 	<!-- 插入用药记录-->
 	<insert id="QueryMapper.addMedicineInfo" useGeneratedKeys="true" keyProperty="id">
 	    <![CDATA[
-	        INSERT INTO tab_medicine_record (userId, medicineName, medicineAmount, medicineUnit, medicineTime) 
-	        VALUES (#{userId}, #{medicineName}, #{medicineAmount}, #{medicineUnit}, #{medicineTime})
+	        INSERT INTO tab_medicine_record (userId, medicineName, medicineAmount, medicineUnit, medicineTime, medicineTiming, medicineInterval) 
+	        VALUES (#{userId}, #{medicineName}, #{medicineAmount}, #{medicineUnit}, #{medicineTime}, #{medicineTiming}, #{medicineInterval})
 	    ]]>
 	</insert>
 	
@@ -1929,6 +1932,18 @@
 			medicineName = #{medicineName}, 
 			medicineAmount = #{medicineAmount}, 
 			medicineUnit = #{medicineUnit}, 
+		]]>
+        <if test="medicineTiming != null and medicineTiming != ''">
+          <![CDATA[
+            medicineTiming = #{medicineTiming},
+          ]]>
+        </if>    
+        <if test="medicineInterval != null and medicineInterval != ''">
+          <![CDATA[
+            medicineInterval = #{medicineInterval},
+          ]]>
+        </if>    
+		<![CDATA[
 			medicineTime = #{medicineTime}
 			WHERE id = #{id} 
 		]]>

@@ -22,6 +22,8 @@ public class MedicineModel extends BaseModel
 	private String medicineAmount;
 	private String medicineUnit;
 	private String medicineTime;
+	private String medicineTiming;
+	private String medicineInterval;
 	
 	public int getId()
 	{
@@ -63,5 +65,17 @@ public class MedicineModel extends BaseModel
 	{
 		this.medicineTime = medicineTime;
 	}
+    public String getMedicineTiming() {
+        return medicineTiming;
+    }
+    public void setMedicineTiming(String medicineTiming) {
+        this.medicineTiming = medicineTiming;
+    }
+    public String getMedicineInterval() {
+        return medicineInterval;
+    }
+    public void setMedicineInterval(String medicineInterval) {
+        this.medicineInterval = medicineInterval;
+    }
 	
 }

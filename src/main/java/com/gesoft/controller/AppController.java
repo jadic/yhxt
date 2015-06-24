@@ -1207,7 +1207,20 @@ public class AppController extends BaseController {
                 msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
             }
         } catch (Exception e) {
-            logger.error("AppController uploadMentalStatus error：", e);
+            logger.error("AppController addMedicineRecord error：", e);
+        }
+        return msgModel;
+    }
+    
+    @RequestMapping(value = "/modifyMedicineRecord.do")
+    public @ResponseBody MsgModel modifyMedicineRecord(MedicineModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            if(pQueryService.modifyMedicineInfo(model) > 0) {
+                msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+            }
+        } catch (Exception e) {
+            logger.error("AppController modifyMedicineRecord error：", e);
         }
         return msgModel;
     }
@@ -1216,9 +1229,31 @@ public class AppController extends BaseController {
     public @ResponseBody MsgModel queryMedicineRecord(QueryModel model) {
         MsgModel msgModel = new MsgModel();
         try {
-            
+            long recordCount = pQueryService.queryMedicineInfoCnt(model);
+            msgModel.setSuccess(true);
+            if (recordCount > 0) {
+                setPageModel(recordCount, model);
+                List<MedicineModel> rows = pQueryService.queryMedicineInfo(model);
+                if (rows != null && rows.size() > 0) {
+                    msgModel.setTotal(recordCount);
+                    msgModel.setRows(rows);
+                }
+            }
         } catch (Exception e) {
-            logger.error("AppController uploadMentalStatus error：", e);
+            logger.error("AppController queryMedicineRecord error：", e);
+        }
+        return msgModel;
+    }
+
+    @RequestMapping(value = "/delMedicineRecord.do")
+    public @ResponseBody MsgModel delMedicineRecord(MedicineModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            if(pQueryService.delMedicineInfo(model) > 0) {
+                msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+            }
+        } catch (Exception e) {
+            logger.error("AppController delMedicineRecord error：", e);
         }
         return msgModel;
     }
