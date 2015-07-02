@@ -630,5 +630,20 @@
 		values (#{tableType}, #{reportFlag}, #{stime}, #{userId}, #{tableId})
 	  ]]>
 	</insert>
-    
+ 
+    <!-- 增加心电 -->
+    <insert id="AppMapper.addECGRecord" useGeneratedKeys="true" keyProperty="id">
+      <![CDATA[
+      insert into tab_ecg(userId, valLow, valHigh, takeTime)
+      values (#{userId}, #{valLow}, #{valHigh}, #{takeTime})
+      ]]>
+    </insert>   
+
+    <!-- 增加血氧 -->
+    <insert id="AppMapper.addBloodOxygenRecord" useGeneratedKeys="true" keyProperty="id">
+      <![CDATA[
+      insert into tab_blood_oxygen(userId, valLow, valHigh, takeTime)
+      values (#{userId}, #{valLow}, #{valHigh}, #{takeTime})
+      ]]>
+    </insert>   
 </mapper>

@@ -15,10 +15,12 @@ import com.gesoft.common.EntityDAOImpl;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.BloodGlucoseModel;
+import com.gesoft.model.BloodOxygenModel;
 import com.gesoft.model.BloodPressureModel;
 import com.gesoft.model.DeleteRecordModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
+import com.gesoft.model.ECGModel;
 import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.FoodItemModel;
 import com.gesoft.model.HappyHostLaudModel;
@@ -407,5 +409,23 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
 	public long addHappyHostReportInfo(HappyHostReportModel model)
 	{
 		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addHappyHostReportInfo", model);
+	}
+	
+	/**
+	 * 增加心电记录
+	 * @param model
+	 * @return
+	 */
+	public int addEGCRecord(ECGModel model) {
+        return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addECGRecord", model);
+    }
+	
+	/**
+	 * 增加血氧记录
+	 * @param model
+	 * @return
+	 */
+	public int addBloodOxygenRecord(BloodOxygenModel model) {
+	    return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addBloodOxygenRecord", model);
 	}
 }

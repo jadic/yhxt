@@ -20,10 +20,12 @@ import com.gesoft.dao.AppDAO;
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BaseModel;
 import com.gesoft.model.BloodGlucoseModel;
+import com.gesoft.model.BloodOxygenModel;
 import com.gesoft.model.BloodPressureModel;
 import com.gesoft.model.DeleteRecordModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
+import com.gesoft.model.ECGModel;
 import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.FoodItemModel;
 import com.gesoft.model.HappyHostLaudModel;
@@ -437,4 +439,22 @@ public class AppService extends EntityService<BaseModel, Long> {
 	{
 		return appDAO.addHappyHostReportInfo(model);
 	}
+	
+	   /**
+     * 增加心电记录
+     * @param model
+     * @return
+     */
+    public int addEGCRecord(ECGModel model) {
+        return appDAO.addEGCRecord(model);
+    }
+    
+    /**
+     * 增加血氧记录
+     * @param model
+     * @return
+     */
+    public int addBloodOxygenRecord(BloodOxygenModel model) {
+        return appDAO.addBloodOxygenRecord(model);
+    }
 }

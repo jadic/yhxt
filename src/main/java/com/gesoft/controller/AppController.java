@@ -24,10 +24,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gesoft.model.ActivityModel;
 import com.gesoft.model.BloodGlucoseModel;
+import com.gesoft.model.BloodOxygenModel;
 import com.gesoft.model.BloodPressureModel;
 import com.gesoft.model.DeleteRecordModel;
 import com.gesoft.model.DoctorAdviceModel;
 import com.gesoft.model.DoctorAdvicePerformanceModel;
+import com.gesoft.model.ECGModel;
 import com.gesoft.model.EarTemperatureModel;
 import com.gesoft.model.FeedBackModel;
 import com.gesoft.model.FoodItemModel;
@@ -1258,5 +1260,51 @@ public class AppController extends BaseController {
         return msgModel;
     }
     
+    @RequestMapping(value = "/addECGRecord.do")
+    public @ResponseBody MsgModel addECGRecord(ECGModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            if (model.getUserId() > 0 && model.getValHigh() > 0 && model.getValLow() > 0
+                    && !StringUtil.isNullOrEmpty(model.getTakeTime())) {
+                appService.addEGCRecord(model);
+                int id = model.getId();
+                msgModel.setTotal(1);
+                List<IdModel> idList = new ArrayList<IdModel>();
+                IdModel idModel = new IdModel();
+                idModel.setId(id);
+                idList.add(idModel);
+                msgModel.setSuccess(id > 0);
+                msgModel.setRows(idList);
+            } else {
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+            }
+        } catch (Exception e) {
+            logger.error("AppController addECGRecord error：", e);
+        }
+        return msgModel;
+    }
     
+    @RequestMapping(value = "/addBloodOxygenRecord.do")
+    public @ResponseBody MsgModel addBloodOxygenRecord(BloodOxygenModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            if (model.getUserId() > 0 && model.getValHigh() > 0 && model.getValLow() > 0
+                    && !StringUtil.isNullOrEmpty(model.getTakeTime())) {
+                appService.addBloodOxygenRecord(model);
+                int id = model.getId();
+                msgModel.setTotal(1);
+                List<IdModel> idList = new ArrayList<IdModel>();
+                IdModel idModel = new IdModel();
+                idModel.setId(id);
+                idList.add(idModel);
+                msgModel.setSuccess(id > 0);
+                msgModel.setRows(idList);
+            } else {
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+            }
+        } catch (Exception e) {
+            logger.error("AppController addBloodOxygenRecord error：", e);
+        }
+        return msgModel;
+    }
 }
