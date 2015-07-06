@@ -25,6 +25,8 @@ public class MedicineModel extends BaseModel
 	private String medicineTiming;
 	private String medicineInterval;
 	
+	private String flag;//配合app端增加一个标识位
+	
 	public int getId()
 	{
 		return id;
@@ -76,6 +78,12 @@ public class MedicineModel extends BaseModel
     }
     public void setMedicineInterval(String medicineInterval) {
         this.medicineInterval = medicineInterval;
+    }
+    public String getFlag() {
+        return flag;
+    }
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 	
 }
