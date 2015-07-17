@@ -149,6 +149,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</li>
 							<li id="tree-xtjc-li">
 								<div class="tree-item-label">
+									<span class="tree-item-text" title="血圧信息">
+										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/chart4.do'/>" target="mainFrame">血圧信息</a>
+									</span>
+								</div>	
+							</li>
+							<li id="tree-xtjc-li">
+								<div class="tree-item-label">
 									<span class="tree-item-text" title="体温信息">
 										<a style="display:block;text-decoration:none; color:#000; " href="<c:url value='/p/chart3.do'/>" target="mainFrame">体温信息</a>
 									</span>

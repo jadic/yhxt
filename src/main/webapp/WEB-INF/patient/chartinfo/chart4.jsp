@@ -20,19 +20,100 @@
 			$("#stime").val(DateAdd("h",-7,new Date()).pattern("yyyy-MM-dd HH:mm:ss"));
 			$("#etime").val(new Date().pattern("yyyy-MM-dd HH:mm:ss"));
 			$(".account_titleGray").css("width", $(".account_title").width()-130);
-			var chart1 = new AnyChart(_chart_, _chart_);
-		    chart1.width = "100%";
-	        chart1.height = $(window).height()-$(".search").height()-110;
-	        chart1.setXMLFile("<c:url value='/patient/pages/chart4.xml'/>");
-		    chart1.write("container1");
+			PageFx.initChart();
+			PageFx.funSearch();
 		});
+		
+		var PageFx = {
+			Chart1:null,	
+			initChart : function()
+			{
+				PageFx.Chart1 = new AnyChart(_chart_);
+				PageFx.Chart1.wMode = "opaque";
+				PageFx.Chart1.width = "100%";
+				PageFx.Chart1.height = $(window).height()-$(".search").height()-110;
+			},
+			funSearch : function()
+			{
+				$.ajax({
+					url : _ctx_ + '/p/query/statPressure.do?a='+ Math.random(),
+					type : 'post',
+					dataType : 'json',
+					data : 
+					{
+						"startTime"	: $("#stime").val(),
+						"endTime"	: $("#etime").val()
+					},
+					error:function(data)
+					{
+						
+					},
+					success:function(data)
+					{
+						PageFx.showChart(data);
+					}
+				});
+			},
+			showChart : function(data)
+			{
+				var myParamObj = {
+						mTopFlag	: true,
+						mTopTitle	: '血压等级分析图',
+						mLabelFormat: '{%Name}\n{%SeriesName}: {%YValue}{numDecimals:2}(mmol/L)',
+						mYtitle		: '高压/低压/心率(mmHg)',
+						mYFlag		: true,
+						mChartType  : 'Spline', 
+						mFormateYTip: '{%Value}{numDecimals:2}',
+						mViewData 	: ''
+					};
+				var mViewData1 = '<series name="高压值">';
+				var mViewData2 = '<series name="低压值">';
+				var mViewData3 = '<series name="心率">';
+				if(data.total > 0)
+				{
+					for(var nItem=0; nItem<data.total; nItem++)
+					{
+						mViewData1 += '<point name="'+data.rows[nItem].a+'" y="'+data.rows[nItem].a1+'"/>';
+						mViewData2 += '<point name="'+data.rows[nItem].a+'" y="'+data.rows[nItem].a2+'"/>';
+						mViewData3 += '<point name="'+data.rows[nItem].a+'" y="'+data.rows[nItem].a3+'"/>';
+					}
+					
+				}
+				mViewData1 += '</series>';
+				mViewData2 += '</series>';
+				mViewData3 += '</series>';
+				myParamObj.mViewData = mViewData1 + mViewData2 + mViewData3;
+				try{
+				PageFx.funChart(PageFx.Chart1, "container", "/patient/pages/chart2", myParamObj);
+				}catch(e){}
+			},
+			funChart : function(mObj, paramId, paramUrl, paramObj)
+			{
+				$.ajax({
+					type : "POST",
+					url  : _ctx_ + paramUrl +".jsp",
+					async : false,
+					cache : false,
+					success:function(data)
+					{
+						var viewData = data;
+						for (prop in paramObj)
+						{
+							viewData = viewData.replace(eval("/"+prop+"/g"), paramObj[prop]);
+						}
+						mObj.setData(viewData);
+						mObj.write(paramId);
+					}
+				});	
+			},
+		};
 	</script>   
   </head>
   <body style="padding: 0px; margin: 0px; overflow: hidden;">
   	<div class="account" style="background: #ffffff; width: 100%; margin: 0px 5px 0px 5px">
 		<div class="account_title" style="background: #ffffff; width: 100%;">
 	      <ul>
-	        <li class="account_titleGreen">体脂信息</li>
+	        <li class="account_titleGreen">血圧信息</li>
 	        <li class="account_titleGray" style="padding-top: 8px; height: 35px;"></li>
 	      </ul>
 	    </div>
@@ -55,7 +136,7 @@
 		    		</td>
 		    		<td>
 			    		<ul>
-			    			<li class="btn_search"><a href="javascript:void(0)" id="btnsearch">查询</a></li>
+			    			<li class="btn_search"><a href="javascript:void(0)" id="btnsearch" onclick="PageFx.funSearch()">查询</a></li>
 			    		</ul>
 		    		</td>
 		    	</tr>
@@ -66,7 +147,7 @@
 	<table id="table_footer" cellpadding="0" cellspacing="0" style="width: 100%; overflow: hidden; background: #f7f7f7;" border="0" >
 		<tr>
 			<td style="padding: 10px;">
-				<div id="container1" ></div>
+				<div id="container" ></div>
 			</td>
 		</tr>
 	</table>
