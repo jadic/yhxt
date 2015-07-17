@@ -19,6 +19,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.input_informationModify{width:150px; height:25px; border:1px solid #aeaeae; padding-left:10px; font:13px/26px "微软雅黑"; color:#5a5a5a; }
 		.selectMax_informationModify{width:150px; height:25px; border:1px solid #aeaeae; font:13px/26px "微软雅黑"; color:#5a5a5a; }
 		.selectMax_Level{width:60px; height:25px; border:0px solid #aeaeae; font:13px/26px "微软雅黑"; color:#5a5a5a; }
+        .hidden{display: none;}
+        .noData{width: 99%; font-size: 18px; padding: 0px 0px 20px 10px; text-align: left; color:#FF0000;}
 	</style>
 	
 	<script type="text/JavaScript">
@@ -316,366 +318,300 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	
 	        	<div style="width: 99%; font-size: 18px; padding: 40px 0px 15px 0px; text-align: left;">二.数据记录</div>
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">1.运动（过量标红，少量标绿）</div>
-	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
-	        		<tr>
-	        			<td class="tableTd" align="center" style="width: 60px;">序号</td>
-	        			<td class="tableTd" align="center">运动类型</td>
-	        			<td class="tableTd" align="center">时间</td>
-	        			<td class="tableTd" align="center">时长(分)</td>
-	        			<td class="tableTd" align="center">卡路里消耗(卡)</td>
-	        			<td class="tableTd" align="center">是否适量</td>
-	        		</tr>
-	        		<c:if test="${not empty sportFlys }">
-	        			<c:forEach items="${sportFlys }" var="sportItem" varStatus="index">
-		        		<tr>
-		        			<td class="tableTd" align="center" style="width: 60px;">${index.count }</td>
-		        			<td class="tableTd" align="center">&nbsp;${sportItem.a }</td>
-		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${sportItem.b }</td>
-		        			<td class="tableTd" align="center">&nbsp;${sportItem.c }</td>
-		        			<td class="tableTd" align="center">&nbsp;${sportItem.d }</td>
-		        			<td class="tableTd" align="center">
-			        			<span name="sportLevel${index.count }">
-				                 
-				               </span>
-			               </td>
-		        		</tr>
-	        			</c:forEach>
-	        		</c:if>
-	        		<c:if test="${empty sportFlys }">
-		        		<tr>
-		        			<td class="tableTd" align="center">1</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        		</tr>
-	        		</c:if>
-	        	</table>
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="sportAdvice" name="sportAdvice"></textarea>
+                <c:if test="${empty sportFlys }">
+                  <div class="noData">暂时没有可用数据</div>
+                </c:if>
+                <c:if test="${not empty sportFlys }">
+    	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+    	        		<tr>
+    	        			<td class="tableTd" align="center" style="width: 60px;">序号</td>
+    	        			<td class="tableTd" align="center">运动类型</td>
+    	        			<td class="tableTd" align="center">时间</td>
+    	        			<td class="tableTd" align="center">时长(分)</td>
+    	        			<td class="tableTd" align="center">卡路里消耗(卡)</td>
+    	        			<td class="tableTd" align="center">是否适量</td>
+    	        		</tr>
+    	        		<c:if test="${not empty sportFlys }">
+    	        			<c:forEach items="${sportFlys }" var="sportItem" varStatus="index">
+    		        		<tr>
+    		        			<td class="tableTd" align="center" style="width: 60px;">${index.count }</td>
+    		        			<td class="tableTd" align="center">&nbsp;${sportItem.a }</td>
+    		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${sportItem.b }</td>
+    		        			<td class="tableTd" align="center">&nbsp;${sportItem.c }</td>
+    		        			<td class="tableTd" align="center">&nbsp;${sportItem.d }</td>
+    		        			<td class="tableTd" align="center">
+    			        			<span name="sportLevel${index.count }">
+    				                 
+    				               </span>
+    			               </td>
+    		        		</tr>
+    	        			</c:forEach>
+    	        		</c:if>
+    	        	</table>
+                </c:if>
+	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="sportAdvice" name="sportAdvice"></textarea>
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">2.饮食（过量标红，少量标）</div>
-	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
-	        		<tr>
-	        			<td class="tableTd" align="center">餐别</td>
-	        			<td class="tableTd" align="center">时间</td>
-	        			<td class="tableTd" align="center">谷薯类(g)</td>
-	        			<td class="tableTd" align="center">动物型肉食(g)</td>
-	        			<td class="tableTd" align="center">豆类及其制品(g)</td>
-	        			<td class="tableTd" align="center">蔬菜水果类(g)</td>
-	        			<td class="tableTd" align="center">油脂类(g)</td>
-	        			<td class="tableTd" align="center">其它(g)</td>
-	        			<td class="tableTd" align="center">摄入热量(卡)</td>
-	        			<td class="tableTd" align="center">是否适量</td>
-	        		</tr>
-	        		<c:if test="${not empty foodFlys }">
-	        			<c:forEach items="${foodFlys }" var="foodItem" varStatus="index">
-		        		<tr>
-		        			<td class="tableTd" align="center">
-		        				<c:choose>
-		        					<c:when test="${foodItem.a == 1 }">早餐</c:when>
-		        					<c:when test="${foodItem.a == 2 }">中餐</c:when>
-		        					<c:when test="${foodItem.a == 3 }">晚餐</c:when>
-		        					<c:when test="${foodItem.a == 4 }">早加餐</c:when>
-		        					<c:when test="${foodItem.a == 5 }">中加餐</c:when>
-		        					<c:when test="${foodItem.a == 6 }">晚加餐</c:when>
-		        				</c:choose>
-		        			</td>
-		        			<td class="tableTd" align="center">&nbsp;${foodItem.b}</td>
-		        			<td class="tableTd" align="center">&nbsp;${foodItem.d}</td>
-		        			<td class="tableTd" align="center">&nbsp;${foodItem.e}</td>
-		        			<td class="tableTd" align="center">&nbsp;${foodItem.f}</td>
-		        			<td class="tableTd" align="center">&nbsp;${foodItem.g}</td>
-		        			<td class="tableTd" align="center">&nbsp;${foodItem.h}</td>
-		        			<td class="tableTd" align="center">&nbsp;${foodItem.i}</td>
-		        			<td class="tableTd" align="center">&nbsp;${foodItem.c}</td>
-		        			<td class="tableTd" align="center">
-		        				<span class="selectMax_Level" name="dietLevel${index.count }">
-				                  
-				               </span>
-		        			</td>
-		        		</tr>
-	        			</c:forEach>
-	        		</c:if>
-	        		<c:if test="${empty foodFlys }">
-	        		<tr>
-	        			<td class="tableTd" align="center">早餐</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			
-	        		</tr>
-	        		<tr>
-	        			<td class="tableTd" align="center">中餐</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        		</tr>
-	        		<tr>
-	        			<td class="tableTd" align="center">晚餐</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        			<td class="tableTd" align="center">&nbsp;</td>
-	        		</tr>
-	        		</c:if>
-	        		<tr>
-	        			<td class="tableTd" align="center">合计</td>
-	        			<td class="tableTd" align="center">&nbsp;${foodModel.b }</td>
-	        			<td class="tableTd" align="center">&nbsp;${foodModel.d }</td>
-	        			<td class="tableTd" align="center">&nbsp;${foodModel.e }</td>
-	        			<td class="tableTd" align="center">&nbsp;${foodModel.f }</td>
-	        			<td class="tableTd" align="center">&nbsp;${foodModel.g }</td>
-	        			<td class="tableTd" align="center">&nbsp;${foodModel.h }</td>
-	        			<td class="tableTd" align="center">&nbsp;${foodModel.i }</td>
-	        			<td class="tableTd" align="center">&nbsp;${foodModel.c }</td>
-	        			<td class="tableTd" align="center">
-	        				<span class="selectMax_Level" name="dietLevel0">
-			               </span>
-				        </td>
-	        		</tr>
-	        	</table>
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" name="dietAdvice" id="dietAdvice"></textarea>
+                <c:if test="${empty foodFlys }">
+                  <div class="noData">暂时没有可用数据</div>
+                </c:if>      
+                <c:if test="${not empty foodFlys }">      
+    	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+    	        		<tr>
+    	        			<td class="tableTd" align="center">餐别</td>
+    	        			<td class="tableTd" align="center">时间</td>
+    	        			<td class="tableTd" align="center">谷薯类(g)</td>
+    	        			<td class="tableTd" align="center">动物型肉食(g)</td>
+    	        			<td class="tableTd" align="center">豆类及其制品(g)</td>
+    	        			<td class="tableTd" align="center">蔬菜水果类(g)</td>
+    	        			<td class="tableTd" align="center">油脂类(g)</td>
+    	        			<td class="tableTd" align="center">其它(g)</td>
+    	        			<td class="tableTd" align="center">摄入热量(卡)</td>
+    	        			<td class="tableTd" align="center">是否适量</td>
+    	        		</tr>
+  	        			<c:forEach items="${foodFlys }" var="foodItem" varStatus="index">
+  		        		<tr>
+  		        			<td class="tableTd" align="center">
+  		        				<c:choose>
+  		        					<c:when test="${foodItem.a == 1 }">早餐</c:when>
+  		        					<c:when test="${foodItem.a == 2 }">中餐</c:when>
+  		        					<c:when test="${foodItem.a == 3 }">晚餐</c:when>
+  		        					<c:when test="${foodItem.a == 4 }">早加餐</c:when>
+  		        					<c:when test="${foodItem.a == 5 }">中加餐</c:when>
+  		        					<c:when test="${foodItem.a == 6 }">晚加餐</c:when>
+  		        				</c:choose>
+  		        			</td>
+  		        			<td class="tableTd" align="center">&nbsp;${foodItem.b}</td>
+  		        			<td class="tableTd" align="center">&nbsp;${foodItem.d}</td>
+  		        			<td class="tableTd" align="center">&nbsp;${foodItem.e}</td>
+  		        			<td class="tableTd" align="center">&nbsp;${foodItem.f}</td>
+  		        			<td class="tableTd" align="center">&nbsp;${foodItem.g}</td>
+  		        			<td class="tableTd" align="center">&nbsp;${foodItem.h}</td>
+  		        			<td class="tableTd" align="center">&nbsp;${foodItem.i}</td>
+  		        			<td class="tableTd" align="center">&nbsp;${foodItem.c}</td>
+  		        			<td class="tableTd" align="center">
+  		        				<span class="selectMax_Level" name="dietLevel${index.count }">
+  				                  
+  				               </span>
+  		        			</td>
+  		        		</tr>
+  	        			</c:forEach>
+    	        		<tr>
+    	        			<td class="tableTd" align="center">合计</td>
+    	        			<td class="tableTd" align="center">&nbsp;${foodModel.b }</td>
+    	        			<td class="tableTd" align="center">&nbsp;${foodModel.d }</td>
+    	        			<td class="tableTd" align="center">&nbsp;${foodModel.e }</td>
+    	        			<td class="tableTd" align="center">&nbsp;${foodModel.f }</td>
+    	        			<td class="tableTd" align="center">&nbsp;${foodModel.g }</td>
+    	        			<td class="tableTd" align="center">&nbsp;${foodModel.h }</td>
+    	        			<td class="tableTd" align="center">&nbsp;${foodModel.i }</td>
+    	        			<td class="tableTd" align="center">&nbsp;${foodModel.c }</td>
+    	        			<td class="tableTd" align="center">
+    	        				<span class="selectMax_Level" name="dietLevel0">
+    			               </span>
+    				        </td>
+    	        		</tr>
+    	        	</table>
+                </c:if>
+	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" name="dietAdvice" id="dietAdvice"></textarea>
 	        	
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">3.心理评估</div>
-	        	<table border="0" cellspacing="0" cellpadding="0" style=" font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
-	        		<tr>
-	        			<td class="tableTd" align="center">序号</td>
-	        			<td class="tableTd" align="center" style="width: 180px;">测量时间</td>
-	        			<td class="tableTd" align="center">心理状态</td>
-	        		</tr>
-	        		<c:if test="${not empty mentalFlys }">
-	        			<c:forEach items="${mentalFlys }" var="mentalItem" varStatus="index">
-		        		<tr>
-		        			<td class="tableTd" align="center">${index.count }</td>
-		        			<td class="tableTd" align="center">&nbsp;${mentalItem.b }</td>
-		        			<td class="tableTd" align="center">&nbsp;
-		        				<c:choose>
-		        					<c:when test="${mentalItem.a == 1}">开心</c:when>
-		        					<c:when test="${mentalItem.a == 2}">平静</c:when>
-		        					<c:when test="${mentalItem.a == 3}">沮丧</c:when>
-		        					<c:when test="${mentalItem.a == 4}">烦躁</c:when>
-		        				</c:choose>
-		        			</td>
-		        		</tr>
-	        			</c:forEach>
-	        		</c:if>
-	        		<c:if test="${empty mentalFlys }">
-		        		<tr>
-		        			<td class="tableTd" align="center">1</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        		</tr>
-	        		</c:if>
-	        	</table>
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="mentalAdvice" name="mentalAdvice"></textarea>	
+                <c:if test="${empty mentalFlys }">
+                  <div class="noData">暂时没有可用数据</div>
+                </c:if>            
+        		<c:if test="${not empty mentalFlys }">
+    	        	<table border="0" cellspacing="0" cellpadding="0" style=" font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+    	        		<tr>
+    	        			<td class="tableTd" align="center">序号</td>
+    	        			<td class="tableTd" align="center" style="width: 180px;">测量时间</td>
+    	        			<td class="tableTd" align="center">心理状态</td>
+    	        		</tr>
+  	        			<c:forEach items="${mentalFlys }" var="mentalItem" varStatus="index">
+  		        		<tr>
+  		        			<td class="tableTd" align="center">${index.count }</td>
+  		        			<td class="tableTd" align="center">&nbsp;${mentalItem.b }</td>
+  		        			<td class="tableTd" align="center">&nbsp;
+  		        				<c:choose>
+  		        					<c:when test="${mentalItem.a == 1}">开心</c:when>
+  		        					<c:when test="${mentalItem.a == 2}">平静</c:when>
+  		        					<c:when test="${mentalItem.a == 3}">沮丧</c:when>
+  		        					<c:when test="${mentalItem.a == 4}">烦躁</c:when>
+  		        				</c:choose>
+  		        			</td>
+  		        		</tr>
+  	        			</c:forEach>
+    	        	</table>
+        		</c:if>
+	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="mentalAdvice" name="mentalAdvice"></textarea>	
 	        	
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">4.血压（高于正常值标红，低于正常值标绿）</div>
-	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
-	        		<tr>
-	        			<td class="tableTd" align="center">序号</td>
-	        			<td class="tableTd" align="center" style="width: 180px;">测量时间</td>
-	        			<td class="tableTd" align="center">收缩压(mm/Hg)</td>
-	        			<td class="tableTd" align="center">舒张压(mm/Hg)</td>
-	        		</tr>
-	        		<c:if test="${not empty pressureFlys }">
-	        			<c:forEach items="${pressureFlys }" var="pressureItem" varStatus="index">
-		        		<tr>
-		        			<td class="tableTd" align="center">${index.count }</td>
-		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${pressureItem.a }</td>
-		        			<td class="tableTd" align="center">&nbsp;
-		        				<c:choose>
-		        					<c:when test="${ pressureItem.c < 60}"><span style="color:#0be2c7;">${pressureItem.c }</span></c:when>
-		        					<c:when test="${ pressureItem.c > 85}"><span style="color:#c94314;">${pressureItem.c }</span></c:when>
-		        					<c:otherwise>${pressureItem.c }</c:otherwise>
-		        				</c:choose>
-		        			</td>
-		        			<td class="tableTd" align="center">&nbsp;
-		        				<c:choose>
-		        					<c:when test="${ pressureItem.b < 90}"><span style="color:#0be2c7;">${pressureItem.b }</span></c:when>
-		        					<c:when test="${ pressureItem.b > 130}"><span style="color:#c94314;">${pressureItem.b }</span></c:when>
-		        					<c:otherwise>${pressureItem.b }</c:otherwise>
-		        				</c:choose>
-		        			</td>
-		        		</tr>
-	        			</c:forEach>
-	        		</c:if>
-	        		<c:if test="${empty pressureFlys }">
-		        		<tr>
-		        			<td class="tableTd" align="center">1</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        		</tr>
-	        		</c:if>
-	        	</table>
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="bloodPressureAdvice" name="bloodPressureAdvice"></textarea>	
+                <c:if test="${empty pressureFlys }">
+                  <div class="noData">暂时没有可用数据</div>
+                </c:if>            
+          		<c:if test="${not empty pressureFlys }">
+                	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+                		<tr>
+                			<td class="tableTd" align="center">序号</td>
+                			<td class="tableTd" align="center" style="width: 180px;">测量时间</td>
+                			<td class="tableTd" align="center">收缩压(mm/Hg)</td>
+                			<td class="tableTd" align="center">舒张压(mm/Hg)</td>
+                		</tr>
+              			<c:forEach items="${pressureFlys }" var="pressureItem" varStatus="index">
+      	        		<tr>
+      	        			<td class="tableTd" align="center">${index.count }</td>
+      	        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${pressureItem.a }</td>
+      	        			<td class="tableTd" align="center">&nbsp;
+      	        				<c:choose>
+      	        					<c:when test="${ pressureItem.b < 90}"><span style="color:#0be2c7;">${pressureItem.b }</span></c:when>
+      	        					<c:when test="${ pressureItem.b > 130}"><span style="color:#c94314;">${pressureItem.b }</span></c:when>
+      	        					<c:otherwise>${pressureItem.b }</c:otherwise>
+      	        				</c:choose>
+      	        			</td>
+      	        			<td class="tableTd" align="center">&nbsp;
+      	        				<c:choose>
+      	        					<c:when test="${ pressureItem.c < 60}"><span style="color:#0be2c7;">${pressureItem.c }</span></c:when>
+      	        					<c:when test="${ pressureItem.c > 85}"><span style="color:#c94314;">${pressureItem.c }</span></c:when>
+      	        					<c:otherwise>${pressureItem.c }</c:otherwise>
+      	        				</c:choose>
+      	        			</td>
+      	        		</tr>
+              			</c:forEach>
+                	</table>
+          		</c:if>
+	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="bloodPressureAdvice" name="bloodPressureAdvice"></textarea>	
 	        	
 	        	
 	        	
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">5.心率（高于正常值标红，低于正常值标绿）</div>
-	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
-	        		<tr>
-	        			<td class="tableTd" align="center">序号</td>
-	        			<td class="tableTd" align="center">测量时间</td>
-	        			<td class="tableTd" align="center">心率(bmp)</td>
-	        		</tr>
-	        		<c:if test="${not empty pulseFlys }">
-	        			<c:forEach items="${pulseFlys }" var="pulseItem" varStatus="index">
-		        		<tr>
-		        			<td class="tableTd" align="center">${index.count }</td>
-		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${pulseItem.a }</td>
-		        			<td class="tableTd" align="center">&nbsp;
-		        				<c:choose>
-		        					<c:when test="${ pulseItem.b < 60}"><span style="color:#0be2c7;">${pulseItem.b }</span></c:when>
-		        					<c:when test="${ pulseItem.b > 100}"><span style="color:#c94314;">${pulseItem.b }</span></c:when>
-		        					<c:otherwise>${pulseItem.b }</c:otherwise>
-		        				</c:choose>
-		        			</td>
-		        		</tr>
-	        			</c:forEach>
-	        		</c:if>
-	        		<c:if test="${empty pulseFlys }">
-		        		<tr>
-		        			<td class="tableTd" align="center">1</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        		</tr>
-	        		</c:if>
-	        	</table>
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="heartRateAdvice" name="heartRateAdvice"></textarea>	
+                <c:if test="${empty pulseFlys }">
+                  <div class="noData">暂时没有可用数据</div>
+                </c:if>           
+        		<c:if test="${not empty pulseFlys }">
+    	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+    	        		<tr>
+    	        			<td class="tableTd" align="center">序号</td>
+    	        			<td class="tableTd" align="center">测量时间</td>
+    	        			<td class="tableTd" align="center">心率(bmp)</td>
+    	        		</tr>
+  	        			<c:forEach items="${pulseFlys }" var="pulseItem" varStatus="index">
+  		        		<tr>
+  		        			<td class="tableTd" align="center">${index.count }</td>
+  		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${pulseItem.a }</td>
+  		        			<td class="tableTd" align="center">&nbsp;
+  		        				<c:choose>
+  		        					<c:when test="${ pulseItem.b < 60}"><span style="color:#0be2c7;">${pulseItem.b }</span></c:when>
+  		        					<c:when test="${ pulseItem.b > 100}"><span style="color:#c94314;">${pulseItem.b }</span></c:when>
+  		        					<c:otherwise>${pulseItem.b }</c:otherwise>
+  		        				</c:choose>
+  		        			</td>
+  		        		</tr>
+  	        			</c:forEach>
+    	        	</table>
+        		</c:if>
+	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="heartRateAdvice" name="heartRateAdvice"></textarea>	
 	        		
 	        		
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">6.血糖（高于正常值标红，低于正常值标绿）</div>
-	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
-	        		<tr>
-	        			<td class="tableTd" align="center">序号</td>
-	        			<td class="tableTd" align="center">测量时间</td>
-	        			<td class="tableTd" align="center">血糖含量(mmol/L)</td>
-	        		</tr>
-	        		<c:if test="${not empty glucoseFlys }">
-	        			<c:forEach items="${glucoseFlys }" var="glucoseItem" varStatus="index">
-		        		<tr>
-		        			<td class="tableTd" align="center">${index.count }</td>
-		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${glucoseItem.a }</td>
-		        			<td class="tableTd" align="center">&nbsp;
-			        			<c:if test="${glucoseItem.a1 ==0 }">
-			        				<c:choose>
-			        					<c:when test="${ glucoseItem.b < 3.6}"><span style="color:#0be2c7;">${glucoseItem.b }</span></c:when>
-			        					<c:when test="${ glucoseItem.b > 6.1}"><span style="color:#c94314;">${glucoseItem.b }</span></c:when>
-			        					<c:otherwise>${glucoseItem.b }</c:otherwise>
-			        				</c:choose>
-			        			</c:if>
-			        			<c:if test="${glucoseItem.a1 ==1 }">
-			        				<c:choose>
-			        					<c:when test="${ glucoseItem.b < 3.6}"><span style="color:#0be2c7;">${glucoseItem.b }</span></c:when>
-			        					<c:when test="${ glucoseItem.b > 7.7}"><span style="color:#c94314;">${glucoseItem.b }</span></c:when>
-			        					<c:otherwise>${glucoseItem.b }</c:otherwise>
-			        				</c:choose>
-			        			</c:if>
-		        			</td>
-		        		</tr>
-	        			</c:forEach>
-	        		</c:if>
-	        		<c:if test="${empty glucoseFlys }">
-		        		<tr>
-		        			<td class="tableTd" align="center">1</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        		</tr>
-	        		</c:if>
-	        	</table>
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="bloodGlucoseAdvice" name="bloodGlucoseAdvice"></textarea>	
+                <c:if test="${empty glucoseFlys }">
+                  <div class="noData">暂时没有可用数据</div>
+                </c:if>            
+        		<c:if test="${not empty glucoseFlys }">
+    	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+    	        		<tr>
+    	        			<td class="tableTd" align="center">序号</td>
+    	        			<td class="tableTd" align="center">测量时间</td>
+    	        			<td class="tableTd" align="center">血糖含量(mmol/L)</td>
+    	        		</tr>
+  	        			<c:forEach items="${glucoseFlys }" var="glucoseItem" varStatus="index">
+  		        		<tr>
+  		        			<td class="tableTd" align="center">${index.count }</td>
+  		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${glucoseItem.a }</td>
+  		        			<td class="tableTd" align="center">&nbsp;
+  			        			<c:if test="${glucoseItem.a1 ==0 }">
+  			        				<c:choose>
+  			        					<c:when test="${ glucoseItem.b < 3.6}"><span style="color:#0be2c7;">${glucoseItem.b }</span></c:when>
+  			        					<c:when test="${ glucoseItem.b > 6.1}"><span style="color:#c94314;">${glucoseItem.b }</span></c:when>
+  			        					<c:otherwise>${glucoseItem.b }</c:otherwise>
+  			        				</c:choose>
+  			        			</c:if>
+  			        			<c:if test="${glucoseItem.a1 ==1 }">
+  			        				<c:choose>
+  			        					<c:when test="${ glucoseItem.b < 3.6}"><span style="color:#0be2c7;">${glucoseItem.b }</span></c:when>
+  			        					<c:when test="${ glucoseItem.b > 7.7}"><span style="color:#c94314;">${glucoseItem.b }</span></c:when>
+  			        					<c:otherwise>${glucoseItem.b }</c:otherwise>
+  			        				</c:choose>
+  			        			</c:if>
+  		        			</td>
+  		        		</tr>
+  	        			</c:forEach>
+    	        	</table>
+        		</c:if>
+	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="bloodGlucoseAdvice" name="bloodGlucoseAdvice"></textarea>	
 	        	
 	        	
 	        	
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">7.体温（异常数据标红色）</div>
-	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
-	        		<tr>
-	        			<td class="tableTd" align="center">序号</td>
-	        			<td class="tableTd" align="center">测量时间</td>
-	        			<td class="tableTd" align="center">体温（℃）</td>
-	        		</tr>
-	        		<c:if test="${not empty thermometerFlys }">
-	        			<c:forEach items="${thermometerFlys }" var="thermometerItem" varStatus="index">
-		        		<tr>
-		        			<td class="tableTd" align="center">${index.count }</td>
-		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${thermometerItem.a }</td>
-		        			<td class="tableTd" align="center">&nbsp;
-		        				<c:choose>
-		        					<c:when test="${ thermometerItem.b<'36'}"><span style="color:#0be2c7;">${thermometerItem.b }</span></c:when>
-		        					<c:when test="${ thermometerItem.b>'37.2'}"><span style="color:#c94314;">${thermometerItem.b }</span></c:when>
-		        					<c:otherwise>${thermometerItem.b }</c:otherwise>
-		        				</c:choose>
-		        			</td>
-		        		</tr>
-	        			</c:forEach>
-	        		</c:if>
-	        		<c:if test="${empty thermometerFlys }">
-		        		<tr>
-		        			<td class="tableTd" align="center">1</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        		</tr>
-	        		</c:if>
-	        	</table>
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="temperatureAdvice" name="temperatureAdvice"></textarea>			
+                <c:if test="${empty thermometerFlys }">
+                  <div class="noData">暂时没有可用数据</div>
+                </c:if>            
+        		<c:if test="${not empty thermometerFlys }">
+    	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+    	        		<tr>
+    	        			<td class="tableTd" align="center">序号</td>
+    	        			<td class="tableTd" align="center">测量时间</td>
+    	        			<td class="tableTd" align="center">体温（℃）</td>
+    	        		</tr>
+  	        			<c:forEach items="${thermometerFlys }" var="thermometerItem" varStatus="index">
+  		        		<tr>
+  		        			<td class="tableTd" align="center">${index.count }</td>
+  		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${thermometerItem.a }</td>
+  		        			<td class="tableTd" align="center">&nbsp;
+  		        				<c:choose>
+  		        					<c:when test="${ thermometerItem.b<'36'}"><span style="color:#0be2c7;">${thermometerItem.b }</span></c:when>
+  		        					<c:when test="${ thermometerItem.b>'37.2'}"><span style="color:#c94314;">${thermometerItem.b }</span></c:when>
+  		        					<c:otherwise>${thermometerItem.b }</c:otherwise>
+  		        				</c:choose>
+  		        			</td>
+  		        		</tr>
+  	        			</c:forEach>
+    	        	</table>
+        		</c:if>
+	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="temperatureAdvice" name="temperatureAdvice"></textarea>			
 	        	
 	        	
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">8.用药记录</div>
-	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
-	        		<tr>
-	        			<td class="tableTd" align="center">药品名称</td>
-	        			<td class="tableTd" align="center">用药时间</td>
-	        			<td class="tableTd" align="center">用药剂量</td>
-	        		</tr>
-	        		<c:if test="${not empty medicineFlys }">
-	        			<c:forEach items="${medicineFlys }" var="medicineItem" varStatus="index">
-		        		<tr>
-		        			<td class="tableTd" align="center">&nbsp;${medicineItem.a }</td>
-		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${medicineItem.b }</td>
-		        			<td class="tableTd" align="center">&nbsp;${medicineItem.c }(${medicineItem.d })</td>
-		        		</tr>
-	        			</c:forEach>
-	        		</c:if>
-	        		<c:if test="${empty medicineFlys }">
-		        		<tr>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        			<td class="tableTd" align="center">&nbsp;</td>
-		        		</tr>
-	        		</c:if>
-	        	</table>
+                <c:if test="${empty medicineFlys }">
+                  <div class="noData">暂时没有可用数据</div>
+                </c:if>            
+        		<c:if test="${not empty medicineFlys }">
+    	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+    	        		<tr>
+    	        			<td class="tableTd" align="center">药品名称</td>
+    	        			<td class="tableTd" align="center">用药时间</td>
+    	        			<td class="tableTd" align="center">用药剂量</td>
+    	        		</tr>
+  	        			<c:forEach items="${medicineFlys }" var="medicineItem" varStatus="index">
+  		        		<tr>
+  		        			<td class="tableTd" align="center">&nbsp;${medicineItem.a }</td>
+  		        			<td class="tableTd" align="center" style="width: 180px;">&nbsp;${medicineItem.b }</td>
+  		        			<td class="tableTd" align="center">&nbsp;${medicineItem.c }(${medicineItem.d })</td>
+  		        		</tr>
+  	        			</c:forEach>
+    	        	</table>
+        		</c:if>
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
 	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="medicationAdvice" name="medicationAdvice"></textarea>
 	        </div>
