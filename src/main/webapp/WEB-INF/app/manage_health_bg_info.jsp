@@ -293,7 +293,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	        	</table>
                 </c:if>
 	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="sportAdvice" name="sportAdvice"></textarea>
+                <div class="hidden">
+	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="sportAdvice" name="sportAdvice"></textarea>
+                </div>
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">2.饮食（过量标红，少量标）</div>
                 <c:if test="${empty foodFlys }">
@@ -358,8 +360,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	        	</table>
                 </c:if>
 	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" name="dietAdvice" id="dietAdvice"></textarea>
-	        	
+                <div class="hidden">
+    	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" name="dietAdvice" id="dietAdvice"></textarea>
+                </div>	        	
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">3.心理评估</div>
                 <c:if test="${empty mentalFlys }">
@@ -389,8 +392,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	        	</table>
         		</c:if>
 	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="mentalAdvice" name="mentalAdvice"></textarea>
-	        	
+                <div class="hidden">
+    	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="mentalAdvice" name="mentalAdvice"></textarea>
+                </div>	        	
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">4.血压（高于正常值标红，低于正常值标绿）</div>
                 <c:if test="${empty pressureFlys }">
@@ -427,8 +431,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	</table>
           		</c:if>
 	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="bloodPressureAdvice" name="bloodPressureAdvice"></textarea>		
-	        	
+                <div class="hidden">
+    	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="bloodPressureAdvice" name="bloodPressureAdvice"></textarea>		
+                </div>	        	
 	        	
 	        	
 	        	
@@ -459,8 +464,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	        	</table>
         		</c:if>
 	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="heartRateAdvice" name="heartRateAdvice"></textarea>	
-	        		
+                <div class="hidden">
+    	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="heartRateAdvice" name="heartRateAdvice"></textarea>	
+                </div>	        		
 	        		
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">6.血糖（高于正常值标红，低于正常值标绿）</div>
@@ -499,8 +505,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	        	</table>
         		</c:if>
 	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="bloodGlucoseAdvice" name="bloodGlucoseAdvice"></textarea>	
-	        	
+	        	<div class="hidden">
+    	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="bloodGlucoseAdvice" name="bloodGlucoseAdvice"></textarea>	
+                </div>
+                
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">7.体温（异常数据标红色）</div>
                 <c:if test="${empty thermometerFlys }">
                   <div class="noData">暂时没有可用数据</div>
@@ -528,8 +536,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	        	</table>
         		</c:if>
 	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="temperatureAdvice" name="temperatureAdvice"></textarea>			
-	        	
+	        	<div class="hidden">
+    	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="temperatureAdvice" name="temperatureAdvice"></textarea>			
+                </div>
 	        	
 	        	
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">8.用药记录</div>
