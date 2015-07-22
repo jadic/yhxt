@@ -56,9 +56,9 @@
       <result property="type"             column="activityType"/>
       <result property="name"             column="activityName"/>
       <result property="creatorId"        column="activityCreatorId"/>
-      <result property="sdate"            column="activityCreateTime"/>
-      <result property="edate"            column="activityStartDate"/>
-      <result property="createTime"	      column="activityDuration"/>
+      <result property="sdate"            column="activityStartDate"/>
+      <result property="edate"            column="activityDuration"/>
+      <result property="createTime"	      column="activityCreateTime"/>
       <result property="memo"             column="activityMemo"/>
       <result property="icon"             column="activityIcon"/>
     </resultMap>
@@ -187,7 +187,7 @@
     <!-- 分页查询活动 仅显示关联医护联系人创建的活动和平台活动 -->     
     <select id="AppMapper.queryActivity"   parameterType="queryModel"  resultMap="mActivityMap">
       <![CDATA[
-        select a.activityId, a.activityType, a.activityName, a.activityCreatorId, a.activityCreateTime, 
+        select a.activityId, a.activityType, a.activityName, a.activityCreatorId, DATE_FORMAT(a.activityCreateTime, '%Y-%m-%d %H:%k:%S') as activityCreateTime, 
                a.activityStartDate, a.activityDuration, a.activityMemo, a.activityIcon
         from tab_activity a
         where (a.activityType=2 and a.activityCreatorId in (select nurseId from tab_user_nurse_relation b where b.userId=#{creatorId})) 
