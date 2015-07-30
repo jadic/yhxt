@@ -426,21 +426,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	        	<table border="0" cellspacing="0" cellpadding="0" style=" font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
     	        		<tr>
     	        			<td class="tableTd" align="center">序号</td>
-    	        			<td class="tableTd" align="center" style="width: 180px;">测量时间</td>
-    	        			<td class="tableTd" align="center">心理状态</td>
+    	        			<td class="tableTd" align="center" style="width: 180px;">测试时间</td>
+    	        			<td class="tableTd" align="center">测试总分</td>
+    	        			<td class="tableTd" align="center">阳性项目数</td>
     	        		</tr>
   	        			<c:forEach items="${mentalFlys }" var="mentalItem" varStatus="index">
   		        		<tr>
   		        			<td class="tableTd" align="center">${index.count }</td>
-  		        			<td class="tableTd" align="center">&nbsp;${mentalItem.b }</td>
-  		        			<td class="tableTd" align="center">&nbsp;
-  		        				<c:choose>
-  		        					<c:when test="${mentalItem.a == 1}">开心</c:when>
-  		        					<c:when test="${mentalItem.a == 2}">平静</c:when>
-  		        					<c:when test="${mentalItem.a == 3}">沮丧</c:when>
-  		        					<c:when test="${mentalItem.a == 4}">烦躁</c:when>
-  		        				</c:choose>
-  		        			</td>
+  		        			<td class="tableTd" align="center">${mentalItem.b }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.c }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.d }</td>
   		        		</tr>
   	        			</c:forEach>
     	        	</table>

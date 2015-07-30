@@ -1899,7 +1899,8 @@ public class NSearchController extends BaseController
 		
 
 		// 加载心理状态
-		List<OutModel> mentalFlys = pQueryService.queryHealthMentalInfo(model);
+//		List<OutModel> mentalFlys = pQueryService.queryHealthMentalInfo(model);
+		List<OutModel> mentalFlys = pQueryService.queryMentalTestRecord(model);
 		if (mentalFlys != null && mentalFlys.size() > 0)
 		{
 			result.addObject("mentalFlys", mentalFlys);
@@ -2011,7 +2012,8 @@ public class NSearchController extends BaseController
 		
 		
 		// 加载心理状态
-		OutModel mentalObj = pQueryService.queryHealthMentalMonthInfo(model);
+//		OutModel mentalObj = pQueryService.queryHealthMentalMonthInfo(model);
+		OutModel mentalObj = pQueryService.queryMentalTestAvgRecord(model);
 		if (mentalObj != null)
 		{
 			result.addObject("mentalObj", mentalObj);

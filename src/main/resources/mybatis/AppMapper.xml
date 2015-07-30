@@ -646,4 +646,16 @@
       values (#{userId}, #{valLow}, #{valHigh}, #{takeTime})
       ]]>
     </insert>   
+
+    <!-- 增加心理测试记录 -->
+    <insert id="AppMapper.addMentalTestRecord" useGeneratedKeys="true" keyProperty="id">
+      <![CDATA[
+      insert into tab_mental_test_record
+        (userId, testTime, score, masculineCount, masculineAvgScore, somatization, compel, 
+         interpersonal, depression, anxiety, antagonism, terror, crankiness, psychosis, other)
+      values 
+        (#{userId}, #{testTime}, #{score}, #{masculineCount}, #{masculineAvgScore}, #{somatization}, #{compel}, 
+         #{interpersonal}, #{depression}, #{anxiety}, #{antagonism}, #{terror}, #{crankiness}, #{psychosis}, #{other})
+      ]]>
+    </insert>   
 </mapper>

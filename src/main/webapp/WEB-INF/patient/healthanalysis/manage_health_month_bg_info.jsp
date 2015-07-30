@@ -371,18 +371,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		<c:if test="${not empty mentalObj }">
     	        	<table border="0" cellspacing="0" cellpadding="0" style=" font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
     	        		<tr>
-    	        			<td class="tableTd" align="center">记录次数</td>
-    	        			<td class="tableTd" align="center">烦躁次数</td>
-    	        			<td class="tableTd" align="center">开心次数</td>
-    	        			<td class="tableTd" align="center">平静次数</td>
-    	        			<td class="tableTd" align="center">沮丧次数</td>
+    	        			<td class="tableTd" align="center">测试总分平均值</td>
+    	        			<td class="tableTd" align="center">阳性项目平均数</td>
     	        		</tr>
   		        		<tr>
-  		        			<td class="tableTd" align="center">${mentalObj.a5 }</td>
-  		        			<td class="tableTd" align="center">&nbsp;${mentalObj.a1 }</td>
-  		        			<td class="tableTd" align="center">&nbsp;${mentalObj.a2 }</td>
-  		        			<td class="tableTd" align="center">&nbsp;${mentalObj.a3 }</td>
-  		        			<td class="tableTd" align="center">&nbsp;${mentalObj.a4 }</td>
+  		        			<td class="tableTd" align="center">${mentalObj.a }</td>
+  		        			<td class="tableTd" align="center">${mentalObj.b }</td>
   		        		</tr>
     	        	</table>
         		</c:if>

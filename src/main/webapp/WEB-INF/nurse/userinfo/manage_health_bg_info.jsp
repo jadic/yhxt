@@ -489,29 +489,61 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">3.心理评估</div>
 	        	<table border="0" cellspacing="0" cellpadding="0" style=" font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
 	        		<tr>
-	        			<td class="tableTd" align="center">序号</td>
-	        			<td class="tableTd" align="center" style="width: 180px;">测量时间</td>
-	        			<td class="tableTd" align="center">心理状态</td>
+            			<td class="tableTd" align="center" rowspan="2">序号</td>
+            			<td class="tableTd" align="center" rowspan="2" style="width: 180px;">测试时间</td>
+            			<td class="tableTd" align="center" rowspan="2">测试总分</td>
+            			<td class="tableTd" align="center" rowspan="2">阳性项目数</td>
+            			<td class="tableTd" align="center" rowspan="2">阳性症状平均分</td>
+                        <td class="tableTd" align="center" colspan="10">因子分</td>
 	        		</tr>
+                    <tr>
+                        <td class="tableTd" align="center">躯体化</td>
+                        <td class="tableTd" align="center">强迫</td>
+                        <td class="tableTd" align="center">人际关系</td>
+                        <td class="tableTd" align="center">抑郁</td>
+                        <td class="tableTd" align="center">焦虑</td>
+                        <td class="tableTd" align="center">敌对</td>
+                        <td class="tableTd" align="center">恐怖</td>
+                        <td class="tableTd" align="center">偏执</td>
+                        <td class="tableTd" align="center">精神病性</td>
+                        <td class="tableTd" align="center">其他</td>                    
+                    </tr>
 	        		<c:if test="${not empty mentalFlys }">
 	        			<c:forEach items="${mentalFlys }" var="mentalItem" varStatus="index">
 		        		<tr>
-		        			<td class="tableTd" align="center">${index.count }</td>
-		        			<td class="tableTd" align="center">&nbsp;${mentalItem.b }</td>
-		        			<td class="tableTd" align="center">&nbsp;
-		        				<c:choose>
-		        					<c:when test="${mentalItem.a == 1}">开心</c:when>
-		        					<c:when test="${mentalItem.a == 2}">平静</c:when>
-		        					<c:when test="${mentalItem.a == 3}">沮丧</c:when>
-		        					<c:when test="${mentalItem.a == 4}">烦躁</c:when>
-		        				</c:choose>
-		        			</td>
+  		        			<td class="tableTd" align="center">${index.count }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.b }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.c }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.d }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.e }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.f }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.g }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.h }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.i }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.j }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.k }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.l }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.m }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.n }</td>
+  		        			<td class="tableTd" align="center">${mentalItem.o }</td>
 		        		</tr>
 	        			</c:forEach>
 	        		</c:if>
 	        		<c:if test="${empty mentalFlys }">
 		        		<tr>
 		        			<td class="tableTd" align="center">1</td>
+		        			<td class="tableTd" align="center">&nbsp;</td>
+		        			<td class="tableTd" align="center">&nbsp;</td>
+		        			<td class="tableTd" align="center">&nbsp;</td>
+		        			<td class="tableTd" align="center">&nbsp;</td>
+		        			<td class="tableTd" align="center">&nbsp;</td>
+		        			<td class="tableTd" align="center">&nbsp;</td>
+		        			<td class="tableTd" align="center">&nbsp;</td>
+		        			<td class="tableTd" align="center">&nbsp;</td>
+		        			<td class="tableTd" align="center">&nbsp;</td>
+		        			<td class="tableTd" align="center">&nbsp;</td>
+		        			<td class="tableTd" align="center">&nbsp;</td>
+		        			<td class="tableTd" align="center">&nbsp;</td>
 		        			<td class="tableTd" align="center">&nbsp;</td>
 		        			<td class="tableTd" align="center">&nbsp;</td>
 		        		</tr>

@@ -30,6 +30,7 @@ import com.gesoft.model.HappyHostReplyModel;
 import com.gesoft.model.HappyHostReportModel;
 import com.gesoft.model.MealResultModel;
 import com.gesoft.model.MentalStatusModel;
+import com.gesoft.model.MentalTestModel;
 import com.gesoft.model.NewsModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.model.RelativePhoneModel;
@@ -427,5 +428,14 @@ public class AppDAO extends EntityDAOImpl<BaseModel, Long> {
 	 */
 	public int addBloodOxygenRecord(BloodOxygenModel model) {
 	    return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addBloodOxygenRecord", model);
+	}
+
+	/**
+	 * 增加心理测试记录
+	 * @param model
+	 * @return
+	 */
+	public int addMentalTestRecord(MentalTestModel model) {
+	    return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addMentalTestRecord", model);
 	}
 }

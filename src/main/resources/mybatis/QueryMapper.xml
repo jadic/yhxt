@@ -384,6 +384,31 @@
 		<result property="a"  							column="mentalStatus"/>
 		<result property="b"  							column="recordTime"/>
 	</resultMap>
+
+	<!-- 加载心理测试记录 -->
+	<resultMap id="mRetMentalTestMonthMap" 				type="outModel">
+		<result property="a"  							column="avgScore"/>
+		<result property="b"  							column="avgMasculineCount"/>
+	</resultMap>
+
+	<!-- 加载心理测试记录 -->
+	<resultMap id="mRetMentalTestMap" 				type="outModel">
+		<result property="a"  							column="id"/>
+		<result property="b"  							column="testTime"/>
+		<result property="c"  							column="score"/>
+		<result property="d"  							column="masculineCount"/>
+		<result property="e"  							column="masculineAvgScore"/>
+		<result property="f"  							column="somatization"/>
+		<result property="g"  							column="compel"/>
+		<result property="h"  							column="interpersonal"/>
+		<result property="i"  							column="depression"/>
+		<result property="j"  							column="anxiety"/>
+		<result property="k"  							column="antagonism"/>
+		<result property="l"  							column="terror"/>
+		<result property="m"  							column="crankiness"/>
+		<result property="n"  							column="psychosis"/>
+		<result property="o"  							column="other"/>
+	</resultMap>
 	
 	
 	<!-- 加载饮食记录 -->
@@ -1547,6 +1572,18 @@
 			order by a.recordTime
 		]]>
 	</select>
+
+	<!-- 加载心理测试记录 -->
+	<select id="QueryMapper.queryMentalTestRecord" 	parameterType="queryModel" resultMap="mRetMentalTestMap">
+		<![CDATA[
+			SELECT a.id, DATE_FORMAT(a.testTime, '%Y-%m-%d %H:%k:%S') as testTime, a.score, a.masculineCount, a.masculineAvgScore, 
+              a.somatization, a.compel, a.interpersonal, a.depression, a.anxiety, a.antagonism, a.terror, a.crankiness, a.psychosis, a.other
+			FROM tab_mental_test_record a
+			where a.userId = #{userId}
+			  and date_format(a.testTime, '%Y-%m-%d') = #{startTime}
+			order by a.testTime
+		]]>
+	</select>
 	
 	
 	
@@ -1570,6 +1607,24 @@
 			group by a.mentalStatus
 			order by a.mentalStatus
 		]]>
+	</select>
+	
+	<!-- 加载心理测试 按月/周-->
+	<select id="QueryMapper.queryMentalTestAvgRecord" 	parameterType="queryModel"	resultMap="mRetMentalTestMonthMap">
+		<![CDATA[
+			SELECT round(avg(a.score)) as avgScore, round(avg(a.masculineCount)) as avgMasculineCount
+			from tab_mental_test_record a
+			where a.userId = #{userId}
+		]]>
+		<if test="statType != null and statType == 2">
+		    <![CDATA[
+			and date_format(a.testTime, '%Y-%m-%d') >= #{startTime}
+			and date_format(a.testTime, '%Y-%m-%d') <= #{endTime}
+			]]>
+        </if>
+        <if test="statType != null and statType == 3">
+			and date_format(a.testTime, '%Y-%m') = #{startTime}
+        </if>
 	</select>
 	
 	

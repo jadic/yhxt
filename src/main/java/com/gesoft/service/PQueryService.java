@@ -1116,6 +1116,12 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	{
 		return pQueryDAO.queryHealthMentalInfo(model);
 	}
+
+	@Transactional(readOnly=true)
+	public List<OutModel> queryMentalTestRecord(QueryModel model)
+	{
+	    return pQueryDAO.queryMentalTestRecord(model);
+	}
 	
 	
 	/**
@@ -1382,6 +1388,12 @@ public class PQueryService extends EntityService<BaseModel, Long>
 			}
 		}
 		return mOutModel;
+	}
+	
+	@Transactional(readOnly=true)
+	public OutModel queryMentalTestAvgRecord(QueryModel model)
+	{
+	    return pQueryDAO.queryMentalTestAvgRecord(model);
 	}
 
 	

@@ -1000,6 +1000,11 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 	{
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthMentalInfo", model);
 	}
+
+	public List<OutModel> queryMentalTestRecord(QueryModel model)
+	{
+	    return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryMentalTestRecord", model);
+	}
 	
 	
 	/**
@@ -1193,6 +1198,12 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 		return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryHealthMentalMonthInfo", model);
 	}
 
+	
+	public OutModel queryMentalTestAvgRecord(QueryModel model)
+	{
+	    return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryMentalTestAvgRecord", model);
+	}
+	
 	
 	/**
 	 * 描述信息：

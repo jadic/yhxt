@@ -44,6 +44,7 @@ import com.gesoft.model.IdModel;
 import com.gesoft.model.MealResultModel;
 import com.gesoft.model.MedicineModel;
 import com.gesoft.model.MentalStatusModel;
+import com.gesoft.model.MentalTestModel;
 import com.gesoft.model.MsgModel;
 import com.gesoft.model.NewsModel;
 import com.gesoft.model.OutModel;
@@ -1005,7 +1006,8 @@ public class AppController extends BaseController {
 		
 
 		// 加载心理状态
-		List<OutModel> mentalFlys = pQueryService.queryHealthMentalInfo(model);
+//		List<OutModel> mentalFlys = pQueryService.queryHealthMentalInfo(model);
+		List<OutModel> mentalFlys = pQueryService.queryMentalTestRecord(model);
 		if (mentalFlys != null && mentalFlys.size() > 0)
 		{
 			result.addObject("mentalFlys", mentalFlys);
@@ -1118,7 +1120,8 @@ public class AppController extends BaseController {
 		
 		
 		// 加载心理状态
-		OutModel mentalObj = pQueryService.queryHealthMentalMonthInfo(model);
+//		OutModel mentalObj = pQueryService.queryHealthMentalMonthInfo(model);
+		OutModel mentalObj = pQueryService.queryMentalTestAvgRecord(model);
 		if (mentalObj != null)
 		{
 			result.addObject("mentalObj", mentalObj);
@@ -1306,6 +1309,29 @@ public class AppController extends BaseController {
             }
         } catch (Exception e) {
             logger.error("AppController addBloodOxygenRecord error：", e);
+        }
+        return msgModel;
+    }
+    
+    @RequestMapping(value = "/addMentalTestRecord.do")
+    public @ResponseBody MsgModel addMentalTestRecord(MentalTestModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            if (model.isParamValid()) {
+                appService.addMentalTestRecord(model);
+                int id = model.getId();
+                msgModel.setTotal(1);
+                List<IdModel> idList = new ArrayList<IdModel>();
+                IdModel idModel = new IdModel();
+                idModel.setId(id);
+                idList.add(idModel);
+                msgModel.setSuccess(id > 0);
+                msgModel.setRows(idList);
+            } else {
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+            }
+        } catch (Exception e) {
+            logger.error("AppController addMentalTestRecord error：", e);
         }
         return msgModel;
     }
