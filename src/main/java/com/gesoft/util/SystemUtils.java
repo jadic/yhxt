@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * @author WCL
@@ -151,6 +152,17 @@ public class SystemUtils
 	public static void SOUT(String strInfo)
 	{
 		System.out.println(strInfo);
+	}
+	
+	public static String getRandamNumber(int digit) {
+	    StringBuilder ret = new StringBuilder();
+	    long val = Math.round(Math.random() * Math.pow(10, digit));
+	    ret.append(String.valueOf(val));
+	    int valLen = ret.length();
+	    for (int i = 0; i < digit - valLen; i ++) {
+	        ret.insert(0, "0");
+	    }
+	    return ret.toString();
 	}
 
 }

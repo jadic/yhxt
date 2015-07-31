@@ -54,10 +54,13 @@ import com.gesoft.model.ServiceModel;
 import com.gesoft.model.SportItemModel;
 import com.gesoft.model.SportResultModel;
 import com.gesoft.model.UserModel;
+import com.gesoft.model.UserRegisterModel;
 import com.gesoft.model.VersionModel;
 import com.gesoft.service.AUserService;
 import com.gesoft.service.AppService;
 import com.gesoft.service.PQueryService;
+import com.gesoft.util.HttpUtil;
+import com.gesoft.util.SMSUtil;
 import com.gesoft.util.StringUtil;
 import com.gesoft.util.SystemUtils;
 
@@ -1332,6 +1335,19 @@ public class AppController extends BaseController {
             }
         } catch (Exception e) {
             logger.error("AppController addMentalTestRecord error：", e);
+        }
+        return msgModel;
+    }
+
+    @RequestMapping(value = "/sendAuthCode.do")
+    public @ResponseBody MsgModel sendAuthCode(UserRegisterModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            String cellPhone = model.getCellPhone();//手机号
+            String authCode = SystemUtils.getRandamNumber(6);//获取6位随机验证码
+            msgModel.setSuccess(SMSUtil.sendAuthCode(authCode, cellPhone) == SMSUtil.RET_SUCC);
+        } catch (Exception e) {
+            logger.error("AppController delMedicineRecord error：", e);
         }
         return msgModel;
     }
