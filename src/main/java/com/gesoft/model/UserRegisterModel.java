@@ -4,16 +4,16 @@ public class UserRegisterModel extends BaseModel {
 
     private static final long serialVersionUID = -713092081259666305L;
 
-    private String cellPhone;
+    private String cellphone;
     private String authCode;
     private String userPass;
 
-    public String getCellPhone() {
-        return cellPhone;
+    public String getCellphone() {
+        return cellphone;
     }
 
-    public void setCellPhone(String cellPhone) {
-        this.cellPhone = cellPhone;
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
     }
 
     public String getAuthCode() {
