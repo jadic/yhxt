@@ -81,6 +81,10 @@ public class PQueryController extends BaseController
 		{
 			if(user != null)
 			{
+				if (user.getOper() == 1)
+				{
+					result = new ModelAndView("/patient/login_mobile");
+				}
 				if (session.getAttribute("rand") != null)
 				{
 					if (user.getRand().equals(session.getAttribute("rand")))
