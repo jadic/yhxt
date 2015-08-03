@@ -1564,4 +1564,29 @@ public class PQueryService extends EntityService<BaseModel, Long>
 	}
 	
 	
+	/**
+	 * 描述信息：插入注册用户信息
+	 * 创建时间：2015年8月3日 下午3:33:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addUserInfo(UserModel model)
+	{
+		return pQueryDAO.addUserInfo(model);
+	}
+	
+	
+	/**
+	 * 描述信息：判断用户是否存在
+	 * 创建时间：2015年8月3日 下午3:42:16
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public int queryUserCountWithUserName(UserModel model)
+	{
+		return pQueryDAO.queryUserCountWithUserName(model);
+	}
 }

@@ -1364,4 +1364,27 @@ public class PQueryDAO extends EntityDAOImpl<BaseModel, Long>
 		return getSqlSession().delete(getMybatisSqlMapNamespace() + ".delMedicineInfo", model);
 	}
 	
+	/**
+	 * 描述信息：插入注册用户信息
+	 * 创建时间：2015年8月3日 下午3:33:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int addUserInfo(UserModel model)
+	{
+		return getSqlSession().insert(getMybatisSqlMapNamespace() + ".addUserInfo", model);
+	}
+	
+	/**
+	 * 描述信息：判断用户是否存在
+	 * 创建时间：2015年8月3日 下午3:42:16
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int queryUserCountWithUserName(UserModel model)
+	{
+		return getSqlSession().selectOne(getMybatisSqlMapNamespace() + ".queryUserCountWithUserName", model);
+	}
 }

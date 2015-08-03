@@ -11,6 +11,7 @@
     </style>
     <script type="text/javascript" src="<c:url value='/common/scripts/jquery-1.8.0.min.js'/>" ></script>
  	<script>
+ 		var reg = /^1\d{10}$/;  //定义正则表达式
  		$(function(){
  			<c:if test="${not empty errorinfo}">
  			alert("${errorinfo}")
@@ -22,30 +23,58 @@
  			$("#retset").bind("click", function(){
  				$("input[type=text],input[type=password]").val('');
  			});
+ 			
  			$("#smsrand").bind("click", function(){
- 				if($(this).text() == "获取验证码" || $(this).text() == "重新获取验证码")
+ 				
+ 				if(reg.test($("#userName").val()) == false)
  				{
- 					tmp = 60
- 					if(mTim != null)
- 					{
- 						window.clearInterval(mTim);
- 						mTim = null;
- 					}	
- 					mTim = window.setInterval(function(){
- 						if(tmp == 0)
- 						{
- 							$("#smsrand").text("重新获取验证码");
- 							window.clearInterval(mTim);
- 	 						mTim = null;
- 							return;
- 						}
- 						else
- 						{
- 							$("#smsrand").text("剩" + tmp + "秒");
- 							tmp -= 1;
- 						}	
- 					}, 1000);
+ 					alert("11位手机号码不正确")
+ 					return false;
  				}	
+ 				var me = this;
+ 				$.ajax({
+ 				      url : "<c:url value='/p/query/getSmsVal.do'/>",
+ 				      type : 'post',
+ 				      dataType : 'json',
+ 				      data :{"cellphone":$("#userName").val()},
+ 				      error:function(data)
+ 				      {
+ 				    	 
+ 				      },
+ 				      success:function(data)
+ 				      {
+ 				        if(data.success)
+ 				        {
+ 				        	if($(me).text() == "获取验证码" || $(me).text() == "重新获取验证码")
+ 			 				{
+ 			 					tmp = 60
+ 			 					if(mTim != null)
+ 			 					{
+ 			 						window.clearInterval(mTim);
+ 			 						mTim = null;
+ 			 					}	
+ 			 					mTim = window.setInterval(function(){
+ 			 						if(tmp == 0)
+ 			 						{
+ 			 							$("#smsrand").text("重新获取验证码");
+ 			 							window.clearInterval(mTim);
+ 			 	 						mTim = null;
+ 			 							return;
+ 			 						}
+ 			 						else
+ 			 						{
+ 			 							$("#smsrand").text("剩" + tmp + "秒");
+ 			 							tmp -= 1;
+ 			 						}	
+ 			 					}, 1000);
+ 			 				}	
+ 				        }
+ 				        else
+ 				        {
+ 				        	alert("短信发送失败！");
+ 				        }	
+ 				      }
+ 				});
  			});
  		});
  		
@@ -53,19 +82,25 @@
  		{
  			if($("#userName").val() == "帐号")
  			{
- 				alert("帐号不能为空！");
+ 				alert("注册手机号！");
  				return false;
  			}	
- 			else if($("#userPwd").val() == "")
- 			{
- 				alert("密码不能为空！");
- 				return false;
- 			}
+ 			else if(reg.test($("#userName").val()) == false)
+			{
+				alert("11位手机号码不正确")
+				return false;
+			}	
  			else if($("#rand").val() == "")
  			{
- 				alert("验证码不能为空！");
+ 				alert("短信验证码！");
  				return false;
  			}
+ 			else if($("#userPwd").val() == "")
+ 			{
+ 				alert("登录密码不能为空！");
+ 				return false;
+ 			}
+ 			
  			return true;
  		}
  	</script>
@@ -82,7 +117,7 @@
 		<tr>
 			<td >&nbsp;</td>
 			<td style="width: 90%; max-width: 600px;" valign="top">
-				<form action="<c:url value='/p/query/login.do'/>" method="post" onsubmit="return funSubmitInfo()" name="inputform" id="inputform">
+				<form action="<c:url value='/p/query/goReg.do'/>" method="post" onsubmit="return funSubmitInfo()" name="inputform" id="inputform">
 				<table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
 					<tr>
 						<td style="height: 6px;" colspan="2"></td>
@@ -98,7 +133,7 @@
 					<tr>
 						<td align="right" style="width: 90px;">注册手机号</td>
 						<td style="padding-left: 15px;">
-							<input type="text" id="userName" name="userName" placeholder="请输入11位手机号码" style="height: 35px; width: 90%; color: #666666; padding-left: 15px; text-align: left;line-height: 35px;" title="用户名">
+							<input type="text" id="userName" name="userName" maxlength="11" placeholder="请输入11位手机号码" style="height: 35px; width: 90%; color: #666666; padding-left: 15px; text-align: left;line-height: 35px;" title="用户名">
 						</td>
 					</tr>
 					<tr>
@@ -137,7 +172,7 @@
 								<tr>
 									<td align="right">
 										<input  type="submit" id="btnsubmit" name="btnsubmit"  style="display: none;"/>
-										<div style="background:url(<c:url value='/patient/themes/images/btn_bg.png'/>); height:35px; width:120px; line-height:35px; color:#fff; text-align:center; cursor:pointer;" id="smsrand">登录</div>
+										<div style="background:url(<c:url value='/patient/themes/images/btn_bg.png'/>); height:35px; width:120px; line-height:35px; color:#fff; text-align:center; cursor:pointer;" onclick="$('#btnsubmit').click()">注册</div>
 									</td>
 									<td align="left">
 										<div style="background:url(<c:url value='/patient/themes/images/btn_bg.png'/>); height:35px; width:120px; line-height:35px; color:#fff; text-align:center; cursor:pointer;" id="retset">重置</div>

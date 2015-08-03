@@ -17,6 +17,7 @@ public class Test
 
 	public static void main(String[] args)
 	{
+		SystemUtils.SOUT(SystemUtils.getRandamNumber(6));
 		SystemUtils.SOUT(SystemUtils.getCurrentSystemTime("yyyyMMddHHmmssSSS"));
 
 		try

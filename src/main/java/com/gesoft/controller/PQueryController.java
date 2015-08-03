@@ -46,6 +46,7 @@ import com.gesoft.model.ScoreModel;
 import com.gesoft.model.ServiceModel;
 import com.gesoft.model.UserModel;
 import com.gesoft.service.PQueryService;
+import com.gesoft.util.SMSUtil;
 import com.gesoft.util.SystemUtils;
 
 /**
@@ -151,6 +152,80 @@ public class PQueryController extends BaseController
 		{
 			logger.error("NSearchController toLogin error：", e);
 		}
+		return result;
+	}
+	
+	
+	
+	/**
+	 * 描述信息：获取短信验证码
+	 * 创建时间：2015年8月3日 下午2:58:21
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/getSmsVal.do")
+	public @ResponseBody MsgModel getSmsVal(UserModel model)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			if (SMSUtil.RET_SUCC == SMSUtil.sendAuthCode(model.getCellphone()))
+			{
+				msgModel.setSuccess(GLOBAL_MSG_BOOL_SUCCESS);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController getSmsVal error:", e);
+		}
+		return msgModel;
+	}
+	 
+	
+	/**
+	 * 描述信息：用户注册
+	 * 创建时间：2015年8月3日 下午3:30:51
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/goReg.do")
+	public ModelAndView goReg(UserModel user, ModelMap model, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/register");
+		try
+		{
+			if (SMSUtil.isAuthCodeValid(user.getUserName(), user.getRand()))
+			{
+				if (pQueryService.queryUserCountWithUserName(user) <= 0)
+				{
+					if (pQueryService.addUserInfo(user) > 0)
+					{
+						result = new ModelAndView("/patient/common/success");
+						result.addObject("errorinfo", "注册成功");
+					}
+					else 
+					{
+						result.addObject("errorinfo", "注册失败");
+					}
+				}
+				else 
+				{
+					result.addObject("errorinfo", "此手机号已注册");
+				}
+			}
+			else 
+			{
+				result.addObject("errorinfo", "短信验证失败");
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController goReg error:", e);
+			result.addObject("errorinfo", "注册失败");
+		}
+		
 		return result;
 	}
 	

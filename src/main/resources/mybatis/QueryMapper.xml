@@ -2003,4 +2003,21 @@
 			WHERE id = #{id} 
 		]]>
 	</update>
+	
+	<!-- 插入用户-->
+	<insert id="QueryMapper.addUserInfo" useGeneratedKeys="true" keyProperty="userId">
+	    <![CDATA[
+	        INSERT INTO tab_user (userName,userPass,userSysId,name,gender,cellphone) 
+	        VALUES (#{userName},#{userPwd},1,#{userName},1,#{userName})
+	    ]]>
+	</insert>
+	
+	<!-- 判断用户名是否存在-->
+	<select id="QueryMapper.queryUserCountWithUserName" parameterType="userModel" resultType="int">
+        <![CDATA[
+            SELECT COUNT(1) AS CNT
+            FROM tab_user a
+            where a.userName = #{userName}
+        ]]>
+    </select>
 </mapper>
