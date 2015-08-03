@@ -1346,10 +1346,7 @@ public class AppController extends BaseController {
             String cellphone = model.getCellphone();//手机号
             if (!StringUtil.isNullOrEmpty(cellphone)) {
                 String authCode = SystemUtils.getRandamNumber(6);//获取6位随机验证码
-                if (SMSUtil.sendAuthCode(authCode, cellphone) == SMSUtil.RET_SUCC) {
-                    SMSUtil.addAuthCodeToMap(cellphone, authCode);
-                    msgModel.setSuccess(true);
-                }
+                msgModel.setSuccess(SMSUtil.sendAuthCode(authCode, cellphone) == SMSUtil.RET_SUCC);
             } else {
                 msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL_PARAM_INVALID);
             }

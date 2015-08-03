@@ -39,13 +39,17 @@ public class SMSUtil {
     /**
      * 向用户发送验证码
      * @param authCode
-     * @param cellPhone
+     * @param cellphone
      * @return
      */
-    public static int sendAuthCode(String authCode, String cellPhone) {
-        log.info("向手机号：{}，发送验证码:{}", cellPhone, authCode);
+    public static int sendAuthCode(String authCode, String cellphone) {
+        log.info("向手机号：{}，发送验证码:{}", cellphone, authCode);
         String content = String.format("您在自己人健康请求的验证码为：%s，感谢您的注册。如非本人操作，请忽略此短信。【自己人健康】", authCode);
-        return sendSMS(content, cellPhone);
+        int ret = sendSMS(content, cellphone);
+        if (ret == RET_SUCC) {
+            addAuthCodeToMap(cellphone, authCode);
+        }
+        return ret;
     }
     
     /**
@@ -53,7 +57,7 @@ public class SMSUtil {
      * @param cellphone
      * @param authCode
      */
-    public static void addAuthCodeToMap(String cellphone, String authCode) {
+    private static void addAuthCodeToMap(String cellphone, String authCode) {
         if (!StringUtil.isNullOrEmpty(cellphone) && !StringUtil.isNullOrEmpty(authCode)) {
             authCodeMap.put(cellphone + "_" + authCode, System.currentTimeMillis());
         }
@@ -76,6 +80,9 @@ public class SMSUtil {
         return false;
     }
     
+    /**
+     * 从内存中将失效的验证码删除
+     */
     public static void removeExpiredAuthCode() {
         Set<Entry<String, Long>> entrySet = authCodeMap.entrySet();
         if (entrySet != null) {
