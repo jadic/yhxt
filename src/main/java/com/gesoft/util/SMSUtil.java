@@ -1,5 +1,7 @@
 package com.gesoft.util;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -107,31 +109,35 @@ public class SMSUtil {
      * @return  1:成功  其他：失败
      */
     private static int sendSMS(String content, String cellPhone) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("http://sh2.ipyy.com/sms.aspx?action=send&userid=&account=").append(SMS_SERVICE_USERNAME);
-        sb.append("&password=").append(SMS_SERVICE_USERPASS);
-        sb.append("&mobile=").append(cellPhone);
-        sb.append("&content=").append(content);
-        sb.append("&sendTime=");
-        String ret = HttpUtil.sendPost(sb.toString());
-        if (!StringUtil.isNullOrEmpty(ret)) {
-            System.out.println(ret);
-            try {
-                Document document = DocumentHelper.parseText(ret);
-                Node statusNode = document.selectSingleNode("//returnsms/returnstatus");
-                if (statusNode != null) {
-                    String status = statusNode.getText();
-                    if (status.equals(STATUS_SUCC)) {
-                        return RET_SUCC;
-                    } else {
-                        Node msgNode = document.selectSingleNode("//returnsms/message");
-                        String msg = msgNode != null ? msgNode.getText() : "";
-                        log.info("发送短信失败，失败提示:{}", msg);
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("http://sh2.ipyy.com/sms.aspx?action=send&userid=&account=").append(SMS_SERVICE_USERNAME);
+            sb.append("&password=").append(SMS_SERVICE_USERPASS);
+            sb.append("&mobile=").append(cellPhone);
+            sb.append("&content=").append(URLEncoder.encode(content, "UTF-8"));
+            sb.append("&sendTime=");
+            String ret = HttpUtil.sendPost(sb.toString());
+            if (!StringUtil.isNullOrEmpty(ret)) {
+                System.out.println(ret);
+                try {
+                    Document document = DocumentHelper.parseText(ret);
+                    Node statusNode = document.selectSingleNode("//returnsms/returnstatus");
+                    if (statusNode != null) {
+                        String status = statusNode.getText();
+                        if (status.equals(STATUS_SUCC)) {
+                            return RET_SUCC;
+                        } else {
+                            Node msgNode = document.selectSingleNode("//returnsms/message");
+                            String msg = msgNode != null ? msgNode.getText() : "";
+                            log.info("发送短信失败，失败提示:{}", msg);
+                        }
                     }
+                } catch (DocumentException e) {
+                    log.info("解析短信发送返回失败", e);
                 }
-            } catch (DocumentException e) {
-                log.info("解析短信发送返回失败", e);
             }
+        } catch (UnsupportedEncodingException e1) {
+            log.error("sendSMS err", e1);
         }
         return RET_FAIL;
     }
