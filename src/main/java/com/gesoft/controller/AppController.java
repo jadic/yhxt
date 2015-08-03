@@ -1363,7 +1363,9 @@ public class AppController extends BaseController {
             if (!StringUtil.isNullOrEmpty(model.getCellphone())) {
                 UserModel userModel = new UserModel();
                 userModel.setUserName(model.getCellphone());
-                msgModel.setSuccess(userService.queryUserCountWithUsrName(userModel) > 0);
+                int userCount = userService.queryUserCountWithUsrName(userModel);
+                msgModel.setTotal(userCount);
+                msgModel.setSuccess(true);
             } else {
                 msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
             }

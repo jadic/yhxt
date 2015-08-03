@@ -8,7 +8,12 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class HttpUtil {
+    
+    private final static Logger log = LoggerFactory.getLogger(HttpUtil.class);
     
     private final static String RET_ERR = "";
     
@@ -29,24 +34,28 @@ public class HttpUtil {
                 return getStreamString(in, httpConn.getContentEncoding(), "UTF-8");
             }
         }catch(Exception e){
-            throw new RuntimeException("connect exception", e);
+            log.info("sendPost err", e);
         }finally{
             try{
-                out.close();
+                if (out != null) {
+                    out.close();
+                }
             }catch(IOException e){
-                e.printStackTrace();
+                log.info("out.close err", e);
             }
             try{
-                in.close();
+                if (in != null) {
+                    in.close();
+                }
             }catch(IOException e){
-                e.printStackTrace();
+                log.info("in.close err", e);
             }
             try{
                 if(httpConn != null){
                     httpConn.disconnect();
                 }
             }catch(Exception e){
-                e.printStackTrace();
+                log.info("httpConn.disconnect err", e);
             }
         }
         return RET_ERR;
