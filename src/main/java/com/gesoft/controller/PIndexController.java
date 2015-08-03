@@ -45,6 +45,13 @@ public class PIndexController extends BaseController
 		return "/patient/image";
 	}
 	
+
+	@RequestMapping(value="/toReg.do")
+	public String toReg()
+	{
+		return "/patient/register";
+	}
+	
 	/**
 	 * 描述信息：健康档案
 	 * 创建时间：2015年3月3日 下午11:32:19

@@ -28,6 +28,7 @@ public class UserModel extends BaseModel
 	private String rand;
 	private int userSysId;
 	
+	private int oper;
 	private String name;		// 姓名
 	private int gender;  		// 性别 1：男， 2，女，0，未知
 	private String birthdate; 	// 出生日期
@@ -69,6 +70,15 @@ public class UserModel extends BaseModel
 	private String bmi;//weight/(height*height)
 	
 	
+	
+	public int getOper()
+	{
+		return oper;
+	}
+	public void setOper(int oper)
+	{
+		this.oper = oper;
+	}
 	public String getBmi()
 	{
 		return bmi;

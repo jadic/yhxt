@@ -72,7 +72,7 @@
 					</tr>
 					<tr>
 						<td style="padding-left: 15px;">
-							<input type="text" id="userName" name="userName" value="帐号" onblur="if(userName.value=='')userName.value='帐号';" onfocus="this.select(); if(userName.value=='帐号')userName.value='';" style="height: 35px; width: 165px; color: #666666; padding-left: 35px; text-align: left;line-height: 35px; background: url('<c:url value='/patient/themes/images/login_user.jpg'/>') no-repeat left;border: none" title="用户名">
+							<input type="text" id="userName" name="userName" placeholder="登录帐号" onfocus="this.select(); if(userName.value=='帐号')userName.value='';" style="height: 35px; width: 165px; color: #666666; padding-left: 35px; text-align: left;line-height: 35px; background: url('<c:url value='/patient/themes/images/login_user.jpg'/>') no-repeat left;border: none" title="用户名">
 						</td>
 					</tr>
 					<tr>
@@ -80,7 +80,7 @@
 					</tr>
 					<tr>
 						<td style="padding-left: 15px;">
-							<input name="userPwd" type="password" maxlength="16" id="userPwd" onfocus="this.select(); " style="height: 35px; width: 165px; color: #666666; padding-left: 35px; text-align: left;line-height: 35px; background: url('<c:url value='/patient/themes/images/login_pwd.jpg'/>') no-repeat left;border: none" title="用户名">
+							<input name="userPwd" type="password" maxlength="16" id="userPwd" placeholder="登录密码" onfocus="this.select(); " style="height: 35px; width: 165px; color: #666666; padding-left: 35px; text-align: left;line-height: 35px; background: url('<c:url value='/patient/themes/images/login_pwd.jpg'/>') no-repeat left;border: none" title="用户名">
 						</td>
 					</tr>
 					<tr>
@@ -91,7 +91,7 @@
 							<table>
 								<tr>
 									<td>
-										<input name=rand type="text" maxlength="16" id="rand" onfocus="this.select(); " style="height: 35px; width: 85px; color: #666666; padding-left: 35px; text-align: left;line-height: 35px; background: url('<c:url value='/patient/themes/images/login_rand.jpg'/>') no-repeat left;border: none" title="用户名">
+										<input name=rand type="text" maxlength="16" id="rand" placeholder="验证码" onfocus="this.select(); " style="height: 35px; width: 85px; color: #666666; padding-left: 35px; text-align: left;line-height: 35px; background: url('<c:url value='/patient/themes/images/login_rand.jpg'/>') no-repeat left;border: none" title="用户名">
 									</td>
 									<td align="left">
 										<img src="<c:url value='/p/img.do'/>" style="cursor: pointer;" onclick="this.src=this.src+'?'"/>
