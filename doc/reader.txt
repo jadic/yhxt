@@ -1,3 +1,6 @@
 用户平台：www.995120.cn             用户名：qbws1    密码：123456
 医生业务平台：www.995120.cn/doctor   用户名：qbws001   密码：123456
 运营管理平台：http://www.995120.cn:8080/yy/  用户名：cs0001 密码：123456
+
+
+http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=%E8%8B%8FA1234%EF%BC%8C%E5%9C%A8%E5%85%89%E5%8D%8E%E8%B7%AF%E6%AE%B5%E8%B6%85%E9%80%9F%E6%8A%A5%E8%AD%A6%EF%BC%8C%E5%9B%9E%E5%AE%B6%E5%90%A7

@@ -471,7 +471,7 @@ public class AppController extends BaseController {
                 msgModel.setSuccess(id > 0);
                 msgModel.setRows(idList);
             } else {
-                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL_PARAM_INVALID);
             }
         } catch (Exception e) {
             logger.error("AppController uploadSportResult error：", e);
@@ -501,7 +501,7 @@ public class AppController extends BaseController {
                 msgModel.setSuccess(id > 0);
                 msgModel.setRows(idList);
             } else {
-                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL_PARAM_INVALID);
             }
         } catch (Exception e) {
             logger.error("AppController uploadMealResult error：", e);
@@ -530,7 +530,7 @@ public class AppController extends BaseController {
                 msgModel.setSuccess(id > 0);
                 msgModel.setRows(idList);
             } else {
-                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL_PARAM_INVALID);
             }
         } catch (Exception e) {
             logger.error("AppController uploadMentalStatus error：", e);
@@ -1214,7 +1214,7 @@ public class AppController extends BaseController {
                 msgModel.setSuccess(id > 0);
                 msgModel.setRows(idList);
             } else {
-                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL_PARAM_INVALID);
             }
         } catch (Exception e) {
             logger.error("AppController addMedicineRecord error：", e);
@@ -1284,7 +1284,7 @@ public class AppController extends BaseController {
                 msgModel.setSuccess(id > 0);
                 msgModel.setRows(idList);
             } else {
-                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL_PARAM_INVALID);
             }
         } catch (Exception e) {
             logger.error("AppController addECGRecord error：", e);
@@ -1308,7 +1308,7 @@ public class AppController extends BaseController {
                 msgModel.setSuccess(id > 0);
                 msgModel.setRows(idList);
             } else {
-                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL_PARAM_INVALID);
             }
         } catch (Exception e) {
             logger.error("AppController addBloodOxygenRecord error：", e);
@@ -1331,7 +1331,7 @@ public class AppController extends BaseController {
                 msgModel.setSuccess(id > 0);
                 msgModel.setRows(idList);
             } else {
-                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL_PARAM_INVALID);
             }
         } catch (Exception e) {
             logger.error("AppController addMentalTestRecord error：", e);
@@ -1343,11 +1343,98 @@ public class AppController extends BaseController {
     public @ResponseBody MsgModel sendAuthCode(UserRegisterModel model) {
         MsgModel msgModel = new MsgModel();
         try {
-            String cellPhone = model.getCellPhone();//手机号
-            String authCode = SystemUtils.getRandamNumber(6);//获取6位随机验证码
-            msgModel.setSuccess(SMSUtil.sendAuthCode(authCode, cellPhone) == SMSUtil.RET_SUCC);
+            String cellphone = model.getCellphone();//手机号
+            if (!StringUtil.isNullOrEmpty(cellphone)) {
+                String authCode = SystemUtils.getRandamNumber(6);//获取6位随机验证码
+                msgModel.setSuccess(SMSUtil.sendAuthCode(authCode, cellphone) == SMSUtil.RET_SUCC);
+            } else {
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL_PARAM_INVALID);
+            }
         } catch (Exception e) {
-            logger.error("AppController delMedicineRecord error：", e);
+            logger.error("AppController sendAuthCode error：", e);
+        }
+        return msgModel;
+    }
+    
+    @RequestMapping(value = "/isCellphoneExists.do")
+    public @ResponseBody MsgModel isCellphoneExists(UserRegisterModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            if (!StringUtil.isNullOrEmpty(model.getCellphone())) {
+                UserModel userModel = new UserModel();
+                userModel.setUserName(model.getCellphone());
+                msgModel.setSuccess(userService.queryUserCountWithUsrName(userModel) > 0);
+            } else {
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL + "(参数有误)");
+            }
+        } catch (Exception e) {
+            logger.error("AppController isCellphoneExists error：", e);
+        }
+        return msgModel;
+    }
+    
+    @RequestMapping(value = "/registerUser.do")
+    public @ResponseBody MsgModel registerUser(UserRegisterModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            String cellphone = model.getCellphone();//手机号
+            String authCode = model.getAuthCode();//随机验证码
+            String userPass = model.getUserPass();//用户设置的密码
+            if (StringUtil.isAllNotNullAndNotEmpty(cellphone, authCode, userPass)) {
+                if (SMSUtil.isAuthCodeValid(cellphone, authCode)) {
+                    UserModel userModel = new UserModel();
+                    //app端注册用户，利用手机作为标识
+                    userModel.setUserName(cellphone);
+                    userModel.setUserPwd(userPass);
+                    userModel.setSysId(1);
+                    
+                    if (userService.queryUserCountWithUsrName(userModel) <= 0) {
+                        userService.save(userModel);
+                        List<UserModel> list = new ArrayList<UserModel>();
+                        list.add(userModel);
+                        msgModel.setRows(list);
+                        msgModel.setTotal(1);
+                    } else {
+                        msgModel.setMsg("该手机号已存在，请确认");
+                    }            
+                } else {
+                    msgModel.setMsg("验证码或手机号输入有误，请核对");
+                }
+            } else {
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL_PARAM_INVALID);
+            }
+        } catch (Exception e) {
+            logger.error("AppController registerUser error：", e);
+        }
+        return msgModel;
+    }
+    
+    @RequestMapping(value = "/resetUserPass.do")
+    public @ResponseBody MsgModel resetUserPass(UserRegisterModel model) {
+        MsgModel msgModel = new MsgModel();
+        try {
+            String cellphone = model.getCellphone();//手机号
+            String authCode = model.getAuthCode();//随机验证码
+            String userPass = model.getUserPass();//用户设置的密码
+            if (StringUtil.isAllNotNullAndNotEmpty(cellphone, authCode, userPass)) {
+                if (SMSUtil.isAuthCodeValid(cellphone, authCode)) {
+                    UserModel userModel = new UserModel();
+                    userModel.setUserName(cellphone);
+                    userModel.setUserPwd(userPass);
+                    
+                    if (userService.queryUserCountWithUsrName(userModel) > 0) {
+                        msgModel.setSuccess(userService.resetUserPasswordByName(userModel) > 0);
+                    } else {
+                        msgModel.setMsg("不存在该手机账号，请确认输入或重新注册");
+                    }            
+                } else {
+                    msgModel.setMsg("验证码或手机号输入有误，请核对");
+                }
+            } else {
+                msgModel.setMsg(MsgModel.GLOBAL_MSG_FAIL_PARAM_INVALID);
+            }
+        } catch (Exception e) {
+            logger.error("AppController resetUserPass error：", e);
         }
         return msgModel;
     }

@@ -84,6 +84,7 @@ public class BackURLFilter implements Filter, Constants
 			{
 				if (request.getRequestURI().indexOf("/p/index.do") > 0
 						|| request.getRequestURI().indexOf("/p/img.do") > 0
+						|| request.getRequestURI().indexOf("/p/mobile.do") > 0
 						|| request.getRequestURI().indexOf("/p/query/login.do") > 0
 						|| request.getRequestURI().indexOf("/p/query/logout.do") > 0
 				){

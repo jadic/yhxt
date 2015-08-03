@@ -32,6 +32,13 @@ public class PIndexController extends BaseController
 		return "/patient/login";
 	}
 	
+	@RequestMapping(value="/mobile.do")
+	public String loginmobile()
+	{
+		return "/patient/login_mobile";
+	}
+	
+	
 	@RequestMapping(value="/img.do")
 	public String img()
 	{
