@@ -65,6 +65,15 @@ public class AUserDAO extends EntityDAOImpl<UserModel, Long>
 	    return getSqlSession().update(getMybatisSqlMapNamespace() + ".resetUserPassword", model);
 	}
 	
+	/**
+	 * 重置用户密码,根据用户名
+	 * @param model
+	 * @return
+	 */
+	public int resetUserPasswordByName(UserModel model) {
+	    return getSqlSession().update(getMybatisSqlMapNamespace() + ".resetUserPasswordByName", model);
+	}
+	
 	public List<UserModel> queryParents(UserModel model) {
 	    return getSqlSession().selectList(getMybatisSqlMapNamespace() + ".queryParents", model);
 	}

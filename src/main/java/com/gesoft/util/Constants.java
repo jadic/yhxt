@@ -22,6 +22,7 @@ public interface Constants
 	public static final Boolean GLOBAL_MSG_BOOL_SUCCESS = true;
 	public static final String GLOBAL_MSG_FAIL = "操作失败！";
 	public static final String GLOBAL_MSG_SUCCESS = "操作成功！";
+	public static final String GLOBAL_MSG_FAIL_PARAM_INVALID = "操作失败！(参数有误)";
 	
 	public static final Integer GLOBAL_SERVICE_SUCCESS = 0;
 	public static final Integer GLOBAL_SERVICE_FAIL = 1;

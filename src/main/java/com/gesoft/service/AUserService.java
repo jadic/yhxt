@@ -42,6 +42,10 @@ public class AUserService extends EntityService<UserModel, Long>
 	    return this.aUserDAO.resetUserPassword(model);
 	}
 	
+	public int resetUserPasswordByName(UserModel model) {
+	    return this.aUserDAO.resetUserPasswordByName(model);
+	}
+	
 	public List<UserModel> queryParents(UserModel model) {
 	    return this.aUserDAO.queryParents(model);
 	}

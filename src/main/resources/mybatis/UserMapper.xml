@@ -195,6 +195,14 @@
         WHERE userId = #{userId} 
       ]]>    
     </update>
+  
+    <update id="UserMapper.resetUserPasswordByName" parameterType="userModel">
+      <![CDATA[
+        UPDATE tab_user set
+        userPass = #{userPwd} 
+        WHERE userName = #{userName} 
+      ]]>    
+    </update>
 
   <select id="UserMapper.queryParents" parameterType="userModel"  resultMap="mRetParentInfoMap">
     <![CDATA[

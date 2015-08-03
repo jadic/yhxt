@@ -24,6 +24,15 @@ public class StringUtil
         return (value == null) || (value.length() == 0);
     }
     
+    public static boolean isAllNotNullAndNotEmpty(String ... args) {
+        for (String arg : args) {
+            if (isNullOrEmpty(arg)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     /**
      * 获取有效的字符串值。如果是 null 则返回 ""，否则返回自身
      * 
