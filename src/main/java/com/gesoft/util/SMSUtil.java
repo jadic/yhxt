@@ -26,7 +26,7 @@ public class SMSUtil {
     public final static int RET_FAIL = 0;//发送短信失败
 
     private final static String SMS_SERVICE_USERNAME = "jkwl105";//短信服务账号
-    private final static String SMS_SERVICE_USERPASS = "jkwl10511";//短信服务密码
+    private final static String SMS_SERVICE_USERPASS = "zjr86612803";//短信服务密码
     
     //缓存用户验证码及手机号，用来实现简易验证验证码合法性
     private final static Map<String, Long> authCodeMap = new ConcurrentHashMap<String, Long>();
