@@ -4,11 +4,8 @@
 <html>
   <head>
   	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">  
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">  
     <title>自已人健康服务中心</title>
-    <style>
-    	.inputMin_informationModify{width:218px; height:28px; border:1px solid #aeaeae; padding-left:10px; font:13px/28px "微软雅黑"; color:#000}
-    </style>
     <script type="text/javascript" src="<c:url value='/common/scripts/jquery-1.8.0.min.js'/>" ></script>
  	<script>
  		var reg = /^1\d{10}$/;  //定义正则表达式
@@ -116,7 +113,7 @@
 	<table border="0" id="center-table" cellpadding="0" cellspacing="0" style="width: 100%; overflow: hidden;" border="0" >
 		<tr>
 			<td >&nbsp;</td>
-			<td style="width: 90%; max-width: 600px;" valign="top">
+			<td style="width: 90%;" valign="top">
 				<form action="<c:url value='/p/query/goReg.do'/>" method="post" onsubmit="return funSubmitInfo()" name="inputform" id="inputform">
 				<table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
 					<tr>
@@ -168,13 +165,13 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<table cellspacing="45" border="0" style="width: 100%;">
+							<table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
 								<tr>
-									<td align="right">
+									<td align="center">
 										<input  type="submit" id="btnsubmit" name="btnsubmit"  style="display: none;"/>
 										<div style="background:url(<c:url value='/patient/themes/images/btn_bg.png'/>); height:35px; width:120px; line-height:35px; color:#fff; text-align:center; cursor:pointer;" onclick="$('#btnsubmit').click()">注册</div>
 									</td>
-									<td align="left">
+									<td align="center">
 										<div style="background:url(<c:url value='/patient/themes/images/btn_bg.png'/>); height:35px; width:120px; line-height:35px; color:#fff; text-align:center; cursor:pointer;" id="retset">重置</div>
 									</td>
 								</tr>
