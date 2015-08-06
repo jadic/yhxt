@@ -14,12 +14,15 @@
  		$(function(){
  			var tmp = 10
  			window.setInterval(function(){
- 				if(tmp == 0)
+ 				if(tmp <= 0)
  				{
  					window.location.href = "<c:url value='/p/mobile.do'/>";
  				}	
- 				tmp -= 1;
- 				$("#ms").text(tmp);
+ 				else
+ 				{
+ 					tmp -= 1;
+ 	 				$("#ms").text(tmp);
+ 				}	
  			}, 1000)
  		});
  	</script>
