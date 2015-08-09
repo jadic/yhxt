@@ -86,9 +86,9 @@ public class PQueryController extends BaseController
 				{
 					result = new ModelAndView("/patient/login_mobile");
 				}
-				if (session.getAttribute("rand") != null)
+				if (user.getOper() == 1 || session.getAttribute("rand") != null)
 				{
-					if (user.getRand().equals(session.getAttribute("rand")))
+					if (user.getOper() == 1 || user.getRand().equals(session.getAttribute("rand")))
 					{
 						UserModel mLoginModel = pQueryService.login(user);
 						if (user.state == GLOBAL_SERVICE_SUCCESS)
