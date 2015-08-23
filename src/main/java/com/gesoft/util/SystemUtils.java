@@ -13,6 +13,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author WCL
  * @version v1.001
@@ -164,5 +166,27 @@ public class SystemUtils
 	    }
 	    return ret.toString();
 	}
+	
+	
+	/**
+	 * 描述信息：是否为移动设备
+	 * @创建时间：2015年8月12日 下午5:57:51
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param request
+	 * @return
+	 */
+	public static boolean isMobile(HttpServletRequest request)
+	{
+		String ua = request.getHeader("User-Agent").toLowerCase();
+		System.out.println(ua);
+		if (ua.indexOf("ipad") >= 0 
+				|| ua.indexOf("iphone") >= 0
+				|| ua.indexOf("android") >= 0 )
+		{
+			return true;
+		}
+		return false;
+	}
+	
 
 }

@@ -94,6 +94,10 @@ public class PQueryController extends BaseController
 						if (user.state == GLOBAL_SERVICE_SUCCESS)
 						{
 							result = new ModelAndView("/patient/main");
+							if (SystemUtils.isMobile(request))
+							{
+								result = new ModelAndView("/patient/main_mobile");
+							}
 							model.addAttribute("loginUser", mLoginModel);
 							session = request.getSession(true);
 							session.setAttribute(SESSION_KEY_PISLOGIN, GLOBAL_YES);
@@ -249,6 +253,10 @@ public class PQueryController extends BaseController
 		catch (Exception e)
 		{
 			logger.error("LoginController logout error：", e);
+		}
+		if (SystemUtils.isMobile(request))
+		{
+			return "/patient/login_mobile";
 		}
 		return "/patient/login";
 	}
@@ -1144,6 +1152,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toHome(QueryModel model, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/home");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/home");
+		}
 		try
 		{
 			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));

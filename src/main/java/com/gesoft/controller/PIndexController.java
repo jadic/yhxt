@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gesoft.model.QueryModel;
+import com.gesoft.util.SystemUtils;
 
 /**
  * @author WCL
@@ -27,15 +28,23 @@ public class PIndexController extends BaseController
 	
 	
 	@RequestMapping(value="/index.do")
-	public String login()
+	public String login(HttpServletRequest request)
 	{
+		if (SystemUtils.isMobile(request))
+		{
+			return "/patient/login_mobile";
+		}
 		return "/patient/login";
 	}
 	
 	@RequestMapping(value="/mobile.do")
-	public String loginmobile()
+	public String loginmobile(HttpServletRequest request)
 	{
-		return "/patient/login_mobile";
+		if (SystemUtils.isMobile(request))
+		{
+			return "/patient/login_mobile";
+		}
+		return "/patient/login";
 	}
 	
 	
