@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gesoft.model.QueryModel;
@@ -47,6 +48,29 @@ public class PIndexController extends BaseController
 		return "/patient/login";
 	}
 	
+	// 我的
+	@RequestMapping(value="/my.do")
+	public String toMy(ModelMap model, HttpServletRequest request)
+	{
+		if (SystemUtils.isMobile(request))
+		{
+			return "/patient/mobile/my";
+		}
+		model.put("errorInfo", "只能在移动设备上显示");
+		return "/patient/common/error";
+	}
+	
+	// 查询
+	@RequestMapping(value="/search.do")
+	public String toSearch(ModelMap model, HttpServletRequest request)
+	{
+		if (SystemUtils.isMobile(request))
+		{
+			return "/patient/mobile/search";
+		}
+		model.put("errorInfo", "只能在移动设备上显示");
+		return "/patient/common/error";
+	}
 	
 	@RequestMapping(value="/img.do")
 	public String img()

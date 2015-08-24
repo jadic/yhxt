@@ -15,6 +15,7 @@
 <script type="text/javascript" src="<c:url value='/common/scripts/My97DatePicker/WdatePicker.js'/>" ></script>
 <script type="text/javascript" src="<c:url value='/common/scripts/common.dwr-1.0.js'/>" ></script>
 <script type="text/javascript" src="<c:url value='/common/scripts/common.date-1.0.js'/>" ></script>
+<script type="text/javascript" src="<c:url value='/patient/scripts/mobile.js'/>" ></script>
 <script type="text/javascript">
 <!--
 	if (typeof window['DWRUtil'] == 'undefined')    window.DWRUtil = dwr.util;

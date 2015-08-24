@@ -330,7 +330,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
 <body>
-	<header id="header">自已人健康服务中心</header>
+	<header id="header">首页</header>
 	<div id="content">
 		<div class="index_welcome_header" style="width: 100%; margin-bottom: 10px;">
 	      <div class="notice">
@@ -400,7 +400,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <div class="item-time" style="line-height: 30px;">${homeBase.g }</div>
             	</div>
             	<div style="float: right; line-height: 60px;">
-                    <span style="font: 30px/30px Georgia;   height: 32px;  color: #5a5a5a;">${homeBase.h }</span>
+                    <span style="font: 30px/30px Georgia;  height: 32px;  color: #5a5a5a;">${homeBase.h }</span>
                 	<span style="font-size: 14px;">mmHg</span>
                	</div>
             </div>
@@ -459,17 +459,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 		  	</div>
         </li>
+        </ul>
 	</div>
 	<footer id="footer">
-		<div data-name="首页" data-index="0" data-type="custom" class="footer-tab-custom selected">
-			<span class="icon selected"></span><span class="text">首页</span>
-		</div>
-		<div data-name="搜索" data-index="1" data-type="search" class="footer-tab-search">
-			<span class="icon"></span><span class="text">搜索</span>
-		</div>
-		<div data-name="我的" data-index="2" data-type="mine" class="footer-tab-mine">
-			<span class="icon"></span><span class="text">我的</span>
-		</div>
+		<footer id="footer">
+		<jsp:include page="/WEB-INF/patient/common/footer-include.jsp">
+			<jsp:param value="0" name="selected"/>
+		</jsp:include>
+	</footer>
 	</footer>
 </body>
 </html>
