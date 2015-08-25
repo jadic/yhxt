@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#btnsearch").bind("click", function(){
 				$(".item_wcl").remove()
 				PageOper.page = 1;
-				PageOper.sumPage = 0;
+				PageOper.sumPage = 1;
 				PageOper.funSearch()
 			});
 		});

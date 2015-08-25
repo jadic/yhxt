@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -413,7 +414,10 @@ public class PQueryController extends BaseController
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
 			result.addObject("query", query);
-			
+			if (SystemUtils.isMobile(request))
+			{
+				return new ModelAndView("/patient/mobile/serviceinfo/manage_activity_info");
+			}
 			//分页加载建议执行结果
 			long recordCount = pQueryService.queryActivityInfoCnt(query);
 			if(recordCount>0)
@@ -430,6 +434,40 @@ public class PQueryController extends BaseController
 		return result;
 	}
 	
+	/**
+	 * 描述信息：json格式
+	 * 创建时间：2015年8月25日 下午11:20:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/activityJson.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toActivityJson(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			long recordCount = pQueryService.queryActivityInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query, msgModel);
+				List<ActivityModel> argArgs = pQueryService.queryActivityInfo(query);
+				if (argArgs != null && argArgs.size() > 0)
+				{
+					msgModel.setTotal(recordCount);
+					msgModel.setRows(argArgs);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toActivityJson error：", e);
+		}
+		return msgModel;
+	}
 	
 	@RequestMapping(value="/activitydetail.do")
 	public ModelAndView toActivityDetail(QueryModel query, HttpServletRequest request, HttpServletResponse response)
@@ -467,11 +505,19 @@ public class PQueryController extends BaseController
 	public ModelAndView toService(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/serviceinfo/manage_service_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result =  new ModelAndView("/patient/mobile/serviceinfo/manage_service_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
 			result.addObject("query", query);
 			
+			if (SystemUtils.isMobile(request))
+			{
+				return result;
+			}
 			//分页加载建议执行结果
 			long recordCount = pQueryService.queryServiceInfoCnt(query);
 			if(recordCount>0)
@@ -488,6 +534,32 @@ public class PQueryController extends BaseController
 		return result;
 	}
 	
+	
+	@RequestMapping(value="/serviceJson.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toServiceJson(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			long recordCount = pQueryService.queryServiceInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query, msgModel);
+				List<ServiceModel> argArgs = pQueryService.queryServiceInfo(query);
+				if (argArgs != null && argArgs.size() > 0)
+				{
+					msgModel.setTotal(recordCount);
+					msgModel.setRows(argArgs);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toServiceJson error：", e);
+		}
+		return msgModel;
+	}
 	
 	/**
 	 * 描述信息：购买服务
@@ -562,7 +634,10 @@ public class PQueryController extends BaseController
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
 			result.addObject("query", query);
-			
+			if (SystemUtils.isMobile(request))
+			{
+				return new ModelAndView("/patient/mobile/serviceinfo/manage_device_info");
+			}
 			//分页加载建议执行结果
 			long recordCount = pQueryService.queryDeviceInfoCnt(query);
 			if(recordCount>0)
@@ -579,6 +654,41 @@ public class PQueryController extends BaseController
 		return result;
 	}
 	
+	
+	/**
+	 * 描述信息：json格式
+	 * 创建时间：2015年8月25日 下午11:09:20
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/deviceJson.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toDeviceJson(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			long recordCount = pQueryService.queryDeviceInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query, msgModel);
+				List<DeviceModel> argArgs = pQueryService.queryDeviceInfo(query);
+				if (argArgs != null && argArgs.size() > 0)
+				{
+					msgModel.setTotal(recordCount);
+					msgModel.setRows(argArgs);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toDeviceJson error：", e);
+		}
+		return msgModel;
+	}
 	
 	/**
 	 * 描述信息：修改密码

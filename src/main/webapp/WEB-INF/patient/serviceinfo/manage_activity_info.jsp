@@ -66,43 +66,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$("#inputform").submit();
 			});
 		});
-	
-		function buyinfo(obj, id)
-		{
-			PageMain.funOpenProgress();
-			$.ajax({
-				url : _ctx_ + "/p/query/buyService.do?a="+ Math.random(),
-				type : 'post',
-				dataType : 'json',
-				data : 
-				{
-					"id": id
-				},
-				error:function(data)
-				{
-					/**关闭进度条**/
-					PageMain.funCloseProgress();
-					$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
-				},
-				success:function(data)
-				{
-					
-					/**关闭进度条**/
-					PageMain.funCloseProgress();
-					
-					/**数据处理**/
-					if(data.success)
-					{
-						$(obj).parent().html('<span style="color: #2998df; font-weight: bold;">已购买</span>');
-						$.messager.alert('信息提示', data.msg, 'info');
-					}
-					else
-					{
-						$.messager.alert('信息提示', data.msg, 'error');
-					}
-				}
-			});
-		}
 	</script>
   </head>
 <body>
@@ -113,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
 		    	<tr>
 		    		<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				服务名称：
+	    				活动名称：
 	    			</td>
 		    		<td>
 		    			<input id="page" name="page" value="${query.page }" type="hidden"/>
