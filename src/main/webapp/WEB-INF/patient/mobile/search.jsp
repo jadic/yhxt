@@ -120,48 +120,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            </div>
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
-	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
-	            <div class="item-desc">
-	            	<div style="float: left;">
-	            		用药建议
-	            	</div>
-	            	<div style="float: right; line-height: 60px; width: 12px;">
-	                    <div class="item-next"></div>
-	               	</div>
-	            </div>
+	           <a href="<c:url value='/p/query/advice.do?adviceType=1'/>">
+		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <div class="item-desc">
+		            	<div style="float: left;">
+		            		用药建议
+		            	</div>
+		            	<div style="float: right; line-height: 60px; width: 12px;">
+		                    <div class="item-next"></div>
+		               	</div>
+		            </div>
+	           </a>
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
-	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
-	            <div class="item-desc">
-	            	<div style="float: left;">
-	            		饮食建议
-	            	</div>
-	            	<div style="float: right; line-height: 60px; width: 12px;">
-	                    <div class="item-next"></div>
-	               	</div>
-	            </div>
+	            <a href="<c:url value='/p/query/advice.do?adviceType=2'/>">
+		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <div class="item-desc">
+		            	<div style="float: left;">
+		            		饮食建议
+		            	</div>
+		            	<div style="float: right; line-height: 60px; width: 12px;">
+		                    <div class="item-next"></div>
+		               	</div>
+		            </div>
+		         </a>
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
-	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
-	            <div class="item-desc">
-	            	<div style="float: left;">
-	            		运动建议
-	            	</div>
-	            	<div style="float: right; line-height: 60px; width: 12px;">
-	                    <div class="item-next"></div>
-	               	</div>
-	            </div>
+	            <a href="<c:url value='/p/query/advice.do?adviceType=3'/>">
+		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <div class="item-desc">
+		            	<div style="float: left;">
+		            		运动建议
+		            	</div>
+		            	<div style="float: right; line-height: 60px; width: 12px;">
+		                    <div class="item-next"></div>
+		               	</div>
+		            </div>
+		         </a>   
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
-	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
-	            <div class="item-desc">
-	            	<div style="float: left;">
-	            		就诊建议
-	            	</div>
-	            	<div style="float: right; line-height: 60px; width: 12px;">
-	                    <div class="item-next"></div>
-	               	</div>
-	            </div>
+	            <a href="<c:url value='/p/query/advice.do?adviceType=4'/>">
+		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <div class="item-desc">
+		            	<div style="float: left;">
+		            		就诊建议
+		            	</div>
+		            	<div style="float: right; line-height: 60px; width: 12px;">
+		                    <div class="item-next"></div>
+		               	</div>
+		            </div>
+		         </a>   
 	        </li>
 	        <li class="activeable list-item" style="background: #efefef"></li>
         </ul>

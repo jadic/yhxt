@@ -325,6 +325,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toAdvice(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/healthanalysis/manage_doctor_advice_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/healthanalysis/manage_doctor_advice_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
@@ -335,15 +339,17 @@ public class PQueryController extends BaseController
 			if (model != null)
 			{
 				result.addObject("advice", model);
-				
 				query.setId(model.getId());
-				//分页加载建议执行结果
-				long recordCount = pQueryService.queryAdvicePerformaceCnt(query);
-				if(recordCount>0)
+				if (SystemUtils.isMobile(request) == false)
 				{
-					setPageModel(recordCount, query);
-					List<OutModel> argArgs = pQueryService.queryAdvicePerformace(query);
-					result.addObject("adviceFlys", argArgs);
+					//分页加载建议执行结果
+					long recordCount = pQueryService.queryAdvicePerformaceCnt(query);
+					if(recordCount>0)
+					{
+						setPageModel(recordCount, query);
+						List<OutModel> argArgs = pQueryService.queryAdvicePerformace(query);
+						result.addObject("adviceFlys", argArgs);
+					}
 				}
 			}
 		}
@@ -354,6 +360,42 @@ public class PQueryController extends BaseController
 		return result;
 	}
 	
+	
+	/**
+	 * 描述信息：JSON格式
+	 * 创建时间：2015年8月25日 下午1:18:46
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/adviceJson.do")
+	public @ResponseBody MsgModel toAdviceJson(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			//分页加载建议执行结果
+			long recordCount = pQueryService.queryAdvicePerformaceCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query, msgModel);
+				List<OutModel> argArgs = pQueryService.queryAdvicePerformace(query);
+				if (argArgs != null && argArgs.size() > 0)
+				{
+					msgModel.setTotal(recordCount);
+					msgModel.setRows(argArgs);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toAdviceJson error：", e);
+		}
+		return msgModel;
+	}
 	
 	
 	

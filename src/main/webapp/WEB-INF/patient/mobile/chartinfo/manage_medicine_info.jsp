@@ -36,6 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/JavaScript">
 		$(function(){
 			$("#btnsearch").bind("click", function(){
+				$(".item_wcl").remove()
 				PageOper.page = 1;
 				PageOper.sumPage = 0;
 				PageOper.funSearch()
@@ -44,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		var PageOper = {
 			page:1,
-			sumPage:0,
+			sumPage:1,
 			funSearch : function()
 			{
 				$.ajax({
@@ -79,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							for(var nItem=0; nItem<data.rows.length; nItem++)
 							{
 								row = data.rows[nItem];
-								$('<li class="activeable list-item" style="display:-webkit-box; display:-moz-box;"  onclick="goMerge('+row.id+', \'修改用药记录\')">'+
+								$('<li class="activeable list-item item_wcl" style="display:-webkit-box; display:-moz-box;"  onclick="goMerge('+row.id+', \'修改用药记录\')">'+
 						                '<div style="-webkit-box-flex:1; -moz-box-flex:1; -webkit-box-ordinal-group:2;-moz-box-ordinal-group:2;">'+
 						                '<h2 class="item-title">'+row.medicineName+'</h2>'+
 						                '<p class="item-info">'+
