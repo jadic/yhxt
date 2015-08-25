@@ -9,18 +9,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     <title>自已人健康服务中心 </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
-	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
-	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
+	<%@ include file="/WEB-INF/patient/common/date-include.jsp"%>
+    <%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
 	<style>
 		.tableTd{border: solid #000; border-width: 0px 1px 1px 0px; width: 120px; font-size: 14px; line-height: 30px; height: 30px;}
 		.input_informationModify{width:150px; height:25px; border:1px solid #aeaeae; padding-left:10px; font:13px/26px "微软雅黑"; color:#5a5a5a; }
 		.selectMax_informationModify{width:150px; height:25px; border:1px solid #aeaeae; font:13px/26px "微软雅黑"; color:#5a5a5a; }
 		.selectMax_Level{width:60px; height:25px; border:0px solid #aeaeae; font:13px/26px "微软雅黑"; color:#5a5a5a; }
         .hidden{display: none;}
-        .noData{width: 99%; font-size: 18px; padding: 0px 0px 20px 10px; text-align: left; color:#FF0000;}
+        .noData{width: 96%; font-size: 18px; padding: 0px 0px 20px 10px; text-align: left; color:#FF0000;}
+		.Wdate{
+			height: 28px;
+			width:170px;
+  			border: 1px solid #aeaeae;
+		}
+		.search {
+		  width: 100%;
+		  padding: 3px 0px;
+		  background: #f7f7f7;
+		  float: left;
+		  margin-top: 10px;
+		  margin-bottom: 10px;
+		}
+		.item_wcl{}
 	</style>
 	
 	<script type="text/JavaScript">
@@ -205,40 +221,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</script>
   </head>
-<body>
-<div class="account" style="background: #ffffff;">
-	<div class="account_title" style="background: #ffffff;">
-      <ul>
-        <li class="account_titleGreen">健康报告</li>
-        <li class="account_titleGray">
-        	当前位置：日报告
-        </li>
-      </ul>
-    </div>
-</div> 
-  <div class="information_modify">
-	    <div class="information_modify_main">
-	    	<div class="search">
+<body style="padding: 0px; margin: 0px;">
+  	<header id="header">健康日报
+  		<div class="left"><a href="<c:url value='/p/search.do'/>"><span class="corner"></span></a></div>
+  	</header>
+  	<div id="content">
+			<div class="search">
 		    	<form id="inputform" name="inputform" action="<c:url value='/p/query/healthBg.do'/>" method="post">
-				    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
+				    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-size: 15px;">
 				    	<tr>
-				    		<td style="padding: 5px 0px 5px 0px; height: 30px; color: #aeaeae; font-size: 13px;" align="left">
+				    		<td style="padding: 5px 0px 5px 5px; height: 30px; color: #aeaeae; font-size: 13px;" align="left">
 				    			报告类型：
-				    			<select class="selectMax_informationModify" id="statType" name="statType">
+				    			<select class="selectMax_informationModify" style="width:180px;" id="statType" name="statType">
 					               <option value="1" selected="selected">日报</option>
 					               <option value="2">周报</option>
 					               <option value="3">月报</option>
 				               </select>
 				    		</td>
-				    		<td>
-				    		</td>
 				    	</tr>
 				    	<tr>
-				    		<td style="padding: 5px 0px 5px 0px; height: 30px; color: #aeaeae; font-size: 13px;" align="left">
+				    		<td style="padding: 5px 0px 5px 5px; height: 30px; color: #aeaeae; font-size: 13px;" align="left">
 				    			报告时间：
 				    			<input class="input_informationModify Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="startTime" name="startTime" value="${query.startTime }">
 				    		</td>
-				    		<td>
+				    	</tr>
+				    	<tr>	
+				    		<td align="center" style="height: 25px;">
 					    		<ul>
 					    			<input type="hidden" name="userId" id="userId" value="${query.userId }"></input>
 					    			<li class="btn_search"><a href="javascript:void(0)" id="btnsearch">查询</a></li>
@@ -246,11 +254,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    		</td>
 				    	</tr>
 				    </table>
-				</form>    
-			</div>
-	        <div class="index_table" style="border:0px solid #ccc; padding-top: 20px; padding-bottom: 20px;">
-	        	<div style="width: 99%; font-size: 24px; text-align: center; font-weight: bold; height: 60px; line-height: 60px;">日健康报告</div>
-	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
+				</form>  
+				</div>  
+		<ul class="list">
+			<li class="activeable list-item">
+	        	<table width="96%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
 	        		<tr>
 	        			<td style="width: 120px; font-size: 14px; line-height: 35px; height: 35px;">综合评估：</td>
 	        			<td align="left" id="accessment">
@@ -304,25 +312,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        		</tr>
 	        	</table>
 	        	
-	        	<div style="width: 99%; font-size: 18px; padding: 40px 0px 15px 0px; text-align: left;">一.基本信息</div>
-	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
+	        	<div style="width: 96%; font-size: 18px; padding: 40px 0px 15px 0px; text-align: left;">一.基本信息</div>
+	        	<table width="96%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
 	        		<tr>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">姓名：${healthUser.name }</td>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">性别：${healthUser.genderStr}</td>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">年龄：${healthUser.birthdate}</td>
+	        		</tr>
+				    <tr>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">身高：${healthUser.height}</td>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">体重：${healthUser.weight}</td>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">BMI：${healthUser.bmi}</td>
 	        		</tr>
 	        	</table>
 	        	
-	        	<div style="width: 99%; font-size: 18px; padding: 40px 0px 15px 0px; text-align: left;">二.数据记录</div>
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">1.运动（过量标红，少量标绿）</div>
+	        	<div style="width: 96%; font-size: 18px; padding: 40px 0px 15px 0px; text-align: left;">二.数据记录</div>
+	        	<div style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">1.运动（过量标红，少量标绿）</div>
                 <c:if test="${empty sportFlys }">
                   <div class="noData">暂时没有可用数据</div>
                 </c:if>
                 <c:if test="${not empty sportFlys }">
-    	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+    	        	<table width="96%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
     	        		<tr>
     	        			<td class="tableTd" align="center" style="width: 60px;">序号</td>
     	        			<td class="tableTd" align="center">运动类型</td>
@@ -349,15 +359,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	        		</c:if>
     	        	</table>
                 </c:if>
-	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="sportAdvice" name="sportAdvice"></textarea>
+	        	<div class="hidden" style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea class="hidden" style="width: 96%; height: 150px; border: 1px solid #ccc;" id="sportAdvice" name="sportAdvice"></textarea>
 	        	
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">2.饮食（过量标红，少量标）</div>
+	        	<div style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">2.饮食（过量标红，少量标）</div>
                 <c:if test="${empty foodFlys }">
                   <div class="noData">暂时没有可用数据</div>
                 </c:if>      
                 <c:if test="${not empty foodFlys }">      
-    	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+    	        	<table width="96%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
     	        		<tr>
     	        			<td class="tableTd" align="center">餐别</td>
     	        			<td class="tableTd" align="center">时间</td>
@@ -414,11 +424,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	        		</tr>
     	        	</table>
                 </c:if>
-	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" name="dietAdvice" id="dietAdvice"></textarea>
+	        	<div class="hidden" style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea class="hidden" style="width: 96%; height: 150px; border: 1px solid #ccc;" name="dietAdvice" id="dietAdvice"></textarea>
 	        	
 	        	
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">3.心理评估</div>
+	        	<div style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">3.心理评估</div>
                 <c:if test="${empty mentalFlys }">
                   <div class="noData">暂时没有可用数据</div>
                 </c:if>            
@@ -440,11 +450,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	        			</c:forEach>
     	        	</table>
         		</c:if>
-	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="mentalAdvice" name="mentalAdvice"></textarea>	
+	        	<div class="hidden" style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea class="hidden" style="width: 96%; height: 150px; border: 1px solid #ccc;" id="mentalAdvice" name="mentalAdvice"></textarea>	
 	        	
 	        	
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">4.血压（高于正常值标红，低于正常值标绿）</div>
+	        	<div style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">4.血压（高于正常值标红，低于正常值标绿）</div>
                 <c:if test="${empty pressureFlys }">
                   <div class="noData">暂时没有可用数据</div>
                 </c:if>            
@@ -478,13 +488,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               			</c:forEach>
                 	</table>
           		</c:if>
-	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="bloodPressureAdvice" name="bloodPressureAdvice"></textarea>	
+	        	<div class="hidden" style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea class="hidden" style="width: 96%; height: 150px; border: 1px solid #ccc;" id="bloodPressureAdvice" name="bloodPressureAdvice"></textarea>	
 	        	
 	        	
 	        	
 	        	
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">5.心率（高于正常值标红，低于正常值标绿）</div>
+	        	<div style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">5.心率（高于正常值标红，低于正常值标绿）</div>
                 <c:if test="${empty pulseFlys }">
                   <div class="noData">暂时没有可用数据</div>
                 </c:if>           
@@ -510,12 +520,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	        			</c:forEach>
     	        	</table>
         		</c:if>
-	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="heartRateAdvice" name="heartRateAdvice"></textarea>	
+	        	<div class="hidden" style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea class="hidden" style="width: 96%; height: 150px; border: 1px solid #ccc;" id="heartRateAdvice" name="heartRateAdvice"></textarea>	
 	        		
 	        		
 	        	
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">6.血糖（高于正常值标红，低于正常值标绿）</div>
+	        	<div style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">6.血糖（高于正常值标红，低于正常值标绿）</div>
                 <c:if test="${empty glucoseFlys }">
                   <div class="noData">暂时没有可用数据</div>
                 </c:if>            
@@ -550,13 +560,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	        			</c:forEach>
     	        	</table>
         		</c:if>
-	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="bloodGlucoseAdvice" name="bloodGlucoseAdvice"></textarea>	
+	        	<div class="hidden" style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea class="hidden" style="width: 96%; height: 150px; border: 1px solid #ccc;" id="bloodGlucoseAdvice" name="bloodGlucoseAdvice"></textarea>	
 	        	
 	        	
 	        	
 	        	
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">7.体温（异常数据标红色）</div>
+	        	<div style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">7.体温（异常数据标红色）</div>
                 <c:if test="${empty thermometerFlys }">
                   <div class="noData">暂时没有可用数据</div>
                 </c:if>            
@@ -582,12 +592,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	        			</c:forEach>
     	        	</table>
         		</c:if>
-	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="temperatureAdvice" name="temperatureAdvice"></textarea>			
+	        	<div class="hidden" style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea class="hidden" style="width: 96%; height: 150px; border: 1px solid #ccc;" id="temperatureAdvice" name="temperatureAdvice"></textarea>			
 	        	
 	        	
 	        	
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">8.用药记录</div>
+	        	<div style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">8.用药记录</div>
                 <c:if test="${empty medicineFlys }">
                   <div class="noData">暂时没有可用数据</div>
                 </c:if>            
@@ -607,10 +617,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	        			</c:forEach>
     	        	</table>
         		</c:if>
-	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
-	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="medicationAdvice" name="medicationAdvice"></textarea>
-	        </div>
-        </div>
+	        	<div style="width: 96%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
+	        	<textarea style="width: 96%; height: 150px; border: 1px solid #ccc;" id="medicationAdvice" name="medicationAdvice"></textarea>
+	        </li>
+	     </ul>   
     </div>
+	
+	<footer id="footer">
+		<footer id="footer">
+		<jsp:include page="/WEB-INF/patient/common/footer-include.jsp">
+			<jsp:param value="1" name="selected"/>
+		</jsp:include>
+	</footer>	   
 </body>
 </html>

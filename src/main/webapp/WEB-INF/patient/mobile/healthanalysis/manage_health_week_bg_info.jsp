@@ -34,11 +34,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  background: #f7f7f7;
 		  float: left;
 		  margin-top: 10px;
-		  margin-bottom: 10px;
+		   margin-bottom: 10px;
 		}
 	</style>
 	
 	<script type="text/JavaScript">
+		var mGolbalType = 0;
+	
 		$(function(){
 			$(".selectMax_Level, textarea").attr("disabled", "disabled");
 			$(".selectMax_Level").bind("change", function(){
@@ -62,20 +64,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 			
 			
+			window.setInterval(function(){
+				if(mGolbalType == 0)
+				{
+					if($("#startTime").val() != "")
+					{
+						var dataFlys = $("#startTime").val().split("-");
+						var mStartTime = new Date(dataFlys[0], dataFlys[1] -1, dataFlys[2], 0, 0, 0); 
+						if(mStartTime.getDay() >=1)
+						{
+							$("#startTime").val(DateAdd("d", 1-mStartTime.getDay(), mStartTime).pattern("yyyy-MM-dd"));
+							$("#endTime").val(DateAdd("d", 7 - mStartTime.getDay(), mStartTime).pattern("yyyy-MM-dd"));
+						}
+						else if (mStartTime.getDay() == 0) 
+						{
+							$("#startTime").val(DateAdd("d", mStartTime.getDay() - 6, mStartTime).pattern("yyyy-MM-dd"));
+							$("#endTime").val(DateAdd("d", mStartTime.getDay(), mStartTime).pattern("yyyy-MM-dd"));
+						}
+					}	
+				}
+				else if(mGolbalType == 1)
+				{
+					if($("#endTime").val() != "")
+					{
+						var dataFlys = $("#endTime").val().split("-");
+						var mEndTime = new Date(dataFlys[0], dataFlys[1] -1, dataFlys[2], 0, 0, 0); 
+						if(mEndTime.getDay() >=1)
+						{
+							$("#startTime").val(DateAdd("d", 1-mEndTime.getDay(), mEndTime).pattern("yyyy-MM-dd"));
+							$("#endTime").val(DateAdd("d", 7 - mEndTime.getDay(), mEndTime).pattern("yyyy-MM-dd"));
+						}
+						else if (mEndTime.getDay() == 0) 
+						{
+							$("#startTime").val(DateAdd("d", mEndTime.getDay() - 6, mEndTime).pattern("yyyy-MM-dd"));
+						}
+					}	
+				}	
+			}, 200);
 			$("#btnsearch").bind("click", function(){
 				if($("#startTime").val() == "")
 				{
-					alert("时间不能为空")
+					alert("起始时间不能为空")
+				}	
+				else if($("#endTime").val() == "")
+				{
+					alert("结束时间不能为空")
 				}	
 				else
 				{
 					$("#inputform").submit();
-				}
+				}	
 			});
 			funLoadHealthRepeatInfo();
 		});
-		
-		
 		
 		function funAccessment(type)
 		{
@@ -107,6 +148,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		
 		
+		
+		function funClickTime(type)
+		{
+			mGolbalType = type;
+		}
+		
+		
 		function funLoadHealthRepeatInfo()
 		{
 			$.ajax({
@@ -116,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				data : 
 				{
 					reportFlag 			: "${query.statType}",
-					reportTime 			: "${query.startTime}"
+					reportTime 			: $("#startTime").val() + "_" + $("#endTime").val()
 				},
 				error:function(data)
 				{
@@ -240,17 +288,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    	<tr>
 				    		<td style="padding: 5px 0px 5px 5px; height: 30px; color: #aeaeae; font-size: 13px;" align="left">
 				    			报告类型：
-				    			<select class="selectMax_informationModify" id="statType" style="width:180px;" name="statType">
+				    			<select class="selectMax_informationModify" style="width:200px;" id="statType" name="statType">
 					               <option value="1">日报</option>
-					               <option value="2">周报</option>
-					               <option value="3" selected="selected">月报</option>
+					               <option value="2" selected="selected">周报</option>
+					               <option value="3">月报</option>
 				               </select>
 				    		</td>
 				    	</tr>
 				    	<tr>
 				    		<td style="padding: 5px 0px 5px 5px; height: 30px; color: #aeaeae; font-size: 13px;" align="left">
 				    			报告时间：
-				    			<input class="input_informationModify Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM',readOnly:true})" type="text" id="startTime" name="startTime" value="${query.startTime }">
+				    			<input class="input_informationModify Wdate" style="width: 90px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true}); funClickTime(0);" type="text" id="startTime" name="startTime" value="${query.startTime }">
+				    			<span id="split">
+				    			-
+				    			</span>
+				    			<input class="input_informationModify Wdate" style="width: 90px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true}); funClickTime(1);" type="text" id="endTime" name="endTime" value="${query.endTime }">
 				    		</td>
 				    	</tr>
 				    	<tr>	
@@ -265,20 +317,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</form>    
 			</div>
 		<ul class="list">
-			<li class="activeable list-item">
+			<li class="activeable list-item">	
 	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
 	        		<tr>
 	        			<td style="width: 120px; font-size: 14px; line-height: 35px; height: 35px;">综合评估：</td>
 	        			<td align="left" id="accessment">
+	        				
 	        			</td>
 	        		</tr>
 	        		<tr>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">健康状况：</td>
-	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;" align="left" id="jkzk"></td>
+	        			<td style="width: 320px; font-size: 14px; line-height: 30px; height: 30px;" align="left" id="jkzk"></td>
 	        		</tr>
 	        		<tr>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">日<span style="padding:0 16px;"></span>期：</td>
-	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;" align="left">${query.startTime }</td>
+	        			<td style="width: 320px; font-size: 14px; line-height: 30px; height: 30px;" align="left">${query.startTime }  <span style="padding: 0 3px;">-</span>  ${query.endTime }</td>
 	        		</tr>
 	        	</table>
 	        	
@@ -289,7 +342,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">性别：${healthUser.genderStr}</td>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">年龄：${healthUser.birthdate}</td>
 	        		</tr>
-	        		<tr>	
+	        		<tr>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">身高：${healthUser.height}</td>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">体重：${healthUser.weight}</td>
 	        			<td style="width: 120px; font-size: 14px; line-height: 30px; height: 30px;">BMI：${healthUser.bmi}</td>
@@ -310,25 +363,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	        			<td class="tableTd" align="center">卡路里消耗(卡)</td>
     	        			<td class="tableTd" align="center">是否适量</td>
     	        		</tr>
-            			<c:forEach items="${sportFlys }" var="sportItem" varStatus="index">
-    	        		<tr>
-    	        			<td class="tableTd" align="center">${index.count }</td>
-    	        			<td class="tableTd" align="center">&nbsp;${sportItem.a }</td>
-    	        			<td class="tableTd" align="center">&nbsp;${sportItem.c }</td>
-    	        			<td class="tableTd" align="center">&nbsp;${sportItem.d }</td>
-    	        			<td class="tableTd" align="center">
-    		        			<span class="selectMax_Level" name="sportLevel${index.count }">
-    			               	</span>
-    		               </td>
-    	        		</tr>
-            			</c:forEach>
+  	        			<c:forEach items="${sportFlys }" var="sportItem" varStatus="index">
+  		        		<tr>
+  		        			<td class="tableTd" align="center">${index.count }</td>
+  		        			<td class="tableTd" align="center">&nbsp;${sportItem.a }</td>
+  		        			<td class="tableTd" align="center">&nbsp;${sportItem.c }</td>
+  		        			<td class="tableTd" align="center">&nbsp;${sportItem.d }</td>
+  		        			<td class="tableTd" align="center">
+  			        			<span class="selectMax_Level" name="sportLevel${index.count }">
+  				                   
+  				               </span>
+  			               </td>
+  		        		</tr>
+  	        			</c:forEach>
     	        		<tr>
     	        			<td class="tableTd" align="center">合计</td>
     	        			<td class="tableTd" align="center">&nbsp; - </td>
     	        			<td class="tableTd" align="center">&nbsp;${sportObj.a }</td>
     	        			<td class="tableTd" align="center">&nbsp;${sportObj.b }</td>
     	        			<td class="tableTd" align="center">
-    	        				<span class="selectMax_Level" name="sportLevel0"></span>
+    	        				<span class="selectMax_Level" name="sportLevel0">
+    				               </span>
     	        			</td>
     	        		</tr>
     	        		<tr>
@@ -337,7 +392,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	        			<td class="tableTd" align="center">&nbsp;${sportObj.c }</td>
     	        			<td class="tableTd" align="center">&nbsp;${sportObj.d }</td>
     	        			<td class="tableTd" align="center">
-    	        				<span class="selectMax_Level" name="sportLevel00"></span>
+    	        				<span class="selectMax_Level" name="sportLevel00">
+    				             </span>
     	        			</td>
     	        		</tr>
     	        	</table>
@@ -348,7 +404,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">2.饮食</div>
                 <c:if test="${empty foodFlys }">
                   <div class="noData">暂时没有可用数据</div>
-                </c:if>             
+                </c:if>            
         		<c:if test="${not empty foodFlys }">
     	        	<table width="99%" border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
     	        		<tr>
@@ -376,7 +432,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">3.心理评估</div>
                 <c:if test="${empty mentalObj }">
                   <div class="noData">暂时没有可用数据</div>
-                </c:if>             
+                </c:if>            
         		<c:if test="${not empty mentalObj }">
     	        	<table border="0" cellspacing="0" cellpadding="0" style=" font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
     	        		<tr>
@@ -405,22 +461,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	        			<td class="tableTd" align="center">舒张压低于正常值次数</td>
         	        			<td class="tableTd" align="center">收缩压低于正常值次数</td>
         	        		</tr>
-      	        			<c:forEach items="${pressureFlys }" var="pressureItem" varStatus="index">
-      		        		<tr>
-      		        			<td class="tableTd" align="center">${pressureItem.a1 }</td>
-      		        			<td class="tableTd" align="center">&nbsp;${pressureItem.a2 }</td>
-      		        			<td class="tableTd" align="center">&nbsp;${pressureItem.a3 }</td>
-      		        			<td class="tableTd" align="center">&nbsp;${pressureItem.a5 }</td>
-      		        			<td class="tableTd" align="center">&nbsp;${pressureItem.a4 }</td>
-      		        			<td class="tableTd" align="center">&nbsp;${pressureItem.a6 }</td>
-      		        		</tr>
-      	        			</c:forEach>
+                			<c:forEach items="${pressureFlys }" var="pressureItem" varStatus="index">
+        	        		<tr>
+        	        			<td class="tableTd" align="center">${pressureItem.a1 }</td>
+        	        			<td class="tableTd" align="center">&nbsp;${pressureItem.a2 }</td>
+        	        			<td class="tableTd" align="center">&nbsp;${pressureItem.a3 }</td>
+        	        			<td class="tableTd" align="center">&nbsp;${pressureItem.a5 }</td>
+        	        			<td class="tableTd" align="center">&nbsp;${pressureItem.a4 }</td>
+        	        			<td class="tableTd" align="center">&nbsp;${pressureItem.a6 }</td>
+        	        		</tr>
+                			</c:forEach>
         	        	</table>
             		</c:when>
                     <c:otherwise>
                       <div class="noData">暂时没有可用数据</div>
                     </c:otherwise>
-                </c:choose>
+                </c:choose>            
 	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
 	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="bloodPressureAdvice" name="bloodPressureAdvice"></textarea>	
 	        	
@@ -437,20 +493,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	        			<td class="tableTd" align="center">偏高次数</td>
         	        			<td class="tableTd" align="center">偏低次数</td>
         	        		</tr>
-      	        			<c:forEach items="${pulseFlys }" var="pulseItem" varStatus="index">
-      		        		<tr>
-      		        			<td class="tableTd" align="center">${pulseItem.a1 }</td>
-      		        			<td class="tableTd" align="center">&nbsp;${pulseItem.a2 }</td>
-      		        			<td class="tableTd" align="center">&nbsp;${pulseItem.a3 }</td>
-      		        			<td class="tableTd" align="center">&nbsp;${pulseItem.a4 }</td>
-      		        		</tr>
-      	        			</c:forEach>
+                			<c:forEach items="${pulseFlys }" var="pulseItem" varStatus="index">
+        	        		<tr>
+        	        			<td class="tableTd" align="center">${pulseItem.a1 }</td>
+        	        			<td class="tableTd" align="center">&nbsp;${pulseItem.a2 }</td>
+        	        			<td class="tableTd" align="center">&nbsp;${pulseItem.a3 }</td>
+        	        			<td class="tableTd" align="center">&nbsp;${pulseItem.a4 }</td>
+        	        		</tr>
+                			</c:forEach>
         	        	</table>
             		</c:when>
                     <c:otherwise>
                       <div class="noData">暂时没有可用数据</div>
                     </c:otherwise>
-                </c:choose>          
+                </c:choose>            
 	        	<div class="hidden" style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
 	        	<textarea class="hidden" style="width: 99%; height: 150px; border: 1px solid #ccc;" id="heartRateAdvice" name="heartRateAdvice"></textarea>	
 	        		
@@ -466,14 +522,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	        			<td class="tableTd" align="center">偏高次数</td>
         	        			<td class="tableTd" align="center">偏低次数</td>
         	        		</tr>
-      	        			<c:forEach items="${glucoseFlys }" var="glucoseItem" varStatus="index">
-      		        		<tr>
-      		        			<td class="tableTd" align="center">${glucoseItem.a1 + glucoseItem.a2 }</td>
-      		        			<td class="tableTd" align="center">&nbsp;${glucoseItem.a1 }</td>
-      		        			<td class="tableTd" align="center">&nbsp;${glucoseItem.a2 }</td>
-      		        			<td class="tableTd" align="center">&nbsp;${glucoseItem.a3 }</td>
-      		        		</tr>
-      	        			</c:forEach>
+                			<c:forEach items="${glucoseFlys }" var="glucoseItem" varStatus="index">
+        	        		<tr>
+        	        			<td class="tableTd" align="center">${glucoseItem.a1 + glucoseItem.a2 }</td>
+        	        			<td class="tableTd" align="center">&nbsp;${glucoseItem.a1 }</td>
+        	        			<td class="tableTd" align="center">&nbsp;${glucoseItem.a2 }</td>
+        	        			<td class="tableTd" align="center">&nbsp;${glucoseItem.a3 }</td>
+        	        		</tr>
+                			</c:forEach>
         	        	</table>
             		</c:when>
                     <c:otherwise>
@@ -489,20 +545,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">7.体温</div>
                 <c:choose>
             		<c:when test="${not empty thermometerFlys && thermometerFlys[0].a1 gt 0}">
-        	        	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
-        	        		<tr>
-        	        			<td class="tableTd" align="center">测量次数</td>
-        	        			<td class="tableTd" align="center">正常次数</td>
-        	        			<td class="tableTd" align="center">异常次数</td>
-        	        		</tr>
-      	        			<c:forEach items="${thermometerFlys }" var="thermometerItem" varStatus="index">
-      		        		<tr>
-      		        			<td class="tableTd" align="center">${thermometerItem.a1 }</td>
-      		        			<td class="tableTd" align="center">&nbsp;${thermometerItem.a2 }</td>
-      		        			<td class="tableTd" align="center">&nbsp;${thermometerItem.a3 }</td>
-      		        		</tr>
-      	        			</c:forEach>
-        	        	</table>
+                    	<table border="0" cellspacing="0" cellpadding="0" style="font-size: 15px; border: solid #000; border-width: 1px 0px 0px 1px;">
+                    		<tr>
+                    			<td class="tableTd" align="center">测量次数</td>
+                    			<td class="tableTd" align="center">正常次数</td>
+                    			<td class="tableTd" align="center">异常次数</td>
+                    		</tr>
+                  			<c:forEach items="${thermometerFlys }" var="thermometerItem" varStatus="index">
+                    		<tr>
+                    			<td class="tableTd" align="center">${thermometerItem.a1 }</td>
+                    			<td class="tableTd" align="center">&nbsp;${thermometerItem.a2 }</td>
+                    			<td class="tableTd" align="center">&nbsp;${thermometerItem.a3 }</td>
+                    		</tr>
+                  			</c:forEach>
+                    	</table>
             		</c:when>
                     <c:otherwise>
                       <div class="noData">暂时没有可用数据</div>
@@ -525,15 +581,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	        			<td class="tableTd" align="center">平均每次用药</td>
     	        			<td class="tableTd" align="center">总用药量</td>
     	        		</tr>
-  	        			<c:forEach items="${medicineFlys }" var="medicineItem" varStatus="index">
-  		        		<tr>
-  		        			<td class="tableTd" align="center">${medicineItem.a }</td>
-  		        			<td class="tableTd" align="center">&nbsp;${medicineItem.b }</td>
-  		        			<td class="tableTd" align="center">&nbsp;${medicineItem.c }(${medicineItem.e })</td>
-  		        			<td class="tableTd" align="center">&nbsp;${medicineItem.d }(${medicineItem.e })</td>
-  		        		</tr>
-  	        			</c:forEach>
-    	        	</table>
+            			<c:forEach items="${medicineFlys }" var="medicineItem" varStatus="index">
+    	        		<tr>
+    	        			<td class="tableTd" align="center">${medicineItem.a }</td>
+    	        			<td class="tableTd" align="center">&nbsp;${medicineItem.b }</td>
+    	        			<td class="tableTd" align="center">&nbsp;${medicineItem.c }(${medicineItem.e })</td>
+    	        			<td class="tableTd" align="center">&nbsp;${medicineItem.d }(${medicineItem.e })</td>
+    	        		</tr>
+            			</c:forEach>
+	        	</table>
         		</c:if>
 	        	<div style="width: 99%; font-size: 14px; height: 60px; line-height: 60px; text-align: left;">综合分析：</div>
 	        	<textarea style="width: 99%; height: 150px; border: 1px solid #ccc;" id="medicationAdvice" name="medicationAdvice"></textarea>

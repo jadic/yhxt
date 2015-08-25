@@ -109,15 +109,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        
 	        <li class="activeable list-item" style="background: #efefef"></li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
-	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
-	            <div class="item-desc">
-	            	<div style="float: left;">
-	            		健康报告
-	            	</div>
-	            	<div style="float: right; line-height: 60px; width: 12px;">
-	                    <div class="item-next"></div>
-	               	</div>
-	            </div>
+	            <a href="<c:url value='/p/query/healthBg.do'/>">
+		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <div class="item-desc">
+		            	<div style="float: left;">
+		            		健康报告
+		            	</div>
+		            	<div style="float: right; line-height: 60px; width: 12px;">
+		                    <div class="item-next"></div>
+		               	</div>
+		            </div>
+	            </a>
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
 	           <a href="<c:url value='/p/query/advice.do?adviceType=1'/>">

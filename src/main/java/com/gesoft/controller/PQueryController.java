@@ -1826,21 +1826,37 @@ public class PQueryController extends BaseController
 	@RequestMapping(value="/goHealthBg.do")
 	public ModelAndView toGoHealthBg(QueryModel model, HttpServletRequest request, HttpServletResponse response)
 	{
-		ModelAndView result = new ModelAndView("/patient/healthanalysis/manage_health_bg_info");	
+		ModelAndView result = new ModelAndView("/patient/healthanalysis/manage_health_bg_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/healthanalysis/manage_health_bg_info");
+		}
 		try
 		{
 			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
 			if (model.getStatType() == 1)
 			{
 				result = new ModelAndView("/patient/healthanalysis/manage_health_bg_info");
+				if (SystemUtils.isMobile(request))
+				{
+					result = new ModelAndView("/patient/mobile/healthanalysis/manage_health_bg_info");
+				}
 			}
 			else if(model.getStatType() == 2)
 			{
 				result = new ModelAndView("/patient/healthanalysis/manage_health_week_bg_info");
+				if (SystemUtils.isMobile(request))
+				{
+					result = new ModelAndView("/patient/mobile/healthanalysis/manage_health_week_bg_info");
+				}
 			}
 			else if(model.getStatType() == 3)
 			{
 				result = new ModelAndView("/patient/healthanalysis/manage_health_month_bg_info");
+				if (SystemUtils.isMobile(request))
+				{
+					result = new ModelAndView("/patient/mobile/healthanalysis/manage_health_month_bg_info");
+				}
 			}
 			result.addObject("query", model);
 		}
@@ -1864,23 +1880,39 @@ public class PQueryController extends BaseController
 	@RequestMapping(value="/healthBg.do")
 	public ModelAndView toHealthBg(QueryModel model, HttpServletRequest request, HttpServletResponse response)
 	{
-		ModelAndView result = new ModelAndView("/patient/healthanalysis/manage_health_bg_info");	
+		ModelAndView result = new ModelAndView("/patient/healthanalysis/manage_health_bg_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/healthanalysis/manage_health_bg_info");
+		}
 		try
 		{
 			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
 			if (model.getStatType() == 1)
 			{
 				result = new ModelAndView("/patient/healthanalysis/manage_health_bg_info");
+				if (SystemUtils.isMobile(request))
+				{
+					result = new ModelAndView("/patient/mobile/healthanalysis/manage_health_bg_info");
+				}
 				toHealthRepeatDay(model, result);
 			}
 			else if(model.getStatType() == 2)
 			{
 				result = new ModelAndView("/patient/healthanalysis/manage_health_week_bg_info");
+				if (SystemUtils.isMobile(request))
+				{
+					result = new ModelAndView("/patient/mobile/healthanalysis/manage_health_week_bg_info");
+				}
 				toHealthRepeatMonth(model, result);
 			}
 			else if(model.getStatType() == 3)
 			{
 				result = new ModelAndView("/patient/healthanalysis/manage_health_month_bg_info");
+				if (SystemUtils.isMobile(request))
+				{
+					result = new ModelAndView("/patient/mobile/healthanalysis/manage_health_month_bg_info");
+				}
 				toHealthRepeatMonth(model, result);
 			}
 		}
