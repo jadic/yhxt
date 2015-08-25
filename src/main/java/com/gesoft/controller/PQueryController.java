@@ -77,6 +77,10 @@ public class PQueryController extends BaseController
 	public ModelAndView login(UserModel user, ModelMap model, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/login");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/login_mobile");
+		}
 		HttpSession session = request.getSession();
 		try
 		{
@@ -2094,6 +2098,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toMedicine(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/chartinfo/manage_medicine_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result =  new ModelAndView("/patient/mobile/chartinfo/manage_medicine_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
@@ -2117,6 +2125,45 @@ public class PQueryController extends BaseController
 	
 	
 	/**
+	 * 描述信息：JSON格式返回
+	 * 创建时间：2015年8月25日 上午8:41:13
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/medicineJson.do")
+	public @ResponseBody MsgModel toMedicineJson(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			
+			//分页加载建议执行结果
+			long recordCount = pQueryService.queryMedicineInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query, msgModel);
+				List<MedicineModel> argArgs = pQueryService.queryMedicineInfo(query);
+				if (argArgs != null && argArgs.size() > 0)
+				{
+					msgModel.setTotal(recordCount);
+					msgModel.setRows(argArgs);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toMedicine error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	
+	/**
 	 * 描述信息：进入用药管理
 	 * 创建时间：2015年5月9日 上午6:34:00
 	 * @author WCL (ln_admin@yeah.net)
@@ -2129,6 +2176,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toMergeMedicine(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/chartinfo/add_medicine_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result =  new ModelAndView("/patient/mobile/chartinfo/add_medicine_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));

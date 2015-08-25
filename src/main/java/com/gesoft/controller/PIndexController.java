@@ -155,26 +155,42 @@ public class PIndexController extends BaseController
 	
 	
 	@RequestMapping(value="/chart1.do")
-	public String toChart1()
+	public String toChart1(ModelMap model, HttpServletRequest request)
 	{
+		if (SystemUtils.isMobile(request))
+		{
+			return "/patient/mobile/chartinfo/chart1";
+		}
 		return "/patient/chartinfo/chart1";
 	}
 	
 	@RequestMapping(value="/chart2.do")
-	public String toChart2()
+	public String toChart2(ModelMap model, HttpServletRequest request)
 	{
+		if (SystemUtils.isMobile(request))
+		{
+			return "/patient/mobile/chartinfo/chart2";
+		}
 		return "/patient/chartinfo/chart2";
 	}
 	
 	@RequestMapping(value="/chart3.do")
-	public String toChart3()
+	public String toChart3(ModelMap model, HttpServletRequest request)
 	{
+		if (SystemUtils.isMobile(request))
+		{
+			return "/patient/mobile/chartinfo/chart3";
+		}
 		return "/patient/chartinfo/chart3";
 	}
 
 	@RequestMapping(value="/chart4.do")
-	public String toChart4()
+	public String toChart4(ModelMap model, HttpServletRequest request)
 	{
+		if (SystemUtils.isMobile(request))
+		{
+			return "/patient/mobile/chartinfo/chart4";
+		}
 		return "/patient/chartinfo/chart4";
 	}
 }

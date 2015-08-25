@@ -21,6 +21,8 @@ public class MsgModel implements Constants
 {
 
 	private long total;
+	private long curPage = 1;
+	private long sumPage = 0;
 	private String msg = GLOBAL_MSG_FAIL;
 	private boolean success;
 	@SuppressWarnings("rawtypes")
@@ -28,6 +30,22 @@ public class MsgModel implements Constants
 	@SuppressWarnings("rawtypes")
 	private List<?> footer = new ArrayList();
 	
+	public long getCurPage()
+	{
+		return curPage;
+	}
+	public void setCurPage(long curPage)
+	{
+		this.curPage = curPage;
+	}
+	public long getSumPage()
+	{
+		return sumPage;
+	}
+	public void setSumPage(long sumPage)
+	{
+		this.sumPage = sumPage;
+	}
 	public List<?> getFooter()
 	{
 		return footer;

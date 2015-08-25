@@ -23,6 +23,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.gesoft.model.BaseModel;
+import com.gesoft.model.MsgModel;
 import com.gesoft.model.QueryModel;
 import com.gesoft.util.Constants;
 
@@ -84,6 +85,33 @@ public class BaseController implements Constants
 		handerModel.setStartNum((handerModel.getPage() -1) * handerModel.getRows());
 		handerModel.setPageCnt((recordCount - 1) / handerModel.getRows() + 1);
 		handerModel.setTotal(recordCount);
+	}
+	
+	/**
+	 * 描述信息：设置分页
+	 * 创建时间：2015年1月29日 下午2:47:23
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param recordCount
+	 * @param handerModel
+	 */
+	protected void setPageModel(long recordCount, QueryModel handerModel, MsgModel msgModel) 
+	{
+		if (handerModel.getPage() <= 0) 
+		{
+			handerModel.setPage(1);
+		}
+		
+		if (handerModel.getRows() <= 0)
+		{
+			handerModel.setRows(10);
+		}
+		
+		//计算开始、结束记录数
+		handerModel.setStartNum((handerModel.getPage() -1) * handerModel.getRows());
+		handerModel.setPageCnt((recordCount - 1) / handerModel.getRows() + 1);
+		handerModel.setTotal(recordCount);
+		msgModel.setCurPage(handerModel.getPage());
+		msgModel.setSumPage(handerModel.getPageCnt());
 	}
 	
 	/**

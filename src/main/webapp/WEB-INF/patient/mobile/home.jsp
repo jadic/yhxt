@@ -14,9 +14,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
+	<%@ include file="/WEB-INF/patient/common/date-include.jsp"%>
 	<%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
 	<link rel="stylesheet" href="<c:url value='/patient/themes/index_right.css'/>" type="text/css"/>
-	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
 	<script type="text/javascript" src="<c:url value='/common/anychart/AnyChart.js'/>" ></script>
   	<script type="text/javascript" src="<c:url value='/common/scripts/highcharts.js'/>"></script>
 	<script type="text/javascript">
@@ -439,7 +439,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  	 </div>
         </li>
     
-        <li class="activeable list-item" data-positionid="1018793" data-companyid="78540">
+        <li class="activeable list-item">
            <div class="bpDiagnosis_results" id="doctorAdvice" style="display:block;margin-top:8px; width: 100%; padding: 0px;">
 	       		<div style="text-align: left;width:100%;color:#0ca7a1;font:18px/30px '微软雅黑'; font-weight: bolder;">最近15天的医嘱</div>
 	       		<div class="bpDiagnosis_results_text" style="font-size: 12px;width: 100%;">
@@ -466,7 +466,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<jsp:include page="/WEB-INF/patient/common/footer-include.jsp">
 			<jsp:param value="0" name="selected"/>
 		</jsp:include>
-	</footer>
 	</footer>
 </body>
 </html>

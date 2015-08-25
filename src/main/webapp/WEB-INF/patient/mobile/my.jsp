@@ -15,8 +15,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
-	<link rel="stylesheet" href="<c:url value='/patient/themes/index_right.css'/>" type="text/css"/>
-	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
 	<style type="text/css">
 		.circle { 
 			width: 75px; 
@@ -50,6 +48,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  border-bottom: 1px solid #e8e8e8;
 		}
 	</style>
+	<script type="">
+	
+
+		function funLogout()
+		{
+			var r=confirm("Press a button")
+  			if (r==true)
+    		{
+				alert("2")
+    		}
+  			else
+    		{
+				alert("12")
+    		}
+		}
+	</script>
   </head>
 <body>
 	<header id="header">我的</header>
@@ -64,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</li>
 			<li class="activeable list-item" style="background: #efefef"></li>
-	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
+	        <li class="activeable list-item" >
 	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
 	            <div class="item-desc">
 	            	<div style="float: left;">
@@ -75,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	               	</div>
 	            </div>
 	        </li>
-	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
+	        <li class="activeable list-item" >
 	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
 	            <div class="item-desc">
 	            	<div style="float: left;">
@@ -88,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </li>
 	        
 	        <li class="activeable list-item" style="background: #efefef"></li>
-	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
+	        <li class="activeable list-item" >
 	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
 	            <div class="item-desc">
 	            	<div style="float: left;">
@@ -99,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	               	</div>
 	            </div>
 	        </li>
-	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
+	        <li class="activeable list-item" >
 	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
 	            <div class="item-desc">
 	            	<div style="float: left;">
@@ -110,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	               	</div>
 	            </div>
 	        </li>
-	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
+	        <li class="activeable list-item" >
 	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
 	            <div class="item-desc">
 	            	<div style="float: left;">
@@ -123,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </li>
 	         
 	        <li class="activeable list-item" style="background: #efefef"></li>
-	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
+	        <li class="activeable list-item" >
 	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
 	            <div class="item-desc">
 	            	<div style="float: left;">
@@ -134,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	               	</div>
 	            </div>
 	        </li>
-	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
+	        <li class="activeable list-item" >
 	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
 	            <div class="item-desc">
 	            	<div style="float: left;">
@@ -145,7 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	               	</div>
 	            </div>
 	        </li>
-	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
+	        <li class="activeable list-item" >
 	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
 	            <div class="item-desc">
 	            	<div style="float: left;">
@@ -159,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       
 	         
 	        <li class="activeable list-item" style="background: #efefef"></li>
-	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
+	        <li class="activeable list-item" >
 	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
 	            <div class="item-desc">
 	            	<div style="float: left;">
@@ -170,7 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	               	</div>
 	            </div>
 	        </li>
-	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
+	        <li class="activeable list-item" >
 	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
 	            <div class="item-desc">
 	            	<div style="float: left;">
@@ -181,16 +195,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	               	</div>
 	            </div>
 	        </li>
-	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
-	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
-	            <div class="item-desc">
-	            	<div style="float: left;">
-	            		安全退出
-	            	</div>
-	            	<div style="float: right; line-height: 60px; width: 12px;">
-	                    <div class="item-next"></div>
-	               	</div>
-	            </div>
+	        <li class="activeable list-item">
+	        	<a href="<c:url value='/p/query/logout.do'/>">
+	        		 <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <div class="item-desc">
+		            	<div style="float: left;">
+		            		安全退出
+		            	</div>
+		            	<div style="float: right; line-height: 60px; width: 12px;">
+		                    <div class="item-next"></div>
+		               	</div>
+		            </div>
+	        	</a>
 	        </li>
         </ul>
 	</div>

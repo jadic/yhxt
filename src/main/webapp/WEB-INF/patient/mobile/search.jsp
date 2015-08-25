@@ -15,8 +15,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
-	<link rel="stylesheet" href="<c:url value='/patient/themes/index_right.css'/>" type="text/css"/>
-	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
 	<style type="text/css">
 		.circle { 
 			width: 75px; 
@@ -55,50 +53,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<header id="header">搜索</header>
 	<div id="content">
 		<ul class="list">
-			 <li class="activeable list-item" style="background: #efefef"></li>
+			<li class="activeable list-item" style="background: #efefef"></li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
-	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
-	            <div class="item-desc">
-	            	<div style="float: left;">
-	            		血糖信息
-	            	</div>
-	            	<div style="float: right; line-height: 60px; width: 12px;">
-	                    <div class="item-next"></div>
-	               	</div>
-	            </div>
+	           	<a href="<c:url value='/p/chart2.do'/>">
+		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <div class="item-desc">
+		            	<div style="float: left;">
+		            		血糖信息
+		            	</div>
+		            	<div style="float: right; line-height: 60px; width: 12px;">
+		                    <div class="item-next"></div>
+		               	</div>
+		            </div>
+	            </a>
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
-	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
-	            <div class="item-desc">
-	            	<div style="float: left;">
-	            		血圧信息
-	            	</div>
-	            	<div style="float: right; line-height: 60px; width: 12px;">
-	                    <div class="item-next"></div>
-	               	</div>
-	            </div>
+	        	<a href="<c:url value='/p/chart4.do'/>">
+		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <div class="item-desc">
+		            	<div style="float: left;">
+		            		血圧信息
+		            	</div>
+		            	<div style="float: right; line-height: 60px; width: 12px;">
+		                    <div class="item-next"></div>
+		               	</div>
+		            </div>
+	        	</a>
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
-	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
-	            <div class="item-desc">
-	            	<div style="float: left;">
-	            		体温信息
-	            	</div>
-	            	<div style="float: right; line-height: 60px; width: 12px;">
-	                    <div class="item-next"></div>
-	               	</div>
-	            </div>
+	           <a href="<c:url value='/p/chart3.do'/>">
+		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <div class="item-desc">
+		            	<div style="float: left;">
+		            		体温信息
+		            	</div>
+		            	<div style="float: right; line-height: 60px; width: 12px;">
+		                    <div class="item-next"></div>
+		               	</div>
+		            </div>
+		        </a>    
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
-	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
-	            <div class="item-desc">
-	            	<div style="float: left;">
-	            		用药管理
-	            	</div>
-	            	<div style="float: right; line-height: 60px; width: 12px;">
-	                    <div class="item-next"></div>
-	               	</div>
-	            </div>
+	           <a href="<c:url value='/p/query/medicine.do'/>">
+		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <div class="item-desc">
+		            	<div style="float: left;">
+		            		用药管理
+		            	</div>
+		            	<div style="float: right; line-height: 60px; width: 12px;">
+		                    <div class="item-next"></div>
+		               	</div>
+		            </div>
+		         </a>   
 	        </li>
 	        
 	        <li class="activeable list-item" style="background: #efefef"></li>
