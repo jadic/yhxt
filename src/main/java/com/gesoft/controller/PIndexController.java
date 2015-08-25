@@ -120,8 +120,12 @@ public class PIndexController extends BaseController
 	 * @return
 	 */
 	@RequestMapping(value="/modifypwd.do")
-	public String toModifyPwd()
+	public String toModifyPwd(HttpServletRequest request)
 	{
+		if (SystemUtils.isMobile(request))
+		{
+			return "/patient/mobile/healthinfo/manage_modifypwd_info";
+		}
 		return "/patient/healthinfo/manage_modifypwd_info";
 	}
 	

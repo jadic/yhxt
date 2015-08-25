@@ -626,6 +626,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toRelativePhone(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_relative_phone_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/healthinfo/manage_relative_phone_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
@@ -661,6 +665,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toMergeRelative(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/healthinfo/add_relative_phone_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/healthinfo/add_relative_phone_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
@@ -1457,6 +1465,20 @@ public class PQueryController extends BaseController
 		return msgModel;
 	}
 	
+	/**
+	 * 描述信息：进入反馈
+	 * 创建时间：2015年4月7日 下午5:36:03
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/goFeedBack.do")
+	public ModelAndView goFeedBack(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		return new ModelAndView("/patient/mobile/chartinfo/feedback");
+	}
 	
 	/**
 	 * 描述信息：增加反馈信息

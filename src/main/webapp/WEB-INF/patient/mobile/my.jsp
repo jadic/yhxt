@@ -79,26 +79,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</li>
 			<li class="activeable list-item" style="background: #efefef"></li>
 	        <li class="activeable list-item" >
-	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
-	            <div class="item-desc">
-	            	<div style="float: left;">
-	            		我的亲情号码
-	            	</div>
-	            	<div style="float: right; line-height: 60px; width: 12px;">
-	                    <div class="item-next"></div>
-	               	</div>
-	            </div>
+	        	<a href="<c:url value='/p/query/relative.do'/>">
+		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <div class="item-desc">
+		            	<div style="float: left;">
+		            		我的亲情号码
+		            	</div>
+		            	<div style="float: right; line-height: 60px; width: 12px;">
+		                    <div class="item-next"></div>
+		               	</div>
+		            </div>
+	        	</a>
 	        </li>
 	        <li class="activeable list-item" >
-	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
-	            <div class="item-desc">
-	            	<div style="float: left;">
-	            		我的医护人员
-	            	</div>
-	            	<div style="float: right; line-height: 60px; width: 12px;">
-	                    <div class="item-next"></div>
-	               	</div>
-	            </div>
+	        	<a href="<c:url value='/p/query/mynuser.do'/>">
+		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <div class="item-desc">
+		            	<div style="float: left;">
+		            		我的医护人员
+		            	</div>
+		            	<div style="float: right; line-height: 60px; width: 12px;">
+		                    <div class="item-next"></div>
+		               	</div>
+		            </div>
+	        	</a>
 	        </li>
 	        
 	        <li class="activeable list-item" style="background: #efefef"></li>
@@ -174,26 +178,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	         
 	        <li class="activeable list-item" style="background: #efefef"></li>
 	        <li class="activeable list-item" >
-	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
-	            <div class="item-desc">
-	            	<div style="float: left;">
-	            		意见反馈
-	            	</div>
-	            	<div style="float: right; line-height: 60px; width: 12px;">
-	                    <div class="item-next"></div>
-	               	</div>
-	            </div>
+	        	<a href="<c:url value='/p/query/goFeedBack.do'/>">
+		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <div class="item-desc">
+		            	<div style="float: left;">
+		            		意见反馈
+		            	</div>
+		            	<div style="float: right; line-height: 60px; width: 12px;">
+		                    <div class="item-next"></div>
+		               	</div>
+		            </div>
+		         </a>   
 	        </li>
 	        <li class="activeable list-item" >
-	            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
-	            <div class="item-desc">
-	            	<div style="float: left;">
-	            		修改密码
-	            	</div>
-	            	<div style="float: right; line-height: 60px; width: 12px;">
-	                    <div class="item-next"></div>
-	               	</div>
-	            </div>
+	        	<a href="<c:url value='/p/modifypwd.do'/>">
+		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <div class="item-desc">
+		            	<div style="float: left;">
+		            		修改密码
+		            	</div>
+		            	<div style="float: right; line-height: 60px; width: 12px;">
+		                    <div class="item-next"></div>
+		               	</div>
+		            </div>
+		          </a>  
 	        </li>
 	        <li class="activeable list-item">
 	        	<a href="<c:url value='/p/query/logout.do'/>">
