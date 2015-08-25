@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body style="padding: 0px; margin: 0px;">
   	<header id="header">
-  		反馈
+  		意见反馈
   		<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
   	</header>
   	<div id="content">

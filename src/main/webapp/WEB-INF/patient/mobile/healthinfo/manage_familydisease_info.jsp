@@ -8,83 +8,69 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <base href="<%=basePath%>">
-    <title>自已人健康服务中心 </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
-	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
-	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
-	
-	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
+    <%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
+    <%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
+    <style>
+    	input, select,textarea{border:1px solid #ccc; height: 35px; width: 85%; padding-left: 10px;}
+    	#content table td{height: 45px;}
+    </style>
 	<script type="text/JavaScript">
-	$(function(){
-		$('.text-input').attr("disabled", "disabled");
-	});
-	
-	function edit_baseinfo(obj)
+	function edit_baseinfo()
 	{
-		if($(obj).attr("tag") == "false")
-		{
-			$(obj).parent().parent().parent().next().find(".text-input").attr("disabled", false);
-			$(obj).children().attr("src", "<c:url value='/patient/themes/images/btn_preserve.png'/>");
-			$(obj).attr("tag", "true");
-		}
-		else
-		{
-			PageMain.funOpenProgress();
-			$.ajax({
-				url : _ctx_ + "/p/query/modifyFamilyDisease.do?a="+ Math.random(),
-				type : 'post',
-				dataType : 'json',
-				data : 
+		PageMain.funOpenProgress();
+		$.ajax({
+			url : _ctx_ + "/p/query/modifyFamilyDisease.do?a="+ Math.random(),
+			type : 'post',
+			dataType : 'json',
+			data : 
+			{
+				"isHeartDisease" 	: $("#isHeartDisease").val(),
+				"isHypertension" 	: $("#isHypertension").val(),
+				"isHyperlipemia" 	: $("#isHyperlipemia").val(),
+				"isDiabetesMellitus": $("#isDiabetesMellitus").val(),
+				"isCoronaryDisease" : $("#isCoronaryDisease").val()
+			},
+			error:function(data)
+			{
+				/**关闭进度条**/
+				PageMain.funCloseProgress();
+				$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
+			},
+			success:function(data)
+			{
+				/**关闭进度条**/
+				PageMain.funCloseProgress();
+				/**数据处理**/
+				if(data.success)
 				{
-					"isHeartDisease" 	: $("#isHeartDisease").val(),
-					"isHypertension" 	: $("#isHypertension").val(),
-					"isHyperlipemia" 	: $("#isHyperlipemia").val(),
-					"isDiabetesMellitus": $("#isDiabetesMellitus").val(),
-					"isCoronaryDisease" : $("#isCoronaryDisease").val()
-				},
-				error:function(data)
-				{
-					/**关闭进度条**/
-					PageMain.funCloseProgress();
-					$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
-				},
-				success:function(data)
-				{
-					
-					/**关闭进度条**/
-					PageMain.funCloseProgress();
-					
-					/**数据处理**/
-					if(data.success)
+					$.messager.confirm('确认', data.msg, function(r)
 					{
-						$(obj).parent().parent().parent().next().find(".text-input").attr("disabled", "disabled");
-						$(obj).children().attr("src", "<c:url value='/patient/themes/images/btn_editor.png'/>");
-						$(obj).attr("tag", "false");
-						$.messager.alert('信息提示', data.msg, 'info');
-					}
-					else
-					{
-						$.messager.alert('信息提示', data.msg, 'error');
-					}
+						window.location.href = "<c:url value='/p/my.do'/>";
+					});
 				}
-			});
-		}	
+				else
+				{
+					$.messager.alert('信息提示', data.msg, 'error');
+				}
+			}
+		});
 	}
 	</script>
   </head>
-<body style="background: #ededed;">
-  <div class="btn_title_informationModify">
-          <ul>
-            <li class="tLeft">家族遗传史</li>
-            <li class="tRight"><a href="javascript:void(0)" onclick="edit_baseinfo(this)" tag="false"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></li>
-          </ul>
-        </div>
-        <div class="informationModify_main2">
-        	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
+<body>
+	<header id="header">
+  		家族遗传史
+  		<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
+  	</header>
+  	<div id="content" style="padding: 14px;">
+        	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 16px; width: 100%;">
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				心脏病：
 	    			</td>
 	    			<td align="left">
@@ -96,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				高血压：
 	    			</td>
 	    			<td align="left">
@@ -108,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				高血脂：
 	    			</td>
 	    			<td align="left">
@@ -120,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				糖尿病：
 	    			</td>
 	    			<td align="left">
@@ -132,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				冠心病：
 	    			</td>
 	    			<td align="left">
@@ -143,7 +129,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		               </select>
 	    			</td>
 	    		</tr>
+	    		<tr>
+	    			<td align="center" colspan="2">
+	    				<ul>
+	    					<li class="btn_reguster"><a onclick="edit_baseinfo(this)" tag="false" style="cursor: pointer;">确定</a></li>
+	    				</ul>
+	    			</td>
+	    		</tr>
 	    	</table>
-	    </div>	
+	</div>
+	<footer id="footer">
+		<footer id="footer">
+		<jsp:include page="/WEB-INF/patient/common/footer-include.jsp">
+			<jsp:param value="3" name="selected"/>
+		</jsp:include>
+	</footer>		
 </body>
 </html>

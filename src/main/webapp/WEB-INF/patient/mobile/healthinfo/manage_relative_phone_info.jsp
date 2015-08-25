@@ -15,7 +15,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
     <%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
-	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
 	<script type="text/JavaScript">
 		function mergeRelative(id)
 		{

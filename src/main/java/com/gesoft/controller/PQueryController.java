@@ -934,6 +934,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toMemberHabit(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_memberhabit_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/healthinfo/manage_memberhabit_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
@@ -994,6 +998,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toFamilyDisease(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_familydisease_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/healthinfo/manage_familydisease_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
@@ -1057,7 +1065,10 @@ public class PQueryController extends BaseController
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
 			result.addObject("query", query);
-			
+			if (SystemUtils.isMobile(request))
+			{
+				return new ModelAndView("/patient/mobile/healthinfo/manage_diseasehis_info");
+			}
 			//分页加载建议执行结果
 			long recordCount = pQueryService.queryDiseaseHisInfoCnt(query);
 			if(recordCount>0)
@@ -1075,6 +1086,40 @@ public class PQueryController extends BaseController
 	}
 	
 	
+	/**
+	 * 描述信息：JSON格式
+	 * 创建时间：2015年8月25日 下午7:49:55
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/diseasehisJson.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toDiseaseHisJson(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			long recordCount = pQueryService.queryDiseaseHisInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query, msgModel);
+				List<DiseaseHisModel> argArgs = pQueryService.queryDiseaseHisInfo(query);
+				if (argArgs != null && argArgs.size() > 0)
+				{
+					msgModel.setTotal(recordCount);
+					msgModel.setRows(argArgs);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toDiseaseHisJson error：", e);
+		}
+		return msgModel;
+	}
 	
 	/**
 	 * 描述信息：跳转疾病史
@@ -1089,6 +1134,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toMergeDiseaseHis(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/healthinfo/add_diseasehis_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/healthinfo/add_diseasehis_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));

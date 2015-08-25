@@ -8,14 +8,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <base href="<%=basePath%>">
-    <title>自已人健康服务中心 </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
-	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
-	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
-	
-	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
+	<%@ include file="/WEB-INF/patient/common/date-include.jsp"%>
+    <%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
+    <%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
+    <style>
+    	input, select,textarea{border:1px solid #ccc; height: 35px; width: 85%; padding-left: 10px;}
+    	#content table td{height: 45px;}
+    </style>
 	<script type="text/JavaScript">
 		function funSaveInfo()
 		{
@@ -61,8 +65,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					/**数据处理**/
 					if(data.success)
 					{
-						alert("操作成功！");
-						window.location.href = "<c:url value='/p/query/diseasehis.do'/>";
+						$.messager.confirm('确认', data.msg, function(r)
+						{
+							window.location.href = "<c:url value='/p/query/diseasehis.do'/>";
+						});
 					}
 					else
 					{
@@ -72,85 +78,109 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 		}
 		
-		function modifyRelative(id)
+		function delDiseaseHis(id)
 		{
-			alert(id)
+			$.messager.confirm('确认', "您确认要删除这条记录吗？", function(r)
+			{
+				if (r)
+				{
+					/**打开进度条**/
+					PageMain.funOpenProgress();
+					
+					$.ajax({
+						url : _ctx_ + "/p/query/delDiseaseHis.do?a="+ Math.random(),
+						type : 'post',
+						dataType : 'json',
+						data : 
+						{
+							"id": id						
+						},
+						error:function(data)
+						{
+							/**关闭进度条**/
+							PageMain.funCloseProgress();
+							$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
+						},
+						success:function(data)
+						{
+							/**关闭进度条**/
+							PageMain.funCloseProgress();
+							
+							/**数据处理**/
+							if(data.success)
+							{
+								$.messager.confirm('确认', data.msg, function(r)
+								{
+									window.location.href = "<c:url value='/p/query/diseasehis.do'/>";
+								});
+							}
+							else
+							{
+								$.messager.alert('信息提示', data.msg, 'error');
+							}
+						}
+					});
+				}
+			});
 		}
 	</script>
   </head>
-<body style="background: #ededed;">
- <div class="information_modify" style="margin: 0px;">
-    <div class="information_modify_main" id="main_div">
-    	<div class="btn_title_informationModify">
-          <ul>
-            <li class="tLeft"><c:if test="${query.id  > 0}">修改</c:if><c:if test="${query.id  == 0}">增加</c:if>疾病史</li>
-            <li class="tRight"><a href="javascript:void(0)" onclick="window.history.back();"><img src="<c:url value='/patient/themes/images/btn_back.png'/>"></a></li>
-          </ul>
-        </div>
-        <div class="informationModify_main">
+<body>
+	<header id="header">
+  		<c:if test="${query.id  > 0}">修改</c:if><c:if test="${query.id  == 0}">增加</c:if>疾病史
+  		<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
+  		<c:if test="${query.id  > 0}"><div class="right"><a href="javascript:void(0)" onclick="delDiseaseHis(${diseaseHis.id})"><span class="cornerDel"></span></a></div></c:if>
+  	</header>
+  	<div id="content" style="padding: 14px;">
         	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; max-width:100px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				<div>疾病称名：</div>
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input" type="text" id="diseaseName" name="diseaseName" maxlength="50" style="width: 350px;" value="${diseaseHis.diseaseName }">
+	    			<td align="center">
+	    				<input type="text" placeholder="疾病称名" id="diseaseName" name="diseaseName" maxlength="50"  value="${diseaseHis.diseaseName }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				开始日期：
-	    			</td>
-	    			<td align="left">
-		               <input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="startDate" name="startDate" maxlength="16" style="width: 350px;" value="${diseaseHis.startDate }">
+	    			<td align="center">
+		               <input class="inputMin_informationModify text-input Wdate" style="height: 35px;"  placeholder="开始日期" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="startDate" name="startDate" maxlength="16"  value="${diseaseHis.startDate }">
 	    			   <span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				结束日期：
-	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="endDate" name="endDate" maxlength="16" style="width: 350px;" value="${diseaseHis.endDate }">
+	    			<td align="center">
+	    				<input class="inputMin_informationModify text-input Wdate" style="height: 35px;" placeholder="结束日期" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="endDate" name="endDate" maxlength="16"  value="${diseaseHis.endDate }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 70px; color: #aeaeae; font-size: 13px;">
-	    				住院情况：
-	    			</td>
-	    			<td align="left">
-	    				<textarea class="inputMin_informationModify text-input" style="width: 500px; height: 60px;" id="descInHospital" name="descInHospital" maxlength="250">${diseaseHis.descInHospital }</textarea>
+	    			<td align="center" style="padding-top: 10px;">
+	    				<textarea style="height: 60px;"  placeholder="住院情况" id="descInHospital" name="descInHospital" maxlength="250">${diseaseHis.descInHospital }</textarea>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:80px; height: 70px; color: #aeaeae; font-size: 13px;">
-	    				转院情况：
-	    			</td>
-	    			<td align="left">
-	    				<textarea class="inputMin_informationModify text-input" style="width: 500px; height: 60px;" id="descObserve" name="descObserve" maxlength="250">${diseaseHis.descObserve }</textarea>
+	    			<td align="center" style="padding-top: 10px;">
+	    				<textarea style="height: 60px;" placeholder="转院情况" id="descObserve" name="descObserve" maxlength="250">${diseaseHis.descObserve }</textarea>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				备<span style="padding: 0 13px;"></span>注：
-	    			</td>
-	    			<td align="left">
+	    			<td align="center" style="padding-top: 10px;">
 	    				<input type="hidden" id="id" name="id" value="${diseaseHis.id}"/>
-	    				<textarea class="inputMin_informationModify text-input" style="width: 500px; height: 60px;" id="memo" name="memo" maxlength="250">${diseaseHis.memo }</textarea>
+	    				<textarea style="height: 60px;" placeholder="备注" id="memo" name="memo" maxlength="250">${diseaseHis.memo }</textarea>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="center" colspan="2">
+	    			<td align="center">
 	    				<ul>
 	    					<li class="btn_reguster"><a onclick="funSaveInfo()" style="cursor: pointer;">确定</a></li>
 	    				</ul>
 	    			</td>
 	    		</tr>
 	    	</table>
-        </div>
-       </div>
-     </div>
+    </div>
+	<footer id="footer">
+		<footer id="footer">
+		<jsp:include page="/WEB-INF/patient/common/footer-include.jsp">
+			<jsp:param value="3" name="selected"/>
+		</jsp:include>
+	</footer>	
 </body>
 </html>

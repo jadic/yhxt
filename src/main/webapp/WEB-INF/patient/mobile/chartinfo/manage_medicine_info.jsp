@@ -35,6 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
 	<script type="text/JavaScript">
 		$(function(){
+			PageOper.funSearch()
 			$("#btnsearch").bind("click", function(){
 				$(".item_wcl").remove()
 				PageOper.page = 1;

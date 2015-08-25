@@ -9,162 +9,96 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     <title>自已人健康服务中心 </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
-	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
-	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
-	
-	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
-	<script type="text/JavaScript">
-	$(function(){
-		$(".page-first").bind("click", function(){
-			if($("#gopage").val() > 1)
-			{
-				$("#page").val("1");
-				$("#inputform").submit();
-			}	
-		});
-		
-		
-		$(".page-perv").bind("click", function(){
-			if($("#gopage").val() > 1)
-			{
-				$("#page").val($("#gopage").val() - 1);
-				$("#inputform").submit();
-			}	
-		});
-		
-		$(".page-next").bind("click", function(){
-			if($("#gopage").val() < "${query.pageCnt}")
-			{
-				$("#page").val(parseInt($("#gopage").val()) + 1);
-				$("#inputform").submit();
-			}	
-		});
-		
-		
-		$(".page-last").bind("click", function(){
-			if($("#gopage").val() < "${query.pageCnt}")
-			{
-				$("#page").val("${query.pageCnt}");
-				$("#inputform").submit();
-			}	
-		});
-		
-		$("#gopage").bind("change", function(){
-			$("#page").val($(this).val());
-			$("#inputform").submit();
-		});
-	});
-	
-	function delDiseaseHis(obj, id)
-	{
-		$.messager.confirm('确认', "您确认要删除这条记录吗？", function(r)
+    <%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%><script type="text/JavaScript">
+	var PageOper = {
+		page:1,
+		sumPage:1,
+		funSearch : function()
 		{
-			if (r)
-			{
-				/**打开进度条**/
-				PageMain.funOpenProgress();
-				
-				$.ajax({
-					url : _ctx_ + "/p/query/delDiseaseHis.do?a="+ Math.random(),
-					type : 'post',
-					dataType : 'json',
-					data : 
+			$.ajax({
+				url : _ctx_ + "/p/query/diseasehisJson.do?a="+ Math.random(),
+				type : 'post',
+				dataType : 'json',
+				data : 
+				{
+					"page": PageOper.page						
+				},
+				error:function(data)
+				{
+					
+				},
+				success:function(data)
+				{
+					if(PageOper.sumPage >= data.sumPage)
 					{
-						"id": id						
-					},
-					error:function(data)
-					{
-						/**关闭进度条**/
-						PageMain.funCloseProgress();
-						$.messager.alert('信息提示', '操作失败：提交超时或此方法不存在！', 'error');
-					},
-					success:function(data)
-					{
-						/**关闭进度条**/
-						PageMain.funCloseProgress();
-						
-						/**数据处理**/
-						if(data.success)
-						{
-							$.messager.alert('信息提示', data.msg, 'info');
-							$(obj).parent().parent().remove();
-						}
-						else
-						{
-							$.messager.alert('信息提示', data.msg, 'error');
-						}
+						$(".list-more").hide();
 					}
-				});
+					else
+					{
+						PageOper.sumPage = data.sumPage;
+						$(".list-more").show();
+					}	
+					if(data.success)
+					{
+						var row = null;
+						for(var nItem=0; nItem<data.rows.length; nItem++)
+						{
+							row = data.rows[nItem];
+							$('<li class="activeable list-item item_wcl" style="display:-webkit-box; display:-moz-box;"  onclick="mergeDiseaseHis('+row.id+')">'+
+					                '<div style="-webkit-box-flex:1; -moz-box-flex:1; -webkit-box-ordinal-group:2;-moz-box-ordinal-group:2;">'+
+					                '<h2 class="item-title" style="font-size:16px;">疾病名称：<span style="color:red;">'+row.diseaseName+'</span></h2>'+
+					                '<p class="item-time">开始时间：'+row.startDate+'</p>'+
+					                '<p class="item-time">结束时间：'+row.endDate+'</p>'+
+				                '</div>'+
+				                '<div style="width: 20px; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-ordinal-group:2;-moz-box-ordinal-group:2;">'+
+				                	'<div class="item-next" style="margin-top:25px;"></div>'+
+				                '</div>'+
+					       ' </li>').insertBefore(".list-more");
+						}	
+					}
+				}
+			});
+		},
+		funLoadMore: function()
+		{
+			if(PageOper.page < PageOper.sumPage)
+			{
+				PageOper.page += 1;
+				PageOper.funSearch()
 			}
-		});
+		}
 	}
-	
 	function mergeDiseaseHis(id)
 	{
 		window.location.href = "<c:url value='/p/query/mergeDiseaseHis.do' />?id=" + id;
 	}
+	$(function(){
+		PageOper.funSearch();
+	})
 	</script>
   </head>
-<body style="background: #ededed;">
-	<div style="font-size:13px;font-family:微软雅黑;color:#5a5a5a;">	
-	  	<div class="bp_history">
-		    <div class="search" style="padding: 5px 0; margin: 0px; width: 100%;">
-		    	<ul>
-		      		<li class="criteria_search" style="height: 40px;"></li>
-		      		<li class="btn_search" style="height: 40px;"><a href="javascript:void(0)" onclick="mergeDiseaseHis(0)">新建疾病史</a></li>           
-		    	</ul>
-		  	</div>
-		  	<form name="inputform" id="inputform"  style="padding: 0px; margin: 0px;" action="<c:url value='/p/query/diseasehis.do'/>" method="post">
-				<input id="page" name="page" value="${query.page }" type="hidden"/>
-			</form>
-			<div class="index_table">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
-					<tbody>
-						<tr class="even">
-							<th style="width: 35%;">疾病名称</th>
-							<th style="width: 20%;">开始日期</th>
-							<th style="width: 20%;">结束日期</th>
-							<th style="width: 25%;">操作</th>
-						</tr>
-						<c:if test="${not empty diseaseHisFlys }">
-							<c:forEach items="${diseaseHisFlys }" var="diseaseHisItem" varStatus="item">
-								<tr class='<c:if test="${item.index mod 2 == 0 }">abnormal odd</c:if><c:if test="${item.index mod 2 == 1 }">even</c:if>' style="height: 40px;">
-									<td>${diseaseHisItem.diseaseName }</td>
-									<td>${diseaseHisItem.startDate }</td>
-									<td>${diseaseHisItem.endDate }</td>
-									<td>
-										<a href="javascript:void(0)" onclick="mergeDiseaseHis(${diseaseHisItem.id})"><img src="<c:url value='/patient/themes/images/phone_editor.png'/>">编辑</a>
-										<a href="javascript:void(0)" onclick="delDiseaseHis(this, ${diseaseHisItem.id})"><img src="<c:url value='/patient/themes/images/phone_del.png'/>">删除</a>
-									</td>
-								</tr>
-							</c:forEach>
-						</c:if>
-						
-					</tbody>
-				</table>
-			</div>
-			<div class="index_page">
-			  <ul>
-			    <li class="page_information">共<span id="showcount">${query.total }</span>条信息，当前：第<span id="showcurrentnum">${query.page }</span>页，共<span id="showpagecount">${query.pageCnt }</span>页</li>
-			    <li class="page_button">
-				    <a href="javascript:void(0)" class="page-first">首页</a>
-				    <a href="javascript:void(0)" class="page-perv">上一页</a>
-				    <a href="javascript:void(0)" class="page-next">下一页</a>
-				    <a href="javascript:void(0)" class="page-last">末页</a>
-			    </li>
-			    <li class="page_select">
-			    转<select id="gopage">
-			    	<c:forEach  var="temp"   begin="1"   step="1"   end="${ query.pageCnt}"> 
-						<option <c:if test="${query.page==temp }">selected="selected"</c:if> value="<c:out  value="${temp}"/>"><c:out  value="${temp}"/></option>
-					</c:forEach> 
-			    </select>页
-			    </li>
-			  </ul>
-			</div>
-		</div>
+<body>
+  	<header id="header">
+  		疾病史
+  		<div class="left"><a href="<c:url value='/p/my.do'/>"><span class="corner"></span></a></div>
+  		<div class="right"><a href="javascript:void(0)" onclick="mergeDiseaseHis(0)"><span class="cornerAdd"></span></a></div>
+  	</header>
+  	<div id="content">
+		<ul class="list">
+	        <li class="activeable list-more" style="display: none;" onclick="PageOper.funLoadMore()">加载更多</li>
+        </ul>
 	</div>
+	
+	<footer id="footer">
+		<footer id="footer">
+		<jsp:include page="/WEB-INF/patient/common/footer-include.jsp">
+			<jsp:param value="3" name="selected"/>
+		</jsp:include>
+	</footer>
 </body>
 </html>

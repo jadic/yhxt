@@ -123,7 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</script>
   </head>
-<header id="header">
+	<header id="header">
   		<c:if test="${query.id  > 0}">修改</c:if><c:if test="${query.id  == 0}">新增</c:if>亲情号码
   		<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
   		<c:if test="${query.id  > 0}"><div class="right"><a href="javascript:void(0)" onclick="deleteRelative(${relative.id})"><span class="cornerDel"></span></a></div></c:if>
