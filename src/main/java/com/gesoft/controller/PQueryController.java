@@ -1682,6 +1682,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toPost(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/postinfo/manage_post_info");
+		if (SystemUtils.isMobile(request))
+		{
+			return new ModelAndView("/patient/mobile/postinfo/manage_post_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
@@ -1702,6 +1706,44 @@ public class PQueryController extends BaseController
 		return result;
 	}
 	
+	
+	/**
+	 * 描述信息：JSON格式
+	 * 创建时间：2015年8月26日 下午12:22:25
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/postJson.do")
+	public @ResponseBody MsgModel toPostJson(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			long recordCount = pQueryService.queryPostInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query, msgModel);
+				List<PostModel> argArgs = pQueryService.queryPostInfo(query);
+				if (argArgs != null && argArgs.size() > 0)
+				{
+					msgModel.setTotal(recordCount);
+					msgModel.setRows(argArgs);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toPostJson error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	
 	/**
 	 * 描述信息：进行增加论坛界面
 	 * 创建时间：2015年4月9日 上午6:03:33
@@ -1715,6 +1757,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toMergePost(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/postinfo/add_post_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/postinfo/add_post_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));

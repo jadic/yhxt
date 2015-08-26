@@ -12,7 +12,7 @@ var PageMobile = {
 					url = _ctx_ + "/p/search.do"
 					break;	
 				case 2:
-					url = _ctx_ + "/p/my.do"
+					url = _ctx_ + "/p/query/post.do"
 					break;	
 				case 3:
 					url = _ctx_ + "/p/my.do"
