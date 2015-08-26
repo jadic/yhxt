@@ -109,6 +109,7 @@ public class PQueryController extends BaseController
 							session.setAttribute(SESSION_KEY_PLOGINNAME, mLoginModel.getUserName());
 							session.setAttribute(SESSION_KEY_PUID, mLoginModel.getUserId());
 							session.setAttribute(SESSION_KEY_PFULLNAME, mLoginModel.getName());
+							session.setAttribute(SESSION_KEY_PPHOTO, mLoginModel.getPhoto());
 							
 							QueryModel query = new QueryModel();
 							query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
@@ -897,6 +898,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toUserBase(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/healthinfo/manage_userbase_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/healthinfo/manage_userbase_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));

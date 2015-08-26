@@ -44,6 +44,7 @@ public interface Constants
 	public static final String SESSION_KEY_PISLOGIN = "pislogin";
 	public static final String SESSION_KEY_PLOGINNAME = "ploginname";
 	public static final String SESSION_KEY_PFULLNAME = "pfullname";
+	public static final String SESSION_KEY_PPHOTO = "pphoto";
 	
 	
 	public static final String SESSION_KEY_NUID = "nuid"; // 医护人员平台

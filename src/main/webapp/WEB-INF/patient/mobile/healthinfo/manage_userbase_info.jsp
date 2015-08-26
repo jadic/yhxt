@@ -9,13 +9,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     <title>自已人健康服务中心 </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
-	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
-	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
 	
-	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
+    <%@ include file="/WEB-INF/patient/common/dwr-include.jsp"%>
+    <%@ include file="/WEB-INF/patient/common/date-include.jsp"%>
+    <%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
+	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
+	<style>
+    	input, select,textarea{border:1px solid #ccc; height: 30px; width: 80%; padding-left: 10px;}
+    	#content table td{height: 35px;}
+    </style>
 	<script type="text/JavaScript">
 		$(function(){
 			$('.text-input').attr("disabled", "disabled");
@@ -33,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		{
 			if($(obj).attr("tag") == "false")
 			{
-				$(obj).parent().parent().parent().next().find(".text-input").attr("disabled", false);
+				$(obj).parent().parent().parent().parent().next().find(".text-input").attr("disabled", false);
 				$(obj).children().attr("src", "<c:url value='/patient/themes/images/btn_preserve.png'/>");
 				$(obj).attr("tag", "true");
 			}
@@ -170,7 +177,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		function funOpenPhotoInfo()
 		{
-			PageMain.funCreateWinInfoNew("#div_win", "<c:url value='/patient/pages/user_phone_info.jsp'/>", {});
+			PageMain.funCreateWinInfoNew("#div_win", "<c:url value='/patient/pages/user_phone_info_mobile.jsp'/>", {});
 		}
 		
 		
@@ -212,43 +219,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
 <body>
-<div class="account" style="background: #ffffff;">
-	<div class="account_title" style="background: #ffffff;">
-      <ul>
-        <li class="account_titleGreen">基本信息</li>
-        <li class="account_titleGray" style="padding-top: 8px; height: 35px;">
-        </li>
-      </ul>
-    </div>
-</div>    	
-  <div class="information_modify">
-  	<div style="float: left; width: 100%; height: 20px;"></div>
-    <div class="information_modify_main" id="main_div">
-    	<div class="btn_title_informationModify">
-          <ul>
-            <li class="tLeft">基本信息</li>
-            <li class="tRight"><a href="javascript:void(0)" onclick="edit_baseinfo(this, 1)" tag="false"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></li>
-          </ul>
-        </div>
-        <div class="informationModify_main">
+  	<header id="header">
+  		用户基本信息
+  	<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
+  	</header>
+  	<div id="content">
+  		<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; height:40PX; width: 100%; background: #F7F7F7;">
+  			<tr>
+  				<td style="padding-left: 10px;" align="left">基本信息</td>
+  				<td align="right" style="padding-right: 10px;"><a href="javascript:void(0)" onclick="edit_baseinfo(this, 1)" tag="false"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></td>
+  			</tr>
+  		</table>
         	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				真实姓名：
 	    			</td>
 	    			<td align="left">
 	    				<input class="inputMin_informationModify text-input" type="text" id="name" name="name" value="${userModel.name }" maxlength="16">
 	    				<span style="color: red;">*</span>
 	    			</td>
-	    			<td rowspan="5">
+	    			<td rowspan="4" align="center">
 	    				<table>
 	    					<tr>
 	    						<td>
 	    							<c:if test="${empty  userModel.photo}">
-	    							<img style="width:120px; height: 160px;" id="header_photo" src="<c:url value='/patient/themes/images/default_head.gif'/>">
+	    							<img style="width:100px; height: 120px;" id="header_photo" src="<c:url value='/patient/themes/images/default_head.gif'/>">
 	    							</c:if>
 	    							<c:if test="${not empty  userModel.photo}">
-	    							<img style="width:120px; height: 160px;" id="header_photo" src="<c:url value='/'/>${userModel.photo}">
+	    							<img style="width:100px; height: 120px;" id="header_photo" src="<c:url value='/'/>${userModel.photo}">
 	    							</c:if>
 	    						</td>
 	    					</tr>
@@ -262,20 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				性<span style="padding: 0 13px;"></span>别：
-	    			</td>
-	    			<td align="left">
-	    				<select class="selectMax_informationModify  text-input validate[required]" id="gender" name="gender">
-		                   <option value="-1">请选择</option>
-			               <option value="1" <c:if test="${userModel.gender == 1}">selected="selected"</c:if>>男</option>
-			               <option value="2" <c:if test="${userModel.gender == 2}">selected="selected"</c:if>>女</option>
-		               </select>
-		               <span style="color: red;">*</span>
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				出生日期：
 	    			</td>
 	    			<td align="left">
@@ -284,7 +270,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				手机号码：
 	    			</td>
 	    			<td align="left">
@@ -293,7 +279,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				电子邮箱：
 	    			</td>
 	    			<td align="left">
@@ -301,20 +287,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
+	    		<tr>
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    				性<span style="padding: 0 16px;"></span>别：
+	    			</td>
+	    			<td align="left" colspan="2">
+	    				<select class="selectMax_informationModify  text-input validate[required]" id="gender" name="gender">
+		                   <option value="-1">请选择</option>
+			               <option value="1" <c:if test="${userModel.gender == 1}">selected="selected"</c:if>>男</option>
+			               <option value="2" <c:if test="${userModel.gender == 2}">selected="selected"</c:if>>女</option>
+		               </select>
+		               <span style="color: red;">*</span>
+	    			</td>
+	    		</tr>
 	    	</table>
-        </div>
         
         
-        <div class="btn_title_informationModify">
-          <ul>
-            <li class="tLeft">详细信息</li>
-            <li class="tRight"><a href="javascript:void(0)" onclick="edit_baseinfo(this, 2)" tag="false"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></li>
-          </ul>
-        </div>
-        <div class="informationModify_main">
+        <table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; height:40PX; width: 100%; background: #F7F7F7;">
+  			<tr>
+  				<td style="padding-left: 10px;" align="left">详细信息</td>
+  				<td align="right" style="padding-right: 10px;"><a href="javascript:void(0)" onclick="edit_baseinfo(this, 2)" tag="false"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></td>
+  			</tr>
+  		</table>
         	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				证件类型：
 	    			</td>
 	    			<td align="left">
@@ -322,7 +319,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    <option value="-1">请选择</option>
 		               </select>
 	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    		</tr>
+	    		<tr>	
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				证件号码：
 	    			</td>
 	    			<td align="left">
@@ -330,7 +329,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				是否军人：
 	    			</td>
 	    			<td align="left">
@@ -340,7 +339,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			               <option value="1" <c:if test="${userModel.isSoldier == 1}">selected="selected"</c:if>>否</option>
 		               </select>
 	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    		</tr>
+	    		<tr>	
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				是否残疾：
 	    			</td>
 	    			<td align="left">
@@ -352,13 +353,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				身高(cm)：
 	    			</td>
 	    			<td align="left">
 	    				<input class="inputMin_informationModify text-input" type="text" id="height" name="height" value="${userModel.height }" maxlength="3">
 	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    		</tr>
+	    		<tr>	
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				体重(kg)：
 	    			</td>
 	    			<td align="left">
@@ -366,23 +369,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				民<span style="padding: 0 13px;"></span>族：
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    				民<span style="padding: 0 16px;"></span>族：
 	    			</td>
 	    			<td align="left">
 	    				<select class="selectMax_informationModify  text-input validate[required]" id="nationality" name="nationality">
 		                    <option value="-1">请选择</option>
 		               </select>
 	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				籍<span style="padding: 0 13px;"></span>贯：
+	    		</tr>
+	    		<tr>	
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    				籍<span style="padding: 0 16px;"></span>贯：
 	    			</td>
 	    			<td align="left">
 	    				<input class="inputMin_informationModify text-input" type="text" id="nativePlace" name="nativePlace" value="${userModel.nativePlace }" maxlength="80">
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				婚姻状况：
 	    			</td>
 	    			<td align="left">
@@ -390,7 +395,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    <option value="-1">请选择</option>
 		               </select>
 	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    		</tr>
+	    		<tr>	
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				户籍类型：
 	    			</td>
 	    			<td align="left">
@@ -400,15 +407,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				学<span style="padding: 0 13px;"></span>历：
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    				学<span style="padding: 0 16px;"></span>历：
 	    			</td>
 	    			<td align="left">
 	    				<select class="selectMax_informationModify  text-input validate[required]" id="education" name="education">
 		                    <option value="-1">请选择</option>
 		               </select>
 	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    		</tr>
+	    		<tr>	
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				政治面貌：
 	    			</td>
 	    			<td align="left">
@@ -418,13 +427,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				配偶姓名：
 	    			</td>
 	    			<td align="left">
 	    				<input class="inputMin_informationModify text-input" type="text" id="spouseName" name="spouseName" value="${userModel.spouseName }" maxlength="30">
 	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    		</tr>
+	    		<tr>	
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				配偶手机：
 	    			</td>
 	    			<td align="left">
@@ -432,34 +443,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				家庭电话：
 	    			</td>
-	    			<td align="left" colspan="3">
+	    			<td align="left">
 	    				<input class="inputMin_informationModify text-input" type="text" id="homePhone" name="homePhone" value="${userModel.homePhone }" maxlength="15">
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				家庭地址：
 	    			</td>
-	    			<td align="left" colspan="3">
+	    			<td align="left">
 	    				<input class="inputMax_informationModify text-input" type="text" id="homeAddress" name="homeAddress" value="${userModel.homeAddress }" maxlength="80">
 	    			</td>
 	    		</tr>
 	    	</table>
-	    </div>	
 	    
-	    <div class="btn_title_informationModify">
-          <ul>
-            <li class="tLeft">工作信息</li>
-            <li class="tRight"><a href="javascript:void(0)" onclick="edit_baseinfo(this, 3)" tag="false"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></li>
-          </ul>
-        </div>
-        <div class="informationModify_main">
+        <table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; height:40PX; width: 100%; background: #F7F7F7;">
+  			<tr>
+  				<td style="padding-left: 10px;" align="left">工作信息</td>
+  				<td align="right" style="padding-right: 10px;"><a href="javascript:void(0)" onclick="edit_baseinfo(this, 3)" tag="false"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></td>
+  			</tr>
+  		</table>
         	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				工作年限：
 	    			</td>
 	    			<td align="left">
@@ -467,8 +476,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    <option value="-1">请选择</option>
 		               </select>
 	    			</td>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
-	    				薪<span style="padding: 0 13px;"></span>酬：
+	    		</tr>
+	    		<tr>	
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    				薪<span style="padding: 0 16px;"></span>酬：
 	    			</td>
 	    			<td align="left">
 	    				<select class="selectMax_informationModify  text-input validate[required]" id="salary" name="salary">
@@ -477,25 +488,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				公司名称：
 	    			</td>
-	    			<td align="left" colspan="3">
+	    			<td align="left">
 	    				<input class="inputMax_informationModify text-input" type="text" id="companyName" name="companyName" value="${userModel.companyName }">
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 	    				公司地址：
 	    			</td>
-	    			<td align="left" colspan="3">
+	    			<td align="left">
 	    				<input class="inputMax_informationModify text-input" type="text" id="companyAddress" name="companyAddress" value="${userModel.companyAddress }">
 	    			</td>
-	    		</tr>	
+	    		</tr>
+	    		<tr><td colspan="2" style="height: 20px;"></td></tr>	
 	    	</table>
-	    </div>	
-    </div>
-</div>
-   
+ </div>
+	<footer id="footer">
+		<jsp:include page="/WEB-INF/patient/common/footer-include.jsp">
+			<jsp:param value="3" name="selected"/>
+		</jsp:include>
+	</footer>  
 </body>
 </html>

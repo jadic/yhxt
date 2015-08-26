@@ -48,9 +48,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  border-bottom: 1px solid #e8e8e8;
 		}
 	</style>
-	<script type="">
-	
-
+	<script type="text/JavaScript">
+		function funClick(url)
+		{	
+			window.location.href = url;
+		}	
+		
 		function funLogout()
 		{
 			var r=confirm("Press a button")
@@ -69,12 +72,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<header id="header">我的</header>
 	<div id="content">
 		<ul class="list">
-			<li class="activeable list-item">
+			<li class="activeable list-item" onclick="funClick('<c:url value='/p/query/userbase.do'/>')">
 				<div class="circle">
-					<img src="<c:url value='/patient/themes/images/mobile/user_photo.png'/>" style="border: 0px;">
+					<c:choose>
+						<c:when test="${not empty pphoto }">
+						<img src="<c:url value='/'/>${pphoto}" style="border: 0px;">
+						</c:when>
+						<c:otherwise>
+							<img src="<c:url value='/patient/themes/images/mobile/user_photo.png'/>" style="border: 0px;">
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<div style="float: left; line-height: 75px; font-size: 18px; padding-left: 15px;">
-					赵子龙
+					${pfullname}
 				</div>
 			</li>
 			<li class="activeable list-item" style="background: #efefef"></li>
