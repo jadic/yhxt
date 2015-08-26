@@ -1818,6 +1818,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toPostDetail(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/postinfo/query_post_detail_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/postinfo/query_post_detail_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
@@ -1857,6 +1861,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toAddComment(CommentModel model, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/postinfo/query_post_detail_info");	
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/postinfo/query_post_detail_info");	
+		}
 		try
 		{
 			model.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
@@ -1891,6 +1899,40 @@ public class PQueryController extends BaseController
 		return result;
 	}
 	
+	
+	/**
+	 * 描述信息：JSON
+	 * 创建时间：2015年8月26日 下午7:00:41
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/commentJson.do")
+	public @ResponseBody MsgModel toCommentJson(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			long recordCount = pQueryService.queryPostCommentInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query, msgModel);
+				List<CommentModel> argFlys = pQueryService.queryPostCommentInfo(query); 
+				if (argFlys != null && argFlys.size() > 0)
+				{
+					msgModel.setTotal(recordCount);
+					msgModel.setRows(argFlys);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toAddComment error：", e);
+		}
+		return msgModel;
+	}
 	
 	/**
 	 * 描述信息：加载血糖统计

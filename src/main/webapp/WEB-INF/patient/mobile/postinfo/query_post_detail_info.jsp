@@ -9,12 +9,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     <title>自已人健康服务中心 </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
-	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
-	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
-	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
+    <%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
 	<style type="text/css">
 		td{word-break:break-all;}
 		.index_table table#faceTable tr th{
@@ -23,60 +23,91 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
 	<script type="text/JavaScript">
 		$(function(){
-			$(".page-first").bind("click", function(){
-				if($("#gopage").val() > 1)
-				{
-					$("#page").val("1");
-					$("#inputform").submit();
-				}	
-			});
-			
-			
-			$(".page-perv").bind("click", function(){
-				if($("#gopage").val() > 1)
-				{
-					$("#page").val($("#gopage").val() - 1);
-					$("#inputform").submit();
-				}	
-			});
-			
-			$(".page-next").bind("click", function(){
-				if($("#gopage").val() < "${query.pageCnt}")
-				{
-					$("#page").val(parseInt($("#gopage").val()) + 1);
-					$("#inputform").submit();
-				}	
-			});
-			
-			
-			$(".page-last").bind("click", function(){
-				if($("#gopage").val() < "${query.pageCnt}")
-				{
-					$("#page").val("${query.pageCnt}");
-					$("#inputform").submit();
-				}	
-			});
-			
-			$("#gopage").bind("change", function(){
-				$("#page").val($(this).val());
-				$("#inputform").submit();
-			});
-			
-			$("#btnsearch").bind("click", function(){
-				$("#inputform").submit();
-			});
+			if(PageOper.page < PageOper.sumPage)
+			{
+				$(".list-more").show();
+			}	
 		});
 	
+		var PageOper = {
+				page: parseInt("${query.page }"),
+				sumPage: parseInt("${query.pageCnt}"),
+				funSearch : function()
+				{
+					$.ajax({
+						url : _ctx_ + "/p/query/commentJson.do?a="+ Math.random(),
+						type : 'post',
+						dataType : 'json',
+						data : 
+						{
+							"id"		 : $("#pid").val(),
+							"page"       : PageOper.page						
+						},
+						error:function(data)
+						{
+							
+						},
+						success:function(data)
+						{
+							if(PageOper.sumPage >= data.sumPage)
+							{
+								$(".list-more").hide();
+							}
+							else
+							{
+								PageOper.sumPage = data.sumPage;
+								$(".list-more").show();
+							}	
+							if(data.success)
+							{
+								var row = null;
+								var tmpPhoto = _ctx_ + "/patient/themes/images/mobile/user_photo.png";
+								for(var nItem=0; nItem<data.rows.length; nItem++)
+								{
+									row = data.rows[nItem];
+									tmpPhoto = _ctx_ + "/patient/themes/images/default_head.gif";
+									if(row.photo != "" && row.photo != null && row.photo != "null")
+									{
+										tmpPhoto = _ctx_ + "/" + row.photo;
+									}	
+									$('<tr>'+
+										'<td rowspan="2" style="border: #ccc solid; border-width: 0px 1px 1px 1px;  background: #cbeccf; width: 100px; padding: 5px 0px;" align="center">'+
+											'<img style="width:80px; height: 100px;" id="header_photo" src="'+tmpPhoto+'"></img></br>'+
+											'<span style="padding-top: 10px; font-size: 14px; color: #3c8cd6; font-weight: bold;">'+row.userName+'</span>'+
+										'</td>'+
+						        		'<td style="border: #ccc solid; border-width: 0px 0px 1px 0px; height: 35px; padding: 0px 5px">'+row.stime+ '</td>'+
+						        		'<td style="width: 30px; border: #ccc solid; border-width: 0px 1px 1px 0px; height: 35px; padding: 0px 5px"><span style="padding: 0px 2px;">'+(nItem + 1 + (PageOper.page - 1) * ${query.rows})+'</span>楼</td>'+
+						        	'</tr>'+	
+						        	'<tr>'+
+					        			'<td style="border: #ccc solid; border-width: 0px 1px 1px 0px; padding: 0px 5px" colspan="2" valign="top">'+
+					        					'<div style="width: 100%">'+row.content+'</div>'+
+					        			'</td>'+	
+						        	'</tr>').insertBefore("#list-more");	
+								}	
+							}
+						}
+					});
+				},
+				funLoadMore: function()
+				{
+					if(PageOper.page < PageOper.sumPage)
+					{
+						PageOper.page += 1;
+						PageOper.funSearch()
+					}
+				}
+			};
+		
 		function funSaveInfo()
 		{
-			if($("#content").val() == "")
+			if($("#content1").val() == "")
 			{
-				alert("评论内容不为空")
+				$("#tip").text("评论内容不为空")
 				return ;
 			}	
-			else if($("#content").val().length > 200)
+			else if($("#content1").val().length > 200)
 			{
-				alert("评论内容在太长")
+				$("#tip").text("评论内容在太长")
 				return ;
 			}	
 			$("#inputform2").submit();
@@ -84,18 +115,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
 <body>
-<div class="account" style="background: #ffffff;">
-		<div class="account_title" style="background: #ffffff;">
-	      <ul>
-	        <li class="account_titleGreen">快乐驿站</li>
-	        <li class="account_titleGray">当前位置：<a href="<c:url value='/p/query/post.do'/>" >快乐驿站</a> >> 论坛
-	        </li>
-	      </ul>
-	    </div>
-	</div> 
+  	<header id="header">
+  		论坛
+  		<div class="left"><a href="<c:url value='/p/query/post.do'/>"><span class="corner"></span></a></div>
+  	</header>
+  	<div id="content" style="padding: 5px 20px;">
 	
-  <div class="information_modify">
-    <div class="information_modify_main" id="main_div">
         <div class="index_table">
         	<div style="height: 20px; width: 100%;">
         		<form id="inputform" name="inputform" action="<c:url value='/p/query/postDetail.do'/>" method="post">
@@ -105,18 +130,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	</div>
         	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
         		<tr>
-        			<td rowspan="2" style="border: 1px #ccc solid; background: #cbeccf; width: 120px; padding: 5px 0px;" align="center">
+        			<td rowspan="2" style="border: 1px #ccc solid; background: #cbeccf; width: 100px; padding: 5px 0px;" align="center">
         				<c:if test="${not empty post.photo}">
-        					<img style="width:100px; height: 120px;" id="header_photo" src="<c:url value='/'/>${post.photo}"></img></br>
+        					<img style="width:80px; height: 100px;" id="header_photo" src="<c:url value='/'/>${post.photo}"></img></br>
         				</c:if>
         				<c:if test="${empty post.photo}">
-        				<img style="width:100px; height: 120px;" id="header_photo" src="<c:url value='/patient/themes/images/default_head.gif'/>"></img></br>
+        				<img style="width:80px; height: 100px;" id="header_photo" src="<c:url value='/patient/themes/images/default_head.gif'/>"></img></br>
         				</c:if>
         				<span style="padding-top: 10px; font-size: 14px; color: #3c8cd6; font-weight: bold;">${post.userName }</span>
         					
         			</td>
         			<td style="border: #ccc solid; border-width: 1px 0px 1px 0px; height: 35px; padding: 0px 5px">
-        				发布时间：${post.stime }
+        				${post.stime }
         			</td>
         			<td style="width: 30px; border: #ccc solid; border-width: 1px 1px 1px 0px; height: 35px; padding: 0px 5px">楼主</td>
         		</tr>
@@ -132,18 +157,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	<c:if test="${not empty commentFlys }">
 				<c:forEach items="${commentFlys }" var="commentItem" varStatus="item">
 					<tr>
-        			<td rowspan="2" style="border: #ccc solid; border-width: 0px 1px 1px 1px;  background: #cbeccf; width: 120px; padding: 5px 0px;" align="center">
+        			<td rowspan="2" style="border: #ccc solid; border-width: 0px 1px 1px 1px;  background: #cbeccf; width: 100px; padding: 5px 0px;" align="center">
         				<c:if test="${not empty commentItem.photo}">
-        					<img style="width:100px; height: 120px;" id="header_photo" src="<c:url value='/'/>${commentItem.photo}"></img></br>
+        					<img style="width:80px; height: 100px;" id="header_photo" src="<c:url value='/'/>${commentItem.photo}"></img></br>
         				</c:if>
         				<c:if test="${empty commentItem.photo}">
-        				<img style="width:100px; height: 120px;" id="header_photo" src="<c:url value='/patient/themes/images/default_head.gif'/>"></img></br>
+        				<img style="width:80px; height: 100px;" id="header_photo" src="<c:url value='/patient/themes/images/default_head.gif'/>"></img></br>
         				</c:if>
         				<span style="padding-top: 10px; font-size: 14px; color: #3c8cd6; font-weight: bold;">${commentItem.userName }</span>
         					
         			</td>
         			<td style="border: #ccc solid; border-width: 0px 0px 1px 0px; height: 35px; padding: 0px 5px">
-        				发布时间：${commentItem.stime }
+        				${commentItem.stime }
         			</td>
         			<td style="width: 30px; border: #ccc solid; border-width: 0px 1px 1px 0px; height: 35px; padding: 0px 5px"><span style="padding: 0px 2px;">${item.index + 1 + (query.page - 1) * query.rows }</span>楼</td>
         		</tr>
@@ -156,32 +181,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		</tr>
 				</c:forEach>
 			</c:if>
+				<tr id="list-more">
+					<td colspan="3">
+						<ul class="list">
+						 	<li class="activeable list-more" style="display: none;" onclick="PageOper.funLoadMore()">加载更多</li>
+       					 </ul>
+					</td>
+				</tr>
         	</table>
-        
-				
 		</div>
-		<div class="index_page">
-		  <ul>
-		    <li class="page_information">共<span id="showcount">${query.total }</span>条信息，当前：第<span id="showcurrentnum">${query.page }</span>页，共<span id="showpagecount">${query.pageCnt }</span>页</li>
-		    <li class="page_button">
-			    <a href="javascript:void(0)" class="page-first">首页</a>
-			    <a href="javascript:void(0)" class="page-perv">上一页</a>
-			    <a href="javascript:void(0)" class="page-next">下一页</a>
-			    <a href="javascript:void(0)" class="page-last">末页</a>
-		    </li>
-		    <li class="page_select">
-		    转<select id="gopage">
-		    	<c:forEach  var="temp"   begin="1"   step="1"   end="${ query.pageCnt}"> 
-					<option <c:if test="${query.page==temp }">selected="selected"</c:if> value="<c:out  value="${temp}"/>"><c:out  value="${temp}"/></option>
-				</c:forEach> 
-		    </select>页
-		    </li>
-		  </ul>
-		</div>
+		
 		
 		<form id="inputform2" name="inputform2" action="<c:url value='/p/query/addComment.do'/>" method="post">
-		
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable">
+		<table border="0" cellspacing="0" cellpadding="0" class="bPhistory_table" id="faceTable" style="width: 100%;">
 			<tr>
 				<td style="height: 30px;"></td>
 			</tr>
@@ -192,8 +204,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td style="border: #ccc solid; border-width: 0px 1px 0px 1px; padding: 5px; height: 180px; ">
-					<textarea name="content" id="content" class="inputMin_informationModify text-input" style="width: 98%; height: 100%;"></textarea>
+					<textarea name="content" id="content1" style="width: 98%; height: 100%;"></textarea>
 				</td>
+			</tr>
+			<tr>
+				<td style="border: #ccc solid; border-width: 0px 1px 0px 1px;">
+					<div style="color:red; font-size: 12; padding-left: 15px; height: 16px;" id="tip"></div></td>
 			</tr>
 			<tr>
 				<td align="center" style="border: #ccc solid; border-width: 0px 1px 1px 1px; padding: 5px; height: 60px;">
@@ -204,13 +220,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td style="height: 10px;">
-					<input type="hidden" name="pid" value="${post.id }"/>
+					<input type="hidden" name="pid" id="pid" value="${post.id }"/>
 				</td>
 			</tr>
 		</table>
 		</form>
-    </div>
-</div>
-   
+ </div>
+   <footer id="footer">
+		<footer id="footer">
+		<jsp:include page="/WEB-INF/patient/common/footer-include.jsp">
+			<jsp:param value="2" name="selected"/>
+		</jsp:include>
+	</footer>  
 </body>
 </html>

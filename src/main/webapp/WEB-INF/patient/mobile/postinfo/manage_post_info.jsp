@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							{
 								tmpPhoto = _ctx_ + "/" + row.photo;
 							}	
-							$('<li class="activeable list-item item_wcl" style="display:-webkit-box; display:-moz-box;">'+
+							$('<li class="activeable list-item item_wcl" style="display:-webkit-box; display:-moz-box; cursor:pointer;" onclick="PageOper.funGotoInfo('+row.id+')">'+
 								'<div style="width: 70px; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-ordinal-group:2;-moz-box-ordinal-group:2;">'+
 					               '<div class="circle">'+
 					               		'<img src="'+tmpPhoto+'" style="border: 0px;">'+
@@ -106,6 +106,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 				}
 			});
+		},
+		funGotoInfo : function(id)
+		{
+			window.location.href = _ctx_ + "/p/query/postDetail.do?id=" + id;
 		},
 		funLoadMore: function()
 		{
@@ -148,6 +152,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<jsp:param value="2" name="selected"/>
 		</jsp:include>
 	</footer>
-   
 </body>
 </html>
