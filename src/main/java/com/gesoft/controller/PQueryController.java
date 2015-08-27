@@ -18,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -1403,6 +1402,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toMyNurse(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/nurseinfo/manage_nurse_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/nurseinfo/manage_nurse_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
@@ -1453,6 +1456,43 @@ public class PQueryController extends BaseController
 	
 	
 	/**
+	 * 描述信息：json格式
+	 * 创建时间：2015年8月27日 下午1:07:00
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/mynuserJson.do", method=RequestMethod.POST)
+	public @ResponseBody MsgModel toMyNurseJson(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		MsgModel msgModel = new MsgModel();
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			//分页加载建议执行结果
+			long recordCount = pQueryService.queryNurseInfoCnt(query);
+			if(recordCount>0)
+			{
+				setPageModel(recordCount, query, msgModel);
+				List<UserModel> argArgs = pQueryService.queryNurseInfo(query);
+				if (argArgs != null && argArgs.size() > 0)
+				{
+					msgModel.setTotal(recordCount);
+					msgModel.setRows(argArgs);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toMyNurseJson error：", e);
+		}
+		return msgModel;
+	}
+	
+	
+	/**
 	 * 描述信息：进入医护人员详细信息界面
 	 * 创建时间：2015年3月11日 上午5:09:22
 	 * @author WCL (ln_admin@yeah.net)
@@ -1465,6 +1505,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toNurseDetail(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/nurseinfo/query_nurse_detail_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/nurseinfo/query_nurse_detail_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
@@ -1495,6 +1539,10 @@ public class PQueryController extends BaseController
 	public ModelAndView toGoNurseRequest(QueryModel query, HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView result = new ModelAndView("/patient/nurseinfo/manage_nurse_request_info");
+		if (SystemUtils.isMobile(request))
+		{
+			result = new ModelAndView("/patient/mobile/nurseinfo/manage_nurse_request_info");
+		}
 		try
 		{
 			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));

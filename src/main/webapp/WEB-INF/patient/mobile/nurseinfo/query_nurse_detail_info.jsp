@@ -9,17 +9,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     <title>自已人健康服务中心 </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
-	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
-	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
-	<style type="text/css">
-		td{word-break:break-all;}
-		.index_table table#faceTable tr th{
-			line-height: normal;
-		}
-	</style>
+    <%@ include file="/WEB-INF/patient/common/dwr-include.jsp"%>
+    <%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
+	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
+	<style>
+    	input, select,textarea{border:1px solid #ccc; height: 30px; width: 80%; padding-left: 10px;}
+    	#content table td{height: 35px;}
+    </style>
 	<script type="text/JavaScript">
 		$(function(){
 			$('.text-input').attr("disabled", "disabled");
@@ -33,27 +34,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>	
   </head>
 <body >
-	<div class="account">
-		<div class="account_title">
-	      <ul>
-	        <li class="account_titleGreen">我的医护人</li>
-	        <li class="account_titleGray">当前位置：医护人员详情</li>
-	      </ul>
-	    </div>
-	</div>    
-	<div class="information_modify">
-	    <div class="information_modify_main" id="main_div">
-	    	<div class="btn_title_informationModify" style="margin-top: 20px;">
-	          <ul>
-	            <li class="tLeft">医护人员信息</li>
-	            <li class="tRight"><a href="javascript:void(0)" onclick="window.history.back();"><img src="<c:url value='/patient/themes/images/btn_back.png'/>"></a></li>
-	          </ul>
-	        </div>
-	        
-	        <div class="informationModify_main">
+	<body>
+	<header id="header">
+  		医护人员详情
+  		<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
+  	</header>
+  	<div id="content" style="padding: 10px 0">
+		  		<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; height:40PX; width: 100%; background: #F7F7F7;">
+		  			<tr>
+		  				<td style="padding-left: 10px;" align="left">医护人员基本信息</td>
+		  				<td align="right" style="padding-right: 10px;"></td>
+		  			</tr>
+		  		</table>
+	  		
 	        	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
 		    		<tr>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				真实姓名：
 		    			</td>
 		    			<td align="left">
@@ -80,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				性<span style="padding: 0 13px;"></span>别：
 		    			</td>
 		    			<td align="left">
@@ -92,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				出生日期：
 		    			</td>
 		    			<td align="left">
@@ -100,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				手机号码：
 		    			</td>
 		    			<td align="left">
@@ -108,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				电子邮箱：
 		    			</td>
 		    			<td align="left">
@@ -116,17 +112,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			</td>
 		    		</tr>
 		    	</table>
-	        </div>
 	        
-	        <div class="btn_title_informationModify">
-	          <ul>
-	            <li class="tLeft">医护人员详细信息</li>
-	          </ul>
-	        </div>
-	        <div class="informationModify_main">
+	        <table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; height:40PX; width: 100%; background: #F7F7F7;">
+	  			<tr>
+	  				<td style="padding-left: 10px;" align="left">医护人员详细信息</td>
+	  				<td align="right" style="padding-right: 10px;"></td>
+	  			</tr>
+	  		</table>
 	        	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
 		    		<tr>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				证件类型：
 		    			</td>
 		    			<td align="left">
@@ -134,7 +129,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                    <option value="-1">请选择</option>
 			               </select>
 		    			</td>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
+			    	</tr>
+			    	<tr>		
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				证件号码：
 		    			</td>
 		    			<td align="left">
@@ -142,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				是否军人：
 		    			</td>
 		    			<td align="left">
@@ -152,7 +149,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				               <option value="1" <c:if test="${userModel.isSoldier == 1}">selected="selected"</c:if>>否</option>
 			               </select>
 		    			</td>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    		</tr>
+			    	<tr>	
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				是否残疾：
 		    			</td>
 		    			<td align="left">
@@ -164,13 +163,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				身高(cm)：
 		    			</td>
 		    			<td align="left">
 		    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="height" name="height" value="${userModel.height }" maxlength="3">
 		    			</td>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    		</tr>
+			    	<tr>	
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				体重(kg)：
 		    			</td>
 		    			<td align="left">
@@ -178,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				民<span style="padding: 0 13px;"></span>族：
 		    			</td>
 		    			<td align="left">
@@ -186,7 +187,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                    <option value="-1"></option>
 			               </select>
 		    			</td>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    		</tr>
+			    	<tr>	
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				籍<span style="padding: 0 13px;"></span>贯：
 		    			</td>
 		    			<td align="left">
@@ -194,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				婚姻状况：
 		    			</td>
 		    			<td align="left">
@@ -202,7 +205,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                    <option value="-1">请选择</option>
 			               </select>
 		    			</td>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    		</tr>
+			    	<tr>	
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				户籍类型：
 		    			</td>
 		    			<td align="left">
@@ -212,7 +217,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				学<span style="padding: 0 13px;"></span>历：
 		    			</td>
 		    			<td align="left">
@@ -220,7 +225,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                    <option value="-1">请选择</option>
 			               </select>
 		    			</td>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    		</tr>
+			    	<tr>	
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				政治面貌：
 		    			</td>
 		    			<td align="left">
@@ -230,25 +237,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				家庭电话：
 		    			</td>
-		    			<td align="left" colspan="3">
+		    			<td align="left">
 		    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="homePhone" name="homePhone" value="${userModel.homePhone }" maxlength="15">
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
 		    				家庭地址：
 		    			</td>
-		    			<td align="left" colspan="3">
+		    			<td align="left">
 		    				<input class="inputMax_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="homeAddress" name="homeAddress" value="${userModel.homeAddress }" maxlength="80">
 		    			</td>
 		    		</tr>
 		    	</table>
-		    </div>	
-	    </div>
 	</div>
-   
+	<footer id="footer">
+		<jsp:include page="/WEB-INF/patient/common/footer-include.jsp">
+			<jsp:param value="3" name="selected"/>
+		</jsp:include>
+	</footer>   	   
 </body>
 </html>

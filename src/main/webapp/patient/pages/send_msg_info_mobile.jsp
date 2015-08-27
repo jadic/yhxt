@@ -2,7 +2,7 @@
 <script type="text/javascript">
 <!--
 	$(function(){
-		PageMain.funSetWinMaxAttr(500, 375, "留言", "icon-edit");
+		PageMain.funSetWinMaxAttr(300, 325, "留言", "icon-edit");
 		$('#div_win').window({
 			modal: true,
 			title : PageMain.mWinTitle,
@@ -29,10 +29,10 @@
     			<tr>
     				<td style="width: 150px; border: solid #ccc; border-width: 1px; display: none;"></td>
     				<td style="border: solid #ccc; border-width: 1px;">
-    					<table style="width: 100%; height: 300px;" border="0" cellpadding="0" cellspacing="0">
+    					<table style="width: 100%; height: 200px;" border="0" cellpadding="0" cellspacing="0">
     						<tr>
     							<td style="border: 0px;">
-    								<div style="width: 100%; height: 170px; max-height: 170px; overflow: auto;" id="sendmsg">
+    								<div style="width: 100%; height: 120px; max-height: 120px; overflow: auto;" id="sendmsg">
     									
     								</div>
     							</td>

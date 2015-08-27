@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		function funSendInfo()
 		{
-			if($("#content").val() == "")
+			if($("#content1").val() == "")
 			{
 				alert("发送内容不能为空！");
 				return false;
@@ -119,7 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				{
 					"receiverId": $("#userId").val(),
 					"status"	: 0,	
-					"msg"		: $("#content").val()						
+					"msg"		: $("#content1").val()						
 				},
 				error:function(data)
 				{
@@ -130,9 +130,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					{
 						$('<div style="float: right; width: 100%; text-align: right; line-height: 30px;">'+
 								'<img src="<c:url value='/common/themes/icons/24.png'/>" style="float: right; padding-right: 20px; margin-top: 5px;"/>'+
-								'<span style="float: right; padding-right: 5px;">'+$("#content").val()+'</span>'+
+								'<span style="float: right; padding-right: 5px;">'+$("#content1").val()+'</span>'+
 							'</div>').appendTo("#sendmsg");
-						$("#content").val("");
+						$("#content1").val("");
 					}
 					else
 					{

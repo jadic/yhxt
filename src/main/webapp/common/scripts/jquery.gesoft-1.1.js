@@ -45,7 +45,6 @@ var PageMain =
 		{
 			this.mWinMaxWidth = $("body").width() - 160;
 		}
-		
 		this.mWinMaxTop = ($("body").height() - this.mWinMaxHeight) / 2;
 		this.mWinMaxLeft = ($("body").width() - this.mWinMaxWidth) / 2;
 		this.mWinTitle = mTitle;

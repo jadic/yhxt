@@ -9,17 +9,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     <title>自已人健康服务中心 </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0"> 
-	<%@ include file="/WEB-INF/patient/common/top-include.jsp"%>
+    <%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
 	<%@ include file="/WEB-INF/patient/common/easyui-include.jsp"%>
-	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
 	<style type="text/css">
-		td{word-break:break-all;}
-		.index_table table#faceTable tr th{
-			line-height: normal;
-		}
+		input, select,textarea{border:1px solid #ccc; height: 35px; width: 85%; padding-left: 10px;}
 	</style>
 	<script type="text/JavaScript">
 		function funSaveInfo()
@@ -50,8 +48,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					/**数据处理**/
 					if(data.success)
 					{
-						alert("申请成功，请耐心等待！");
-						window.location.href = "<c:url value='/p/query/mynuser.do'/>";
+						$.messager.confirm('确认', "申请成功，请耐心等待！", function(r)
+						{
+							window.location.href = "<c:url value='/p/query/mynuser.do'/>";
+						});
 					}
 					else
 					{
@@ -62,54 +62,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</script>
   </head>
-<body style="background: #ededed;">
-	<div class="account" style="background: #ffffff;">
-		<div class="account_title" style="background: #ffffff;">
-	      <ul>
-	        <li class="account_titleGreen">我的医护人</li>
-	        <li class="account_titleGray">当前位置：申请医护人员</li>
-	      </ul>
-	    </div>
-	</div>    
-  <div class="information_modify">
-  	<div class="information_modify_main" id="main_div">
-  		<div class="btn_title_informationModify" style="margin-top: 20px;">
-          <ul>
-            <li class="tLeft">签约申请</li>
-            <li class="tRight"><a href="javascript:void(0)" onclick="window.history.back();"><img src="<c:url value='/patient/themes/images/btn_back.png'/>"></a></li>
-          </ul>
-        </div>
-    	<div class="informationModify_main" style="margin-top: 20px;">
+<body>
+	<header id="header">
+  		申请医护人员
+  		<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
+  	</header>
+  	<div id="content">
         	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="left" style="padding: 5px 0 0 15px;  height: 30px; color: #aeaeae; font-size: 16px;">
 	    				医护人姓名：
 	    			</td>
-	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="name" name="name" maxlength="50" style="width: 350px;" value="${query.name }">
+	    		</tr>
+	    		<tr>	
+	    			<td align="left" style="padding: 5px 0 0 15px">
+	    				<input type="text" id="name" name="name" maxlength="50" value="${query.name }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="left" style="padding: 5px 0 0 15px;  height: 30px; color: #aeaeae; font-size: 16px;">
 	    				备<span style="padding: 0 13px;"></span>注：
 	    			</td>
-	    			<td align="left">
+	    		</tr>
+	    		<tr>	
+	    			<td align="left" style="padding: 5px 0 0 15px">
 	    				<input type="hidden" id="id" name="id" value="${diseaseHis.id}"/>
-	    				<textarea class="inputMin_informationModify text-input" style="width: 500px; height: 80px;" id="memo" name="memo" maxlength="250"></textarea>
+	    				<textarea  style="height: 80px;" id="memo" name="memo" maxlength="250"></textarea>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="center" colspan="2">
+	    			<td align="center">
 	    				<ul>
-	    					<li class="btn_reguster"><a onclick="funSaveInfo()" style="cursor: pointer;">我要申请</a></li>
+	    					<li class="btn_reguster" style="width: 100%"><a onclick="funSaveInfo()" style="cursor: pointer;">我要申请</a></li>
 	    				</ul>
 	    			</td>
 	    		</tr>
 	    	</table>
-        </div>
-        </div>
-  </div>
-   
+  
+	</div>
+	<footer id="footer">
+		<jsp:include page="/WEB-INF/patient/common/footer-include.jsp">
+			<jsp:param value="3" name="selected"/>
+		</jsp:include>
+	</footer>   
 </body>
 </html>
