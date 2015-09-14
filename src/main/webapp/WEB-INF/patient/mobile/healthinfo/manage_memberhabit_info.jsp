@@ -76,9 +76,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
   	</header>
   	<div id="content" style="padding: 14px;">
-       	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 16px; width: 100%;">
+       	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 18px; width: 100%;">
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 16px;">
+    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 18px;">
     				工作类型：
     			</td>
     			<td align="left">
@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 18px;">
     				工作压力：
     			</td>
     			<td align="left">
@@ -104,8 +104,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 16px;">
-    				血<span style="padding: 0 16px;"></span>型：
+    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 18px;">
+    				血<span style="padding: 0 18px;"></span>型：
     			</td>
     			<td align="left">
     				<select class="selectMax_informationModify  text-input validate[required]" id="bloodType" name="bloodType">
@@ -118,8 +118,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
-    				体<span style="padding: 0 16px;"></span>重：
+    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 18px;">
+    				体<span style="padding: 0 18px;"></span>重：
     			</td>
     			<td align="left">
     				<select class="selectMax_informationModify  text-input validate[required]" id="weight" name="weight">
@@ -130,8 +130,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 16px;">
-    				腰<span style="padding: 0 16px;"></span>围：
+    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 18px;">
+    				腰<span style="padding: 0 18px;"></span>围：
     			</td>
     			<td align="left">
     				<select class="selectMax_informationModify  text-input validate[required]" id="waist" name="waist">
@@ -142,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 18px;">
     				睡眠时长：
     			</td>
     			<td align="left">
@@ -160,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 16px;">
+    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 18px;">
     				吸烟年限：
     			</td>
     			<td align="left">
@@ -175,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 18px;">
     				吸烟频次：
     			</td>
     			<td align="left">
@@ -189,7 +189,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 16px;">
+    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 18px;">
     				饮酒类型：
     			</td>
     			<td align="left">
@@ -203,7 +203,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 18px;">
     				饮酒频次：
     			</td>
     			<td align="left">
@@ -218,7 +218,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 16px;">
+    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 18px;">
     				运动时长：
     			</td>
     			<td align="left">
@@ -234,7 +234,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+    			<td align="right" style="padding: 5px 5px 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 18px;">
     				运动频次：
     			</td>
     			<td align="left">

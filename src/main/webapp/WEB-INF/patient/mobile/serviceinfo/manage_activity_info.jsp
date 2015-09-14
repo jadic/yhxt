@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								row = data.rows[nItem];
 								$('<li class="activeable list-item item_wcl" style="display:-webkit-box; display:-moz-box;">'+
 									'<div style="-webkit-box-flex:1; -moz-box-flex:1; -webkit-box-ordinal-group:2;-moz-box-ordinal-group:2;">'+
-										'<h2 class="item-title" style="font-size:16px;">'+row.name+'</h2>'+
+										'<h2 class="item-title" style="font-size:18px;">'+row.name+'</h2>'+
 						                '<p class="item-time">活动类型：'+row.typeName+'</p>'+
 						                '<p class="item-time">开始时间：'+row.sdate+'</p>'+
 						                '<p class="item-time">结束时间：'+row.edate+'</p>'+
@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<ul class="list">
   			<li class="activeable list-item"> 
     		<form id="inputform" name="inputform" action="<c:url value='/p/query/activity.do'/>" method="post">
-		    <table border="0" cellspacing="0" cellpadding="0" style="width:100%; font-size: 15px;">
+		    <table border="0" cellspacing="0" cellpadding="0" style="width:100%; font-size: 18px;">
 		    	<tr>
 		    		<td>
 		    			<input type="text" id="name" name="name" placeholder="活动名称">

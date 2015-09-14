@@ -132,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<c:if test="${query.id  > 0}"><div class="right"><a href="javascript:void(0)" onclick="delDiseaseHis(${diseaseHis.id})"><span class="cornerDel"></span></a></div></c:if>
   	</header>
   	<div id="content" style="padding: 14px;">
-        	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
+        	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 18px; width: 100%;">
 	    		<tr>
 	    			<td align="center">
 	    				<input type="text" placeholder="疾病称名" id="diseaseName" name="diseaseName" maxlength="50"  value="${diseaseHis.diseaseName }">
@@ -141,13 +141,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		</tr>
 	    		<tr>
 	    			<td align="center">
-		               <input class="inputMin_informationModify text-input Wdate" style="height: 35px;"  placeholder="开始日期" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="startDate" name="startDate" maxlength="16"  value="${diseaseHis.startDate }">
+		               <input class="inputMin_informationModify text-input" style="height: 35px;"  placeholder="开始日期"  type="date" id="startDate" name="startDate" maxlength="16"  value="${diseaseHis.startDate }">
 	    			   <span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td align="center">
-	    				<input class="inputMin_informationModify text-input Wdate" style="height: 35px;" placeholder="结束日期" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="endDate" name="endDate" maxlength="16"  value="${diseaseHis.endDate }">
+	    				<input class="inputMin_informationModify text-input" style="height: 35px;" placeholder="结束日期"  type="date" id="endDate" name="endDate" maxlength="16"  value="${diseaseHis.endDate }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>

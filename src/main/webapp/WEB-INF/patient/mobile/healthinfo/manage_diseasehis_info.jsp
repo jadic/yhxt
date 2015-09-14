@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							row = data.rows[nItem];
 							$('<li class="activeable list-item item_wcl" style="display:-webkit-box; display:-moz-box;"  onclick="mergeDiseaseHis('+row.id+')">'+
 					                '<div style="-webkit-box-flex:1; -moz-box-flex:1; -webkit-box-ordinal-group:2;-moz-box-ordinal-group:2;">'+
-					                '<h2 class="item-title" style="font-size:16px;">疾病名称：<span style="color:red;">'+row.diseaseName+'</span></h2>'+
+					                '<h2 class="item-title" style="font-size:18px;">疾病名称：<span style="color:red;">'+row.diseaseName+'</span></h2>'+
 					                '<p class="item-time">开始时间：'+row.startDate+'</p>'+
 					                '<p class="item-time">结束时间：'+row.endDate+'</p>'+
 				                '</div>'+

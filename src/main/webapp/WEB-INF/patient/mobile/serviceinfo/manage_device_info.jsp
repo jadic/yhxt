@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								{
 									$('<li class="activeable list-item item_wcl" style="display:-webkit-box; display:-moz-box;">'+
 										'<div style="-webkit-box-flex:1; -moz-box-flex:1; -webkit-box-ordinal-group:2;-moz-box-ordinal-group:2;">'+
-											'<h2 class="item-title" style="font-size:16px;">'+row.typeName+'【<span style="color: #2998df; font-weight: bold;">已购买</span>】</h2>'+
+											'<h2 class="item-title" style="font-size:18px;">'+row.typeName+'【<span style="color: #2998df; font-weight: bold;">已购买</span>】</h2>'+
 							                '<p class="item-time">设备编号：'+row.no+'</p>'+
 							                '<p class="item-time">设备型号：'+row.model+'</p>'+
 							                '<p class="item-time">SIM卡号：'+row.sim+'</p>'+
@@ -155,9 +155,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<ul class="list">
   			<li class="activeable list-item"> 
 		    	<form id="inputform" name="inputform" action="<c:url value='/p/query/device.do'/>" method="post">
-				    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-size: 15px;">
+				    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-size: 18px;">
 				    	<tr>
-				    		<td align="right" style="padding-right: 5px; width:90px; height: 35px; color: #aeaeae; font-size: 16px;">
+				    		<td align="right" style="padding-right: 5px; width:100px; height: 35px; color: #aeaeae; font-size: 18px;">
 			    				设备类型：
 			    			</td>
 				    		<td>
@@ -168,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    		</td>
 				    	</tr>
 				    	<tr>	
-				    		<td align="right" style="padding-right: 5px; width:90px; height: 35px; color: #aeaeae; font-size: 16px;">
+				    		<td align="right" style="padding-right: 5px; width:100px; height: 35px; color: #aeaeae; font-size: 18px;">
 			    				购买状态：
 			    			</td>
 				    		<td>
