@@ -48,6 +48,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  padding: 7px 14px;
 		  border-bottom: 1px solid #e8e8e8;
 		}
+		.list .list-item:HOVER {
+			background: #e8df95
+		}
 	</style>
   </head>
 <body>

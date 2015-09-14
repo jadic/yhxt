@@ -227,15 +227,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div id="content" <c:if test="${query.type == 0}">style="padding: 5px;"</c:if>>
   	
   <c:if test="${query.type == 0}">
-        <table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; height:40PX; width: 100%; background: #F7F7F7;">
+        <table cellpadding="0" border="0" cellspacing="0" style="font-size: 18px; height:40PX; width: 100%; background: #F7F7F7;">
   			<tr>
   				<td style="padding-left: 10px;" align="left">基本信息</td>
   				<td align="right" style="padding-right: 10px;"><a href="javascript:void(0)" tag="${dpCnt}" onclick="funDpInfo(this)"><img src="<c:url value='/patient/themes/images/btn_dp.png'/>"></a></td>
   			</tr>
   		</table>
-       	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
+       	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 18px; width: 100%;">
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
     				真实姓名：
     			</td>
     			<td align="left">
@@ -268,8 +268,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
-    				性<span style="padding: 0 13px;"></span>别：
+    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
+    				性<span style="padding: 0 18px;"></span>别：
     			</td>
     			<td align="left">
     				<select class="selectMax_informationModify  text-input validate[required]" id="gender" name="gender">
@@ -281,7 +281,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
     				出生日期：
     			</td>
     			<td align="left">
@@ -290,7 +290,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
     				手机号码：
     			</td>
     			<td align="left">
@@ -299,7 +299,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</td>
     		</tr>
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
     				电子邮箱：
     			</td>
     			<td align="left">
@@ -308,14 +308,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</tr>
     		<tr><td style="height: 20px;"></td></tr>
     	</table>
-         <table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; height:40PX; width: 100%; background: #F7F7F7;">
+         <table cellpadding="0" border="0" cellspacing="0" style="font-size: 18px; height:40PX; width: 100%; background: #F7F7F7;">
   			<tr>
   				<td style="padding-left: 10px;" align="left">工作成京</td>
   			</tr>
   		</table>
-       	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
+       	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 18px; width: 100%;">
     		<tr>
-    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
     				工作成就：
     			</td>
     			<td align="left" colspan="3">

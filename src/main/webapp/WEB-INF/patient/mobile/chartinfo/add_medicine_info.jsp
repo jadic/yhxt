@@ -132,13 +132,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body style="padding: 0px; margin: 0px;">
   	<header id="header">
   		<c:if test="${query.id  > 0}">修改</c:if><c:if test="${query.id  == 0}">新增</c:if>用药记录
-  		<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
+  		<div class="left"><a href="<c:url value='/p/query/medicine.do'/>"><span class="corner"></span></a></div>
   		<c:if test="${query.id  > 0}"><div class="right"><a href="javascript:void(0)" onclick="delMedicine(${query.id})"><span class="cornerDel"></span></a></div></c:if>
   	</header>
   	<div id="content">
         	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 18px; width: 100%;">
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px height: 40px; color: #aeaeae; font-size: 18px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 40px; color: #aeaeae; font-size: 18px;">
 	    				药品名称：
 	    			</td>
 	    			<td align="left">
@@ -147,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px height: 40px; color: #aeaeae; font-size: 18px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 40px; color: #aeaeae; font-size: 18px;">
 	    				用药剂量：
 	    			</td>
 	    			<td align="left">
@@ -156,7 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px height: 40px; color: #aeaeae; font-size: 18px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 40px; color: #aeaeae; font-size: 18px;">
 	    				用药单位：
 	    			</td>
 	    			<td align="left">
@@ -173,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px height: 40px; color: #aeaeae; font-size: 18px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 40px; color: #aeaeae; font-size: 18px;">
 	    				用药时间：
 	    			</td>
 	    			<td align="left">

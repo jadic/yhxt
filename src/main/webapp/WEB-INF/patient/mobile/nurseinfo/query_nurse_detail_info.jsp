@@ -190,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		</tr>
 			    	<tr>	
 		    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
-		    				籍<span style="padding: 0 13px;"></span>贯：
+		    				籍<span style="padding: 0 16px;"></span>贯：
 		    			</td>
 		    			<td align="left">
 		    				<input class="inputMin_informationModify text-input validate[required,funcCall[chinaornumer],minSize[1],maxSize[16]] " type="text" id="nativePlace" name="nativePlace" value="${userModel.nativePlace }" maxlength="80">

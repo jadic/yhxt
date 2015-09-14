@@ -226,17 +226,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div id="content">
   		<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; height:40PX; width: 100%; background: #F7F7F7;">
   			<tr>
-  				<td style="padding-left: 10px;" align="left">基本信息</td>
+  				<td style="padding-left: 10px; font-size: 18px;" align="left">基本信息</td>
   				<td align="right" style="padding-right: 10px;"><a href="javascript:void(0)" onclick="edit_baseinfo(this, 1)" tag="false"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></td>
   			</tr>
   		</table>
         	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				真实姓名：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input" type="text" id="name" name="name" value="${userModel.name }" maxlength="16">
+	    				<input class="inputMin_informationModify text-input" style="font-size: 18px;" type="text" id="name" name="name" value="${userModel.name }" maxlength="16">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    			<td rowspan="4" align="center">
@@ -261,38 +261,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				出生日期：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-inputWdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="birthdate" name="birthdate" maxlength="16" value="${userModel.birthdate }">
+	    				<input class="inputMin_informationModify text-inputWdate"  style="font-size: 18px;" type="date" id="birthdate" name="birthdate" maxlength="16" value="${userModel.birthdate }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				手机号码：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input" type="text" id="cellphone" name="cellphone" maxlength="11" value="${userModel.cellphone }">
+	    				<input class="inputMin_informationModify text-input" type="text" style="font-size: 18px;"  id="cellphone" name="cellphone" maxlength="11" value="${userModel.cellphone }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				电子邮箱：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input" type="text" id="email" name="email" maxlength="40" value="${userModel.email }">
+	    				<input class="inputMin_informationModify text-input" type="text" style="font-size: 18px;"  id="email" name="email" maxlength="40" value="${userModel.email }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
-	    				性<span style="padding: 0 16px;"></span>别：
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
+	    				性<span style="padding: 0 18px;"></span>别：
 	    			</td>
 	    			<td align="left" colspan="2">
-	    				<select class="selectMax_informationModify  text-input validate[required]" id="gender" name="gender">
+	    				<select class="selectMax_informationModify  text-input validate[required]" id="gender" style="font-size: 18px;"  name="gender">
 		                   <option value="-1">请选择</option>
 			               <option value="1" <c:if test="${userModel.gender == 1}">selected="selected"</c:if>>男</option>
 			               <option value="2" <c:if test="${userModel.gender == 2}">selected="selected"</c:if>>女</option>
@@ -305,35 +305,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         <table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; height:40PX; width: 100%; background: #F7F7F7;">
   			<tr>
-  				<td style="padding-left: 10px;" align="left">详细信息</td>
+  				<td style="padding-left: 10px; font-size: 18px;" align="left">详细信息</td>
   				<td align="right" style="padding-right: 10px;"><a href="javascript:void(0)" onclick="edit_baseinfo(this, 2)" tag="false"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></td>
   			</tr>
   		</table>
         	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				证件类型：
 	    			</td>
 	    			<td align="left">
-	    				<select class="selectMax_informationModify  text-input validate[required]" id="credentialType" name="credentialType">
+	    				<select class="selectMax_informationModify  text-input validate[required]" style="font-size: 18px;"  id="credentialType" name="credentialType">
 		                    <option value="-1">请选择</option>
 		               </select>
 	    			</td>
 	    		</tr>
 	    		<tr>	
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				证件号码：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input" type="text" id="credentialNo" name="credentialNo" maxlength="50" value="${userModel.credentialNo }">
+	    				<input class="inputMin_informationModify text-input"  style="font-size: 18px;" type="text" id="credentialNo" name="credentialNo" maxlength="50" value="${userModel.credentialNo }">
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				是否军人：
 	    			</td>
 	    			<td align="left">
-	    				<select class="selectMax_informationModify  text-input validate[required]" id="isSoldier" name="isSoldier">
+	    				<select class="selectMax_informationModify  text-input validate[required]" style="font-size: 18px;"  id="isSoldier" name="isSoldier">
 		                    <option value="-1">请选择</option>
 			               <option value="0" <c:if test="${userModel.isSoldier == 0}">selected="selected"</c:if>>是</option>
 			               <option value="1" <c:if test="${userModel.isSoldier == 1}">selected="selected"</c:if>>否</option>
@@ -341,11 +341,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>	
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				是否残疾：
 	    			</td>
 	    			<td align="left">
-	    				<select class="selectMax_informationModify  text-input validate[required]" id="isDisablity" name="isDisablity">
+	    				<select class="selectMax_informationModify  text-input validate[required]" style="font-size: 18px;"  id="isDisablity" name="isDisablity">
 		                    <option value="-1">请选择</option>
 			               <option value="0" <c:if test="${userModel.isDisablity == 0}">selected="selected"</c:if>>是</option>
 			               <option value="1" <c:if test="${userModel.isDisablity == 1}">selected="selected"</c:if>>否</option>
@@ -353,154 +353,154 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				身高(cm)：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input" type="text" id="height" name="height" value="${userModel.height }" maxlength="3">
+	    				<input class="inputMin_informationModify text-input" type="text" style="font-size: 18px;"  id="height" name="height" value="${userModel.height }" maxlength="3">
 	    			</td>
 	    		</tr>
 	    		<tr>	
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				体重(kg)：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input" type="text" id="weight" name="weight" value="${userModel.weight }" maxlength="3">
+	    				<input class="inputMin_informationModify text-input" type="text" style="font-size: 18px;"  id="weight" name="weight" value="${userModel.weight }" maxlength="3">
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
-	    				民<span style="padding: 0 16px;"></span>族：
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
+	    				民<span style="padding: 0 18px;"></span>族：
 	    			</td>
 	    			<td align="left">
-	    				<select class="selectMax_informationModify  text-input validate[required]" id="nationality" name="nationality">
+	    				<select class="selectMax_informationModify  text-input validate[required]" style="font-size: 18px;"  id="nationality" name="nationality">
 		                    <option value="-1">请选择</option>
 		               </select>
 	    			</td>
 	    		</tr>
 	    		<tr>	
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
-	    				籍<span style="padding: 0 16px;"></span>贯：
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
+	    				籍<span style="padding: 0 18px;"></span>贯：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input" type="text" id="nativePlace" name="nativePlace" value="${userModel.nativePlace }" maxlength="80">
+	    				<input class="inputMin_informationModify text-input" type="text" style="font-size: 18px;"  id="nativePlace" name="nativePlace" value="${userModel.nativePlace }" maxlength="80">
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				婚姻状况：
 	    			</td>
 	    			<td align="left">
-	    				<select class="selectMax_informationModify  text-input validate[required]" id="marriageStatus" name="marriageStatus">
+	    				<select class="selectMax_informationModify  text-input validate[required]" style="font-size: 18px;"  id="marriageStatus" name="marriageStatus">
 		                    <option value="-1">请选择</option>
 		               </select>
 	    			</td>
 	    		</tr>
 	    		<tr>	
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				户籍类型：
 	    			</td>
 	    			<td align="left">
-	    				<select class="selectMax_informationModify  text-input validate[required]" id="householdType" name="householdType">
+	    				<select class="selectMax_informationModify  text-input validate[required]" style="font-size: 18px;"  id="householdType" name="householdType">
 		                    <option value="-1">请选择</option>
 		               </select>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
-	    				学<span style="padding: 0 16px;"></span>历：
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
+	    				学<span style="padding: 0 18px;"></span>历：
 	    			</td>
 	    			<td align="left">
-	    				<select class="selectMax_informationModify  text-input validate[required]" id="education" name="education">
+	    				<select class="selectMax_informationModify  text-input validate[required]" style="font-size: 18px;"  id="education" name="education">
 		                    <option value="-1">请选择</option>
 		               </select>
 	    			</td>
 	    		</tr>
 	    		<tr>	
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				政治面貌：
 	    			</td>
 	    			<td align="left">
-	    				<select class="selectMax_informationModify  text-input validate[required]" id="policticsStatus" name="policticsStatus">
+	    				<select class="selectMax_informationModify  text-input validate[required]" style="font-size: 18px;"  id="policticsStatus" name="policticsStatus">
 		                    <option value="-1">请选择</option>
 		               </select>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				配偶姓名：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input" type="text" id="spouseName" name="spouseName" value="${userModel.spouseName }" maxlength="30">
+	    				<input class="inputMin_informationModify text-input" type="text" style="font-size: 18px;"  id="spouseName" name="spouseName" value="${userModel.spouseName }" maxlength="30">
 	    			</td>
 	    		</tr>
 	    		<tr>	
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				配偶手机：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input" type="text" id="spousePhone" name="spousePhone" value="${userModel.spousePhone }" maxlength="30">
+	    				<input class="inputMin_informationModify text-input" type="text" style="font-size: 18px;"  id="spousePhone" name="spousePhone" value="${userModel.spousePhone }" maxlength="30">
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				家庭电话：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input" type="text" id="homePhone" name="homePhone" value="${userModel.homePhone }" maxlength="15">
+	    				<input class="inputMin_informationModify text-input" type="text" style="font-size: 18px;"  id="homePhone" name="homePhone" value="${userModel.homePhone }" maxlength="15">
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				家庭地址：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMax_informationModify text-input" type="text" id="homeAddress" name="homeAddress" value="${userModel.homeAddress }" maxlength="80">
+	    				<input class="inputMax_informationModify text-input" type="text" style="font-size: 18px;"  id="homeAddress" name="homeAddress" value="${userModel.homeAddress }" maxlength="80">
 	    			</td>
 	    		</tr>
 	    	</table>
 	    
         <table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; height:40PX; width: 100%; background: #F7F7F7;">
   			<tr>
-  				<td style="padding-left: 10px;" align="left">工作信息</td>
+  				<td style="padding-left: 10px; font-size: 18px;" align="left">工作信息</td>
   				<td align="right" style="padding-right: 10px;"><a href="javascript:void(0)" onclick="edit_baseinfo(this, 3)" tag="false"><img src="<c:url value='/patient/themes/images/btn_editor.png'/>"></a></td>
   			</tr>
   		</table>
         	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				工作年限：
 	    			</td>
 	    			<td align="left">
-	    				<select class="selectMax_informationModify  text-input validate[required]" id="workingAge" name="workingAge">
+	    				<select class="selectMax_informationModify  text-input validate[required]" style="font-size: 18px;"  id="workingAge" name="workingAge" style="font-size: 18px;">
 		                    <option value="-1">请选择</option>
 		               </select>
 	    			</td>
 	    		</tr>
 	    		<tr>	
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
-	    				薪<span style="padding: 0 16px;"></span>酬：
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
+	    				薪<span style="padding: 0 18px;"></span>酬：
 	    			</td>
 	    			<td align="left">
-	    				<select class="selectMax_informationModify  text-input validate[required]" id="salary" name="salary">
+	    				<select class="selectMax_informationModify  text-input validate[required]" style="font-size: 18px;"  id="salary" name="salary">
 		                    <option value="-1">请选择</option>
 		               </select>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				公司名称：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMax_informationModify text-input" type="text" id="companyName" name="companyName" value="${userModel.companyName }">
+	    				<input class="inputMax_informationModify text-input" type="text" style="font-size: 18px;"  id="companyName" name="companyName" value="${userModel.companyName }">
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 0; width:85px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				公司地址：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMax_informationModify text-input" type="text" id="companyAddress" name="companyAddress" value="${userModel.companyAddress }">
+	    				<input class="inputMax_informationModify text-input" type="text" style="font-size: 18px;"  id="companyAddress" name="companyAddress" value="${userModel.companyAddress }">
 	    			</td>
 	    		</tr>
 	    		<tr><td colspan="2" style="height: 20px;"></td></tr>	

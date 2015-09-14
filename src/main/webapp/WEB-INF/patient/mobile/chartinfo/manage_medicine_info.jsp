@@ -131,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    				开始时间：
 		    			</td>
 			    		<td>
-			    			<input class="inputMin_informationModify text-input"  style="height: 35px; font-size: 18px;" type="date" id="startTime"  maxlength="16">
+			    			<input class="inputMin_informationModify text-input"  style="height: 35px; width: 80%; font-size: 18px;" type="date" id="startTime"  maxlength="16">
 			    		</td>
 			    	</tr>
 			    	</tr>	
@@ -139,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    				结束时间：
 		    			</td>
 			    		<td>
-			    			<input class="inputMin_informationModify text-input"  style="height: 35px; font-size: 18px;" type="date" id="endTime"  maxlength="16">
+			    			<input class="inputMin_informationModify text-input"  style="height: 35px; width: 80%; font-size: 18px;" type="date" id="endTime"  maxlength="16">
 			    		</td>
 			    	</tr>
 			    	<tr>
@@ -147,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    				药品名称：
 		    			</td>
 			    		<td>
-			    			<input class="inputMin_informationModify text-input" style="height: 35px; font-size: 18px;" type="text" id="name" name="name" value="${query.name }">
+			    			<input class="inputMin_informationModify text-input" style="height: 35px; width: 80%; font-size: 18px;" type="text" id="name" name="name" value="${query.name }">
 			    		</td>
 			    	</tr>
 			    	</tr>	

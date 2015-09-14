@@ -131,7 +131,7 @@
 		    				开始时间：
 		    			</td>
 			    		<td>
-			    			<input class="inputMin_informationModify text-input"  style="height: 35px; font-size: 18px;" type="date" id="stime"  maxlength="16">
+			    			<input class="inputMin_informationModify text-input"  style="height: 35px; font-size: 18px; width: 80%;" type="date" id="stime"  maxlength="16">
 			    		</td>
 			    	</tr>
 			    	</tr>	
@@ -139,7 +139,7 @@
 		    				结束时间：
 		    			</td>
 			    		<td>
-			    			<input class="inputMin_informationModify text-input"  style="height: 35px; font-size: 18px;" type="date" id="etime"  maxlength="16">
+			    			<input class="inputMin_informationModify text-input"  style="height: 35px; font-size: 18px; width: 80%;" type="date" id="etime"  maxlength="16">
 			    		</td>
 			    	</tr>
 			    	</tr>	

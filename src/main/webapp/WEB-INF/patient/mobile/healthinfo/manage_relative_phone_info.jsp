@@ -35,13 +35,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li class="activeable list-item" style="display:-webkit-box; display:-moz-box;"  onclick="mergeRelative(${relativeItem.id})">
 	               <div style="width: 70px; padding-top:10px; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-ordinal-group:2;-moz-box-ordinal-group:2;">
 	              		 <h2 class="item-title" style="color: #0f82c1;">${relativeItem.name }</h2>
-	              		 <p class="item-info">${relativeItem.typeName }</p>
+	              		 <p class="item-time">${relativeItem.typeName }</p>
 	              	</div>
 	               <div style="-webkit-box-flex:1; -moz-box-flex:1; -webkit-box-ordinal-group:2;-moz-box-ordinal-group:2;">
-		               <p class="item-info">
+		               <p class="item-time">
 		               		手机：${relativeItem.cellPhone }
 		               </p>
-		               <p class="item-info">
+		               <p class="item-time">
 		               		固话：${relativeItem.tel }
 		               </p>
 		               <p class="item-time">地址：${relativeItem.address }</p>

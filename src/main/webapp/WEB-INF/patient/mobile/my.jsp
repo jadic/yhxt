@@ -30,6 +30,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			margin-right:15px;
 			-webkit-border-radius: 75px; 
 		} 
+		.circle:HOVER {
+			background-color: #e8df95
+		}
 		.circle img{width: 75px;  height: 75px;  border-radius:75px}
 		.list .item-logo {
 		  display: inline-block;
@@ -47,6 +50,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.list .list-item {
 		  padding: 7px 14px;
 		  border-bottom: 1px solid #e8e8e8;
+		}
+		.list .list-item:HOVER {
+			background: #e8df95
 		}
 	</style>
 	<script type="text/JavaScript">

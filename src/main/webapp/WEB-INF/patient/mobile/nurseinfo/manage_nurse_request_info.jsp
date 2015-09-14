@@ -68,27 +68,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
   	</header>
   	<div id="content">
-        	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
+        	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 18px; width: 100%;">
 	    		<tr>
-	    			<td align="left" style="padding: 5px 0 0 15px;  height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="left" style="padding: 5px 0 0 15px;  height: 40px; color: #aeaeae; font-size: 18px;">
 	    				医护人姓名：
 	    			</td>
 	    		</tr>
 	    		<tr>	
 	    			<td align="left" style="padding: 5px 0 0 15px">
-	    				<input type="text" id="name" name="name" maxlength="50" value="${query.name }">
+	    				<input type="text" id="name" name="name" style="font-size: 18px; height: 35px;" maxlength="50" value="${query.name }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="left" style="padding: 5px 0 0 15px;  height: 30px; color: #aeaeae; font-size: 16px;">
-	    				备<span style="padding: 0 13px;"></span>注：
+	    			<td align="left" style="padding: 5px 0 0 15px;  height: 30px; color: #aeaeae; font-size: 18px;">
+	    				备<span style="padding: 0 18px;"></span>注：
 	    			</td>
 	    		</tr>
 	    		<tr>	
 	    			<td align="left" style="padding: 5px 0 0 15px">
 	    				<input type="hidden" id="id" name="id" value="${diseaseHis.id}"/>
-	    				<textarea  style="height: 80px;" id="memo" name="memo" maxlength="250"></textarea>
+	    				<textarea  style="height: 80px; font-size: 18px;" id="memo"  name="memo" maxlength="250"></textarea>
 	    			</td>
 	    		</tr>
 	    		<tr>

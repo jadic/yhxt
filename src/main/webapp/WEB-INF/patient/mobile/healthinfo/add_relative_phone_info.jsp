@@ -125,26 +125,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 	<header id="header">
   		<c:if test="${query.id  > 0}">修改</c:if><c:if test="${query.id  == 0}">新增</c:if>亲情号码
-  		<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
+  		<div class="left"><a href="<c:url value='/p/query/relative.do'/>"><span class="corner"></span></a></div>
   		<c:if test="${query.id  > 0}"><div class="right"><a href="javascript:void(0)" onclick="deleteRelative(${relative.id})"><span class="cornerDel"></span></a></div></c:if>
   	</header>
   	<div id="content">
         	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:90px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				姓<span style="padding: 0 16px;"></span>名：
 	    			</td>
 	    			<td align="left">
-	    				<input  type="text" id="name" name="name" maxlength="16"  value="${relative.name }">
+	    				<input  type="text" id="name" name="name" maxlength="16" style="font-size: 18px;"  value="${relative.name }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:90px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				亲属关系：
 	    			</td>
 	    			<td align="left">
-	    				<select class="selectMax_informationModify  text-input validate[required]" id="type" name="type" >
+	    				<select class="selectMax_informationModify  text-input validate[required]" id="type" name="type"  style="font-size: 18px;">
 		                   <option value="-1" <c:if test="${relative.type == -1}">selected="selected"</c:if>>请选择</option>
 			               <option value="0" <c:if test="${relative.type == 0}">selected="selected"</c:if>>家庭成员</option>
 			               <option value="1" <c:if test="${relative.type == 1}">selected="selected"</c:if>>亲戚 </option>
@@ -156,28 +156,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:90px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				手机号码：
 	    			</td>
 	    			<td align="left">
-	    				<input  type="text" id="cellPhone" name="cellPhone" maxlength="16"  value="${relative.cellPhone }">
+	    				<input  type="text" id="cellPhone" name="cellPhone" maxlength="16"  style="font-size: 18px;" value="${relative.cellPhone }">
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:90px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				固定电话：
 	    			</td>
 	    			<td align="left">
-	    				<input  type="text" id="tel" name="tel" maxlength="16"  value="${relative.tel }">
+	    				<input  type="text" id="tel" name="tel" maxlength="16" style="font-size: 18px;" value="${relative.tel }">
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:90px; height: 30px; color: #aeaeae; font-size: 16px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px; height: 30px; color: #aeaeae; font-size: 18px;">
 	    				联系地址：
 	    			</td>
 	    			<td align="left">
 	    				<input type="hidden" id="id" name="id" value="${relative.id}"/>
-	    				<input  type="text" id="address" name="address" maxlength="150"  value="${relative.address}">
+	    				<input  type="text" id="address" name="address" maxlength="150"  style="font-size: 18px;" value="${relative.address}">
 	    			</td>
 	    		</tr>
 	    		<tr>

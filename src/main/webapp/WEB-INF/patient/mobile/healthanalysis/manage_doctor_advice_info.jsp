@@ -100,13 +100,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	</header>
   	<div id="content">
 		<ul class="list">
-			<li class="activeable list-item" style="background: #efefef">建议信息</li>
+			<li class="activeable list-item" style="background: #efefef; font-size: 18px;">建议信息</li>
 			<li class="activeable list-item">
                 <div style="word-wrap:break-word; padding-bottom: 10px; font-size: 18px;"><c:if test="${not empty advice}">${advice.b }</c:if></div>
                 <p class="item-time" style="float: right;"><c:if test="${not empty advice}">${advice.a }</c:if></p>
 	       	</li>
 			
-			<li class="activeable list-item" style="background: #efefef">
+			<li class="activeable list-item" style="background: #efefef; font-size: 18px;">
 				执行情况
 			</li>
 	        <li class="activeable list-more" style="display: none;" onclick="PageOper.funLoadMore()">加载更多</li>
