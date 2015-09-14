@@ -196,6 +196,19 @@ public class PQueryService extends EntityService<BaseModel, Long>
 		return pQueryDAO.modifyUserPwdInfo(model);
 	}
 	
+	
+	/**
+	 * 描述信息：修改密码
+	 * 创建时间：2015年9月13日 上午7:28:05
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	public int modifyUserPwdInfoTwo(UserModel model)
+	{
+		return pQueryDAO.modifyUserPwdInfoTwo(model);
+	}
+	
 	/**
 	 * 描述信息：查询我的亲情号码总数
 	 * 创建时间：2015年3月5日 上午9:28:48

@@ -34,15 +34,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.list .item-logo {
 		  display: inline-block;
 		  float: left;
-		  width: 30px;
-		  height: 30px;
+		  width: 35px;
+		  height: 35px;
 		}
 		.list .item-desc{
-			  margin-left: 40px;
-			  height: 32px;
+			  margin-left: 50px;
+			  height: 40px;
 			  color: #333;
-			  line-height: 30px;
+			  line-height: 40px;
 		}
+		.list .item-desc div{font-size: 18px;}
 		.list .list-item {
 		  padding: 7px 14px;
 		  border-bottom: 1px solid #e8e8e8;
@@ -50,13 +51,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
   </head>
 <body>
-	<header id="header">搜索</header>
+	<header id="header">查询</header>
 	<div id="content">
 		<ul class="list">
 			<li class="activeable list-item" style="background: #efefef"></li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
 	           	<a href="<c:url value='/p/chart2.do'/>">
-		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <img src="<c:url value='/patient/themes/images/mobile/xtxx.png'/>" class="item-logo">
 		            <div class="item-desc">
 		            	<div style="float: left;">
 		            		血糖信息
@@ -69,10 +70,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
 	        	<a href="<c:url value='/p/chart4.do'/>">
-		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <img src="<c:url value='/patient/themes/images/mobile/xyxx.png'/>" class="item-logo">
 		            <div class="item-desc">
 		            	<div style="float: left;">
-		            		血圧信息
+		            		血压信息
 		            	</div>
 		            	<div style="float: right; line-height: 60px; width: 12px;">
 		                    <div class="item-next"></div>
@@ -82,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
 	           <a href="<c:url value='/p/chart3.do'/>">
-		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <img src="<c:url value='/patient/themes/images/mobile/twxx.png'/>" class="item-logo">
 		            <div class="item-desc">
 		            	<div style="float: left;">
 		            		体温信息
@@ -95,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
 	           <a href="<c:url value='/p/query/medicine.do'/>">
-		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <img src="<c:url value='/patient/themes/images/mobile/yygl.png'/>" class="item-logo">
 		            <div class="item-desc">
 		            	<div style="float: left;">
 		            		用药管理
@@ -110,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <li class="activeable list-item" style="background: #efefef"></li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
 	            <a href="<c:url value='/p/query/healthBg.do'/>">
-		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <img src="<c:url value='/patient/themes/images/mobile/jkbg.png'/>" class="item-logo">
 		            <div class="item-desc">
 		            	<div style="float: left;">
 		            		健康报告
@@ -123,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
 	           <a href="<c:url value='/p/query/advice.do?adviceType=1'/>">
-		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <img src="<c:url value='/patient/themes/images/mobile/yyjy.png'/>" class="item-logo">
 		            <div class="item-desc">
 		            	<div style="float: left;">
 		            		用药建议
@@ -136,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
 	            <a href="<c:url value='/p/query/advice.do?adviceType=2'/>">
-		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <img src="<c:url value='/patient/themes/images/mobile/ysjy.png'/>" class="item-logo">
 		            <div class="item-desc">
 		            	<div style="float: left;">
 		            		饮食建议
@@ -149,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
 	            <a href="<c:url value='/p/query/advice.do?adviceType=3'/>">
-		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <img src="<c:url value='/patient/themes/images/mobile/ydjy.png'/>" class="item-logo">
 		            <div class="item-desc">
 		            	<div style="float: left;">
 		            		运动建议
@@ -162,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </li>
 	        <li class="activeable list-item" data-positionid="157429" data-companyid="17751">
 	            <a href="<c:url value='/p/query/advice.do?adviceType=4'/>">
-		            <img src="<c:url value='/patient/themes/images/bpAlarm.png'/>" class="item-logo">
+		            <img src="<c:url value='/patient/themes/images/mobile/jzjy.png'/>" class="item-logo">
 		            <div class="item-desc">
 		            	<div style="float: left;">
 		            		就诊建议

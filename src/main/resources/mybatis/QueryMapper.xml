@@ -695,6 +695,15 @@
 		]]>
 	</update>
 	
+	<!-- 修改密码 -->
+	<update id="QueryMapper.modifyUserPwdInfoTwo" parameterType="userModel">
+		<![CDATA[
+			UPDATE tab_user  SET  
+			userPass = #{userPwd}
+			WHERE userName = #{userName}
+		]]>
+	</update>
+	
 	
 	<!-- 查询我的亲情号码总数 -->
 	<select id="QueryMapper.queryRelativePhoneInfoCnt" 	parameterType="queryModel"	resultType="long">

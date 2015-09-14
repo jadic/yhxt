@@ -240,6 +240,46 @@ public class PQueryController extends BaseController
 	
 	
 	/**
+	 * 描述信息：用户注册
+	 * 创建时间：2015年8月3日 下午3:30:51
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/goForgetPwd.do")
+	public ModelAndView goForgetPwd(UserModel user, ModelMap model, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/forget_pwd");
+		try
+		{
+			if (SMSUtil.isAuthCodeValid(user.getUserName(), user.getRand()))
+			{
+				if (pQueryService.modifyUserPwdInfoTwo(user) > 0)
+				{
+					
+					result = new ModelAndView("/patient/common/success");	
+					result.addObject("errorinfo", "成功修改密码");
+				}
+				else 
+				{
+					result.addObject("errorinfo", "修改密码失败");
+				}
+			}
+			else 
+			{
+				result.addObject("errorinfo", "短信验证失败");
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("NSearchController goReg error:", e);
+			result.addObject("errorinfo", "注册失败");
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * 描述信息：注销
 	 * 创建时间：2015年4月2日 下午3:22:03
 	 * @author WCL (ln_admin@yeah.net)

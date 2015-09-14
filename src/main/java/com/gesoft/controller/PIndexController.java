@@ -129,6 +129,11 @@ public class PIndexController extends BaseController
 		return "/patient/healthinfo/manage_modifypwd_info";
 	}
 	
+	@RequestMapping(value="/forgetPwd.do")
+	public String toForgetPwd(HttpServletRequest request)
+	{
+		return "/patient/forget_pwd";
+	}
 	
 	/**
 	 * 描述信息：我的服务与设备

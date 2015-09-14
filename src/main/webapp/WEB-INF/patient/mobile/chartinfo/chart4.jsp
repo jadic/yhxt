@@ -126,7 +126,7 @@
   </head>
   <body style="padding: 0px; margin: 0px;">
   <header id="header">
-  		血圧信息
+  		血压信息
   		<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
   	</header>
   	<div id="content">
@@ -134,19 +134,19 @@
 	    	<form id="inputform" name="inputform" action="<c:url value='/p/query/device.do'/>" method="post">
 			    <table border="0" cellspacing="0" cellpadding="0" style="width:100%; font-size: 15px;">
 			    	<tr>
-			    		<td align="center" style="width:80px; height: 32px; color: #aeaeae; font-size: 13px;">
+			    		<td align="center" style="width:100px; height: 40px; color: #aeaeae; font-size: 18px;">
 		    				开始时间：
 		    			</td>
 			    		<td>
-			    			<input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" type="text" id="stime"  maxlength="16">
+			    			<input class="inputMin_informationModify text-input"  style="height: 35px; font-size: 18px;" type="date" id="stime"  maxlength="16">
 			    		</td>
 			    	</tr>
-			    	<tr>	
-			    		<td align="center" style="width:80px; height: 32px; color: #aeaeae; font-size: 13px;">
+			    	</tr>	
+			    		<td align="center" style="width:100px; height: 40px; color: #aeaeae; font-size: 18px;">
 		    				结束时间：
 		    			</td>
 			    		<td>
-			    			<input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" type="text" id="etime"  maxlength="16">
+			    			<input class="inputMin_informationModify text-input"  style="height: 35px; font-size: 18px;" type="date" id="etime"  maxlength="16">
 			    		</td>
 			    	</tr>
 			    	<tr>		

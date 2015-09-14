@@ -13,7 +13,6 @@
 	<%@ include file="/WEB-INF/patient/common/date-include.jsp"%>
     <%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
 	<link rel="stylesheet" href="<c:url value='/patient/themes/index_tab.css'/>" type="text/css"/>
-	<script type="text/javascript" src="<c:url value='/common/anychart/AnyChart.js'/>" ></script>
 	<style>
 		.Wdate{
 			height: 28px;
@@ -31,7 +30,6 @@
 	</style>
 	<script type="text/javascript" src="<c:url value='/common/scripts/highcharts.js'/>"></script>
 	<script type="text/javascript">
-		var _chart_ = "<c:url value='/common/anychart/AnyChart.swf'/>";
 		$(function(){
 			$("#stime").val(DateAdd("d",-7,new Date()).pattern("yyyy-MM-dd"));
 			$("#etime").val(new Date().pattern("yyyy-MM-dd"));
@@ -43,19 +41,10 @@
 	        chart1.setXMLFile("<c:url value='/patient/pages/chart2.xml'/>");
 		    chart1.write("container1");
 		    */
-			PageFx.initChart();
 			PageFx.funSearch();
 		});
 		
 		var PageFx = {
-			Chart1:null,	
-			initChart : function()
-			{
-				PageFx.Chart1 = new AnyChart(_chart_);
-				PageFx.Chart1.wMode = "opaque";
-				PageFx.Chart1.width = "100%";
-				PageFx.Chart1.height = $(window).height()-$(".search").height()-110;
-			},
 			funSearch : function()
 			{
 				$.ajax({
@@ -142,59 +131,7 @@
 			            }()
 			        }]
 			    });
-			},
-			showChart2 : function(data)
-			{
-				var myParamObj = {
-					mTopFlag    : false,	
-					mLabelFormat: '{%Name}\n{%SeriesName}: {%YValue}{numDecimals:2}(mmol/L)',
-					mYtitle		: '空腹/饭后(mmHg)',
-					mChartType  : 'Spline', 
-					mFormateYTip: '{%Value}{numDecimals:2}',
-					mViewData 	: ''
-				};
-				var mViewData1 = '<series name="空腹">';
-				var mViewData2 = '<series name="饭后">';
-				if(data.total > 0)
-				{
-					for(var nItem=0; nItem<data.total; nItem++)
-					{
-						if(data.rows[nItem].takeTime1 != "" && data.rows[nItem].takeTime1 != "null" && data.rows[nItem].takeTime1 != null)
-						{
-							mViewData1 += '<point name="'+data.rows[nItem].takeTime1+'" y="'+(parseFloat(data.rows[nItem].bloodGlucose1)/10).toFixed(2)+'"/>';
-						}	
-						if(data.rows[nItem].takeTime2 != "" && data.rows[nItem].takeTime2 != "null" && data.rows[nItem].takeTime2 != null)
-						{
-							mViewData2 += '<point name="'+data.rows[nItem].takeTime2+'" y="'+(parseFloat(data.rows[nItem].bloodGlucose2)/10).toFixed(2)+'"/>';
-						}
-					}	
-				}
-				mViewData1 += '</series>';
-				mViewData2 += '</series>';
-				myParamObj.mViewData = mViewData1 + mViewData2;
-				try{
-				PageFx.funChart(PageFx.Chart1, "container1", "/patient/pages/chart2", myParamObj);
-				}catch(e){}
-			},
-			funChart : function(mObj, paramId, paramUrl, paramObj)
-			{
-				$.ajax({
-					type : "POST",
-					url  : _ctx_ + paramUrl +".jsp",
-					async : false,
-					cache : false,
-					success:function(data)
-					{
-						var viewData = data;
-						for (prop in paramObj)
-						{
-							viewData = viewData.replace(eval("/"+prop+"/g"), paramObj[prop]);
-						}
-						mObj.setData(viewData);
-						mObj.write(paramId);
-					}
-				});	
-			},
+			}
 		};
 		
 	</script>   
@@ -209,19 +146,19 @@
 	    	<form id="inputform" name="inputform" action="<c:url value='/p/query/device.do'/>" method="post">
 			    <table border="0" cellspacing="0" cellpadding="0" style="width:100%; font-size: 15px;">
 			    	<tr>
-			    		<td align="center" style="width:80px; height: 32px; color: #aeaeae; font-size: 13px;">
+			    		<td align="center" style="width:100px; height: 40px; color: #aeaeae; font-size: 18px;">
 		    				开始时间：
 		    			</td>
 			    		<td>
-			    			<input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="stime"  maxlength="16">
+			    			<input class="inputMin_informationModify text-input"  style="height: 35px; font-size: 18px;" type="date" id="stime"  maxlength="16">
 			    		</td>
 			    	</tr>
 			    	</tr>	
-			    		<td align="center" style="width:80px; height: 32px; color: #aeaeae; font-size: 13px;">
+			    		<td align="center" style="width:100px; height: 40px; color: #aeaeae; font-size: 18px;">
 		    				结束时间：
 		    			</td>
 			    		<td>
-			    			<input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})" type="text" id="etime"  maxlength="16">
+			    			<input class="inputMin_informationModify text-input"  style="height: 35px; font-size: 18px;" type="date" id="etime"  maxlength="16">
 			    		</td>
 			    	</tr>
 			    	</tr>	

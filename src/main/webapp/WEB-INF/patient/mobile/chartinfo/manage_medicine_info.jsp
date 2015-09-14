@@ -16,6 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/patient/common/date-include.jsp"%>
     <%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
+	<link rel="stylesheet" href="<c:url value='/patient/themes/index_tab.css'/>" type="text/css"/>
 	<style>
 		.Wdate{
 			height: 28px;
@@ -117,35 +118,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body style="padding: 0px; margin: 0px;">
   	<header id="header">
   		用药管理
-  		<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
+  		<div class="left"><a href="<c:url value='/p/search.do'/>" ><span class="corner"></span></a></div>
   		<div class="right"><a href="javascript:void(0)" onclick="goMerge(0, '新增用药记录')"><span class="cornerAdd"></span></a></div>
   	</header>
   	<div id="content">
 	    <div class="search">
 	    	<form id="inputform" name="inputform" action="<c:url value='/p/query/medicine.do'/>" method="post">
 			    <table border="0" cellspacing="0" cellpadding="0" style="width:100%; font-size: 15px;">
+			    	
 			    	<tr>
-			    		<td align="center" style="width:80px; height: 32px; color: #aeaeae; font-size: 13px;">
+			    		<td align="center" style="width:100px; height: 40px; color: #aeaeae; font-size: 18px;">
 		    				开始时间：
 		    			</td>
 			    		<td>
-			    			<input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" type="text" id="startTime"  maxlength="16">
+			    			<input class="inputMin_informationModify text-input"  style="height: 35px; font-size: 18px;" type="date" id="startTime"  maxlength="16">
 			    		</td>
 			    	</tr>
-			    	<tr>	
-			    		<td align="center" style="width:80px; height: 32px; color: #aeaeae; font-size: 13px;">
+			    	</tr>	
+			    		<td align="center" style="width:100px; height: 40px; color: #aeaeae; font-size: 18px;">
 		    				结束时间：
 		    			</td>
 			    		<td>
-			    			<input class="inputMin_informationModify text-input Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" type="text" id="endTime"  maxlength="16">
+			    			<input class="inputMin_informationModify text-input"  style="height: 35px; font-size: 18px;" type="date" id="endTime"  maxlength="16">
 			    		</td>
 			    	</tr>
 			    	<tr>
-			    		<td align="center" style="width:80px; height: 32px; color: #aeaeae; font-size: 13px;">
+			    		<td align="center" style="width:80px; height: 32px; color: #aeaeae; font-size: 18px;">
 		    				药品名称：
 		    			</td>
 			    		<td>
-			    			<input class="inputMin_informationModify text-input" type="text" id="name" name="name" value="${query.name }">
+			    			<input class="inputMin_informationModify text-input" style="height: 35px; font-size: 18px;" type="text" id="name" name="name" value="${query.name }">
 			    		</td>
 			    	</tr>
 			    	</tr>	

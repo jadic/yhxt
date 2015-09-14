@@ -16,6 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/patient/common/date-include.jsp"%>
     <%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
+    <link rel="stylesheet" href="<c:url value='/patient/themes/index_tab.css'/>" type="text/css"/>
     <style>
 		.tableTd{border: solid #000; border-width: 0px 1px 1px 0px; width: 120px; font-size: 14px; line-height: 30px; height: 30px;}
 		.input_informationModify{width:150px; height:25px; border:1px solid #aeaeae; padding-left:10px; font:13px/26px "微软雅黑"; color:#5a5a5a; }
@@ -286,9 +287,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<form id="inputform" name="inputform" action="<c:url value='/p/query/healthBg.do'/>" method="post">
 				    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
 				    	<tr>
-				    		<td style="padding: 5px 0px 5px 5px; height: 30px; color: #aeaeae; font-size: 13px;" align="left">
+				    		<td style="padding: 5px 0px 5px 5px; height: 30px; width:90px; color: #aeaeae; font-size: 18px;" align="right" >
 				    			报告类型：
-				    			<select class="selectMax_informationModify" style="width:200px;" id="statType" name="statType">
+				    		</td>
+				    		<td style="padding: 5px 0px 5px 5px; align="left" >
+				    			<select class="selectMax_informationModify" style="width:180px; height: 35px;  font-size: 18px;" id="statType" name="statType">
 					               <option value="1">日报</option>
 					               <option value="2" selected="selected">周报</option>
 					               <option value="3">月报</option>
@@ -296,20 +299,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    		</td>
 				    	</tr>
 				    	<tr>
+				    		<td style="padding: 5px 0px 5px 5px; height: 30px; width:90px; color: #aeaeae; font-size: 18px;" align="right" rowspan="2">
+				    			时间段：
+				    		</td>
 				    		<td style="padding: 5px 0px 5px 5px; height: 30px; color: #aeaeae; font-size: 13px;" align="left">
-				    			报告时间：
-				    			<input class="input_informationModify Wdate" style="width: 90px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true}); funClickTime(0);" type="text" id="startTime" name="startTime" value="${query.startTime }">
-				    			<span id="split">
-				    			-
-				    			</span>
-				    			<input class="input_informationModify Wdate" style="width: 90px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true}); funClickTime(1);" type="text" id="endTime" name="endTime" value="${query.endTime }">
+				    			<input class="input_informationModify"  style="width: 180px; height: 35px; font-size: 18px;" onclick="funClickTime(0);" type="date" id="startTime" name="startTime" value="${query.startTime }">
+				    		</td>
+				    	</tr>
+				    	<tr>
+				    		<td style="padding: 5px 0px 5px 5px; height: 30px; color: #aeaeae; font-size: 18px;" align="left">
+				    			<input class="input_informationModify" style="width: 180px;  height: 35px; font-size: 18px;" onclick="funClickTime(1);" type="date" id="endTime" name="endTime" value="${query.endTime }">
 				    		</td>
 				    	</tr>
 				    	<tr>	
-				    		<td align="center" style="height: 25px;">
-					    		<ul>
+				    		<td align="center" style="height: 25px;" colspan="2">
 					    			<input type="hidden" name="userId" id="userId" value="${query.userId }"></input>
-					    			<li class="btn_search"><a href="javascript:void(0)" id="btnsearch">查询</a></li>
+					    		
+					    		<ul>
+					    			<li class="btn_search" style="float: none;"><a href="javascript:void(0)" id="btnsearch">查询</a></li>
 					    		</ul>
 				    		</td>
 				    	</tr>

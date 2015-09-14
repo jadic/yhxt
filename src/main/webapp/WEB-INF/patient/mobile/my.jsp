@@ -34,15 +34,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.list .item-logo {
 		  display: inline-block;
 		  float: left;
-		  width: 30px;
-		  height: 30px;
+		  width: 35px;
+		  height: 35px;
 		}
 		.list .item-desc{
-			  margin-left: 40px;
-			  height: 32px;
+			  margin-left: 50px;
+			  height: 40px;
 			  color: #333;
-			  line-height: 30px;
+			  line-height: 40px;
 		}
+		.list .item-desc div{font-size: 18px;}
 		.list .list-item {
 		  padding: 7px 14px;
 		  border-bottom: 1px solid #e8e8e8;

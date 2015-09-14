@@ -90,6 +90,8 @@ public class BackURLFilter implements Filter, Constants
 						|| request.getRequestURI().indexOf("/p/query/getSmsVal.do") > 0
 						|| request.getRequestURI().indexOf("/p/query/login.do") > 0
 						|| request.getRequestURI().indexOf("/p/query/logout.do") > 0
+						|| request.getRequestURI().indexOf("/p/query/goForgetPwd.do") > 0
+						|| request.getRequestURI().indexOf("/p/forgetPwd.do") > 0
 				){
 					
 				}

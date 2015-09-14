@@ -16,6 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0"> 
 	<%@ include file="/WEB-INF/patient/common/date-include.jsp"%>
     <%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
+    <link rel="stylesheet" href="<c:url value='/patient/themes/index_tab.css'/>" type="text/css"/>
     <style>
 		.tableTd{border: solid #000; border-width: 0px 1px 1px 0px; width: 120px; font-size: 14px; line-height: 30px; height: 30px;}
 		.input_informationModify{width:150px; height:25px; border:1px solid #aeaeae; padding-left:10px; font:13px/26px "微软雅黑"; color:#5a5a5a; }
@@ -238,9 +239,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<form id="inputform" name="inputform" action="<c:url value='/p/query/healthBg.do'/>" method="post">
 				    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="display: block; font-size: 15px;">
 				    	<tr>
-				    		<td style="padding: 5px 0px 5px 5px; height: 30px; color: #aeaeae; font-size: 13px;" align="left">
+				    		<td style="padding: 5px 0px 5px 5px; color: #aeaeae; font-size: 16px;" align="left">
 				    			报告类型：
-				    			<select class="selectMax_informationModify" id="statType" style="width:180px;" name="statType">
+				    			<select class="selectMax_informationModify" id="statType" style="width: 180px;  height: 35px; font-size: 18px;" name="statType">
 					               <option value="1">日报</option>
 					               <option value="2">周报</option>
 					               <option value="3" selected="selected">月报</option>
@@ -248,16 +249,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    		</td>
 				    	</tr>
 				    	<tr>
-				    		<td style="padding: 5px 0px 5px 5px; height: 30px; color: #aeaeae; font-size: 13px;" align="left">
+				    		<td style="padding: 5px 0px 5px 5px; height: 30px; color: #aeaeae; font-size: 18px;" align="left">
 				    			报告时间：
-				    			<input class="input_informationModify Wdate"  onclick="WdatePicker({dateFmt:'yyyy-MM',readOnly:true})" type="text" id="startTime" name="startTime" value="${query.startTime }">
+				    			<input class="input_informationModify" type="month" id="startTime" name="startTime" style="width: 180px; font-size: 18px;  height: 35px;" value="${query.startTime }">
 				    		</td>
 				    	</tr>
 				    	<tr>	
 				    		<td align="center" style="height: 25px;">
-					    		<ul>
 					    			<input type="hidden" name="userId" id="userId" value="${query.userId }"></input>
-					    			<li class="btn_search"><a href="javascript:void(0)" id="btnsearch">查询</a></li>
+					    		<ul>
+					    			<li class="btn_search" style="float: none;"><a href="javascript:void(0)" id="btnsearch">查询</a></li>
 					    		</ul>
 				    		</td>
 				    	</tr>

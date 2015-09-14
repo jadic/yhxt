@@ -136,31 +136,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<c:if test="${query.id  > 0}"><div class="right"><a href="javascript:void(0)" onclick="delMedicine(${query.id})"><span class="cornerDel"></span></a></div></c:if>
   	</header>
   	<div id="content">
-        	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 13px; width: 100%;">
+        	<table cellpadding="0" border="0" cellspacing="0" style="font-size: 18px; width: 100%;">
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px height: 40px; color: #aeaeae; font-size: 18px;">
 	    				药品名称：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input" type="text" id="medicineName" style="width: 80%;" value="${medicine.medicineName }">
+	    				<input class="inputMin_informationModify text-input" type="text" id="medicineName" style="width: 80%; height:35px; font-size: 18px;" value="${medicine.medicineName }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px height: 40px; color: #aeaeae; font-size: 18px;">
 	    				用药剂量：
 	    			</td>
 	    			<td align="left">
-	    				<input class="inputMin_informationModify text-input" placeholder ="只能输入数值" type="text" id="medicineAmount"  maxlength="6" style="width: 80%;" value="${medicine.medicineAmount }">
+	    				<input class="inputMin_informationModify text-input" placeholder ="只能输入数值" type="text" id="medicineAmount"  maxlength="6" style="width: 80%; height:35px;font-size: 18px;" value="${medicine.medicineAmount }">
 		               <span style="color: red;">*</span>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px height: 40px; color: #aeaeae; font-size: 18px;">
 	    				用药单位：
 	    			</td>
 	    			<td align="left">
-	    				<select   class="selectMax_informationModify  text-input" id="medicineUnit" style="width: 80%;">
+	    				<select   class="selectMax_informationModify  text-input" id="medicineUnit" style="width: 80%; font-size: 18px;height:35px;">
 			               <option value="克" <c:if test="${medicine.medicineUnit == '克'}">selected="selected"</c:if>>克</option>
 			               <option value="片" <c:if test="${medicine.medicineUnit == '片'}">selected="selected"</c:if>>片 </option>
 			               <option value="粒" <c:if test="${medicine.medicineUnit == '粒'}">selected="selected"</c:if>>粒 </option>
@@ -173,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td align="right" style="padding: 5px 5px 5px 0; width:70px; height: 30px; color: #aeaeae; font-size: 13px;">
+	    			<td align="right" style="padding: 5px 5px 5px 0; width:100px height: 40px; color: #aeaeae; font-size: 18px;">
 	    				用药时间：
 	    			</td>
 	    			<td align="left">
@@ -183,7 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				<c:if test="${not empty medicine}">
 	    				<input type="hidden" id="id" value="${medicine.id}"/>
 	    				</c:if>
-	    				<input class="inputMin_informationModify text-input Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" type="text" id="medicineTime" style="width: 80%;" value="${medicine.medicineTime }">
+	    				<input class="inputMin_informationModify text-input" type="date" id="medicineTime" style="width: 80%; height:35px;font-size: 18px;" value="${medicine.medicineTime }">
 	    				<span style="color: red;">*</span>
 	    			</td>
 	    		</tr>

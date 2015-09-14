@@ -44,7 +44,8 @@
 	    	<input type="hidden" name="oper" value="1"/>
 	    	<input type="submit" class="btn_green" id="login" value="登录"/>
 	    </form>
-	    <div class="register_text">还没帐号？</div>
+	    <div style="float: right;"><a href="<c:url value='/p/forgetPwd.do'/>" style=" font-size: 18px;  text-decoration: none;"> 忘记密码？</a></div>
+	    <div class="register_text" style="height: 40px;">&nbsp;</div>
 	    <a href="<c:url value='/p/toReg.do'/>" class="btn_green_border">注册</a>
 	</div>
   	
