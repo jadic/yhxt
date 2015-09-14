@@ -73,6 +73,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				alert("12")
     		}
 		}
+		
+		$(function(){
+			$(function(){
+				$("a").bind("click", function(){
+					PageMobile.funLoadIng();
+				});
+			});
+		});
 	</script>
   </head>
 <body>
@@ -247,6 +255,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </li>
         </ul>
 	</div>
+	
 	<footer id="footer">
 		<jsp:include page="/WEB-INF/patient/common/footer-include.jsp">
 			<jsp:param value="3" name="selected"/>

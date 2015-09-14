@@ -52,6 +52,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			background: #e8df95
 		}
 	</style>
+	<script type="text/JavaScript">
+		$(function(){
+			$("a").bind("click", function(){
+				PageMobile.funLoadIng();
+			});
+		});
+	</script>
   </head>
 <body>
 	<header id="header">查询</header>
