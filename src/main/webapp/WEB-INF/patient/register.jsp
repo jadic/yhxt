@@ -8,6 +8,7 @@
     <title>自已人健康服务中心</title>
     <link rel="stylesheet" href="<c:url value='/patient/themes/register_style.css'/>" type="text/css"/>
     <script type="text/javascript" src="<c:url value='/common/scripts/jquery-1.8.0.min.js'/>" ></script>
+ 	<script type="text/javascript" src="<c:url value='/patient/scripts/mobile.js'/>" ></script>
  	<script>
  		var reg = /^1\d{10}$/;  //定义正则表达式
  		$(function(){
@@ -17,7 +18,9 @@
  			
  			var tmp = 60;
  			var mTim = null;
- 			
+ 			$("#loginbtn").bind("click", function(){
+				PageMobile.funLoadIng();
+			});
  			$("#retset").bind("click", function(){
  				$("input[type=text],input[type=password]").val('');
  			});
@@ -98,7 +101,7 @@
  				alert("登录密码不能为空！");
  				return false;
  			}
- 			
+ 			PageMobile.funLoadIng()
  			return true;
  		}
  	</script>
@@ -123,7 +126,7 @@
 	    	<input type="submit" class="btn_green" id="register" value="注册" />
 	    </form>
 	    <div class="register_text">已有帐号？</div>
-	    <a href="<c:url value='/p/mobile.do'/>" class="btn_green_border">登录</a>
+	    <a id="loginbtn" href="<c:url value='/p/mobile.do'/>" class="btn_green_border">登录</a>
 	</div>
   </body>
 </html>

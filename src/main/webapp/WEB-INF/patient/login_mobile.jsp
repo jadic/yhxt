@@ -8,11 +8,15 @@
     <title>自已人健康服务中心</title>
     <link rel="stylesheet" href="<c:url value='/patient/themes/register_style.css'/>" type="text/css"/>
     <script type="text/javascript" src="<c:url value='/common/scripts/jquery-1.8.0.min.js'/>" ></script>
+    <script type="text/javascript" src="<c:url value='/patient/scripts/mobile.js'/>" ></script>
  	<script>
  		$(function(){
  			<c:if test="${not empty errorinfo}">
  			alert("${errorinfo}")
  			</c:if>
+ 			$("a").bind("click", function(){
+				PageMobile.funLoadIng();
+			});
  		});
  		
  		function funSubmitInfo()
@@ -27,6 +31,7 @@
  				alert("密码不能为空！");
  				return false;
  			}
+ 			PageMobile.funLoadIng()
  			return true;
  		}
  	</script>
