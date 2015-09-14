@@ -17,7 +17,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%@ include file="/WEB-INF/patient/common/date-include.jsp"%>
 	<%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
 	<link rel="stylesheet" href="<c:url value='/patient/themes/index_right.css'/>" type="text/css"/>
+	<script type="text/javascript" src="<c:url value='/common/anychart/AnyChart.js'/>" ></script>
   	<script type="text/javascript" src="<c:url value='/common/scripts/highcharts.js'/>"></script>
+	<script type="text/javascript">
+		var _chart_ = "<c:url value='/common/anychart/AnyChart.swf'/>";
+	</script>  
 	<script type="text/JavaScript">
 		$(function(){
 		    PageFx.initChart();
@@ -31,7 +35,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				etime:new Date().pattern("yyyy-MM-dd 23:59:59"),
 				initChart : function()
 				{
-					/*
 					PageFx.Chart1 = new AnyChart(_chart_);
 					PageFx.Chart1.wMode = "opaque";
 					PageFx.Chart1.width = "100%";
@@ -46,7 +49,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					PageFx.Chart3.wMode = "opaque";
 					PageFx.Chart3.width = "100%";
 					PageFx.Chart3.height = "100%";
-					*/
 					
 					PageFx.funSearchAdvice("/p/query/homeAdvice.do", {adviceType:1});
 					PageFx.funSearchAdvice("/p/query/homeAdvice.do", {adviceType:2});
@@ -147,67 +149,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				},
 				showBloodPressureChart : function(data)
 				{
-					$('#container3').highcharts({
-				        title: {
-				        	text: '血压等级分析图',
-				            style:{ "color": "#000000", "fontSize": "12px" }
-				        },
-				        subtitle: {
-				            text: '',
-				            x: -20
-				        },
-				        xAxis: {
-				        	categories: function() { 
-				            		var dataFlys = []
-					            	for(var nItem=0; nItem<data.total; nItem++)
-									{
-					            		dataFlys.push(data.rows[nItem].a)
-									}	
-					            	return dataFlys;
-				            	}(),
-				        },
-				        yAxis: {
-				            title: {
-				                text: '高压/低压/心率(mmHg)'
-				            },
-				            plotLines: [{
-				                value: 0,
-				                width: 1,
-				                color: '#808080'
-				            }]
-				        },
-				        series: [{
-				        	name: '高压值',
-				            data: function(){
-				            	var dataFlys = []
-				            	for(var nItem=0; nItem<data.total; nItem++)
-								{
-				            		dataFlys.push(parseFloat(data.rows[nItem].a1))
-								}	
-				            	return dataFlys;
-				            }()
-				        },{
-				        	name: '低压值',
-				            data: function(){
-				            	var dataFlys = []
-				            	for(var nItem=0; nItem<data.total; nItem++)
-								{
-				            		dataFlys.push(parseFloat(data.rows[nItem].a2))
-								}	
-				            	return dataFlys;
-				            }()
-				        },{
-				        	name: '心率',
-				            data: function(){
-				            	var dataFlys = []
-				            	for(var nItem=0; nItem<data.total; nItem++)
-								{
-				            		dataFlys.push(parseFloat(data.rows[nItem].a3))
-								}	
-				            	return dataFlys;
-				            }()
-				        }]
-				    });
+					var myParamObj = {
+						mTopFlag	: true,
+						mTopTitle	: '血压等级分析图',
+						mLabelFormat: '{%Name}\n{%SeriesName}: {%YValue}{numDecimals:2}(mmol/L)',
+						mYtitle		: '高压/低压/心率(mmHg)',
+						mYFlag		: true,
+						mChartType  : 'Spline', 
+						mFormateYTip: '{%Value}{numDecimals:2}',
+						mViewData 	: ''
+					};
+					var mViewData1 = '<series name="高压值">';
+					var mViewData2 = '<series name="低压值">';
+					var mViewData3 = '<series name="心率">';
+					if(data.total > 0)
+					{
+						for(var nItem=0; nItem<data.total; nItem++)
+						{
+							mViewData1 += '<point name="'+data.rows[nItem].a+'" y="'+data.rows[nItem].a1+'"/>';
+							mViewData2 += '<point name="'+data.rows[nItem].a+'" y="'+data.rows[nItem].a2+'"/>';
+							mViewData3 += '<point name="'+data.rows[nItem].a+'" y="'+data.rows[nItem].a3+'"/>';
+						}
+						
+					}
+					mViewData1 += '</series>';
+					mViewData2 += '</series>';
+					mViewData3 += '</series>';
+					myParamObj.mViewData = mViewData1 + mViewData2 + mViewData3;
+					try{
+					PageFx.funChart(PageFx.Chart3, "container3", "/patient/pages/chart2", myParamObj);
+					}catch(e){}
 				},
 				showBloodChart : function(data)
 				{
@@ -311,50 +282,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				},
 				showEarChart : function(data)
 				{
-					$('#container2').highcharts({
-				        title: {
-				        	text: '体温等级分析图',
-				            style:{ "color": "#000000", "fontSize": "12px" }
-				        },
-				        subtitle: {
-				            text: '',
-				            x: -20
-				        },
-				        xAxis: {
-				        	categories: function() { 
-				            		var dataFlys = []
-					            	for(var nItem=0; nItem<data.total; nItem++)
-									{
-					            		dataFlys.push(data.rows[nItem].stime)
-									}	
-					            	return dataFlys;
-				            	}(),
-				        },
-				        yAxis: {
-				            title: {
-				                text: '体温(°C)'
-				            },
-				            plotLines: [{
-				                value: 0,
-				                width: 1,
-				                color: '#808080'
-				            }]
-				        },
-				        tooltip: {
-				            valueSuffix: '°C'
-				        },
-				        series: [{
-				        	name: '体温',
-				            data: function(){
-				            	var dataFlys = []
-				            	for(var nItem=0; nItem<data.total; nItem++)
-								{
-				            		dataFlys.push(parseFloat((parseFloat(data.rows[nItem].value)/10).toFixed(2)))
-								}	
-				            	return dataFlys;
-				            }()
-				        }]
-				    });
+					var myParamObj = {
+						mTopFlag	: true,
+						mTopTitle	: '近期体温分析图',	
+						mLabelFormat: '{%Name}\n{%SeriesName}: {%YValue}{numDecimals:1}(°C)',
+						mYtitle		: '体温(°C)',
+						mYFlag		: true,
+						mChartType  : 'Spline', 
+						mFormateYTip: '{%Value}{numDecimals:1}',
+						
+						mViewData 	: ''
+					};
+					var mViewData = '<series name="体温">';
+					if(data.total > 0)
+					{
+						for(var nItem=0; nItem<data.total; nItem++)
+						{
+							mViewData += '<point name="'+data.rows[nItem].stime+'" y="'+(parseFloat(data.rows[nItem].value)/10).toFixed(2)+'"/>';
+						}	
+					}
+					mViewData += '</series>'
+					myParamObj.mViewData = mViewData;
+					try{
+					PageFx.funChart(PageFx.Chart2, "container2", "/patient/pages/chart2", myParamObj);
+					}catch(e){}
 				},
 				funChart : function(mObj, paramId, paramUrl, paramObj)
 				{

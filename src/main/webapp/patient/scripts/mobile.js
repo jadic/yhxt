@@ -41,6 +41,7 @@ var PageMobile = {
 	},
 	funLoadHidden: function()
 	{
+		//$("#loading").length
 		$("#loading").hide();
 	}
 };

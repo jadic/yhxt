@@ -13,6 +13,7 @@
 	<%@ include file="/WEB-INF/patient/common/date-include.jsp"%>
     <%@ include file="/WEB-INF/patient/common/mobile-include.jsp"%>
 	<link rel="stylesheet" href="<c:url value='/patient/themes/index_tab.css'/>" type="text/css"/>
+	<script type="text/javascript" src="<c:url value='/common/anychart/AnyChart.js'/>" ></script>
 	<style>
 		.Wdate{
 			height: 28px;
@@ -28,13 +29,13 @@
 		   margin-bottom: 10px;
 		}
 	</style>
-	<script type="text/javascript" src="<c:url value='/common/scripts/highcharts.js'/>"></script>
-	
 	<script type="text/javascript">
+		var _chart_ = "<c:url value='/common/anychart/AnyChart.swf'/>";
 		$(function(){
 			$("#stime").val(DateAdd("h",-7,new Date()).pattern("yyyy-MM-dd HH:mm:ss"));
 			$("#etime").val(new Date().pattern("yyyy-MM-dd HH:mm:ss"));
 			$(".account_titleGray").css("width", $(".account_title").width()-130);
+			PageFx.initChart();
 			PageFx.funSearch();
 		});
 		
@@ -71,54 +72,6 @@
 				});
 			},
 			showChart : function(data)
-			{
-				$('#container').css("height", $(window).height()-$(".search").height());
-				$('#container').highcharts({
-			        title: {
-			        	text: '体温等级分析图',
-			            style:{ "color": "#000000", "fontSize": "12px" }
-			        },
-			        subtitle: {
-			            text: '',
-			            x: -20
-			        },
-			        xAxis: {
-			        	categories: function() { 
-			            		var dataFlys = []
-				            	for(var nItem=0; nItem<data.total; nItem++)
-								{
-				            		dataFlys.push(data.rows[nItem].stime)
-								}	
-				            	return dataFlys;
-			            	}(),
-			        },
-			        yAxis: {
-			            title: {
-			                text: '体温(°C)'
-			            },
-			            plotLines: [{
-			                value: 0,
-			                width: 1,
-			                color: '#808080'
-			            }]
-			        },
-			        tooltip: {
-			            valueSuffix: '°C'
-			        },
-			        series: [{
-			        	name: '体温',
-			            data: function(){
-			            	var dataFlys = []
-			            	for(var nItem=0; nItem<data.total; nItem++)
-							{
-			            		dataFlys.push(parseFloat((parseFloat(data.rows[nItem].value)/10).toFixed(2)))
-							}	
-			            	return dataFlys;
-			            }()
-			        }]
-			    });
-			},
-			showChart2 : function(data)
 			{
 				var myParamObj = {
 					mLabelFormat: '{%YValue}{numDecimals:2}',

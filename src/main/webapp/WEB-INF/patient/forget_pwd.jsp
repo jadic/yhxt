@@ -123,6 +123,8 @@
             
 	    	<input type="submit" class="btn_green" id="register" value="修改密码" />
 	    </form>
+	     <div class="register_text">&nbsp;</div>
+    	<a id="loginbtn" href="<c:url value='/p/mobile.do'/>" class="btn_green_border">登录</a>
 	</div>
   </body>
 </html>

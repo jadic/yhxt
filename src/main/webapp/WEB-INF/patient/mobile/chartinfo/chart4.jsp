@@ -28,14 +28,13 @@
 		   margin-bottom: 10px;
 		}
 	</style>
-	<script type="text/javascript" src="<c:url value='/common/anychart/AnyChart.js'/>" ></script>
+	
+	<script type="text/javascript" src="<c:url value='/common/scripts/highcharts.js'/>"></script>
 	<script type="text/javascript">
-		var _chart_ = "<c:url value='/common/anychart/AnyChart.swf'/>";
 		$(function(){
 			$("#stime").val(DateAdd("h",-7,new Date()).pattern("yyyy-MM-dd HH:mm:ss"));
 			$("#etime").val(new Date().pattern("yyyy-MM-dd HH:mm:ss"));
 			$(".account_titleGray").css("width", $(".account_title").width()-130);
-			PageFx.initChart();
 			PageFx.funSearch();
 		});
 		
@@ -72,6 +71,71 @@
 				});
 			},
 			showChart : function(data)
+			{
+				$('#container').css("height", $(window).height()-$(".search").height());
+				$('#container').highcharts({
+			        title: {
+			        	text: '血压等级分析图',
+			            style:{ "color": "#000000", "fontSize": "12px" }
+			        },
+			        subtitle: {
+			            text: '',
+			            x: -20
+			        },
+			        xAxis: {
+			        	categories: function() { 
+			            		var dataFlys = []
+				            	for(var nItem=0; nItem<data.total; nItem++)
+								{
+				            		dataFlys.push(data.rows[nItem].a)
+								}	
+				            	return dataFlys;
+			            	}(),
+			        },
+			        yAxis: {
+			            title: {
+			                text: '高压/低压/心率(mmHg)'
+			            },
+			            plotLines: [{
+			                value: 0,
+			                width: 1,
+			                color: '#808080'
+			            }]
+			        },
+			        series: [{
+			        	name: '高压值',
+			            data: function(){
+			            	var dataFlys = []
+			            	for(var nItem=0; nItem<data.total; nItem++)
+							{
+			            		dataFlys.push(parseFloat(data.rows[nItem].a1))
+							}	
+			            	return dataFlys;
+			            }()
+			        },{
+			        	name: '低压值',
+			            data: function(){
+			            	var dataFlys = []
+			            	for(var nItem=0; nItem<data.total; nItem++)
+							{
+			            		dataFlys.push(parseFloat(data.rows[nItem].a2))
+							}	
+			            	return dataFlys;
+			            }()
+			        },{
+			        	name: '心率',
+			            data: function(){
+			            	var dataFlys = []
+			            	for(var nItem=0; nItem<data.total; nItem++)
+							{
+			            		dataFlys.push(parseFloat(data.rows[nItem].a3))
+							}	
+			            	return dataFlys;
+			            }()
+			        }]
+			    });
+			},
+			showChart2 : function(data)
 			{
 				var myParamObj = {
 						mTopFlag	: true,
