@@ -36,6 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			sumPage:1,
 			funSearch : function()
 			{
+				PageMobile.funLoadIng();
 				$.ajax({
 					url : _ctx_ + "/p/query/deviceJson.do?a="+ Math.random(),
 					type : 'post',
@@ -48,10 +49,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					},
 					error:function(data)
 					{
-						
+						PageMobile.funLoadHidden();
 					},
 					success:function(data)
 					{
+						PageMobile.funLoadHidden();
 						if(PageOper.sumPage >= data.sumPage)
 						{
 							$(".list-more").hide();
@@ -149,7 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	<header id="header">
   		我的设备
-  		<div class="left"><a href="<c:url value='/p/my.do'/>"><span class="corner"></span></a></div>
+  		<div class="left"><a href="<c:url value='/p/my.do'/>" onclick="PageMobile.funLoadIng();"><span class="corner"></span></a></div>
   	</header>
   	<div id="content">
   		<ul class="list">

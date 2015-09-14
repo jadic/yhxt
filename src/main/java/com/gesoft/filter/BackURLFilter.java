@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.alibaba.druid.util.StringUtils;
 import com.gesoft.util.Constants;
+import com.gesoft.util.SystemUtils;
 
 /**
  * @author WCL
@@ -36,6 +37,8 @@ public class BackURLFilter implements Filter, Constants
 	{
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
+		
+		SystemUtils.isMobile(request);
 		
 		String backURL = request.getParameter("BackURL");
 		if (StringUtils.isEmpty(backURL))

@@ -58,6 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/JavaScript">
 		function funClick(url)
 		{	
+			PageMobile.funLoadIng();
 			window.location.href = url;
 		}	
 		

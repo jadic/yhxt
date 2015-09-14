@@ -50,6 +50,7 @@
 			},
 			funSearch : function()
 			{
+				PageMobile.funLoadIng();
 				$.ajax({
 					url : _ctx_ + '/p/query/statEar.do?a='+ Math.random(),
 					type : 'post',
@@ -61,10 +62,11 @@
 					},
 					error:function(data)
 					{
-						
+						PageMobile.funLoadHidden();
 					},
 					success:function(data)
 					{
+						PageMobile.funLoadHidden();
 						PageFx.showChart(data);
 					}
 				});
@@ -120,7 +122,7 @@
  <body style="padding: 0px; margin: 0px">
   	<header id="header">
   		体温信息
-  		<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
+  		<div class="left"><a href="javascript:void(0)" onclick="PageMobile.funLoadIng();window.history.back()"><span class="corner"></span></a></div>
   	</header>
   	<div id="content">
 	  	<div class="search" style="width: 100%;">

@@ -7,6 +7,11 @@
  **/
 package com.gesoft.util;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+
 /**
  * @author WCL
  * @version v1.001
@@ -29,7 +34,34 @@ public class Test
 		{
 			e.printStackTrace();
 			System.out.println(e.getStackTrace());
+			
+			map();
 		}
 	}
 
+	
+	public static void map()
+	{
+		
+		try
+		{
+			StringBuffer strTemp = new StringBuffer();
+			URL url = new URL("http://localhost:8080/yhxt/p/query/post.do");
+			
+			URLConnection conn = url.openConnection();
+		
+		    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+		    String line = null;
+		    while ((line = reader.readLine()) != null)
+		    	strTemp.append(line);
+		    reader.close();
+		    
+		    System.out.println(strTemp.toString());
+		
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

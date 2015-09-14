@@ -90,6 +90,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		};
 		$(function(){
 			PageOper.funSearch();
+			$("a").bind("click", function(){
+				PageMobile.funLoadIng();
+			});
 		});
 	</script>
   </head>

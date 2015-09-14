@@ -18,6 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/JavaScript">
 		function mergeRelative(id)
 		{
+			PageMobile.funLoadIng();
 			window.location.href = "<c:url value='/p/query/mergerelative.do' />?id=" + id;
 		}
 	</script>
@@ -25,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
   	<header id="header">
   		亲情号码
-  		<div class="left"><a href="<c:url value='/p/my.do'/>"><span class="corner"></span></a></div>
+  		<div class="left"><a href="<c:url value='/p/my.do'/>" onclick="PageMobile.funLoadIng();"><span class="corner"></span></a></div>
   		<div class="right"><a href="javascript:void(0)" onclick="mergeRelative(0)"><span class="cornerAdd"></span></a></div>
   	</header>
   	<div id="content">

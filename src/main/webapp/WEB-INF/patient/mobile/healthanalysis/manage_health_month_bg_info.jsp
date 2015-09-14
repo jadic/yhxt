@@ -59,6 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 			
 			$("#statType").bind("change", function(){
+				PageMobile.funLoadIng();
 				window.location.href = "<c:url value='/p/query/goHealthBg.do?userId=${query.userId}'/>&statType="+$(this).val();
 			});
 			
@@ -110,6 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		function funLoadHealthRepeatInfo()
 		{
+			PageMobile.funLoadIng();
 			$.ajax({
 				url : "<c:url value='/p/query/healthReport.do?userId=${query.userId}'/>",
 				type : 'post',
@@ -121,10 +123,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				},
 				error:function(data)
 				{
-					PageMain.funCloseProgress();
+					PageMobile.funLoadHidden();
 				},
 				success:function(data)
 				{
+					PageMobile.funLoadHidden();
 					if(data != null)
 					{
 						$("#accessment").val(data.accessment);
@@ -232,7 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body style="padding: 0px; margin: 0px;">
   	<header id="header">健康周报
-  		<div class="left"><a href="<c:url value='/p/search.do'/>"><span class="corner"></span></a></div>
+  		<div class="left"><a href="<c:url value='/p/search.do'/>" onclick="PageMobile.funLoadIng();"><span class="corner"></span></a></div>
   	</header>
   	<div id="content">
 	    	<div class="search">

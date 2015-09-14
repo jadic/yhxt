@@ -38,6 +38,10 @@ var PageMobile = {
 		}
 		$("#loading").show();
 		$("#loading").css({"height": $(document).height(), "width":$(document).width()});
+	},
+	funLoadHidden: function()
+	{
+		$("#loading").hide();
 	}
 };
 

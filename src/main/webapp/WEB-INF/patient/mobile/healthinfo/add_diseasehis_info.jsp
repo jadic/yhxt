@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	<header id="header">
   		<c:if test="${query.id  > 0}">修改</c:if><c:if test="${query.id  == 0}">增加</c:if>疾病史
-  		<div class="left"><a href="javascript:void(0)" onclick="window.history.back()"><span class="corner"></span></a></div>
+  		<div class="left"><a href="javascript:void(0)" onclick="PageMobile.funLoadIng();window.history.back()"><span class="corner"></span></a></div>
   		<c:if test="${query.id  > 0}"><div class="right"><a href="javascript:void(0)" onclick="delDiseaseHis(${diseaseHis.id})"><span class="cornerDel"></span></a></div></c:if>
   	</header>
   	<div id="content" style="padding: 14px;">

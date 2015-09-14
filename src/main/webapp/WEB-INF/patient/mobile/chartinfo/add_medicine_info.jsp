@@ -33,6 +33,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
 	<link rel="stylesheet" href="<c:url value='/patient/themes/health_records.css'/>" type="text/css"/>
 	<script type="text/JavaScript">
+		$(function(){
+			$("a").bind("click", function(){
+				PageMobile.funLoadIng();
+			});
+		});
 		function funSaveInfo()
 		{
 			if (funIsNull("#medicineName", "药品名称") 
