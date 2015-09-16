@@ -22,13 +22,13 @@ public class Test
 
 	public static void main(String[] args)
 	{
-		SystemUtils.SOUT(SystemUtils.getRandamNumber(6));
-		SystemUtils.SOUT(SystemUtils.getCurrentSystemTime("yyyyMMddHHmmssSSS"));
+		//SystemUtils.SOUT(SystemUtils.getRandamNumber(6));
+		//SystemUtils.SOUT(SystemUtils.getCurrentSystemTime("yyyyMMddHHmmssSSS"));
 
+		System.out.println("\0".getBytes()[0]);
 		try
 		{
-			String bString = "sd";
-			int b = Integer.parseInt(bString);
+			
 		}
 		catch (Exception e)
 		{

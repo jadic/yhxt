@@ -622,7 +622,7 @@ public class AppController extends BaseController {
 			long recordCount = appService.queryHappyHostInfoCnt(query);
 			if(recordCount>0)
 			{
-				setPageModel(recordCount, query);
+				setPageModel(recordCount, query, msgModel);
 				List<HappyHostModel> argArgs = appService.queryHappyHostInfo(query);
 				if (argArgs != null)
 				{
@@ -655,7 +655,7 @@ public class AppController extends BaseController {
    			long recordCount = appService.queryHappyHostPostInfoCnt(query);
    			if(recordCount>0)
    			{
-   				setPageModel(recordCount, query);
+   				setPageModel(recordCount, query, msgModel);
    				List<HappyHostPostModel> argArgs = appService.queryHappyHostPostInfo(query);
    				if (argArgs != null)
    				{
@@ -688,7 +688,7 @@ public class AppController extends BaseController {
    			long recordCount = appService.queryHappyHostPostInfoCnt(query);
    			if(recordCount>0)
    			{
-   				setPageModel(recordCount, query);
+   				setPageModel(recordCount, query, msgModel);
    				List<HappyHostPostModel> argArgs = appService.queryHappyHostZrPostInfo(query);
    				if (argArgs != null)
    				{

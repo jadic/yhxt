@@ -6,6 +6,7 @@
 <!--
 	var _ctx_ = "${ctx}";
 	var _loginUserType_ = "${loginusertype}";
+	var _usxro_ = "${puid}"
 //-->
 </script>   
 <script type="text/javascript" src="<c:url value='/common/scripts/jquery-1.8.0.min.js'/>" ></script>

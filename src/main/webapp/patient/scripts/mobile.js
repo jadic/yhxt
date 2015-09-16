@@ -7,16 +7,17 @@ var PageMobile = {
 			switch (parseInt($(this).attr("data-index"), 10))
 			{
 				case 0:
-					url = _ctx_ + "/p/query/home.do"
+					url = _ctx_ + "/p/query/home.do";
 					break;
 				case 1:
-					url = _ctx_ + "/p/search.do"
+					url = _ctx_ + "/p/search.do";
 					break;	
 				case 2:
-					url = _ctx_ + "/p/query/post.do"
+					url = _ctx_ + "/p/query/post.do";
+					//url = _ctx_ + "/patient/index.jsp?operType=1&userId="+_usxro_;
 					break;	
 				case 3:
-					url = _ctx_ + "/p/my.do"
+					url = _ctx_ + "/p/my.do";
 					break;		
 				default:
 					break;

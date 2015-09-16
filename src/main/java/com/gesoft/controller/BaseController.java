@@ -78,7 +78,7 @@ public class BaseController implements Constants
 		
 		if (handerModel.getRows() <= 0)
 		{
-			handerModel.setRows(2);
+			handerModel.setRows(10);
 		}
 		
 		//计算开始、结束记录数
@@ -103,7 +103,7 @@ public class BaseController implements Constants
 		
 		if (handerModel.getRows() <= 0)
 		{
-			handerModel.setRows(2);
+			handerModel.setRows(10);
 		}
 		
 		//计算开始、结束记录数

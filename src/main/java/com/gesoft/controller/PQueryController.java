@@ -1777,7 +1777,7 @@ public class PQueryController extends BaseController
 		ModelAndView result = new ModelAndView("/patient/postinfo/manage_post_info");
 		if (SystemUtils.isMobile(request))
 		{
-			return new ModelAndView("/patient/mobile/postinfo/manage_post_info");
+			return new ModelAndView("/patient/mobile/postinfo/index");
 		}
 		try
 		{
@@ -2719,5 +2719,82 @@ public class PQueryController extends BaseController
 			logger.error("PQueryController toDelMedicine error：", e);
 		}
 		return msgModel;
+	}
+	
+	
+	/**
+	 * 描述信息：查询圈子的下一项
+	 * 创建时间：2015年9月16日 下午3:31:19
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/toNext.do")
+	public ModelAndView toNext(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/mobile/postinfo/next");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toNext error：", e);
+		}
+		return result;
+	}
+	
+
+	/**
+	 * 描述信息：查询圈子的下一项
+	 * 创建时间：2015年9月16日 下午3:31:19
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/toAdd.do")
+	public ModelAndView toAdd(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/mobile/postinfo/add");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toAdd error：", e);
+		}
+		return result;
+	}
+	
+	/**
+	 * 描述信息：查询圈子的下一项
+	 * 创建时间：2015年9月16日 下午3:31:19
+	 * @author WCL (ln_admin@yeah.net)
+	 * @param query
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/toDetail.do")
+	public ModelAndView toDetail(QueryModel query, HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView result = new ModelAndView("/patient/mobile/postinfo/detail");
+		try
+		{
+			query.setUserId(getSessionUserId(request, SESSION_KEY_PUID));
+			result.addObject("query", query);
+		}
+		catch (Exception e)
+		{
+			logger.error("PQueryController toDetail error：", e);
+		}
+		return result;
 	}
 }
