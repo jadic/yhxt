@@ -182,8 +182,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	</header>
   	<div id="content">
   		<div style="position: relative; width:100%;  background: #f6f6f6;">
-			<div id="show1" style="width:50%; background: #f6f6f6; border-bottom:3px solid #95b200; line-height:40px; float: left; text-align: center; font-size: 14px; font-weight: normal; color: #95b200; ">最新</div>
-			<div id="show2" style="width:50%; background: #f6f6f6; border-bottom:3px solid #e7e7e7; line-height:40px; float: left; text-align: center; font-size: 14px; font-weight: normal;">最热</div>
+			<div id="show1" style="width:50%; background: #f6f6f6; border-bottom:3px solid #95b200; line-height:40px; float: left; text-align: center; font-size: 18px; font-weight: normal; color: #95b200; ">最新</div>
+			<div id="show2" style="width:50%; background: #f6f6f6; border-bottom:3px solid #e7e7e7; line-height:40px; float: left; text-align: center; font-size: 18px; font-weight: normal;">最热</div>
 		</div>
 		<ul class="list" id="aa">
 	        <li class="activeable list-more" style="display: none;" onclick="PageOper.funLoadMore(1)">加载更多</li>

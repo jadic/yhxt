@@ -178,13 +178,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$("li a").css("background", "#fff");
 				$(this).css("background", "#f7fbc5");
 			});
-			$("#list").css("height", $(window).height() - 190);
+			$("#list").css("height", $(window).height() - 170);
 			$("#list, #head").bind("click", function(){
 				funShow(false);
 			})
 			window.setInterval(function(){
-				$("#shishi").next().css({"top":64, "bottom":120})
-			}, 100);
+				$("#shishi").next().css({"top":44, "bottom":120})
+			}, 300);
 			funLoadInfo();
 		})
 	
@@ -250,15 +250,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									'<img src="<c:url value="/'+row.photo+'"/>" style="width: 45px; height: 45px;"></td>' +
 								'</td>' +
 								'<td align="left">' +
-									'<span style="float: left; color: #95b200; font-size: 14px;">'+row.userName+'</span>' +
+									'<span style="float: left; color: #95b200; font-size: 18px;">'+row.userName+'</span>' +
 									'<img src="<c:url value="/app/self/images/diandiandian.png"/>" onclick="funpopup(2, '+row.id+')" style="width: 50px; height: 25px; float: right; cursor: pointer;"></td>' +
 								'</td>' +
 							'</tr>' +
 							'<tr>' +
-								'<td style="color: #878887; font-size: 12px; line-height: 18px;">'+row.stime+'</td>' +
+								'<td style="color: #878887; font-size: 16px; line-height: 22px;">'+row.stime+'</td>' +
 							'</tr>' +
 							'<tr>' +
-								'<td style="color: #000000; font-size: 12px; line-height: 18px; white-space:pre-wrap;">'+row.content+'</td>' +
+								'<td style="color: #000000; font-size: 16px; line-height: 22px; white-space:pre-wrap;">'+row.content+'</td>' +
 							'</tr>' +
 						'</table>' +
 					'</li>';
@@ -427,7 +427,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	  }
 			      }
 			  });
-			
 		}
 		
 		var JBType = 1;
@@ -440,19 +439,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
 </head>
 <body style="overflow: hidden; background-color: #fff;">
-
 <div data-role="page" class="jqm-demos" data-quicklinks="true">
-	<div data-role="header" id="head" style="border-bottom-color: #95b200; border-bottom-width:1px; background: #00b38a;">
+	<div data-role="header" id="head" style="border-bottom-color: #95b200; border-bottom-width:1px; background: #00b38a; z-index: 999999;">
 		<table cellspacing="0" cellpadding="0" style="width: 100%; height: 44px;">
 			<tr>
-				<td style="width: 45px;" align="center">
+				<td style="width: 44px;" align="center">
 					<img onclick="window.history.back()" src="<c:url value='/app/self/images/back.png'/>" style="height: 35px; height: 35px; cursor: pointer;">
 				</td>
 				<td style="color: #fff; text-shadow: 0 0px 0 #eee; font-size: 18px; font-weight: normal; " align="center">话题</td>
 				<td style="width: 45px;" align="center">&nbsp;</td>
 			</tr>
 		</table>
-		
 	</div>
 	
 	<div  id="list" role="main"  class="ui-content jqm-content" style="overflow: auto; margin-top: 1px; background: #fff;" >
@@ -466,12 +463,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<img id="postImg" src="<c:url value="/app/self/images/setting_load_pic.png"/>" style="width: 50px; height: 50px;"></td>
 							</td>
 							<td align="left">
-								<span style="float: left; color: #95b200; font-size: 16px;" id="postName"></span>
+								<span style="float: left; color: #95b200; font-size: 18px;" id="postName"></span>
 								<img src="<c:url value="/app/self/images/diandiandian.png"/>" onclick="funpopup(1, 0)"style="width: 50px; height: 25px; float: right; cursor: pointer;"></td>
 							</td>
 						</tr>
 						<tr>
-							<td style="color: #878887; font-size: 12px; line-height: 22px;">
+							<td style="color: #878887; font-size: 18px; line-height: 18px;">
 								<table style="width: 100%;" cellspacing="0" cellpadding="0">
 									<tr>
 										<td align="left" id="stime"></td>
@@ -482,10 +479,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</td>
 						</tr>	
 						<tr>
-							<td colspan="2" style="color: #000000; font-size: 14px; line-height: 22px;  white-space:pre-wrap;" id="postTitle"></td>
+							<td colspan="2" style="color: #000000; font-size: 16px; line-height: 24px;  white-space:pre-wrap;" id="postTitle"></td>
 						</tr>	
 						<tr>
-							<td colspan="2" style="color: #000000; font-size: 14px; line-height: 22px;  white-space:pre-wrap;" id="postCon"></td>
+							<td colspan="2" style="color: #000000; font-size: 16px; line-height: 24px;  white-space:pre-wrap;" id="postCon"></td>
 						</tr>	
 					</table>
 				</li>
@@ -497,16 +494,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   <div id="pullUp" style="display: none;"><span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span></div>
 		   
 			<div data-role="popup" id="popupMenu" data-theme="a">
-				<div style="background: #95b200;   text-shadow:0 0 0 #fff; line-height: 40px; display:block; font-size: 14px; width: 300px; text-align: center; color:#fff; cursor: pointer; border-bottom: 1px #e5e5e5 solid;">
+				<div style="background: #95b200;   text-shadow:0 0 0 #fff; line-height: 40px; display:block; font-size: 18px; width: 300px; text-align: center; color:#fff; cursor: pointer; border-bottom: 1px #e5e5e5 solid;">
 					举报理由
 				</div>
-				<div id="jb1" onclick="funClickJb(1, this)" style="background: #fff; line-height: 40px; display:block; font-size: 14px; width: 300px; text-align: center; color:#95b200; cursor: pointer; border-bottom: 1px #e5e5e5 solid;">
+				<div id="jb1" onclick="funClickJb(1, this)" style="background: #fff; line-height: 40px; display:block; font-size: 18px; width: 300px; text-align: center; color:#95b200; cursor: pointer; border-bottom: 1px #e5e5e5 solid;">
 					违法等不良信息
 				</div>
-				<div id="jb2" onclick="funClickJb(2, this)" style="background: #fff; line-height: 40px; font-size: 14px; width: 300px; text-align: center; color: #000; cursor: pointer;  border-bottom: 1px #e5e5e5 solid;">
+				<div id="jb2" onclick="funClickJb(2, this)" style="background: #fff; line-height: 40px; font-size: 18px; width: 300px; text-align: center; color: #000; cursor: pointer;  border-bottom: 1px #e5e5e5 solid;">
 					垃圾广告等内容
 				</div>
-				<div style="background: #fff; line-height: 40px; font-size: 14px; width: 300px; text-align: center; color: #000; cursor: pointer;  border-bottom: 1px #e5e5e5 solid;">
+				<div style="background: #fff; line-height: 40px; font-size: 18px; width: 300px; text-align: center; color: #000; cursor: pointer;  border-bottom: 1px #e5e5e5 solid;">
 					<table  style="width: 100%;" cellspacing="0" cellpadding="0">
 						<tr>
 							<td style="border-right: 1px #e5e5e5 solid; cursor: pointer;" align="center" onclick="$('#popupMenu').popup('close');">取消</td>
